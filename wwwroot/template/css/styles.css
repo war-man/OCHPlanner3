@@ -250,7 +250,7 @@
 }
 
 .horizontal-main-wrapper .main-content-inner {
-    padding: 0 0 50px;
+    padding: 30px 10px 50px;
 }
 
 .mainheader-area .notification-area {
@@ -645,7 +645,8 @@
 /*-------------------- 2.3 Page Title Area -------------------*/
 
 .page-title-area {
-    padding: 0 30px;
+    padding: 10px 30px;
+    margin-top:10px;
     background: #fff;
     position: relative;
 }
@@ -1916,8 +1917,8 @@ p.card-text {
 .form-control {
     font-size: 14px;
     border: 1px solid rgba(170, 170, 170, .3);
-    padding: 10.72px 12.8px;
-    padding: .67rem .8rem;
+    /*padding: 10.72px 12.8px;
+    padding: .67rem .8rem;*/
 }
 
 .form-control-sm,

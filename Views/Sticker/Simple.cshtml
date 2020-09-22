@@ -4,36 +4,199 @@
     ViewData["Title"] = "Autocollant Simple";
 }
 
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <h4 class="page-title pull-left">Autocollant simple</h4>
+                <ul class="breadcrumbs pull-left">
+                    <li><a href="index.html">Home</a></li>
+                    <li><span>Autocollant simple</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="main-content-inner">
     <div class="container">
-       
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="header-title">Autocollant simple</h4>
 
-                    <div class="form-group row">
-                        <label for="unit" class="control-label col-md-4">Sélectionnez unitée</label>
-                        <div class="col-md-8">
-                            <label><input asp-for="SelectedUnit" value="KM" type="radio" />Kilomètres</label>
-                            <label><input asp-for="SelectedUnit" value="MI" type="radio" />Miles</label>
-                            <label><input asp-for="SelectedUnit" value="HM" type="radio" />Heures moteur</label>
+        <div class="row">
+            <!-- trading history area start -->
+            <div class="col-lg-8 mt-sm-30 mt-xs-30">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="unit" class="control-label col-md-4">Sélectionnez unitée</label>
+                            <div class="col-md-8">
+                                <label><input asp-for="SelectedUnit" value="KM" type="radio" />Kilomètres</label>
+                                <label><input asp-for="SelectedUnit" value="MI" type="radio" />Miles</label>
+                                <label><input asp-for="SelectedUnit" value="HM" type="radio" />Heures moteur</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="comment" class="control-label col-md-4">Commentaire</label>
-                        <div class="col-md-8">
-                            <input asp-for="Comment" class="form-control" />
+                        <div class="form-group row">
+                            <label for="comment" class="control-label col-md-4">Commentaire</label>
+                            <div class="col-md-8">
+                                <input asp-for="Comment" class="form-control" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="oil" class="control-label col-md-4">Huile utilisée</label>
-                        <div class="col-md-8">
-                            <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                        <div class="form-group row">
+                            <label for="oil" class="control-label col-md-4">Huile utilisée</label>
+                            <div class="col-md-8">
+                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="unitValue" class="control-label col-md-4">Kilomètre</label>
+                            <div class="col-md-8">
+                                <input asp-for="UnitValue" class="form-control" />
+                            </div>
+                        </div>
+                        <div id="Choice1">
+                            <div class="alert alert-dark" role="alert">
+                                <h6 class="alert-heading">Intervale prochain service</h6>
+                                <hr>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="unitValue" class="control-label col-md-4">Mois</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="unitValue" class="control-label col-md-4">Intervale</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Choice2">
+                            <div class="alert alert-dark" role="alert">
+                                <h6 class="alert-heading">Date du jour</h6>
+                                <hr>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-6">
+                                        Imprimer la date du jour
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="unitValue" class="control-label col-md-4">Ajouter</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Choice3">
+                            <div class="alert alert-dark" role="alert">
+                                <h6 class="alert-heading">Données fixe</h6>
+                                <hr>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="unitValue" class="control-label col-md-4">Mois</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="unitValue" class="control-label col-md-4">Année</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="unitValue" class="control-label col-md-4">Unité</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <button type="button" class="btn btn-primary mb-3">Sauvegarder</button>
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
-</div>
+            <!-- trading history area end -->
+            <!-- Previewe area end -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        @*@using (Html.BeginForm("Print", "Print", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()*@
+
+                        @*<div class="container">
+
+                            <div class="mainbox col-md-4 col-md-offset-3 col-sm-8 col-sm-offset-2" style="padding-top:20px;">*@
+                        <div>
+                            <div style="border-bottom: 2px solid #f3f3f3;">
+                                <div class="text-center"><img src="~/Images/logo.jpg" style="width:140px;" /></div>
+                            </div>
+                            <div class="mt-2">
+                                <form id="loginform" class="form-horizontal" role="form">
+
+                                    <div class="row col-md-12 justify-content-center">
+                                        <h6>Garage Name</h6>
+                                    </div>
+                                    <div class="row col-md-12 justify-content-center">
+                                        <h6>Garage Phone </h6>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        @Html.TextBoxFor(model => model.Comment, new { id = "comment", @class = "form-control input", @maxlength = "20", @name = "comment", @value = "", @autocomplete = "off", @placeholder = "Commentaire" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="selectedOil" class="control-label">Huile</label>
+                                        <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DateBox" class="control-label">Prochaine date ou avant le</label>
+                                        @Html.TextBoxFor(model => model.DateBox, new { id = "DateBox", @class = "form-control input", @name = "DateBox", @maxlength = "8", @value = "", @placeholder = "Date" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="KmBox" class="control-label">Prochain kilomètre</label>
+                                        @Html.TextBoxFor(model => model.KmBox, new { id = "KmBox", @class = "form-control input", @maxlength = "10", @name = "KmBox", @value = "", @autocomplete = "off", @placeholder = "0" })
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary w-100"><i class="fad fa-redo-alt mr-2"></i>Recommencer</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary w-100" id="btnPrint"><i class="fad fa-print mr-2"></i>Imprimer</button>
+                            </div>
+                        </div>
+
+                        @*</div>
+
+                            </div>*@
+
+                        @*}*@
+                    </div>
+                </div>
+            </div>
+            <!-- Preview area end -->
+        </div>
+
+
 
 

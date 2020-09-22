@@ -20,5 +20,8 @@ namespace OCHPlanner3.Models
         public int SelectedMonth { get; set; }
         public int SelectedYear { get; set; }
 
+        public string DateBox { get; set; }
+        public string KmBox { get; set; }
+
     }
 }
