@@ -1,0 +1,39 @@
+﻿@model StickerSimpleViewModel
+
+@{
+    ViewData["Title"] = "Autocollant Simple";
+}
+
+<div class="main-content-inner">
+    <div class="container">
+       
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Autocollant simple</h4>
+
+                    <div class="form-group row">
+                        <label for="unit" class="control-label col-md-4">Sélectionnez unitée</label>
+                        <div class="col-md-8">
+                            <label><input asp-for="SelectedUnit" value="KM" type="radio" />Kilomètres</label>
+                            <label><input asp-for="SelectedUnit" value="MI" type="radio" />Miles</label>
+                            <label><input asp-for="SelectedUnit" value="HM" type="radio" />Heures moteur</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="comment" class="control-label col-md-4">Commentaire</label>
+                        <div class="col-md-8">
+                            <input asp-for="Comment" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="oil" class="control-label col-md-4">Huile utilisée</label>
+                        <div class="col-md-8">
+                            <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
