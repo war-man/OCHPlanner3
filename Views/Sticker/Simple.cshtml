@@ -4,19 +4,12 @@
     ViewData["Title"] = "Autocollant Simple";
 }
 
-<div class="page-title-area">
-    <div class="row align-items-center">
-        <div class="col-sm-6">
-            <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Autocollant simple</h4>
-                <ul class="breadcrumbs pull-left">
-                    <li><a href="index.html">Home</a></li>
-                    <li><span>Autocollant simple</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<style>
+    .form-group {
+        margin-bottom: 0.5rem !important;
+    }
+</style>
+
 <div class="main-content-inner">
     <div class="container">
 
@@ -28,9 +21,9 @@
                         <div class="form-group row">
                             <label for="unit" class="control-label col-md-4">Sélectionnez unitée</label>
                             <div class="col-md-8">
-                                <label><input asp-for="SelectedUnit" value="KM" type="radio" />Kilomètres</label>
-                                <label><input asp-for="SelectedUnit" value="MI" type="radio" />Miles</label>
-                                <label><input asp-for="SelectedUnit" value="HM" type="radio" />Heures moteur</label>
+                                <label class="mr-4"><input asp-for="SelectedUnit" value="KM" type="radio" class="mr-1" />Kilomètres</label>
+                                <label class="mr-4"><input asp-for="SelectedUnit" value="MI" type="radio" class="mr-1" />Miles</label>
+                                <label><input asp-for="SelectedUnit" value="HM" type="radio" class="mr-1" />Heures moteur</label>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -52,7 +45,7 @@
                             </div>
                         </div>
                         <div id="Choice1">
-                            <div class="alert alert-dark" role="alert">
+                            <div class="alert alert-dark" role="alert" style="margin-bottom: 0.5rem;">
                                 <h6 class="alert-heading">Intervale prochain service</h6>
                                 <hr>
                                 <div class="col-md-12 row">
@@ -76,7 +69,7 @@
                             </div>
                         </div>
                         <div id="Choice2">
-                            <div class="alert alert-dark" role="alert">
+                            <div class="alert alert-dark" role="alert" style="margin-bottom: 0.5rem;">
                                 <h6 class="alert-heading">Date du jour</h6>
                                 <hr>
                                 <div class="col-md-12 row">
@@ -95,7 +88,7 @@
                             </div>
                         </div>
                         <div id="Choice3">
-                            <div class="alert alert-dark" role="alert">
+                            <div class="alert alert-dark" role="alert" style="margin-bottom: 0.5rem;">
                                 <h6 class="alert-heading">Données fixe</h6>
                                 <hr>
                                 <div class="col-md-12 row">
