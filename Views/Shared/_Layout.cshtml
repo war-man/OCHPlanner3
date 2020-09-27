@@ -14,10 +14,9 @@
     <link rel="stylesheet" href="~/template/css/default-css.css">
     <link rel="stylesheet" href="~/template/css/styles.css">
     <link rel="stylesheet" href="~/template/css/responsive.css">
+
     <!-- modernizr css -->
     <script src="~/template/js/vendor/modernizr-2.8.3.min.js"></script>
-
-    @*<link rel="stylesheet" href="~/css/site.css" />*@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/lib/plugins/fontawesome-pro/css/all.min.css">
@@ -277,6 +276,17 @@
 
     <script src="~/template/js/plugins.js"></script>
     <script src="~/template/js/scripts.js"></script>
+
+    <!-- Required scripts -->
+    <script type="text/javascript" src="~/js/qz-tray/qz-tray.js"></script>
+
+    <!-- Pollyfills -->
+    <script type="text/javascript" src="~/js/qz-tray/promise-polyfill-8.1.3.min.js"></script>
+    <script type="text/javascript" src="~/js/qz-tray/whatwg-fetch-3.0.0.min.js"></script>
+
+    <!-- Print -->
+    <script type="text/javascript" src="~/js/print.js"></script>
+
 
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
     @RenderSection("Scripts", required: false)
