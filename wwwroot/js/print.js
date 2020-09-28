@@ -82,7 +82,6 @@ qz.security.setSignaturePromise(function (toSign) {
     };
 });
 
-
 /// Connection ///
 function launchQZ() {
     if (!qz.websocket.isActive()) {
@@ -212,15 +211,16 @@ function printCommand() {
     switch (lang) {
         case 'EPL':
             printData = [
-                '\nN\n',
-                'q609\n',
-                'Q203,26\n',
-                'B5,26,0,1A,3,7,152,B,"1234"\n',
-                'A310,26,0,3,1,1,N,"SKU 00000 MFG 0000"\n',
-                'A310,56,0,3,1,1,N,"TEST PRINT SUCCESSFUL"\n',
-                'A310,86,0,3,1,1,N,"FROM SAMPLE.HTML"\n',
-                'A310,116,0,3,1,1,N,"PRINTED WITH QZ ' + qzVersion + '"\n',
-                '\nP1,1\n'
+                'N\n',
+                'A90,157,0,3,1,1,N,"CARIGNAN ST-AMABLE"\n',
+                'A116, 182, 0, 3, 1, 1, N, "(450) 922-8288"\n',
+                'A75,212,0,3,1,1,N,"TEST IMPR"\n',
+                'A75,242,0,4,1,1,N,"5W40"\n',
+                'A75,272,0,4,1,1,N,"PROCH. DATE"\n',
+                'A75,302,0,5,1,1,N,"09/2020"\n',
+                'A75,362,0,4,1,1,N,"PROCH. KM"\n',
+                'A75,387,0,5,1,1,N,"150000"\n',
+                'P1,1\n'
             ];
             break;
         case 'ZPL':
@@ -1640,7 +1640,7 @@ function getUpdatedOptions(onlyPixel) {
         };
     } else {
         return {
-            language: $("input[name='pLanguage']:checked").val(),
+            language: 'EPL',
             x: $("#pX").val(),
             y: $("#pY").val(),
             dotDensity: $("#pDotDensity").val(),
