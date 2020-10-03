@@ -10,7 +10,7 @@ namespace OCHPlanner3.Models
         public string UnitValue { get; set; }
         public string Comment { get; set; }
         public int SelectedOil { get; set; }
-        public List<SelectListItem> OilList { get; set; } 
+        public IEnumerable<SelectListItem> OilList { get; set; } 
 
         public int SelectedMonthIntervalNextService { get; set; }
         public int SelectedUnitNextService { get; set; }

@@ -12,6 +12,10 @@ using OCHPlanner3.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OCHPlanner3.Services.Interfaces;
+using OCHPlanner3.Services;
+using OCHPlanner3.Data.Interfaces;
+using OCHPlanner3.Data.Factory;
 
 namespace OCHPlanner3
 {
@@ -65,6 +69,13 @@ namespace OCHPlanner3
                 options.SlidingExpiration = true;
             });
 
+            // Services
+            services.AddTransient<IReferenceService, ReferenceService>();
+            services.AddTransient<IUserService, UserService>();
+
+            // Factory
+            services.AddTransient<IReferenceFactory, ReferenceFactory>();
+            
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation(); 
         }

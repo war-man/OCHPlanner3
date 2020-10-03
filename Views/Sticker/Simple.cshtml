@@ -21,7 +21,7 @@
                         <div class="form-group row">
                             <label for="unit" class="control-label col-md-4">Sélectionnez unitée</label>
                             <div class="col-md-8">
-                                <label class="mr-4"><input asp-for="SelectedUnit" value="KM" type="radio" class="mr-1" />Kilomètres</label>
+                                <label class="mr-4"><input asp-for="SelectedUnit" value="KM" type="radio" class="mr-1" checked />Kilomètres</label>
                                 <label class="mr-4"><input asp-for="SelectedUnit" value="MI" type="radio" class="mr-1" />Miles</label>
                                 <label><input asp-for="SelectedUnit" value="HM" type="radio" class="mr-1" />Heures moteur</label>
                             </div>
@@ -35,7 +35,9 @@
                         <div class="form-group row">
                             <label for="oil" class="control-label col-md-4">Huile utilisée</label>
                             <div class="col-md-8">
-                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control">
+                                    <option value="">-- Select --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -155,7 +157,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="selectedOil" class="control-label">Huile</label>
-                                        <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                        <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control">
+                                            <option value="">-- Select --</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="DateBox" class="control-label">Prochaine date ou avant le</label>
