@@ -29,13 +29,13 @@
                         <div class="form-group row">
                             <label for="comment" class="control-label col-md-4">Commentaire</label>
                             <div class="col-md-8">
-                                <input asp-for="Comment" class="form-control" />
+                                <input asp-for="Comment" name="comment" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="oil" class="control-label col-md-4">Huile utilisée</label>
                             <div class="col-md-8">
-                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control">
+                                <select asp-for="SelectedOil" name="oillist" asp-items="Model.OilList" class="form-control">
                                     <option value="">-- Select --</option>
                                 </select>
                             </div>
@@ -43,7 +43,7 @@
                         <div class="form-group row">
                             <label for="unitValue" class="control-label col-md-4">Kilomètre</label>
                             <div class="col-md-8">
-                                <input asp-for="UnitValue" class="form-control" />
+                                <input asp-for="UnitValue" name="unitvalue" class="form-control" />
                             </div>
                         </div>
                         <div id="Choice1">
@@ -128,7 +128,7 @@
                 </div>
             </div>
             <!-- trading history area end -->
-            <!-- Previewe area end -->
+            <!-- Preview area end -->
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
@@ -153,11 +153,12 @@
                                         <h6>Garage Phone </h6>
                                     </div>
                                     <div class="form-group mt-3">
-                                        @Html.TextBoxFor(model => model.Comment, new { id = "comment", @class = "form-control input", @maxlength = "20", @name = "comment", @value = "", @autocomplete = "off", @placeholder = "Commentaire" })
+                                        @*@Html.TextBoxFor(model => model.Comment, new { id = "comment", Name = "eee", @class = "form-control input", @maxlength = "20", @value = "", @autocomplete = "off", @placeholder = "Commentaire" })*@
+                                        <input autocomplete="off" class="form-control input" id="comment" maxlength="20" name="comment-preview" placeholder="Commentaire" type="text" value="">
                                     </div>
                                     <div class="form-group">
                                         <label for="selectedOil" class="control-label">Huile</label>
-                                        <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control">
+                                        <select asp-for="SelectedOil" name="oillist-preview" asp-items="Model.OilList" class="form-control">
                                             <option value="">-- Select --</option>
                                         </select>
                                     </div>
@@ -166,8 +167,10 @@
                                         @Html.TextBoxFor(model => model.DateBox, new { id = "DateBox", @class = "form-control input", @name = "DateBox", @maxlength = "8", @value = "", @placeholder = "Date" })
                                     </div>
                                     <div class="form-group">
-                                        <label for="KmBox" class="control-label">Prochain kilomètre</label>
-                                        @Html.TextBoxFor(model => model.KmBox, new { id = "KmBox", @class = "form-control input", @maxlength = "10", @name = "KmBox", @value = "", @autocomplete = "off", @placeholder = "0" })
+                                        <label for="UnitValue" class="control-label">Prochain kilomètre</label>
+                                        <input autocomplete="off" class="form-control input" id="UnitValue" maxlength="10" name="unitvalue-preview" placeholder="0" type="text" value="">
+
+                                        @*@Html.TextBoxFor(model => model.KmBox, new { id = "KmBox", @class = "form-control input", @maxlength = "10", @name = "KmBox", @value = "", @autocomplete = "off", @placeholder = "0" })*@
                                     </div>
 
                                 </form>
