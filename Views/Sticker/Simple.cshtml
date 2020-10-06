@@ -55,7 +55,9 @@
                                         <div class="form-group row">
                                             <label for="unitValue" class="control-label col-md-4">Mois</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                                <select asp-for="SelectedMonth" asp-items="Model.MonthList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -63,7 +65,9 @@
                                         <div class="form-group row">
                                             <label for="unitValue" class="control-label col-md-4">Intervale</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                                <select asp-for="SelectedMileage" asp-items="Model.MileageList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +86,9 @@
                                         <div class="form-group row">
                                             <label for="unitValue" class="control-label col-md-4">Ajouter</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                                <select asp-for="SelectedPeriod" asp-items="Model.PeriodList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +104,9 @@
                                         <div class="form-group row">
                                             <label for="unitValue" class="control-label col-md-4">Mois</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                                <select asp-for="SelectedMonth" asp-items="Model.MonthList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +114,9 @@
                                         <div class="form-group row">
                                             <label for="unitValue" class="control-label col-md-4">Année</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedOil" asp-items="Model.OilList" class="form-control"></select>
+                                                <select asp-for="SelectedYear" asp-items="Model.YearList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

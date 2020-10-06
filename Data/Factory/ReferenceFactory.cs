@@ -34,5 +34,37 @@ namespace OCHPlanner3.Data.Factory
                 return result;
             }
         }
+
+        public async Task<IEnumerable<MileageModel>> GetMileageList(int garageId)
+        {
+            var sql = "SELECT [ID] ,[Name] ,[GarageID] ,[MileageTypeID] FROM [dbo].[Mileage] WHERE [GarageId] = @GarageId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<MileageModel>(sql,
+                    new { GarageId = garageId },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<IEnumerable<PeriodModel>> GetPeriodList(int garageId)
+        {
+            var sql = "SELECT [ID] ,[Name] ,[GarageID] FROM [dbo].[Period] WHERE [GarageId] = @GarageId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<PeriodModel>(sql,
+                    new { GarageId = garageId },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }

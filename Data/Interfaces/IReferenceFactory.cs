@@ -9,5 +9,7 @@ namespace OCHPlanner3.Data.Interfaces
     public interface IReferenceFactory
     {
         Task<IEnumerable<OilModel>> GetOilList(int garageId);
+        Task<IEnumerable<MileageModel>> GetMileageList(int garageId);
+        Task<IEnumerable<PeriodModel>> GetPeriodList(int garageId);
     }
 }
