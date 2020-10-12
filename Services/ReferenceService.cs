@@ -73,6 +73,25 @@ namespace OCHPlanner3.Services
             }).OrderBy(o => o.Text);
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetMonthSelectListItem(int selectedId = 0)
+        {
+            return new List<SelectListItem>
+            {
+                new SelectListItem() { Value = "1", Text = "Janvier", Selected = selectedId != 0 && selectedId == 1 },
+                new SelectListItem() { Value = "2", Text = "Février", Selected = selectedId != 0 && selectedId == 2 },
+                new SelectListItem() { Value = "3", Text = "Mars", Selected = selectedId != 0 && selectedId == 3 },
+                new SelectListItem() { Value = "4", Text = "Avril", Selected = selectedId != 0 && selectedId == 4 },
+                new SelectListItem() { Value = "5", Text = "Mai", Selected = selectedId != 0 && selectedId == 5 },
+                new SelectListItem() { Value = "6", Text = "Juin", Selected = selectedId != 0 && selectedId == 6 },
+                new SelectListItem() { Value = "7", Text = "Juillet", Selected = selectedId != 0 && selectedId == 7 },
+                new SelectListItem() { Value = "8", Text = "Août", Selected = selectedId != 0 && selectedId == 8 },
+                new SelectListItem() { Value = "9", Text = "Septembre", Selected = selectedId != 0 && selectedId == 9 },
+                new SelectListItem() { Value = "10", Text = "Octobre" , Selected = selectedId != 0 && selectedId == 10 },
+                new SelectListItem() { Value = "11", Text = "Novembre" , Selected = selectedId != 0 && selectedId == 11 },
+                new SelectListItem() { Value = "12", Text = "Décembre" , Selected = selectedId != 0 && selectedId == 12 }
+            };
+        }
+
         public async Task<IEnumerable<SelectListItem>> GetYearSelectListItem(int selectedId = 0)
         {
             var result = new List<SelectListItem>();

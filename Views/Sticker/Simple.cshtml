@@ -48,9 +48,12 @@
                         </div>
                         <div id="Choice1">
                             <div class="alert alert-dark" role="alert" style="margin-bottom: 0.5rem;">
-                                <h6 class="alert-heading">Intervale prochain service</h6>
-                                <hr>
-                                <div class="col-md-12 row">
+                                <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
+                                    <h6 class="col-md-6 alert-heading">Intervale prochain service</h6>
+                                    <div class="col-md-6"><input value="Choice1" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" checked="" id="PrintChoice1" name="PrintChoices"></div>
+                                </div>
+
+                                <div class="col-md-12 row pt-2">
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="SelectedMonth" class="control-label col-md-4 mt-2">Mois</label>
@@ -76,9 +79,11 @@
                         </div>
                         <div id="Choice2">
                             <div class="alert alert-dark" role="alert" style="margin-bottom: 0.5rem;">
-                                <h6 class="alert-heading">Date du jour</h6>
-                                <hr>
-                                <div class="col-md-12 row">
+                                <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
+                                    <h6 class="col-md-6 alert-heading">Date du jour</h6>
+                                    <div class="col-md-6"><input value="Choice2" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice2" name="PrintChoices"></div>
+                                </div>
+                                <div class="col-md-12 row pt-2">
                                     <div class="col-md-6 mt-2">
                                         Imprimer la date du jour
                                     </div>
@@ -86,7 +91,7 @@
                                         <div class="form-group row">
                                             <label for="SelectedPeriod" class="control-label col-md-4 mt-2">Ajouter</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedPeriod" asp-items="Model.PeriodList" class="form-control">
+                                                <select asp-for="SelectedMileage" name="Choice2SelectedMileage" asp-items="Model.MileageList" class="form-control">
                                                     <option value="">-- Select --</option>
                                                 </select>
                                             </div>
@@ -97,15 +102,17 @@
                         </div>
                         <div id="Choice3">
                             <div class="alert alert-dark" role="alert" style="margin-bottom: 0.5rem;">
-                                <h6 class="alert-heading">Données fixe</h6>
-                                <hr>
-                                <div class="col-md-12 row">
+                                <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
+                                    <h6 class="col-md-6 alert-heading">Données fixe</h6>
+                                    <div class="col-md-6"><input value="Choice3" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice3" name="PrintChoices"></div>
+                                </div>
+                                <div class="col-md-12 row pt-2">
                                     <div class="col-md-4">
                                         <div class="form-group row">
                                             <label for="SelectedMonthFixe" class="control-label col-md-4 mt-2">Mois</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedMonthFixe" asp-items="Model.MonthList" class="form-control">
-                                                    <option value="">-- Select --</option>
+                                                <select asp-for="SelectedMonthFixe" name="Choice3SelectedMonth" asp-items="Model.MonthList" class="form-control">
+                                                    <option value="0">-- Select --</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -114,17 +121,19 @@
                                         <div class="form-group row">
                                             <label for="SelectedYearFixe" class="control-label col-md-4 mt-2">Année</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedYearFixe" asp-items="Model.YearList" class="form-control">
-                                                    <option value="">-- Select --</option>
+                                                <select asp-for="SelectedYearFixe" name="Choice3SelectedYear" asp-items="Model.YearList" class="form-control">
+                                                    <option value="0">-- Select --</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedOilFixe" class="control-label col-md-4 mt-2">Unité</label>
+                                            <label for="SelectedMileageFixe" class="control-label col-md-4 mt-2">Intervale</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedOilFixe" asp-items="Model.OilList" class="form-control"></select>
+                                                <select asp-for="SelectedMileage" name="Choice3SelectedMileage" asp-items="Model.MileageList" class="form-control">
+                                                    <option value="0">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +181,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="DateBox" class="control-label">Prochaine date ou avant le</label>
+                                        <label for="DateBox" id="label-datebox-preview" class="control-label">Prochaine date ou avant le</label>
                                         <input autocomplete="off" class="form-control input" id="datebox-preview" maxlength="10" name="datebox-preview" placeholder="Date" type="text" value="">
 
                                     </div>

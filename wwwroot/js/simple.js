@@ -2,9 +2,6 @@
 
 
     $(document).on("click", "#btnPrint", function () {
-        findDefaultPrinter(true);
-
-        //printCommand();
         printSimpleSticker();
     });
 
@@ -23,11 +20,17 @@
         $('input[name="unitvalue-preview"]').val($('input[name="unitvalue"]').val());
     });
 
+    //CHOICE 1
+    $(document).on("click", "#PrintChoice1", function () {
+        console.log('Choice 1');
+        $('#label-datebox-preview').text('Prochaine date ou avant le');
+    });
+
     //replication for selected Period
     $(document).on("change", 'select[name="SelectedPeriod"]', function () {
-        var month = parseInt($('select[name="SelectedPeriod"] option:selected').text()); // $('select[name="SelectedMonth"] option:selected').text();
+        var month = parseInt($('select[name="SelectedPeriod"] option:selected').text()); 
 
-        $('#datebox-preview').val(moment().add(month, 'M').format('YYYY-MM-DD'));
+        $('#datebox-preview').val(moment().add(month, 'M').format('MM/YYYY'));
     });
 
     //replication for selected mileage
@@ -41,8 +44,64 @@
         $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
     });
 
+
+    //CHOICE 2
+    $(document).on("click", "#PrintChoice2", function () {
+        console.log('Choice 2');
+        $('#label-datebox-preview').text('Entretien effectué le');
+        $('#datebox-preview').val(moment().format('MM/YYYY'));
+    });
+
+    //replication for selected Mileage
+    $(document).on("change", 'select[name="Choice2SelectedMileage"]', function () {
+        var startMileage = $('input[name="unitvalue"]').val();
+        if (startMileage === '') {
+            startMileage = 0;
+        }
+
+        var mileage = $('select[name="Choice2SelectedMileage"] option:selected').text();
+        $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
+    });
+
+    //CHOICE 3
+    $(document).on("click", "#PrintChoice3", function () {
+        console.log('Choice 3');
+        $('#label-datebox-preview').text('Prochaine date ou avant le');
+    });
+
+    $(document).on("change", 'select[name="Choice3SelectedMonth"]', function () {
+        Choice3UpdatePreview();
+    });
+
+    $(document).on("change", 'select[name="Choice3SelectedYear"]', function () {
+        Choice3UpdatePreview();
+    });
+
+    //replication for selected Mileage
+    $(document).on("change", 'select[name="Choice3SelectedMileage"]', function () {
+        var startMileage = $('input[name="unitvalue"]').val();
+        if (startMileage === '') {
+            startMileage = 0;
+        }
+
+        var mileage = $('select[name="Choice3SelectedMileage"] option:selected').text();
+        $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
+    });
+
+    function Choice3UpdatePreview() {
+        var month = parseInt($('select[name="Choice3SelectedMonth"] option:selected').val());
+        var year = parseInt($('select[name="Choice3SelectedYear"] option:selected').val());
+
+        //pad zero if month length = 1
+        if (month > 0 && year > 0) {
+            $('#datebox-preview').val((month <= 9 ? '0' + month : month) + "/" + year);
+        } 
+    }
+
     function printSimpleSticker() {
         var config = getUpdatedConfig();
+        findDefaultPrinter(true);
+
         var lang = getUpdatedOptions().language; //print options not used with this flavor, just check language requested
 
         var printData;
