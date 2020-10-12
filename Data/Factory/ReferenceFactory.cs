@@ -35,16 +35,19 @@ namespace OCHPlanner3.Data.Factory
             }
         }
 
-        public async Task<IEnumerable<MileageModel>> GetMileageList(int garageId)
+        public async Task<IEnumerable<MileageModel>> GetMileageList(int garageId, int mileageType = 1)
         {
-            var sql = "SELECT [ID] ,[Name] ,[GarageID] ,[MileageTypeID] FROM [dbo].[Mileage] WHERE [GarageId] = @GarageId";
+            var sql = "SELECT [ID] ,[Name] ,[GarageID] ,[MileageTypeID] FROM [dbo].[Mileage] WHERE [GarageId] = @GarageId AND [MileageTypeId] = @MileageType";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
 
                 var result = await connection.QueryAsync<MileageModel>(sql,
-                    new { GarageId = garageId },
+                    new { 
+                        GarageId = garageId,
+                        MileageType = mileageType
+                    },
                     commandType: CommandType.Text);
 
                 return result;

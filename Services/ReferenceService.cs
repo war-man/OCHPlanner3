@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Models;
+using OCHPlanner3.Helper.Comparer;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
 using System;
@@ -26,9 +27,9 @@ namespace OCHPlanner3.Services
             return oilList.Adapt<IEnumerable<OilViewModel>>();
         }
 
-        public async Task<IEnumerable<MileageViewModel>> GetMileageList(int garageId)
+        public async Task<IEnumerable<MileageViewModel>> GetMileageList(int garageId, int mileageType = 1)
         {
-            var mileageList = await _referenceFactory.GetMileageList(garageId);
+            var mileageList = await _referenceFactory.GetMileageList(garageId, mileageType);
             return mileageList.Adapt<IEnumerable<MileageViewModel>>();
         }
 
@@ -48,68 +49,28 @@ namespace OCHPlanner3.Services
         {
             var periodList = await _referenceFactory.GetPeriodList(garageId);
 
-            return periodList.Select(x => new SelectListItem()
+            return periodList.Where(p => p.Name.ToUpper() != "N/A").Select(x => new SelectListItem()
             {
                 Value = x.Id.ToString(),
                 Text = x.Name,
                 Selected = selectedId != 0 && selectedId == x.Id
             }).OrderBy(o => o.Text);
         }
-
-        public async Task<IEnumerable<SelectListItem>> GetMonthSelectListItem(int selectedId = 0)
-        {
-            return new List<SelectListItem>
-            {
-                new SelectListItem() { Value = "1", Text = "Janvier", Selected = selectedId != 0 && selectedId == 1 },
-                new SelectListItem() { Value = "2", Text = "Février", Selected = selectedId != 0 && selectedId == 2 },
-                new SelectListItem() { Value = "3", Text = "Mars", Selected = selectedId != 0 && selectedId == 3 },
-                new SelectListItem() { Value = "4", Text = "Avril", Selected = selectedId != 0 && selectedId == 4 },
-                new SelectListItem() { Value = "5", Text = "Mai", Selected = selectedId != 0 && selectedId == 5 },
-                new SelectListItem() { Value = "6", Text = "Juin", Selected = selectedId != 0 && selectedId == 6 },
-                new SelectListItem() { Value = "7", Text = "Juillet", Selected = selectedId != 0 && selectedId == 7 },
-                new SelectListItem() { Value = "8", Text = "Août", Selected = selectedId != 0 && selectedId == 8 },
-                new SelectListItem() { Value = "9", Text = "Septembre", Selected = selectedId != 0 && selectedId == 9 },
-                new SelectListItem() { Value = "10", Text = "Octobre" , Selected = selectedId != 0 && selectedId == 10 },
-                new SelectListItem() { Value = "11", Text = "Novembre" , Selected = selectedId != 0 && selectedId == 11 },
-                new SelectListItem() { Value = "12", Text = "Décembre" , Selected = selectedId != 0 && selectedId == 12 }
-            };
-        }
-
+               
         public async Task<IEnumerable<SelectListItem>> GetMileageSelectListItem(int garageId, int mileageTypeId, int selectedId = 0)
         {
-            var mileage = await _referenceFactory.GetMileageList(garageId);
-
-            switch (mileageTypeId)
-            {
-                //KM
-                case 1:
-                    return await BuildMileageSelectListItem(mileage.Where(p => p.MileageTypeId == 1), selectedId);
-                //Miles
-                case 2:
-                    return await BuildMileageSelectListItem(mileage.Where(p => p.MileageTypeId == 2), selectedId);
-                //Hr Moteur
-                case 3:
-                    return await BuildMileageSelectListItem(mileage.Where(p => p.MileageTypeId == 3), selectedId);
-                default:
-                    return new List<SelectListItem>();
-            }
+            var mileages = await _referenceFactory.GetMileageList(garageId, mileageTypeId);
+            return await BuildMileageSelectListItem(mileages.OrderBy(x => x.Name, new SemiNumericComparer()), selectedId);
         }
 
-        private async Task<IEnumerable<SelectListItem>> BuildMileageSelectListItem(IEnumerable<MileageModel> mileage, int selectedId = 0)
+        private async Task<IEnumerable<SelectListItem>> BuildMileageSelectListItem(IEnumerable<MileageModel> mileageList, int selectedId = 0)
         {
-            var result = new List<SelectListItem>();
-
-            mileage.ToList().ForEach(m =>
+            return mileageList.Where(p => p.Name.ToUpper() != "N/A").Select(x => new SelectListItem()
             {
-                result.Add(new SelectListItem()
-                {
-                    Value = m.Id.ToString(),
-                    Text = m.Name,
-                    Selected = selectedId != 0 && selectedId == m.Id
-                });
-            });
-
-            return result.OrderBy(o => o.Text);
+                Value = x.Id.ToString(),
+                Text = x.Name,
+                Selected = selectedId != 0 && selectedId == x.Id
+            }).OrderBy(o => o.Text);
         }
 
         public async Task<IEnumerable<SelectListItem>> GetYearSelectListItem(int selectedId = 0)

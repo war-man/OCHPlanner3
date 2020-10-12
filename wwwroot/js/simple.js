@@ -23,12 +23,22 @@
         $('input[name="unitvalue-preview"]').val($('input[name="unitvalue"]').val());
     });
 
-    //replication for selected month
-    $(document).on("change", 'select[name="SelectedMonth"]', function () {
-        var month = $('select[name="SelectedMonth"] option:selected').text();
+    //replication for selected Period
+    $(document).on("change", 'select[name="SelectedPeriod"]', function () {
+        var month = parseInt($('select[name="SelectedPeriod"] option:selected').text()); // $('select[name="SelectedMonth"] option:selected').text();
+
+        $('#datebox-preview').val(moment().add(month, 'M').format('YYYY-MM-DD'));
+    });
+
+    //replication for selected mileage
+    $(document).on("change", 'select[name="SelectedMileage"]', function () {
+        var startMileage = $('input[name="unitvalue"]').val();
+        if (startMileage === '') {
+            startMileage = 0;
+        }
+
         var mileage = $('select[name="SelectedMileage"] option:selected').text();
-        $('#datebox').val(month);
-        $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt(mileage));
+        $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
     });
 
     function printSimpleSticker() {

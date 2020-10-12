@@ -27,13 +27,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="comment" class="control-label col-md-4">Commentaire</label>
+                            <label for="comment" class="control-label col-md-4 mt-2">Commentaire</label>
                             <div class="col-md-8">
                                 <input asp-for="Comment" name="comment" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="oil" class="control-label col-md-4">Huile utilisée</label>
+                            <label for="oil" class="control-label col-md-4 mt-2">Huile utilisée</label>
                             <div class="col-md-8">
                                 <select asp-for="SelectedOil" name="oillist" asp-items="Model.OilList" class="form-control">
                                     <option value="">-- Select --</option>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="unitValue" class="control-label col-md-4">Kilomètre</label>
+                            <label for="unitValue" class="control-label col-md-4 mt-2">Kilomètre</label>
                             <div class="col-md-8">
                                 <input asp-for="UnitValue" name="unitvalue" class="form-control" />
                             </div>
@@ -53,9 +53,9 @@
                                 <div class="col-md-12 row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="SelectedMonth" class="control-label col-md-4">Mois</label>
+                                            <label for="SelectedMonth" class="control-label col-md-4 mt-2">Mois</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedMonth" asp-items="Model.MonthList" class="form-control">
+                                                <select asp-for="SelectedPeriod" asp-items="Model.PeriodList" class="form-control">
                                                     <option value="">-- Select --</option>
                                                 </select>
                                             </div>
@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="SelectedMileage" class="control-label col-md-4">Intervale</label>
+                                            <label for="SelectedMileage" class="control-label col-md-4 mt-2">Intervale</label>
                                             <div class="col-md-8">
                                                 <select asp-for="SelectedMileage" asp-items="Model.MileageList" class="form-control">
                                                     <option value="">-- Select --</option>
@@ -79,12 +79,12 @@
                                 <h6 class="alert-heading">Date du jour</h6>
                                 <hr>
                                 <div class="col-md-12 row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 mt-2">
                                         Imprimer la date du jour
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="SelectedPeriod" class="control-label col-md-4">Ajouter</label>
+                                            <label for="SelectedPeriod" class="control-label col-md-4 mt-2">Ajouter</label>
                                             <div class="col-md-8">
                                                 <select asp-for="SelectedPeriod" asp-items="Model.PeriodList" class="form-control">
                                                     <option value="">-- Select --</option>
@@ -102,7 +102,7 @@
                                 <div class="col-md-12 row">
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedMonthFixe" class="control-label col-md-4">Mois</label>
+                                            <label for="SelectedMonthFixe" class="control-label col-md-4 mt-2">Mois</label>
                                             <div class="col-md-8">
                                                 <select asp-for="SelectedMonthFixe" asp-items="Model.MonthList" class="form-control">
                                                     <option value="">-- Select --</option>
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedYearFixe" class="control-label col-md-4">Année</label>
+                                            <label for="SelectedYearFixe" class="control-label col-md-4 mt-2">Année</label>
                                             <div class="col-md-8">
                                                 <select asp-for="SelectedYearFixe" asp-items="Model.YearList" class="form-control">
                                                     <option value="">-- Select --</option>
@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedOilFixe" class="control-label col-md-4">Unité</label>
+                                            <label for="SelectedOilFixe" class="control-label col-md-4 mt-2">Unité</label>
                                             <div class="col-md-8">
                                                 <select asp-for="SelectedOilFixe" asp-items="Model.OilList" class="form-control"></select>
                                             </div>

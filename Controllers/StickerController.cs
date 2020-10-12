@@ -29,7 +29,6 @@ namespace OCHPlanner3.Controllers
             var model = new StickerSimpleViewModel();
 
             model.OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId);
-            model.MonthList = await _referenceService.GetMonthSelectListItem();
             model.MileageList = await _referenceService.GetMileageSelectListItem(CurrentUser.GarageId, 1);
             model.PeriodList = await _referenceService.GetPeriodSelectListItem(CurrentUser.GarageId, 1);
             model.YearList = await _referenceService.GetYearSelectListItem();
