@@ -54,7 +54,7 @@ namespace OCHPlanner3.Services
                 Value = x.Id.ToString(),
                 Text = x.Name,
                 Selected = selectedId != 0 && selectedId == x.Id
-            }).OrderBy(o => o.Text);
+            }).OrderBy(x => x.Text, new SemiNumericComparer());
         }
                
         public async Task<IEnumerable<SelectListItem>> GetMileageSelectListItem(int garageId, int mileageTypeId, int selectedId = 0)
@@ -70,7 +70,7 @@ namespace OCHPlanner3.Services
                 Value = x.Id.ToString(),
                 Text = x.Name,
                 Selected = selectedId != 0 && selectedId == x.Id
-            }).OrderBy(o => o.Text);
+            });
         }
 
         public async Task<IEnumerable<SelectListItem>> GetMonthSelectListItem(int selectedId = 0)
@@ -96,22 +96,15 @@ namespace OCHPlanner3.Services
         {
             var result = new List<SelectListItem>();
 
-            var currentYear = DateTime.Now.Year;
-            var nextYear = DateTime.Now.AddYears(1).Year;
-
-            result.Add(new SelectListItem()
+            for(int year = DateTime.Now.Year; year <= DateTime.Now.AddYears(5).Year; year++)
             {
-                Value = currentYear.ToString(),
-                Text = currentYear.ToString(),
-                Selected = selectedId != 0 && selectedId == currentYear
-            });
-
-            result.Add(new SelectListItem()
-            {
-                Value = nextYear.ToString(),
-                Text = nextYear.ToString(),
-                Selected = selectedId != 0 && selectedId == nextYear
-            });
+                result.Add(new SelectListItem()
+                {
+                    Value = year.ToString(),
+                    Text = year.ToString(),
+                    Selected = selectedId != 0 && selectedId == year
+                });
+            }
 
             return result;
         }
