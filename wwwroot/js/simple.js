@@ -108,11 +108,11 @@
         
         printData = [
             'N\n',
-            'Q470\n',
+            'Q500\n',
             'q440\n',
             'D12\n',
-            //'A90,157,0,3,1,1,N,"CARIGNAN ST-AMABLE"\n',
-            //'A116, 182, 0, 3, 1, 1, N, "(450) 922-8288"\n',
+            'A90,157,0,3,1,1,N,"CARIGNAN ST-AMABLE"\n',
+            'A116,182,0,3,1,1,N,"(450) 922-8288"\n',
             'A75,212,0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
             'A75,242,0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
             'A75,272,0,4,1,1,N,"PROCH. DATE"\n',
