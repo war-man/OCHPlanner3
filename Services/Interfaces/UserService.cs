@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Mapster;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Models;
 using System;
 using System.Collections.Generic;
@@ -15,26 +17,22 @@ namespace OCHPlanner3.Services.Interfaces
     {
         private readonly SignInManager<IdentityUser> _userIdentity;
         private readonly IHttpContextAccessor _contextAccessor;
-
+        private readonly IGarageFactory _garageFactory;
         public UserService(SignInManager<IdentityUser> userIdentity,
+            IGarageFactory garageFactory,
             IHttpContextAccessor contextAccessor)
         {
             _userIdentity = userIdentity;
             _contextAccessor = contextAccessor;
+            _garageFactory = garageFactory;
         }
         public UserCredentials GetCurrentUserCredentials()
         {
             var user = new UserCredentials()
             {
-                //UserId = GetCurrentUserId(),
-                //UserName = GetCurrentUsername(),
-                //FirstName = GetCurrentFirstName(),
-                //LastName = GetCurrentLastName(),
-                //Language = GetCurrentLanguage(),
-                //UserRoleForDisplay = GetCurrentUserRole(),
-                //Email = GetCurrentUserEmail(),
                 GarageId = GetGarageId(),
-                Claims = GetCurrentUserClaims()
+                Claims = GetCurrentUserClaims(),
+                GarageSetting = GetGarageSetting().Result,
             };
 
             return user;
@@ -51,6 +49,16 @@ namespace OCHPlanner3.Services.Interfaces
             return _contextAccessor.HttpContext.User.Claims;
         }
 
+        private async Task<GarageViewModel> GetGarageSetting()
+        {
+            var garageId = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "GarageId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(garageId)) return new GarageViewModel();
+
+            var garage = await _garageFactory.GetGarage(Convert.ToInt32(garageId));
+            return garage.Adapt<GarageViewModel>();
+
+        }
         //private string GetCurrentUserId()
         //{
         //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -60,7 +68,7 @@ namespace OCHPlanner3.Services.Interfaces
         //{
         //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
         //}
-               
+
         //private string GetCurrentUserRole()
         //{
         //    var result = new StringBuilder();

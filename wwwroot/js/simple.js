@@ -1,8 +1,31 @@
 ﻿$(document).ready(function () {
 
+    var nextunit = 'PROCH. KM';
+    var nextdate = 'PROCH. DATE';
 
     $(document).on("click", "#btnPrint", function () {
         printSimpleSticker();
+    });
+
+    $(document).on("change", 'input[name="SelectedUnit"]', function () {
+        if ($(this).val() === 'KM') {
+            $('#label-unit').text('Kilomètres');
+            $('#label-unit-preview').text('Prochain Kilomètres');
+            refreshIntervalSelectList(1);
+            nextunit = 'PROCH. KM';
+        }
+        else if ($(this).val() === 'MI') {
+            $('#label-unit').text('Miles');
+            $('#label-unit-preview').text('Prochain Miles');
+            refreshIntervalSelectList(2);
+            nextunit = 'PROCH. MILES';
+        }
+        else if ($(this).val() === 'HM') {
+            $('#label-unit').text('Heures moteur');
+            $('#label-unit-preview').text('Prochain Heures moteur');
+            refreshIntervalSelectList(3);
+            nextunit = 'PROCH. HR. MOTEUR';
+        }
     });
 
     //replication for oil list value
@@ -24,6 +47,7 @@
     $(document).on("click", "#PrintChoice1", function () {
         console.log('Choice 1');
         $('#label-datebox-preview').text('Prochaine date ou avant le');
+        nextdate = 'PROCH. DATE';
     });
 
     //replication for selected Period
@@ -49,7 +73,8 @@
     $(document).on("click", "#PrintChoice2", function () {
         console.log('Choice 2');
         $('#label-datebox-preview').text('Entretien effectué le');
-        $('#datebox-preview').val(moment().format('MM/YYYY'));
+        $('#datebox-preview').val(moment().format('DD/MM/YY'));
+        nextdate = 'DATE ENTRETIEN';
     });
 
     //replication for selected Mileage
@@ -67,6 +92,7 @@
     $(document).on("click", "#PrintChoice3", function () {
         console.log('Choice 3');
         $('#label-datebox-preview').text('Prochaine date ou avant le');
+        nextdate = 'PROCH. DATE';
     });
 
     $(document).on("change", 'select[name="Choice3SelectedMonth"]', function () {
@@ -98,6 +124,32 @@
         } 
     }
 
+    function refreshIntervalSelectList(mileageType) {
+        $.ajax({
+            url: '/reference/intervalSelectList/' + mileageType,
+            type: "GET",
+            async: false,
+            success: function (response) {
+                $('#SelectedMileage').empty();
+                $('select[name="Choice2SelectedMileage"]').empty();
+                $('select[name="Choice3SelectedMileage"]').empty();
+
+                var options = '';
+                options += '<option value="Select">-- Select --</option>';
+                for (var i = 0; i < response.length; i++) {
+                    options += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                }
+
+                $('#SelectedMileage').append(options);
+                $('select[name="Choice2SelectedMileage"]').append(options);
+                $('select[name="Choice3SelectedMileage"]').append(options);
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+    }
+
     function printSimpleSticker() {
         var config = getUpdatedConfig();
         findDefaultPrinter(true);
@@ -108,16 +160,16 @@
         
         printData = [
             'N\n',
-            'Q500\n',
+            'Q440\n',
             'q440\n',
             'D12\n',
-            'A90,157,0,3,1,1,N,"CARIGNAN ST-AMABLE"\n',
-            'A116,182,0,3,1,1,N,"(450) 922-8288"\n',
+            'A90,157,0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
+            'A116,182,0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n',
             'A75,212,0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
             'A75,242,0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
-            'A75,272,0,4,1,1,N,"PROCH. DATE"\n',
+            'A75,272,0,4,1,1,N,"' + nextdate + '"\n',
             'A75,302,0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
-            'A75,362,0,4,1,1,N,"PROCH. KM"\n',
+            'A75,362,0,4,1,1,N,"' + nextunit + '"\n',
             'A75,387,0,5,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
             'P1,1\n'
         ];

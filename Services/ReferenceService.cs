@@ -30,7 +30,7 @@ namespace OCHPlanner3.Services
         public async Task<IEnumerable<MileageViewModel>> GetMileageList(int garageId, int mileageType = 1)
         {
             var mileageList = await _referenceFactory.GetMileageList(garageId, mileageType);
-            return mileageList.Adapt<IEnumerable<MileageViewModel>>();
+            return mileageList.Adapt<IEnumerable<MileageViewModel>>().OrderBy(x => x.Name, new SemiNumericComparer());
         }
 
         public async Task<IEnumerable<SelectListItem>> GetOilSelectListItem(int garageId, int selectedId = 0)

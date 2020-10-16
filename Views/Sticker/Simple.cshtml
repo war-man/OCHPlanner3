@@ -1,7 +1,15 @@
 ﻿@model StickerSimpleViewModel
+@using OCHPlanner3.Services.Interfaces
+@using OCHPlanner3.Helper
 
 @{
     ViewData["Title"] = "Autocollant Simple";
+}
+
+@inject IUserService  userService
+
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
 }
 
 <style>
@@ -41,7 +49,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="unitValue" class="control-label col-md-4 mt-2">Kilomètre</label>
+                            <label id="label-unit" for="unitValue" class="control-label col-md-4 mt-2">Kilomètre</label>
                             <div class="col-md-8">
                                 <input asp-for="UnitValue" name="unitvalue" class="form-control" />
                             </div>
@@ -164,12 +172,13 @@
                             </div>
                             <div class="mt-2">
                                 <form id="loginform" class="form-horizontal" role="form">
-
+                                    <input id="garage-name-print" type="hidden" value="@currentUser.GarageSetting.Name" />
                                     <div class="row col-md-12 justify-content-center">
-                                        <h6>Garage Name</h6>
+                                        <h6>@currentUser.GarageSetting.Name</h6>
                                     </div>
+                                    <input id="garage-phone-print" type="hidden" value="@currentUser.GarageSetting.Phone.ToPhone()" />
                                     <div class="row col-md-12 justify-content-center">
-                                        <h6>Garage Phone </h6>
+                                        <h6>@currentUser.GarageSetting.Phone.ToPhone()</h6>
                                     </div>
                                     <div class="form-group mt-3">
                                         <input autocomplete="off" class="form-control input" id="comment-preview" maxlength="20" name="comment-preview" placeholder="Commentaire" type="text" value="">
@@ -186,7 +195,7 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="UnitValue" class="control-label">Prochain kilomètre</label>
+                                        <label for="UnitValue" id="label-unit-preview" class="control-label">Prochain kilomètre</label>
                                         <input autocomplete="off" class="form-control input" id="unitvalue-preview" maxlength="10" name="unitvalue-preview" placeholder="0" type="text" value="">
                                     </div>
 
