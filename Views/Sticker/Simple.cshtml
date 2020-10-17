@@ -12,6 +12,9 @@
     var currentUser = userService.GetCurrentUserCredentials();
 }
 
+@Html.Hidden("hidDateFormat", currentUser.GarageSetting.FormatDate)
+@Html.Hidden("hidDateFormatPrint", currentUser.GarageSetting.FormatDatePrint)
+
 <style>
     .form-group {
         margin-bottom: 0.5rem !important;
@@ -93,7 +96,8 @@
                                 </div>
                                 <div class="col-md-12 row pt-2">
                                     <div class="col-md-6 mt-2">
-                                        Imprimer la date du jour
+                                        <label for="SelectedPeriod" class="control-label">Imprimer la date du jour</label>
+                                        : <strong>@DateTime.Now.ToString("dd/MM/yy", System.Globalization.CultureInfo.InvariantCulture)</strong>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">

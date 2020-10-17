@@ -21,7 +21,10 @@ namespace OCHPlanner3.Data.Factory
         }
         public async Task<GarageModel> GetGarage(int garageId)
         {
-            var sql = "SELECT * FROM [dbo].[Garages] WHERE [ID] = @GarageId";
+            var sql = @"SELECT G.*, FD.FormatDateId, FD.Français AS 'FormatDate', FD.FormatDatePrint 
+                        FROM [dbo].[Garages] G
+                        INNER JOIN [dbo].[FormatDate] FD ON FD.[GarageId] = G.ID
+                        WHERE [ID] = @GarageId";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {

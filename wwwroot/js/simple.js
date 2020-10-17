@@ -81,9 +81,9 @@
     //CHOICE 2
     $(document).on("click", "#PrintChoice2", function () {
         console.log('Choice 2');
-        $('#label-datebox-preview').text('Entretien effectué le');
-        $('#datebox-preview').val(moment().format('DD/MM/YY'));
-        nextdate = 'DATE ENTRETIEN';
+        $('#label-datebox-preview').html('Entretien effectué le <span class="ml-3 small font-weight-bold">(' + $('#hidDateFormat').val().toLowerCase() + ')</span>');
+        $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+        nextdate = 'ENTRETIEN';
     });
 
     //replication for selected Mileage
@@ -165,11 +165,11 @@
 
         var lang = getUpdatedOptions().language; //print options not used with this flavor, just check language requested
 
-        var printData;
-        
-        printData = [
+        var printData1;
+
+        printData1 = [
             'N\n',
-            'Q440\n',
+            'Q400\n',
             'q440\n',
             'D12\n',
             'A90,157,0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
@@ -177,11 +177,21 @@
             'A75,212,0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
             'A75,242,0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
             'A75,272,0,4,1,1,N,"' + nextdate + '"\n',
+        ];
+
+        if ($('#hidDateFormatPrint').val() === "True") {
+            printData1.push('A230,275,0,1,1,1,N,"(dd/mm/yy)"\n');
+        }
+
+        var printData2 = [
             'A75,302,0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
             'A75,362,0,4,1,1,N,"' + nextunit + '"\n',
             'A75,387,0,5,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
             'P1,1\n'
         ];
+
+        var printData = $.merge(printData1, printData2);
+
                 
         qz.print(config, printData).catch(displayError);
     }
