@@ -9,19 +9,19 @@
 
     $(document).on("change", 'input[name="SelectedUnit"]', function () {
         if ($(this).val() === 'KM') {
-            $('#label-unit').text('Kilomètres');
+            $('#label-unit').text('Kilomètres actuel');
             $('#label-unit-preview').text('Prochain Kilomètres');
             refreshIntervalSelectList(1);
             nextunit = 'PROCH. KM';
         }
         else if ($(this).val() === 'MI') {
-            $('#label-unit').text('Miles');
+            $('#label-unit').text('Miles actuel');
             $('#label-unit-preview').text('Prochain Miles');
             refreshIntervalSelectList(2);
             nextunit = 'PROCH. MILES';
         }
         else if ($(this).val() === 'HM') {
-            $('#label-unit').text('Heures moteur');
+            $('#label-unit').text('Heures moteur actuel');
             $('#label-unit-preview').text('Prochain Heures moteur');
             refreshIntervalSelectList(3);
             nextunit = 'PROCH. HR. MOTEUR';
@@ -40,7 +40,16 @@
 
     //replication for unitvalue
     $(document).on("keyup", "#UnitValue", function () {
-        $('input[name="unitvalue-preview"]').val($('input[name="unitvalue"]').val());
+        if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
+            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="SelectedMileage"] option:selected').text()));
+        }
+        if ($("input[name='PrintChoices']:checked").val() === 'Choice2') {
+            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="Choice2SelectedMileage"] option:selected').text()));
+        }
+        if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
+            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="Choice3SelectedMileage"] option:selected').text()));
+        }  
+        
     });
 
     //CHOICE 1
