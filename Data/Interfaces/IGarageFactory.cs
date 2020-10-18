@@ -9,5 +9,8 @@ namespace OCHPlanner3.Data.Interfaces
     public interface IGarageFactory
     {
         Task<GarageModel> GetGarage(int garageId);
+        Task<int> CreateSingleDefault(GarageDefaultModel defaultValues);
+        Task<int> UpdateSingleDefault(GarageDefaultModel defaultValues);
+        Task<GarageDefaultModel> GetSingleDefault(int garageId, string screen);
     }
 }

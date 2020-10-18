@@ -13,9 +13,10 @@ namespace OCHPlanner3.Models
         public IEnumerable<SelectListItem> OilList { get; set; }
         public int SelectedMonth { get; set; }
         public IEnumerable<SelectListItem> MonthList { get; set; }
-        public int SelectedMileage { get; set; }
+        public int SelectedMileageChoice1 { get; set; }
+        public int SelectedMileageChoice2 { get; set; }
         public IEnumerable<SelectListItem> MileageList { get; set; }
-        public int SelectedPeriod { get; set; }
+        public int SelectedPeriodChoice1 { get; set; }
         public IEnumerable<SelectListItem> PeriodList { get; set; }
 
         public int SelectedMonthIntervalNextService { get; set; }
@@ -23,12 +24,13 @@ namespace OCHPlanner3.Models
         public int SelectedYear { get; set; }
         public IEnumerable<SelectListItem> YearList { get; set; }
 
-        public int SelectedMonthFixe { get; set; }
-        public int SelectedYearFixe { get; set; }
-        public int SelectedOilFixe { get; set; }
+        public int SelectedMonthChoice3 { get; set; }
+        public int SelectedYearChoice3 { get; set; }
+        public int SelectedMileageChoice3 { get; set; }
 
         public string DateBox { get; set; }
         public string KmBox { get; set; }
 
+        public string SelectedChoice { get; set; }
     }
 }

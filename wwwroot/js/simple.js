@@ -3,6 +3,7 @@
     var nextunit = 'PROCH. KM';
     var nextdate = 'PROCH. DATE';
 
+
     $(document).on("click", "#btnPrint", function () {
         printSimpleSticker();
     });
@@ -41,7 +42,7 @@
     //replication for unitvalue
     $(document).on("keyup", "#UnitValue", function () {
         if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
-            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="SelectedMileage"] option:selected').text()));
+            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="Choice1SelectedMileage"] option:selected').text()));
         }
         if ($("input[name='PrintChoices']:checked").val() === 'Choice2') {
             $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="Choice2SelectedMileage"] option:selected').text()));
@@ -60,20 +61,20 @@
     });
 
     //replication for selected Period
-    $(document).on("change", 'select[name="SelectedPeriod"]', function () {
-        var month = parseInt($('select[name="SelectedPeriod"] option:selected').text()); 
+    $(document).on("change", 'select[name="SelectedPeriodChoice1"]', function () {
+        var month = parseInt($('select[name="SelectedPeriodChoice1"] option:selected').text()); 
 
         $('#datebox-preview').val(moment().add(month, 'M').format('MM/YYYY'));
     });
 
     //replication for selected mileage
-    $(document).on("change", 'select[name="SelectedMileage"]', function () {
+    $(document).on("change", 'select[name="Choice1SelectedMileage"]', function () {
         var startMileage = $('input[name="unitvalue"]').val();
         if (startMileage === '') {
             startMileage = 0;
         }
 
-        var mileage = $('select[name="SelectedMileage"] option:selected').text();
+        var mileage = $('select[name="Choice1SelectedMileage"] option:selected').text();
         $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
     });
 
@@ -122,6 +123,38 @@
         var mileage = $('select[name="Choice3SelectedMileage"] option:selected').text();
         $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
     });
+
+    //Save default values
+    $(document).on("click", '#btnSave', function () {
+        var defaultValue = {
+            SelectedUnit: $('input[name="SelectedUnit"]:checked').val(),
+            Comment: $('input[name="comment"]').val(),
+            SelectedOil: $('select[name="oillist"]').val(),
+            SelectedChoice: $("input[name='PrintChoices']:checked").val(),
+            Choice1SelectedMonth: $('select[name="SelectedPeriodChoice1"] option:selected').val(),
+            Choice1SelectedMileage: $('select[name="Choice1SelectedMileage"] option:selected').val(),
+            Choice2SelectedMileage: $('select[name="Choice2SelectedMileage"] option:selected').val(),
+            Choice3SelectedMonth: $('select[name="Choice3SelectedMonth"] option:selected').val(),
+            Choice3SelectedYear: $('select[name="Choice3SelectedYear"] option:selected').val(),
+            Choice3SelectedMileage: $('select[name="Choice3SelectedMileage"] option:selected').val()
+        };
+
+        $.ajax({
+            traditional: true,
+            url: '/simple/save',
+            type: 'POST',
+            data: defaultValue,
+            success: function (response) {
+                if (response == 1) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sauvegardé avec succès!'
+                    });
+                }
+            }
+        });  
+    });
+
 
     function Choice3UpdatePreview() {
         var month = parseInt($('select[name="Choice3SelectedMonth"] option:selected').val());
