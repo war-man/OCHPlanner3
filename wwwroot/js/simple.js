@@ -148,7 +148,11 @@
                 if (response == 1) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Sauvegardé avec succès!'
+                        title: 'Sauvegardé avec succès!',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true
                     });
                 }
             }
