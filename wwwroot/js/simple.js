@@ -3,6 +3,8 @@
     var nextunit = 'PROCH. KM';
     var nextdate = 'PROCH. DATE';
 
+    //Initial Setup
+    InitialSetup();
 
     $(document).on("click", "#btnPrint", function () {
         printSimpleSticker();
@@ -40,35 +42,48 @@
     });
 
     //replication for unitvalue
-    $(document).on("keyup", "#UnitValue", function () {
+    $(document).on("blur", "#UnitValue", function () {
         if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
-            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="Choice1SelectedMileage"] option:selected').text()));
+            Choice1_Click();
         }
         if ($("input[name='PrintChoices']:checked").val() === 'Choice2') {
-            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="Choice2SelectedMileage"] option:selected').text()));
+            Choice2_Click();
         }
         if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
-            $('input[name="unitvalue-preview"]').val(parseInt($('input[name="unitvalue"]').val()) + parseInt($('select[name="Choice3SelectedMileage"] option:selected').text()));
+            Choice3_Click();
         }  
         
     });
 
     //CHOICE 1
     $(document).on("click", "#PrintChoice1", function () {
-        console.log('Choice 1');
-        $('#label-datebox-preview').text('Prochaine date ou avant le');
-        nextdate = 'PROCH. DATE';
+        Choice1_Click();
     });
 
     //replication for selected Period
     $(document).on("change", 'select[name="SelectedPeriodChoice1"]', function () {
-        var month = parseInt($('select[name="SelectedPeriodChoice1"] option:selected').text()); 
-
-        $('#datebox-preview').val(moment().add(month, 'M').format('MM/YYYY'));
+        UpdateMonthChoice1();
     });
 
     //replication for selected mileage
     $(document).on("change", 'select[name="Choice1SelectedMileage"]', function () {
+        UpdateMileageChoice1()
+    });
+
+    function Choice1_Click() {
+        $('#label-datebox-preview').text('Prochaine date ou avant le');
+        nextdate = 'PROCH. DATE';
+
+        UpdateMonthChoice1();
+        UpdateMileageChoice1();
+    }
+
+    function UpdateMonthChoice1() {
+        var month = parseInt($('select[name="SelectedPeriodChoice1"] option:selected').text());
+        $('#datebox-preview').val(moment().add(month, 'M').format('MM/YYYY'));
+    }
+
+    function UpdateMileageChoice1() {
         var startMileage = $('input[name="unitvalue"]').val();
         if (startMileage === '') {
             startMileage = 0;
@@ -76,19 +91,26 @@
 
         var mileage = $('select[name="Choice1SelectedMileage"] option:selected').text();
         $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
-    });
-
+    }
 
     //CHOICE 2
     $(document).on("click", "#PrintChoice2", function () {
-        console.log('Choice 2');
-        $('#label-datebox-preview').html('Entretien effectué le <span class="ml-3 small font-weight-bold">(' + $('#hidDateFormat').val().toLowerCase() + ')</span>');
-        $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
-        nextdate = 'ENTRETIEN';
+        Choice2_Click();
     });
 
     //replication for selected Mileage
     $(document).on("change", 'select[name="Choice2SelectedMileage"]', function () {
+        UpdateMileageChoice2();
+    });
+
+    function Choice2_Click() {
+        $('#label-datebox-preview').html('Entretien effectué le <span class="ml-3 small font-weight-bold">(' + $('#hidDateFormat').val().toLowerCase() + ')</span>');
+        $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+        nextdate = 'ENTRETIEN';
+        UpdateMileageChoice2();
+    }
+
+    function UpdateMileageChoice2() {
         var startMileage = $('input[name="unitvalue"]').val();
         if (startMileage === '') {
             startMileage = 0;
@@ -96,13 +118,11 @@
 
         var mileage = $('select[name="Choice2SelectedMileage"] option:selected').text();
         $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
-    });
+    }
 
     //CHOICE 3
     $(document).on("click", "#PrintChoice3", function () {
-        console.log('Choice 3');
-        $('#label-datebox-preview').text('Prochaine date ou avant le');
-        nextdate = 'PROCH. DATE';
+        Choice3_Click();
     });
 
     $(document).on("change", 'select[name="Choice3SelectedMonth"]', function () {
@@ -113,8 +133,30 @@
         Choice3UpdatePreview();
     });
 
+    function Choice3_Click() {
+        $('#label-datebox-preview').text('Prochaine date ou avant le');
+        nextdate = 'PROCH. DATE';
+        Choice3UpdatePreview();
+        UpdateMileageChoice3();
+    }
+
+    //Update Date
+    function Choice3UpdatePreview() {
+        var month = parseInt($('select[name="Choice3SelectedMonth"] option:selected').val());
+        var year = parseInt($('select[name="Choice3SelectedYear"] option:selected').val());
+
+        //pad zero if month length = 1
+        if (month > 0 && year > 0) {
+            $('#datebox-preview').val((month <= 9 ? '0' + month : month) + "/" + year);
+        }
+    }
+
     //replication for selected Mileage
     $(document).on("change", 'select[name="Choice3SelectedMileage"]', function () {
+        UpdateMileageChoice3();
+    });
+
+    function UpdateMileageChoice3() {
         var startMileage = $('input[name="unitvalue"]').val();
         if (startMileage === '') {
             startMileage = 0;
@@ -122,7 +164,20 @@
 
         var mileage = $('select[name="Choice3SelectedMileage"] option:selected').text();
         $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
-    });
+    }
+
+    function InitialSetup() {
+        $('input[name="comment-preview"]').val($('input[name="comment"]').val());
+        if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
+            Choice1_Click();
+        }
+        if ($("input[name='PrintChoices']:checked").val() === 'Choice2') {
+            Choice2_Click();
+        }
+        if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
+            Choice3_Click();
+        }  
+    }
 
     //Save default values
     $(document).on("click", '#btnSave', function () {
@@ -159,24 +214,13 @@
         });  
     });
 
-
-    function Choice3UpdatePreview() {
-        var month = parseInt($('select[name="Choice3SelectedMonth"] option:selected').val());
-        var year = parseInt($('select[name="Choice3SelectedYear"] option:selected').val());
-
-        //pad zero if month length = 1
-        if (month > 0 && year > 0) {
-            $('#datebox-preview').val((month <= 9 ? '0' + month : month) + "/" + year);
-        } 
-    }
-
     function refreshIntervalSelectList(mileageType) {
         $.ajax({
             url: '/reference/intervalSelectList/' + mileageType,
             type: "GET",
             async: false,
             success: function (response) {
-                $('#SelectedMileage').empty();
+                $('select[name="Choice1SelectedMileage"]').empty();
                 $('select[name="Choice2SelectedMileage"]').empty();
                 $('select[name="Choice3SelectedMileage"]').empty();
 
@@ -186,7 +230,7 @@
                     options += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
                 }
 
-                $('#SelectedMileage').append(options);
+                $('select[name="Choice1SelectedMileage"]').append(options);
                 $('select[name="Choice2SelectedMileage"]').append(options);
                 $('select[name="Choice3SelectedMileage"]').append(options);
             },

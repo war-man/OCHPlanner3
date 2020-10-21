@@ -48,8 +48,8 @@ namespace OCHPlanner3.Controllers
             }
 
             model.OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId);
-            model.MileageList = await _referenceService.GetMileageSelectListItem(CurrentUser.GarageId, 1);
-            model.PeriodList = await _referenceService.GetPeriodSelectListItem(CurrentUser.GarageId, 1);
+            model.MileageList = await _referenceService.GetMileageSelectListItem(CurrentUser.GarageId, model.SelectedUnit == "KM" ? 1 : model.SelectedUnit == "MI" ? 2 : model.SelectedUnit == "HM" ? 3 : 1);
+            model.PeriodList = await _referenceService.GetPeriodSelectListItem(CurrentUser.GarageId);
             model.YearList = await _referenceService.GetYearSelectListItem();
             model.MonthList = await _referenceService.GetMonthSelectListItem();
             return View(model);
