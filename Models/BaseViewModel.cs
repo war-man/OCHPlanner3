@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace OCHPlanner3.Models
 {
-    public class RoleListViewModel : BaseViewModel
+    public class BaseViewModel
     {
-        public IEnumerable<RoleViewModel> Roles { get; set; }
+        public string RootUrl { get; set; }
     }
 }

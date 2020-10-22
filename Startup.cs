@@ -18,6 +18,9 @@ using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Factory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
+using OCHPlanner3.Helper;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Routing;
 
 namespace OCHPlanner3
 {
@@ -87,6 +90,12 @@ namespace OCHPlanner3
             services.AddTransient<IReferenceFactory, ReferenceFactory>();
             services.AddTransient<IGarageFactory, GarageFactory>();
 
+
+            services.Configure<RouteOptions>(options =>
+            {
+                options.ConstraintMap.Add("lang", typeof(LanguageRouteConstraint));
+            });
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc()
@@ -120,11 +129,16 @@ namespace OCHPlanner3
             app.UseAuthentication();
             app.UseAuthorization();
 
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            LocalizationPipeline.ConfigureOptions(options.Value);
+            app.UseRequestLocalization(options.Value);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                      name: "default",
+                      pattern: "{lang:lang}/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }

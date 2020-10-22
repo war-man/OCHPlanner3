@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OCHPlanner3.Models;
@@ -15,13 +16,14 @@ namespace OCHPlanner3.Controllers
         private readonly IUserService _userService;
 
         public ReferenceController(IReferenceService referenceService,
-            IUserService userService) : base(userService)
+            IHttpContextAccessor httpContextAccessor,
+            IUserService userService) : base(httpContextAccessor, userService)
         {
             _referenceService = referenceService;
             _userService = userService;
         }
 
-        [HttpGet("/reference/intervalSelectList/{mileageType}")]
+        [HttpGet("/{lang:lang}/reference/intervalSelectList/{mileageType}")]
         public async Task<IEnumerable<MileageViewModel>> GetIntervalSelectListItem(int mileageType)
         {
             return await _referenceService.GetMileageList(CurrentUser.GarageId, mileageType);

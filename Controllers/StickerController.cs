@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OCHPlanner3.Models;
@@ -18,8 +19,9 @@ namespace OCHPlanner3.Controllers
         public readonly IGarageService _garageService;
 
         public StickerController(IReferenceService referenceService,
+             IHttpContextAccessor httpContextAccessor,
              IGarageService garageService,
-             IUserService userService) : base(userService)
+             IUserService userService) : base(httpContextAccessor, userService)
         {
             _referenceService = referenceService;
             _garageService = garageService;
@@ -31,7 +33,10 @@ namespace OCHPlanner3.Controllers
 
         public async Task<IActionResult> Simple()
         {
-            var model = new StickerSimpleViewModel();
+            var model = new StickerSimpleViewModel()
+            {
+                RootUrl = BaseRootUrl
+            };
 
             //Get garage default
             var defaultValue = await _garageService.GetSingleDefault(CurrentUser.GarageId);
@@ -57,7 +62,7 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
 
-        [HttpPost("/simple/save")]
+        [HttpPost("/{lang:lang}/simple/save")]
         public async Task<int> SaveSimpleDefault(StickerSimpleDefaultValueViewModel defaultValue)
         {
             return await _garageService.SaveSingleDefault(defaultValue, base.CurrentUser.GarageId);

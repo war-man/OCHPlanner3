@@ -8,11 +8,12 @@ namespace OCHPlanner3.Helper
 {
     public static class UserHelper
     {
-        public static string GetStartUpUrl()
+        public static string GetStartUpUrl(string returnUrl)
         {
             string defaultScreen = "Sticker/Simple";
+            string defaultLanguage = "fr";
 
-            return $"~/{defaultScreen}"; //default
+            return  $"~/{defaultLanguage}/{defaultScreen}";
         }
     }
 }

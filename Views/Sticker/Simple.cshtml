@@ -15,6 +15,8 @@
 @Html.Hidden("hidDateFormat", currentUser.GarageSetting.FormatDate)
 @Html.Hidden("hidDateFormatPrint", currentUser.GarageSetting.FormatDatePrint)
 
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
 <style>
     .form-group {
         margin-bottom: 0.5rem !important;
@@ -166,7 +168,7 @@
 
                         <div class="row justify-content-center">
                             <div class="form-group col col-md-8 text-center">
-                                <label id="label-unit" for="unitValue" class="control-label mt-2">Kilomètre actuel</label>
+                                <label id="label-unit" for="unitValue" class="p-2 btn-primary control-label mt-2" style="border-radius:5px;">Kilomètre actuel</label>
                                 <input asp-for="UnitValue" name="unitvalue" class="form-control" />
                             </div>
                         </div>

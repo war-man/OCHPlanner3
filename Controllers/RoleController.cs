@@ -7,34 +7,35 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OCHPlanner3.Helper;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
 
 namespace OCHPlanner3.Controllers
 {
-    //[Authorize(Roles = "SuperAdmin, Administrator")]
+    [Authorize(Roles = "SuperAdmin, Administrator")]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class RoleController : BaseController
     {
         private readonly SignInManager<IdentityUser> _userIdentity;
         private RoleManager<IdentityRole> _roleManager;
-        private IUserService _userService;
 
         public RoleController(SignInManager<IdentityUser> signInManager,
             IHttpContextAccessor httpContextAccessor,
             RoleManager<IdentityRole> roleManager,
-            IUserService userService) : base(userService)
+            IUserService userService) : base(httpContextAccessor, userService)
         {
             _userIdentity = signInManager;
             _roleManager = roleManager;
         }
 
-        [Route("/Roles")]
+        [Route("/{lang:lang}/Roles")]
         public async Task<IActionResult> Index()
         {
             var model = new RoleListViewModel()
             {
-                Roles = await GetRoles()
-                //RootUrl = BaseRootUrl
+                Roles = await GetRoles(),
+                RootUrl = BaseRootUrl
             };
 
             return View(model);
@@ -62,7 +63,7 @@ namespace OCHPlanner3.Controllers
             return result; ;
         }
 
-        [HttpPost("/roles/[action]")]
+        [HttpPost("/{lang:lang}/roles/[action]")]
         public async Task<IActionResult> CreateRole(string name)
         {
             try
@@ -83,7 +84,7 @@ namespace OCHPlanner3.Controllers
             }
         }
 
-        [HttpPost("/roles/[action]")]
+        [HttpPost("/{lang:lang}/roles/[action]")]
         public async Task<IActionResult> UpdateRole(string id, string name)
         {
             try
@@ -108,14 +109,14 @@ namespace OCHPlanner3.Controllers
             }
         }
 
-        [HttpGet("/roles/list")]
+        [HttpGet("/{lang:lang}/roles/list")]
         public async Task<IActionResult> GetRoleList()
         {
             var model = new RoleListViewModel() { Roles = await GetRoles() };
             return PartialView("_roles", model);
         }
 
-        [HttpDelete("/roles/[action]")]
+        [HttpDelete("/{lang:lang}/roles/[action]")]
         public async Task<ActionResult> DeleteRole(string id)
         {
             try

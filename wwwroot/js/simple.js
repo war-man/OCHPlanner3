@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    var ajaxUrl = $('#HidRootUrl').val();
+
     moment.locale('fr');
 
     var nextunit = 'PROCH. KM';
@@ -201,7 +203,7 @@
 
         $.ajax({
             traditional: true,
-            url: '/simple/save',
+            url: ajaxUrl + '/simple/save',
             type: 'POST',
             data: defaultValue,
             success: function (response) {
@@ -221,7 +223,7 @@
 
     function refreshIntervalSelectList(mileageType) {
         $.ajax({
-            url: '/reference/intervalSelectList/' + mileageType,
+            url: ajaxUrl + '/reference/intervalSelectList/' + mileageType,
             type: "GET",
             async: false,
             success: function (response) {
@@ -232,7 +234,7 @@
                 var options = '';
                 options += '<option value="Select">-- Select --</option>';
                 for (var i = 0; i < response.length; i++) {
-                    options += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                    options += '<option value="' + response[i].Id + '">' + response[i].Name + '</option>';
                 }
 
                 $('select[name="Choice1SelectedMileage"]').append(options);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OCHPlanner3.Models
 {
-    public class StickerSimpleViewModel
+    public class StickerSimpleViewModel : BaseViewModel
     {
         public int Id { get; set; }
         public string SelectedUnit { get; set; }

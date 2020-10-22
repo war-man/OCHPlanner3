@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    //var ajaxUrl = $('#HidRootUrl').val();
+    var ajaxUrl = $('#HidRootUrl').val();
 
     var tableSettings = {
         dom: 'Bfrtip',
@@ -60,7 +60,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: '/Roles/DeleteRole',
+                                url: ajaxUrl + '/Roles/DeleteRole',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -110,7 +110,7 @@
             formData = formData;
 
             $.ajax({
-                url: '/Roles/CreateRole',
+                url: ajaxUrl + '/Roles/CreateRole',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -156,7 +156,7 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: '/Roles/UpdateRole',
+                url: ajaxUrl + '/Roles/UpdateRole',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -198,7 +198,7 @@
 
     function UpdateRoleList() {
         $.ajax({
-            url: '/Roles/list',
+            url: ajaxUrl + '/Roles/list',
             type: "GET",
             dataType: "html",
             async: false,

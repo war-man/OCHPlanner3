@@ -57,6 +57,7 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -84,7 +85,7 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(UserHelper.GetStartUpUrl());
+                    return LocalRedirect(UserHelper.GetStartUpUrl(returnUrl));
                 }
                 if (result.RequiresTwoFactor)
                 {

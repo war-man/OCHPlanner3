@@ -17,17 +17,18 @@
 
 @Html.Hidden("hidNameRequired", Localizer["NameRequired"].Value)
 
-
 @*Toastr Localisation*@
 @Html.Hidden("hidCreateRoleSuccess", @Localizer["CreateRoleSuccess"].Value)
 @Html.Hidden("hidUpdateRoleSuccess", @Localizer["UpdateRoleSuccess"].Value)
 @Html.Hidden("hidDeleteRoleSuccess", @Localizer["DeleteRoleSuccess"].Value)
 
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
 <div class="page-title-area">
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Gestion des rôles</h4>
+                <h4 class="page-title pull-left">@Localizer["Title"]</h4>
             </div>
         </div>
     </div>
