@@ -108,7 +108,7 @@
     function Choice2_Click() {
         $('#label-datebox-preview').html('Entretien effectué le <span class="ml-3 small font-weight-bold">(' + $('#hidDateFormat').val().toLowerCase() + ')</span>');
         $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
-        nextdate = 'ENTRETIEN';
+        nextdate = 'EFFECTUE LE';
         UpdateMileageChoice2();
     }
 
@@ -269,7 +269,7 @@
             ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
             $("input[name='PrintChoices']:checked").val() === 'Choice2')
             {
-                printData1.push('A230,275,0,1,1,1,N,"(dd/mm/yy)"\n');
+                printData1.push('A260,275,0,1,1,1,N,"(dd/mm/yy)"\n');
             }
 
         var printData2 = [
