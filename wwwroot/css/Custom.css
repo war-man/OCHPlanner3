@@ -1,0 +1,10 @@
+﻿/*   SIMPLE  */
+
+#label-unit {
+    font-size:20px;
+    font-weight: 500;
+}
+
+#UnitValue {
+    border: 2px solid #808080;
+}

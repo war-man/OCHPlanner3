@@ -73,7 +73,6 @@
     });
 
     function Choice1_Click() {
-        $('#label-datebox-preview').text('Prochaine date ou avant le');
         nextdate = 'PROCH. DATE';
 
         UpdateMonthChoice1();
@@ -82,7 +81,8 @@
 
     function UpdateMonthChoice1() {
         var month = parseInt($('select[name="SelectedPeriodChoice1"] option:selected').text());
-        $('#datebox-preview').val(moment().add(month, 'M').format('MM/YYYY'));
+        $('#datebox-preview').val(moment().add(month, 'M').format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+        $('#label-datebox-preview').html('Prochaine date ou avant le <span class="ml-3 small font-weight-bold">(' + $('#hidDateFormat').val().toLowerCase() + ')</span>');
     }
 
     function UpdateMileageChoice1() {
@@ -265,9 +265,12 @@
             'A75,272,0,4,1,1,N,"' + nextdate + '"\n',
         ];
 
-        if ($('#hidDateFormatPrint').val() === "True") {
-            printData1.push('A230,275,0,1,1,1,N,"(dd/mm/yy)"\n');
-        }
+        if ($('#hidDateFormatPrint').val() === "True" &&
+            ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
+            $("input[name='PrintChoices']:checked").val() === 'Choice2')
+            {
+                printData1.push('A230,275,0,1,1,1,N,"(dd/mm/yy)"\n');
+            }
 
         var printData2 = [
             'A75,302,0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
