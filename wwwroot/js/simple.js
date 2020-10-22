@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    moment.locale('fr');
+
     var nextunit = 'PROCH. KM';
     var nextdate = 'PROCH. DATE';
 
@@ -145,10 +147,12 @@
         var month = parseInt($('select[name="Choice3SelectedMonth"] option:selected').val());
         var year = parseInt($('select[name="Choice3SelectedYear"] option:selected').val());
 
+        $('#datebox-preview').val(moment(year + "/" + (month <= 9 ? '0' + month : month) + "/01").format("MMM YY").toUpperCase());
+
         //pad zero if month length = 1
-        if (month > 0 && year > 0) {
-            $('#datebox-preview').val((month <= 9 ? '0' + month : month) + "/" + year);
-        }
+        //if (month > 0 && year > 0) {
+        //    $('#datebox-preview').val((month <= 9 ? '0' + month : month) + "/" + year);
+        //}
     }
 
     //replication for selected Mileage
