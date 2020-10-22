@@ -16,6 +16,8 @@ using OCHPlanner3.Services.Interfaces;
 using OCHPlanner3.Services;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Factory;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace OCHPlanner3
 {
@@ -35,7 +37,10 @@ namespace OCHPlanner3
                 options.UseSqlServer(
                     Configuration.GetConnectionString("AuthConnection")));
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+           // services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -69,6 +74,10 @@ namespace OCHPlanner3
                 options.SlidingExpiration = true;
             });
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddRazorPages();
+
             // Services
             services.AddTransient<IReferenceService, ReferenceService>();
             services.AddTransient<IUserService, UserService>();
@@ -78,8 +87,15 @@ namespace OCHPlanner3
             services.AddTransient<IReferenceFactory, ReferenceFactory>();
             services.AddTransient<IGarageFactory, GarageFactory>();
 
-            services.AddControllersWithViews();
-            services.AddRazorPages().AddRazorRuntimeCompilation(); 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddMvc()
+                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

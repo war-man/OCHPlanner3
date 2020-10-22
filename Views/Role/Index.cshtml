@@ -1,0 +1,119 @@
+﻿@model OCHPlanner3.Models.RoleListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+@Html.Hidden("hidNewButton", Localizer["Add"].Value)
+@Html.Hidden("hidEditButton", Localizer["Edit"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["Delete"].Value)
+@Html.Hidden("hidDeleteTitle", Localizer["DeleteTitle"].Value)
+@Html.Hidden("hidDeleteText", Localizer["DeleteText"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["DeleteButton"].Value)
+
+@Html.Hidden("hidNameRequired", Localizer["NameRequired"].Value)
+
+
+@*Toastr Localisation*@
+@Html.Hidden("hidCreateRoleSuccess", @Localizer["CreateRoleSuccess"].Value)
+@Html.Hidden("hidUpdateRoleSuccess", @Localizer["UpdateRoleSuccess"].Value)
+@Html.Hidden("hidDeleteRoleSuccess", @Localizer["DeleteRoleSuccess"].Value)
+
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <h4 class="page-title pull-left">Gestion des rôles</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content-inner">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div id="role-list">
+                            @await Html.PartialAsync("_Roles", Model)
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+</div>
+
+<div class="modal fade" id="roleModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Localizer["AddRole"]</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="roleForm">
+                    <div id="roleError" class="alert alert-danger hidden" role="alert"></div>
+                    <div class="form-group">
+                        <label for="name">@Localizer["Name"]:</label>
+                        <input name="name" type="text" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["Close"]</button>
+                <button type="button" id="submitAddForm" form="roleForm" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Localizer["EditRole"]</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editForm">
+                    <div id="editError" class="alert alert-danger hidden" role="alert"></div>
+                    <div class="form-group">
+                        <input name="id" type="hidden" />
+                        <label for="name">@Localizer["Name"]:</label>
+                        <input name="name" type="text" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["Close"]</button>
+                <button type="button" id="submitEditForm" form="editForm" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+@section Scripts
+        {
+    <script src="~/js/admin-role.js"></script>
+}
+
