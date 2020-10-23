@@ -9995,7 +9995,7 @@
         months: 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split(
             '_'
         ),
-        monthsShort: 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split(
+        monthsShort: 'janv-_fevr-_mars-_avr-_mai-_juin-_juil-_aout-_sept-_oct-_nov-_dec-'.split(
             '_'
         ),
         monthsRegex: monthsRegex$7,

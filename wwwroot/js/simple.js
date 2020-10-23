@@ -138,8 +138,8 @@
     });
 
     function Choice3_Click() {
-        $('#label-datebox-preview').text('Prochaine date ou avant le');
-        nextdate = 'PROCH. DATE';
+        $('#label-datebox-preview').text('Prochaine visite');
+        nextdate = 'PROCH. VISITE';
         Choice3UpdatePreview();
         UpdateMileageChoice3();
     }
@@ -149,7 +149,7 @@
         var month = parseInt($('select[name="Choice3SelectedMonth"] option:selected').val());
         var year = parseInt($('select[name="Choice3SelectedYear"] option:selected').val());
 
-        $('#datebox-preview').val(moment(year + "/" + (month <= 9 ? '0' + month : month) + "/01").format("MMM YY").toUpperCase());
+        $('#datebox-preview').val(moment(year + "/" + (month <= 9 ? '0' + month : month) + "/01").format("MMMYY").toUpperCase());
     }
 
     //replication for selected Mileage
