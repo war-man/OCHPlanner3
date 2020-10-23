@@ -16,22 +16,13 @@
 
     $(document).on("change", 'input[name="SelectedUnit"]', function () {
         if ($(this).val() === 'KM') {
-            $('#label-unit').text('Kilomètres actuel');
-            $('#label-unit-preview').text('Prochain Kilomètres');
-            refreshIntervalSelectList(1);
-            nextunit = 'PROCH. KM';
+            UpdateKM();
         }
         else if ($(this).val() === 'MI') {
-            $('#label-unit').text('Miles actuel');
-            $('#label-unit-preview').text('Prochain Miles');
-            refreshIntervalSelectList(2);
-            nextunit = 'PROCH. MILES';
+            UpdateMiles();
         }
         else if ($(this).val() === 'HM') {
-            $('#label-unit').text('Heures moteur actuel');
-            $('#label-unit-preview').text('Prochain Heures moteur');
-            refreshIntervalSelectList(3);
-            nextunit = 'PROCH. HR. MOTEUR';
+            UpdateHM();
         }
     });
 
@@ -168,6 +159,15 @@
     }
 
     function InitialSetup() {
+        if ($('input[name="SelectedUnit"]:checked').val() === 'KM') {
+            UpdateKM();
+        }
+        if ($('input[name="SelectedUnit"]:checked').val() === 'MI') {
+            UpdateMiles();
+        }
+        if ($('input[name="SelectedUnit"]:checked').val() === 'HM') {
+            UpdateHM();
+        }
         $('input[name="comment-preview"]').val($('input[name="comment"]').val());
         if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
             Choice1_Click();
@@ -178,6 +178,7 @@
         if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
             Choice3_Click();
         }  
+
     }
 
     //Reset Preview
@@ -220,6 +221,27 @@
             }
         });  
     });
+
+    function UpdateKM() {
+        $('#label-unit').text('Kilomètres actuel');
+        $('#label-unit-preview').text('Prochain Kilomètres');
+        refreshIntervalSelectList(1);
+        nextunit = 'PROCH. KM';
+    }
+
+    function UpdateMiles() {
+        $('#label-unit').text('Miles actuel');
+        $('#label-unit-preview').text('Prochain Miles');
+        refreshIntervalSelectList(2);
+        nextunit = 'PROCH. MILES';
+    }
+
+    function UpdateHM() {
+        $('#label-unit').text('Heures moteur actuel');
+        $('#label-unit-preview').text('Prochain Heures moteur');
+        refreshIntervalSelectList(3);
+        nextunit = 'PROCH. HR. MOTEUR';
+    }
 
     function refreshIntervalSelectList(mileageType) {
         $.ajax({
