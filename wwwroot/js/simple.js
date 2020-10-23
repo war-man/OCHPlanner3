@@ -17,12 +17,15 @@
     $(document).on("change", 'input[name="SelectedUnit"]', function () {
         if ($(this).val() === 'KM') {
             UpdateKM();
+            refreshIntervalSelectList(1);
         }
         else if ($(this).val() === 'MI') {
             UpdateMiles();
+            refreshIntervalSelectList(2);
         }
         else if ($(this).val() === 'HM') {
             UpdateHM();
+            refreshIntervalSelectList(3);
         }
     });
 
@@ -225,21 +228,18 @@
     function UpdateKM() {
         $('#label-unit').text('Kilomètres actuel');
         $('#label-unit-preview').text('Prochain Kilomètres');
-        refreshIntervalSelectList(1);
         nextunit = 'PROCH. KM';
     }
 
     function UpdateMiles() {
         $('#label-unit').text('Miles actuel');
         $('#label-unit-preview').text('Prochain Miles');
-        refreshIntervalSelectList(2);
         nextunit = 'PROCH. MILES';
     }
 
     function UpdateHM() {
         $('#label-unit').text('Heures moteur actuel');
         $('#label-unit-preview').text('Prochain Heures moteur');
-        refreshIntervalSelectList(3);
         nextunit = 'PROCH. HR. MOTEUR';
     }
 
