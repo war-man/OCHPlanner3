@@ -78,7 +78,7 @@
     function UpdateMonthChoice1() {
         var month = parseInt($('select[name="SelectedPeriodChoice1"] option:selected').text());
         $('#datebox-preview').val(moment().add(month, 'M').format('' + $('#hidDateFormat').val().toUpperCase() + ''));
-        $('#label-datebox-preview').html('Prochaine date ou avant le <span class="ml-3 small font-weight-bold">(' + $('#hidDateFormat').val().toLowerCase() + ')</span>');
+        $('#label-datebox-preview').html('Prochaine date ou avant le <span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
     }
 
     function UpdateMileageChoice1() {
@@ -102,7 +102,7 @@
     });
 
     function Choice2_Click() {
-        $('#label-datebox-preview').html('Entretien effectué le <span class="ml-3 small font-weight-bold">(' + $('#hidDateFormat').val().toLowerCase() + ')</span>');
+        $('#label-datebox-preview').html('Entretien effectué le <span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
         $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
         nextdate = 'EFFECTUE LE';
         UpdateMileageChoice2();
@@ -243,6 +243,18 @@
         nextunit = 'PROCH. HR. MOTEUR';
     }
 
+    function PrintableDateFormat() {
+        var dateFormat = $('#hidDateFormat').val();
+        var language = $('#hidLanguage').val().toUpperCase();
+        if (language === "FR") {
+            return dateFormat.replace('dd', 'jj').replace('yy', 'aa').toLowerCase();
+        }
+        else {
+            return dateformat.toLowerCase();
+        }
+
+    }
+
     function refreshIntervalSelectList(mileageType) {
         $.ajax({
             url: ajaxUrl + '/reference/intervalSelectList/' + mileageType,
@@ -293,7 +305,7 @@
             ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
             $("input[name='PrintChoices']:checked").val() === 'Choice2')
             {
-                printData1.push('A260,275,0,1,1,1,N,"(dd/mm/yy)"\n');
+            printData1.push('A260,275,0,1,1,1,N,"(' + PrintableDateFormat() + ')"\n');
             }
 
         var printData2 = [
