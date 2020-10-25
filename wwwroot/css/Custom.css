@@ -1,4 +1,20 @@
-﻿/*   SIMPLE  */
+﻿/*   LAYOUT   */
+
+.notification-area .dropdown-menu, .user-profile .dropdown-menu {
+    background: #e9e9e9;
+    left: 100px !important;
+    right: 5px !important;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #e9e9e9 !important;
+}
+
+.hidden {
+    display: none;
+}
+
+/*   SIMPLE  */
 
 #label-unit {
     font-size:20px;

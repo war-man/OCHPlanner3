@@ -710,13 +710,13 @@ ul.breadcrumbs {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    /*background: -webkit-linear-gradient(left, #8914fe 0%, #8063f5 100%);
-    background: linear-gradient(to right, #8914fe 0%, #8063f5 100%);*/
-    background-color: #f3f3f3;
+    flex-wrap: wrap;
+    background: -webkit-linear-gradient(left, #007BFF 0%, #449bf8 100%);
+    background: linear-gradient(to right, #007BFF 0%, #449bf8 100%);
+    /*background-color: #f3f3f3;*/
     border: 1px solid #555;
     padding: 17px 38px;
     position: relative;
@@ -732,7 +732,7 @@ ul.breadcrumbs {
 .user-name {
     font-size: 17px;
     font-weight: 500;
-    color: #6c757d;
+    color: #e2e2e2;
     letter-spacing: 0;
     cursor: pointer;
     -webkit-user-select: none;
@@ -797,7 +797,7 @@ ul.breadcrumbs {
 }
 
 .user-profile .dropdown-menu a:hover {
-    background: #f8f9fa;
+    /*background: #f8f9fa;*/
     color: #2942fa;
 }
 
