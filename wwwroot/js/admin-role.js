@@ -216,7 +216,7 @@
         $('#roleModal').modal('hide');
         Swal.fire({
             icon: 'success',
-            title: 'Rôle ajouté avec succès!',
+            title: $('#hidCreateRoleSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
             timer: 2000,
@@ -231,7 +231,14 @@
 
     function editDone(data, status, xhr) {
         $('#editModal').modal('hide');
-        toastr.success($('#hidUpdateRoleSuccess').val());
+        Swal.fire({
+            icon: 'success',
+            title: $('#hidUpdateRoleSuccess').val(),
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
         UpdateRoleList();
     }
 
@@ -242,7 +249,7 @@
     function delDone(data, status, xhr) {
         Swal.fire({
             icon: 'success',
-            title: 'Rôle supprimé avec succès!',
+            title: $('#hidDeleteRoleSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
             timer: 2000,

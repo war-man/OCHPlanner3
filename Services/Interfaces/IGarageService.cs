@@ -1,7 +1,6 @@
-﻿using OCHPlanner3.Models;
-using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using OCHPlanner3.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Services.Interfaces
@@ -10,5 +9,7 @@ namespace OCHPlanner3.Services.Interfaces
     {
         Task<int> SaveSingleDefault(StickerSimpleDefaultValueViewModel defaultValues, int garageId);
         Task<StickerSimpleDefaultValueViewModel> GetSingleDefault(int garageId);
+        Task<IEnumerable<SelectListItem>> GetGaragesSelectList();
+        Task<GarageViewModel> GetGarage(int garageId);
     }
 }

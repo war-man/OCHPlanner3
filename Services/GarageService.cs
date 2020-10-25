@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Mapster;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Models;
 using OCHPlanner3.Models;
@@ -17,6 +19,23 @@ namespace OCHPlanner3.Services
         public GarageService(IGarageFactory garageFactory)
         {
             _garageFactory = garageFactory;
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetGaragesSelectList()
+        {
+            var garages = await _garageFactory.GetGarages();
+
+            return garages.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name 
+            }).OrderBy(o => o.Text);
+        }
+
+        public async Task<GarageViewModel> GetGarage(int garageId)
+        {
+            var garage =  await _garageFactory.GetGarage(garageId);
+            return garage.Adapt<GarageViewModel>();
         }
 
         public async Task<StickerSimpleDefaultValueViewModel> GetSingleDefault(int garageId)

@@ -20,6 +20,24 @@ namespace OCHPlanner3.Data.Factory
         {
             _configuration = configuration;
         }
+
+        public async Task<IEnumerable<GarageModel>> GetGarages()
+        {
+            var sql = @"SELECT G.*, FD.FormatDateId, FD.Français AS 'FormatDate', FD.FormatDatePrint 
+                        FROM [dbo].[Garages] G
+                        INNER JOIN [dbo].[FormatDate] FD ON FD.[GarageId] = G.ID";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<GarageModel>(sql,
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
         public async Task<GarageModel> GetGarage(int garageId)
         {
             var sql = @"SELECT G.*, FD.FormatDateId, FD.Français AS 'FormatDate', FD.FormatDatePrint 

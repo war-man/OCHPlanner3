@@ -3,15 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Models;
+using OCHPlanner3.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace OCHPlanner3.Services.Interfaces
+namespace OCHPlanner3.Services
 {
     public class UserService : IUserService
     {
@@ -38,6 +37,17 @@ namespace OCHPlanner3.Services.Interfaces
             return user;
         }
 
+        public async Task<IList<Claim>> GetUserClaims(string userId)
+        {
+            var user = await GetUserById(userId);
+            return await _userIdentity.UserManager.GetClaimsAsync(user);
+        }
+
+        public async Task<IdentityUser> GetUserById(string userId)
+        {
+            return await _userIdentity.UserManager.FindByIdAsync(userId);
+        }
+
         private int GetGarageId()
         {
             var garageId = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "GarageId")?.Value;
@@ -59,46 +69,7 @@ namespace OCHPlanner3.Services.Interfaces
             return garage.Adapt<GarageViewModel>();
 
         }
-        //private string GetCurrentUserId()
-        //{
-        //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-        //}
 
-        //private string GetCurrentUserEmail()
-        //{
-        //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
-        //}
-
-        //private string GetCurrentUserRole()
-        //{
-        //    var result = new StringBuilder();
-        //    _contextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Role).ToList().ForEach(p =>
-        //    {
-        //        result.Append(p.Value);
-        //        result.Append("<br>");
-        //    });
-
-        //    return result.ToString();
-        //}
-
-        //private string GetCurrentLanguage()
-        //{
-        //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Language")?.Value;
-        //}
-
-        //private string GetCurrentFirstName()
-        //{
-        //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "FirstName")?.Value;
-        //}
-
-        //private string GetCurrentLastName()
-        //{
-        //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "LastName")?.Value;
-        //}
-
-        //private string GetCurrentUsername()
-        //{
-        //    return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
-        //}
+       
     }
 }

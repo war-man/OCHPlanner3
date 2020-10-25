@@ -17,10 +17,22 @@
 /*   SIMPLE  */
 
 #label-unit {
-    font-size:20px;
+    font-size: 20px;
     font-weight: 500;
 }
 
 #UnitValue {
     border: 2px solid #808080;
 }
+
+/*  USER MANAGEMENT  */
+.select2-container--bootstrap {
+    width: auto;
+    flex: 1 1 auto;
+}
+
+    .select2-container--bootstrap .select2-selection--single {
+        height: 100%;
+        line-height: inherit;
+        padding: 0.5rem 1rem;
+    }

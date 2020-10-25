@@ -1,0 +1,11 @@
+﻿@model OCHPlanner3.Models.GarageSelectorViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<select id="@Model.UniqueId" class="form-control custom-select" asp-for="SelectedGarageId"
+        asp-items="Model.Garages">
+    <option value="">@Localizer["SelectOption"]</option>
+</select>
+<span asp-validation-for="SelectedGarageId" class="text-danger"></span>

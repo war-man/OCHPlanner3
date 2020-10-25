@@ -13,7 +13,7 @@ using OCHPlanner3.Services.Interfaces;
 
 namespace OCHPlanner3.Controllers
 {
-    [Authorize(Roles = "SuperAdmin, Administrator")]
+    [Authorize(Roles = "SuperAdmin")]
     [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class RoleController : BaseController
     {

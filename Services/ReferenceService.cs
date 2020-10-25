@@ -56,7 +56,7 @@ namespace OCHPlanner3.Services
                 Selected = selectedId != 0 && selectedId == x.Id
             }).OrderBy(x => x.Text, new SemiNumericComparer());
         }
-               
+
         public async Task<IEnumerable<SelectListItem>> GetMileageSelectListItem(int garageId, int mileageTypeId, int selectedId = 0)
         {
             var mileages = await _referenceFactory.GetMileageList(garageId, mileageTypeId);
@@ -96,7 +96,7 @@ namespace OCHPlanner3.Services
         {
             var result = new List<SelectListItem>();
 
-            for(int year = DateTime.Now.Year; year <= DateTime.Now.AddYears(5).Year; year++)
+            for (int year = DateTime.Now.Year; year <= DateTime.Now.AddYears(5).Year; year++)
             {
                 result.Add(new SelectListItem()
                 {
@@ -107,6 +107,25 @@ namespace OCHPlanner3.Services
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetLanguageSelectList(string language)
+        {
+            var languages = new List<SelectListItem>();
+
+            languages.Add(new SelectListItem
+            {
+                Value = "FR",
+                Text = language.ToUpper() == "FR" ? "Français" : "Anglais"
+            });
+
+            languages.Add(new SelectListItem
+            {
+                Value = "EN",
+                Text = language.ToUpper() == "FR" ? "Anglais" : "English"
+            });
+
+            return languages;
         }
     }
 }
