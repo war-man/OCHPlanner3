@@ -247,10 +247,10 @@
         var dateFormat = $('#hidDateFormat').val();
         var language = $('#hidLanguage').val().toUpperCase();
         if (language === "FR") {
-            return dateFormat.replace('dd', 'jj').replace('yy', 'aa').toLowerCase();
+            return dateFormat.replace('dd', 'j').replace('MM', 'm').replace('yy', 'a').toUpperCase();
         }
         else {
-            return dateformat.toLowerCase();
+            return dateFormat.replace('dd', 'd').replace('MM', 'm').replace('yy', 'y').toUpperCase();
         }
 
     }
