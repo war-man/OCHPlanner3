@@ -430,7 +430,14 @@
     }
 
     function pwdDone(data, status, xhr) {
-        toastr.success('Password updated successfully!');
+        Swal.fire({
+            icon: 'success',
+            title: $('#hidChangePasswordSuccess').val(),
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
         $('#pwdModal').modal('hide');
     }
 

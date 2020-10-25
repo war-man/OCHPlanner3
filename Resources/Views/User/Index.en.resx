@@ -126,6 +126,9 @@
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>
   </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>Password mofified successfully!</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
