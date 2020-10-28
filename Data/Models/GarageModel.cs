@@ -15,7 +15,9 @@ namespace OCHPlanner3.Data.Models
         public string Province { get; set; }
         public string ZipCode { get; set; }
         public int BannerId { get; set; }
+        public string Banner { get; set; }
         public int NbrUser { get; set; }
+        public int NbrCustomer { get; set; }
         public string Phone { get; set; }
         public bool PersonalizedSticker { get; set; }
         public string PersonalizedMessage { get; set; }

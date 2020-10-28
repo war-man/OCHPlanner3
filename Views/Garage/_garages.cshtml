@@ -1,0 +1,38 @@
+﻿
+@model OCHPlanner3.Models.GarageListViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+    <table id="garagesTable" class="table table-striped dataTable" data-processing="true">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>Province</th>
+                <th>Téléphone</th>
+                <th>Banière</th>
+                <th>Nbr Usager</th>
+                <th>Nbr Client</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var garage in Model.Garages)
+            {
+                <tr>
+                    <td>@garage.Name</td>
+                    <td>@garage.Address</td>
+                    <td>@garage.City</td>
+                    <td>@garage.Province</td>
+                    <td>@garage.Phone</td>
+                    <td>@garage.Banner</td>
+                    <td>@garage.NbrUser</td>
+                    <td>@garage.NbrCustomer</td>
+                    <td>@garage.PrintCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>

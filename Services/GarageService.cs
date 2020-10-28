@@ -21,6 +21,12 @@ namespace OCHPlanner3.Services
             _garageFactory = garageFactory;
         }
 
+        public async Task<IEnumerable<GarageViewModel>> GetGarages()
+        {
+            var garage = await _garageFactory.GetGarages();
+            return garage.Adapt<IEnumerable<GarageViewModel>>();
+        }
+
         public async Task<IEnumerable<SelectListItem>> GetGaragesSelectList()
         {
             var garages = await _garageFactory.GetGarages();

@@ -11,5 +11,7 @@ namespace OCHPlanner3.Services.Interfaces
         Task<StickerSimpleDefaultValueViewModel> GetSingleDefault(int garageId);
         Task<IEnumerable<SelectListItem>> GetGaragesSelectList();
         Task<GarageViewModel> GetGarage(int garageId);
+        Task<IEnumerable<GarageViewModel>> GetGarages();
+
     }
 }
