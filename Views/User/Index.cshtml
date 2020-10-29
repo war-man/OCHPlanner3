@@ -105,7 +105,7 @@
                                     {
                                         <li>
                                             <div class="mb-2">
-                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" />
+                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value=="SuperAdmin" ? "disabled" : "")  />
                                                 <label style="font-weight:500;">@role.Value</label>
                                             </div>
                                         </li>
@@ -174,7 +174,7 @@
                                     {
                                         <li>
                                             <div class="mb-2">
-                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" />
+                                                <input name="roles[]" type="checkbox" class="checkbox mr-2" value="@role.Value" @(role.Value=="SuperAdmin" ? "disabled" : "") />
                                                 <label style="font-weight:500;">@role.Value</label>
                                             </div>
                                         </li>

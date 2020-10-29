@@ -27,6 +27,8 @@ namespace OCHPlanner3.Models
         public int PrintCount { get; set; }
         public string Language { get; set; }
         public bool Support { get; set; }
+        public bool OilReset { get; set; }
+        public bool Communication { get; set; }
         public string SupportActivationDate { get; set; }
         public int SupportExpiration { get; set; }
         public string Note { get; set; }
