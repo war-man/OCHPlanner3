@@ -13,5 +13,7 @@ namespace OCHPlanner3.Data.Interfaces
         Task<int> CreateSingleDefault(GarageDefaultModel defaultValues);
         Task<int> UpdateSingleDefault(GarageDefaultModel defaultValues);
         Task<GarageDefaultModel> GetSingleDefault(int garageId, string screen);
+        Task<int> Create(GarageModel garage);
+        Task<int> Delete(int garageId);
     }
 }

@@ -7,16 +7,16 @@
             style: 'single',
             info: false
         },
-        //"aoColumnDefs": [
-        //    {
-        //        "aTargets": [0],
-        //        "visible": false
-        //    },
-        //    {
-        //        "aTargets": [2],
-        //        "className": 'text-center'
-        //    }
-        //],
+        "aoColumnDefs": [
+            {
+                "aTargets": [0],
+                "visible": false
+            },
+            //{
+            //    "aTargets": [2],
+            //    "className": 'text-center'
+            //}
+        ],
         buttons: [
             {
                 text: $('#hidNewButton').val(),
@@ -57,11 +57,11 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Roles/DeleteRole',
-                                data: { id: data.id }
+                                url: ajaxUrl + '/Garage/Delete',
+                                data: { garageId: data.id }
                             })
-                                .done(delDone)
-                                .fail(delFail);
+                            .done(delDone)
+                            .fail(delFail);
                         }
                     });
                 }
@@ -98,4 +98,37 @@
             }
         });
     }
+
+    function updateGarageList() {
+        $.ajax({
+            url: ajaxUrl + '/Garage/list',
+            type: "GET",
+            dataType: "html",
+            async: false,
+            success: function (response) {
+                $('#garage-list').empty().html(response);
+                initTable();
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+    }
+
+    function delDone(data, status, xhr) {
+        Swal.fire({
+            icon: 'success',
+            title: $('#hidDeleteSuccess').val(),
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+        updateGarageList();
+    }
+
+    function delFail(xhr, status, error) {
+        alert(xhr.responseText || error);
+    }
+
 });

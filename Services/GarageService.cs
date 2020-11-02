@@ -73,5 +73,27 @@ namespace OCHPlanner3.Services
                 ? await _garageFactory.CreateSingleDefault(defaultValueModel)
                 : await _garageFactory.UpdateSingleDefault(defaultValueModel);
         }
+
+        public async Task<int> Create(GarageViewModel model)
+        {
+            try
+            {
+                //default to Canada
+                model.Country = "CA";
+
+                var factoryModel = model.Adapt<GarageModel>();
+
+                return await _garageFactory.Create(factoryModel);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> Delete(int garageId)
+        {
+            return await _garageFactory.Delete(garageId);
+        }
     }
 }

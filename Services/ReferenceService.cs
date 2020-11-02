@@ -109,6 +109,22 @@ namespace OCHPlanner3.Services
             return result;
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetBannerSelectListItem(int selectedId = 0)
+        {
+            var banners = await _referenceFactory.GetBannerList();
+            return await BuildBannerSelectListItem(banners.OrderBy(x => x.Name, new SemiNumericComparer()), selectedId);
+        }
+
+        private async Task<IEnumerable<SelectListItem>> BuildBannerSelectListItem(IEnumerable<BannerModel> bannerList, int selectedId = 0)
+        {
+            return bannerList.Where(p => p.Name.ToUpper() != "N/A").Select(x => new SelectListItem()
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name,
+                Selected = selectedId != 0 && selectedId == x.Id
+            });
+        }
+
         public async Task<IEnumerable<SelectListItem>> GetLanguageSelectList(string language)
         {
             var languages = new List<SelectListItem>();
@@ -127,5 +143,25 @@ namespace OCHPlanner3.Services
 
             return languages;
         }
+
+        public async Task<IEnumerable<SelectListItem>> GetDateFormatSelectList()
+        {
+            var languages = new List<SelectListItem>();
+
+            languages.Add(new SelectListItem
+            {
+                Value = "dd/MM/yy",
+                Text = "dd/mm/yy"
+            });
+
+            languages.Add(new SelectListItem
+            {
+                Value = "MM/dd/yy",
+                Text = "mm/dd/yy"
+            });
+
+            return languages;
+        }
+
     }
 }

@@ -21,6 +21,9 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using OCHPlanner3.Helper;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Routing;
+using System.Reflection;
+using Microsoft.Extensions.Localization;
+using OCHPlanner3.Data.Mapper;
 
 namespace OCHPlanner3
 {
@@ -101,6 +104,7 @@ namespace OCHPlanner3
             services.AddMvc()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+               
 
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -121,6 +125,9 @@ namespace OCHPlanner3
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            GarageMapper.ConfigGarageMapper();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

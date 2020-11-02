@@ -15,5 +15,7 @@ namespace OCHPlanner3.Services.Interfaces
         Task<IEnumerable<SelectListItem>> GetYearSelectListItem(int selectedId = 0);
         Task<IEnumerable<SelectListItem>> GetMonthSelectListItem(int selectedId = 0);
         Task<IEnumerable<SelectListItem>> GetLanguageSelectList(string language);
+        Task<IEnumerable<SelectListItem>> GetBannerSelectListItem(int selectedId = 0);
+        Task<IEnumerable<SelectListItem>> GetDateFormatSelectList();
     }
 }

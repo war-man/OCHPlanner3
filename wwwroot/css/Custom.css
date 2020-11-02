@@ -14,8 +14,11 @@
     display: none;
 }
 
-/*   SIMPLE  */
+span.field-validation-error {
+    color: red;
+}
 
+/*   SIMPLE  */
 #label-unit {
     font-size: 20px;
     font-weight: 500;

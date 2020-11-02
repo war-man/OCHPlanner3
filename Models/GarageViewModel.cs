@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,14 +11,17 @@ namespace OCHPlanner3.Models
     public class GarageViewModel : BaseViewModel
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Province { get; set; }
         public string ZipCode { get; set; }
-        public int BannerId { get; set; }
+        public int SelectedBannerId { get; set; }
         public string Banner { get; set; }
+        public IEnumerable<SelectListItem> BannerList { get; set; }
         public int NbrUser { get; set; }
         public int NbrCustomer { get; set; }
         public string Phone { get; set; }
@@ -26,6 +32,8 @@ namespace OCHPlanner3.Models
         public string ActivationDate { get; set; }
         public int PrintCount { get; set; }
         public string Language { get; set; }
+        public string SelectedLanguageCode { get; set; }
+        public IEnumerable<SelectListItem> LanguageList { get; set; }
         public bool Support { get; set; }
         public bool OilReset { get; set; }
         public bool Communication { get; set; }
@@ -41,5 +49,8 @@ namespace OCHPlanner3.Models
         public int FormatDateId { get; set; }
         public string FormatDate { get; set; }
         public bool FormatDatePrint { get; set; }
+        public string SelectedDateFormatCode { get; set; }
+        public IEnumerable<SelectListItem> DateFormatList { get; set; }
+
     }
 }

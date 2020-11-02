@@ -8,31 +8,33 @@
     <table id="garagesTable" class="table table-striped dataTable" data-processing="true">
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Adresse</th>
-                <th>Ville</th>
-                <th>Province</th>
-                <th>Téléphone</th>
-                <th>Banière</th>
-                <th>Nbr Usager</th>
-                <th>Nbr Client</th>
-                <th>Count</th>
+                <th data-data="id">Id</th>
+                <th data-data="name">Nom</th>
+                <th data-data="address">Adresse</th>
+                <th data-data="city">Ville</th>
+                <th data-data="province">Province</th>
+                <th data-data="phone">Téléphone</th>
+                <th data-data="banner">Banière</th>
+                <th data-data="nbrUser">Nbr Usager</th>
+                <th data-data="nbrClient">Nbr Client</th>
+                <th data-data="count">Count</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var garage in Model.Garages)
             {
-                <tr>
-                    <td>@garage.Name</td>
-                    <td>@garage.Address</td>
-                    <td>@garage.City</td>
-                    <td>@garage.Province</td>
-                    <td>@garage.Phone</td>
-                    <td>@garage.Banner</td>
-                    <td>@garage.NbrUser</td>
-                    <td>@garage.NbrCustomer</td>
-                    <td>@garage.PrintCount</td>
-                </tr>
+            <tr>
+                <td>@garage.Id</td>
+                <td>@garage.Name</td>
+                <td>@garage.Address</td>
+                <td>@garage.City</td>
+                <td>@garage.Province</td>
+                <td>@garage.Phone</td>
+                <td>@garage.Banner</td>
+                <td>@garage.NbrUser</td>
+                <td>@garage.NbrCustomer</td>
+                <td>@garage.PrintCount</td>
+            </tr>
             }
         </tbody>
     </table>

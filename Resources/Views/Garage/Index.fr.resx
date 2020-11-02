@@ -126,14 +126,14 @@
   <data name="DeleteButton" xml:space="preserve">
     <value>Oui, supprimer le garage</value>
   </data>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Garage supprimé avec succès!</value>
+  </data>
   <data name="DeleteText" xml:space="preserve">
     <value>Voulez-vous vraiment supprimer ce garage?</value>
   </data>
   <data name="DeleteTitle" xml:space="preserve">
     <value>Supprimer ce garage</value>
-  </data>
-  <data name="DeleteUserSuccess" xml:space="preserve">
-    <value>Garage supprimé avec succès!</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>

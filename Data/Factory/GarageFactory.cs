@@ -128,5 +128,68 @@ namespace OCHPlanner3.Data.Factory
                 return result;
             }
         }
+
+        public async Task<int> Create(GarageModel garage)
+        {
+            try
+            {
+                var sql = "[web].[Garage_Insert]";
+                               
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    var result = await connection.ExecuteAsync(sql,
+                        new
+                        {
+                            Name = garage.Name,
+                            Address = garage.Address,
+                            City = garage.City,
+                            State = garage.State,
+                            Province = garage.Province,
+                            ZipCode = garage.ZipCode,
+                            BannerId = garage.BannerId,
+                            NbrUser = garage.NbrUser,
+                            Phone = garage.Phone,
+                            CommunicationModule = garage.CommunicationModule,
+                            PersonalizedSticker = garage.PersonalizedSticker,
+                            Email = garage.Email,
+                            Country = garage.Country,
+                            ActivationDate = garage.ActivationDate,
+                            Language = garage.Language,
+                            OilResetModule = garage.OilResetModule,
+                            Support = garage.Support,
+                            Note = garage.Note,
+                            FormatDate = garage.FormatDate
+                        },
+                        commandType: CommandType.StoredProcedure);
+
+                    return result;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> Delete(int garageId)
+        {
+            var sql = @"DELETE FROM [dbo].[Garages] WHERE Id = @GarageId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        GarageId = garageId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }

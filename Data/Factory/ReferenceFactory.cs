@@ -69,5 +69,21 @@ namespace OCHPlanner3.Data.Factory
                 return result;
             }
         }
+
+        public async Task<IEnumerable<BannerModel>> GetBannerList()
+        {
+            var sql = "SELECT [ID] ,[Name] ,[Logo] FROM [dbo].[Banners]";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<BannerModel>(sql,
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }
+ 
