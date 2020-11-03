@@ -29,14 +29,7 @@
                 text: $('#hidEditButton').val(),
                 action: function (e, dt, button, config) {
                     var data = dt.row({ selected: true }).data();
-                    $('#editError').hide();
-                    $('#tabs a:first').tab('show');
-                    $('#editForm').trigger('reset');
-
-                    $('#editForm input[name=name]').val(data.name);
-                    $('#editForm input[name=id]').val(data.id);
-
-                    $('#editModal').modal({ backdrop: 'static' });
+                    location.href = ajaxUrl + '/Garage/Edit/' + data.id;
                 }
             },
             {

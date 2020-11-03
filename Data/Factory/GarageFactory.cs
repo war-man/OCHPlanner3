@@ -191,5 +191,48 @@ namespace OCHPlanner3.Data.Factory
                 return result;
             }
         }
+
+        public async Task<int> Update(GarageModel garage)
+        {
+            try
+            {
+                var sql = "[web].[Garage_Update]";
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    var result = await connection.ExecuteAsync(sql,
+                        new
+                        {
+                            Id = garage.Id,
+                            Name = garage.Name,
+                            Address = garage.Address,
+                            City = garage.City,
+                            Province = garage.Province,
+                            ZipCode = garage.ZipCode,
+                            BannerId = garage.BannerId,
+                            NbrUser = garage.NbrUser,
+                            Phone = garage.Phone,
+                            CommunicationModule = garage.CommunicationModule,
+                            PersonalizedSticker = garage.PersonalizedSticker,
+                            Email = garage.Email,
+                            ActivationDate = garage.ActivationDate,
+                            Language = garage.Language,
+                            OilResetModule = garage.OilResetModule,
+                            Support = garage.Support,
+                            Note = garage.Note,
+                            FormatDate = garage.FormatDate
+                        },
+                        commandType: CommandType.StoredProcedure);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

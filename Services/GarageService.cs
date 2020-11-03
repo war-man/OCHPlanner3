@@ -95,5 +95,19 @@ namespace OCHPlanner3.Services
         {
             return await _garageFactory.Delete(garageId);
         }
+
+        public async Task<int> Update(GarageViewModel model)
+        {
+            try
+            {
+                var factoryModel = model.Adapt<GarageModel>();
+
+                return await _garageFactory.Update(factoryModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

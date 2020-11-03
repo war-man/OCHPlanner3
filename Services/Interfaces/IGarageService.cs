@@ -14,5 +14,6 @@ namespace OCHPlanner3.Services.Interfaces
         Task<IEnumerable<GarageViewModel>> GetGarages();
         Task<int> Create(GarageViewModel model);
         Task<int> Delete(int garageId);
+        Task<int> Update(GarageViewModel model);
     }
 }

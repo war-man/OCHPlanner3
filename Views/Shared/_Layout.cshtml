@@ -167,26 +167,26 @@
                             <nav>
                                 <ul id="nav_menu">
 
-                                    <li class="active">
+                                    <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")">
                                         <a href="javascript:void(0)">
                                             <i class="fad fa-print"></i><span>
                                                 Type d'impression
                                             </span>
                                         </a>
                                         <ul class="submenu">
-                                            <li class="active"><a asp-controller="Sticker" asp-action="Simple">Simple</a></li>
+                                            <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")"><a asp-controller="Sticker" asp-action="Simple">Simple</a></li>
                                             <li><a href="index3-horizontalmenu.html">Huile (à venir)</a></li>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li class="@(Html.IsMenuActive("/Users") || Html.IsMenuActive("/Roles")  ? "active" : "")">
                                         <a href="javascript:void(0)"><i class="fad fa-users"></i><span>Gestion des utilisateurs</span></a>
                                         <ul class="submenu">
-                                            <li><a asp-controller="Users" asp-action="Index">Utilisateurs</a></li>
-                                            <li><a asp-controller="Roles" asp-action="Index">Rôles</a></li>
+                                            <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">Utilisateurs</a></li>
+                                            <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">Rôles</a></li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a asp-controller="Garages" asp-action="Index"><i class="fad fa-garage-car"></i>Gestion des garages</a>
+                                    <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
+                                        <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>Gestion des garages</a>
                                         
                                     </li>
                                 </ul>

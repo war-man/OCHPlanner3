@@ -62,6 +62,26 @@ namespace OCHPlanner3.Controllers
            return View(model);
         }
 
+        [HttpGet("/{lang:lang}/Garage/Edit/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            DateTime activationDate;
+            var model = await _garageService.GetGarage(id);
+
+            DateTime.TryParse(model.ActivationDate, out activationDate);
+
+            model.RootUrl = BaseRootUrl;
+            if(activationDate != null)
+            {
+                model.ActivationDate = activationDate.ToString("yyyy-MM-dd");
+            }
+            model.BannerList = await _referenceService.GetBannerSelectListItem();
+            model.LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language);
+            model.DateFormatList = await _referenceService.GetDateFormatSelectList();
+                       
+            return View(model);
+        }
+
         [HttpPost("/{lang:lang}/Garage/Create")]
         public async Task<IActionResult> Create(GarageViewModel model)
         {
@@ -74,7 +94,20 @@ namespace OCHPlanner3.Controllers
             {
                 return BadRequest();
             }
-            return BadRequest();
+        }
+
+        [HttpPut("/{lang:lang}/Garage/Edit")]
+        public async Task<IActionResult> Edit(GarageViewModel model)
+        {
+            try
+            {
+                var result = await _garageService.Update(model);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("/{lang:lang}/Garage/Delete")]

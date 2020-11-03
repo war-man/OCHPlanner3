@@ -23,6 +23,13 @@ namespace OCHPlanner3.Data.Mapper
                 .Map(dest => dest.Support, src => src.Support)
                 .Map(dest => dest.ActivationDate, src => Convert.ToDateTime(src.ActivationDate).ToString("dd/MM/yyyy"));
 
+            TypeAdapterConfig<GarageModel, GarageViewModel>
+                .NewConfig()
+                .Map(dest => dest.SelectedBannerId, src => src.BannerId)
+                .Map(dest => dest.SelectedLanguageCode, src => src.Language)
+                .Map(dest => dest.SelectedDateFormatCode, src => src.FormatDate)
+                .Map(dest => dest.Communication, src => src.CommunicationModule)
+                .Map(dest => dest.OilReset, src => src.OilResetModule);
         }
     }
 }
