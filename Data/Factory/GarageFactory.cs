@@ -175,7 +175,7 @@ namespace OCHPlanner3.Data.Factory
 
         public async Task<int> Delete(int garageId)
         {
-            var sql = @"DELETE FROM [dbo].[Garages] WHERE Id = @GarageId";
+            var sql = "[web].[Garage_Delete]";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
@@ -186,7 +186,7 @@ namespace OCHPlanner3.Data.Factory
                     {
                         GarageId = garageId
                     },
-                    commandType: CommandType.Text);
+                    commandType: CommandType.StoredProcedure);
 
                 return result;
             }

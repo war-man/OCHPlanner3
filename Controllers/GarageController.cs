@@ -118,7 +118,7 @@ namespace OCHPlanner3.Controllers
                 var result = await _garageService.Delete(garageId);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
