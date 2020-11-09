@@ -18,6 +18,11 @@ span.field-validation-error {
     color: red;
 }
 
+.header-title {
+    text-transform: none !important;
+}
+
+
 /*   SIMPLE  */
 #label-unit {
     font-size: 20px;

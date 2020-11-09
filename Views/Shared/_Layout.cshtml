@@ -34,7 +34,10 @@
 
     <!-- Select 2 -->
     <link rel="stylesheet" href="~/lib/select2/css/select2.css" />
-    <link rel="stylesheet" href="~/lib/select2-bootstrap4-theme/select2-bootstrap4.css"  />
+    <link rel="stylesheet" href="~/lib/select2-bootstrap4-theme/select2-bootstrap4.css" />
+
+    <!-- Bootstrap Slider -->
+    <link rel="stylesheet" href="~/lib/bootstrap-slider/css/bootstrap-slider.css" />
 
     <!-- others css -->
     <link rel="stylesheet" href="~/template/css/typography.css">
@@ -187,7 +190,13 @@
                                     </li>
                                     <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
                                         <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>Gestion des garages</a>
-                                        
+
+                                    </li>
+                                    <li class="@(Html.IsMenuActive("/Options") ? "active" : "")">
+                                        <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>Options</span></a>
+                                        <ul class="submenu">
+                                            <li class="@(Html.IsMenuActive("/Options")  ? "active" : "")"><a asp-controller="Options" asp-action="Printer">Imprimantes</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </nav>
@@ -219,6 +228,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/bootstrap-slider/js/bootstrap-slider.min.js"></script>
 
     <script src="~/template/js/metisMenu.min.js"></script>
     <script src="~/template/js/jquery.slimscroll.min.js"></script>
@@ -261,7 +271,7 @@
 
 
     <!-- Print -->
-    <script type="text/javascript" src="~/js/print.js"></script>
+    @*<script type="text/javascript" src="~/js/print2.js"></script>*@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10.6.1/dist/sweetalert2.all.min.js"></script>
 

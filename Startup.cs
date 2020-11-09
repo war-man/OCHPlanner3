@@ -88,6 +88,7 @@ namespace OCHPlanner3
             services.AddTransient<IReferenceService, ReferenceService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGarageService, GarageService>();
+            services.AddTransient<IOptionService, OptionService>();
 
             // Factory
             services.AddTransient<IReferenceFactory, ReferenceFactory>();
