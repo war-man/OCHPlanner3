@@ -36,10 +36,12 @@ namespace OCHPlanner3.Controllers
 
         public async Task<IActionResult> Simple()
         {
+            var printerConfiguration = await _optionService.GetPrinterConfiguration(CurrentUser.GarageId);
+
             var model = new StickerSimpleViewModel()
             {
                 RootUrl = BaseRootUrl,
-                PrinterConfiguration = await _optionService.GetPrinterConfiguration(CurrentUser.GarageId)
+                PrinterConfiguration = printerConfiguration ?? new PrinterConfigurationViewModel()
             };
 
             //Get garage default

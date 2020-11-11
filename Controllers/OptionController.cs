@@ -33,7 +33,7 @@ namespace OCHPlanner3.Controllers
             //Get printer Configuration
             var printerConfiguration = await _optionService.GetPrinterConfiguration(CurrentUser.GarageId);
 
-            var model = printerConfiguration;
+            var model = printerConfiguration ?? new PrinterConfigurationViewModel();
             model.RootUrl = BaseRootUrl;
 
             return View(model);

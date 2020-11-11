@@ -11,6 +11,21 @@
         console.log("Connected!");
     });
 
+    //Warning if no printer selected
+    if ($('#HidSelectedOilPrinter').val() === '') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Imprimante non défini',
+            text: 'Aucune configuration d\'imprimante trouvée',
+            showConfirmButton: true,
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = ajaxUrl + "/Options/Printer"
+            }
+        })
+    }
+
     //Initial Setup
     InitialSetup();
 

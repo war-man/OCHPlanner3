@@ -173,7 +173,7 @@
                                     <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")">
                                         <a href="javascript:void(0)">
                                             <i class="fad fa-print"></i><span>
-                                                Type d'impression
+                                                Impression
                                             </span>
                                         </a>
                                         <ul class="submenu">
@@ -181,17 +181,32 @@
                                             <li><a href="index3-horizontalmenu.html">Huile (à venir)</a></li>
                                         </ul>
                                     </li>
+                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                    {
                                     <li class="@(Html.IsMenuActive("/Users") || Html.IsMenuActive("/Roles")  ? "active" : "")">
                                         <a href="javascript:void(0)"><i class="fad fa-users"></i><span>Gestion des utilisateurs</span></a>
                                         <ul class="submenu">
                                             <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">Utilisateurs</a></li>
+                                            @if (User.IsInRole("SuperAdmin"))
+                                            {
                                             <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">Rôles</a></li>
+                                            }
                                         </ul>
                                     </li>
-                                    <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
-                                        <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>Gestion des garages</a>
-
-                                    </li>
+                                    }
+                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                    {
+                                <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
+                                    @if (User.IsInRole("SuperAdmin"))
+                                    {
+                                    <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>Gestion des garages</a>
+                                    }
+                                    else if(User.IsInRole("Administrator"))
+                                    {
+                                    <a asp-controller="Garage" asp-action="Edit" asp-route-id="@currentUser.GarageId"><i class="fad fa-car-mechanic"></i>Gestion garage</a>
+                                    }
+                                </li>
+                                    }
                                     <li class="@(Html.IsMenuActive("/Options") ? "active" : "")">
                                         <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>Options</span></a>
                                         <ul class="submenu">

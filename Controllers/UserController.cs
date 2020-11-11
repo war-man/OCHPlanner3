@@ -49,14 +49,20 @@ namespace OCHPlanner3.Controllers
             //Get current user
             var user = await GetCurrentUserAsync();
             var claims = await _userService.GetUserClaims(user.Id);
-
+            
             var language = claims.Any(c => c.Type == "Language") ? claims.FirstOrDefault(c => c.Type == "Language")?.Value : "FR";
 
+            var users = HttpContext.User.IsInRole("Administrator") ? await GetUsers(CurrentUser.GarageId) : await GetUsers();
+            ////Filter users
+            //if(HttpContext.User.IsInRole("Administrator"))
+            //{
+            //    users = users.Where(p => p.GarageId)
+            //}
 
             var model = new UserListViewModel()
             {
                 RootUrl = BaseRootUrl,
-                Users = await GetUsers(),
+                Users = users,
                 GarageSelector = new GarageSelectorViewModel
                 {
                     Garages = await _garageService.GetGaragesSelectList()
@@ -250,7 +256,7 @@ namespace OCHPlanner3.Controllers
 
         private Task<IdentityUser> GetCurrentUserAsync() => _userIdentity.UserManager.GetUserAsync(HttpContext.User);
 
-        private async Task<IEnumerable<UserViewModel>> GetUsers()
+        private async Task<IEnumerable<UserViewModel>> GetUsers(int garageId = 0)
         {
             var result = new List<UserViewModel>();
             var userList = _userIdentity.UserManager.Users.ToList();
@@ -262,22 +268,25 @@ namespace OCHPlanner3.Controllers
                 IdentityUser identityUser = await _userIdentity.UserManager.FindByIdAsync(user.Id);
                 IList<Claim> claims = await _userIdentity.UserManager.GetClaimsAsync(identityUser);
                 IList<string> roles = await _userIdentity.UserManager.GetRolesAsync(identityUser);
-                var garageName = await _garageService.GetGarage(claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0);
+                var garage = await _garageService.GetGarage(claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0);
 
-                result.Add(new UserViewModel()
+                if (garageId == 0 || (garageId != 0 && garage.Id == garageId && !roles.Contains("SuperAdmin")))
                 {
-                    Id = user.Id,
-                    Email = user.Email,
-                    LockedOut = user.LockoutEnd != null,
-                    Roles = roles,
-                    Clients = claims.FirstOrDefault(c => c.Type == "Clients")?.Value.Split(",").ToList(),
-                    ClientsIdList = claims.Any(c => c.Type == "Clients") ? claims.FirstOrDefault(c => c.Type == "Clients")?.Value : string.Empty,
-                    FirstName = claims.Any(c => c.Type == "FirstName") ? claims.FirstOrDefault(c => c.Type == "FirstName")?.Value : string.Empty,
-                    LastName = claims.Any(c => c.Type == "LastName") ? claims.FirstOrDefault(c => c.Type == "LastName")?.Value : string.Empty,
-                    UserName = user.UserName,
-                    GarageId = claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0,
-                    GarageName = garageName.Name,  
-                });
+                    result.Add(new UserViewModel()
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        LockedOut = user.LockoutEnd != null,
+                        Roles = roles,
+                        Clients = claims.FirstOrDefault(c => c.Type == "Clients")?.Value.Split(",").ToList(),
+                        ClientsIdList = claims.Any(c => c.Type == "Clients") ? claims.FirstOrDefault(c => c.Type == "Clients")?.Value : string.Empty,
+                        FirstName = claims.Any(c => c.Type == "FirstName") ? claims.FirstOrDefault(c => c.Type == "FirstName")?.Value : string.Empty,
+                        LastName = claims.Any(c => c.Type == "LastName") ? claims.FirstOrDefault(c => c.Type == "LastName")?.Value : string.Empty,
+                        UserName = user.UserName,
+                        GarageId = claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0,
+                        GarageName = garage.Name,
+                    });
+                }
             }
 
             return result;
