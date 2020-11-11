@@ -7,6 +7,10 @@
     var nextunit = 'PROCH. KM';
     var nextdate = 'PROCH. DATE';
 
+    qz.websocket.connect().then(function () {
+        console.log("Connected!");
+    });
+
     //Initial Setup
     InitialSetup();
 
@@ -282,42 +286,84 @@
     }
 
     function printSimpleSticker() {
-        var config = getUpdatedConfig();
-        findDefaultPrinter(true);
+        var oilOffsetXSlider = parseInt($('#HidOilOffsetX').val());
+        var oilOffsetYSlider = parseInt($('#HidOilOffsetY').val());
 
-        var lang = getUpdatedOptions().language; //print options not used with this flavor, just check language requested
+        var selectedPrinter = $('#HidSelectedOilPrinter').val();
 
-        var printData1;
+        qz.printers.find(selectedPrinter).then(function (printer) {
+            console.log("Printer: " + printer);
 
-        printData1 = [
-            'N\n',
-            'Q400\n',
-            'q440\n',
-            'D12\n',
-            'A90,157,0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
-            'A116,182,0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n',
-            'A75,212,0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
-            'A75,242,0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
-            'A75,272,0,4,1,1,N,"' + nextdate + '"\n',
-        ];
+            var config = qz.configs.create(printer);       // Create a default config for the found printer
+            var printData1;
 
-        if ($('#hidDateFormatPrint').val() === "True" &&
-            ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
-            $("input[name='PrintChoices']:checked").val() === 'Choice2')
-            {
-            printData1.push('A260,275,0,1,1,1,N,"(' + PrintableDateFormat() + ')"\n');
+            printData1 = [
+                'N\n',
+                'Q400\n',
+                'q440\n',
+                'D12\n',
+                'A' + (90 + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
+                'A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n',
+                'A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
+                'A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
+                'A' + (75 + oilOffsetXSlider) + ', ' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n',
+            ];
+
+            if ($('#hidDateFormatPrint').val() === "True" &&
+                ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
+                $("input[name='PrintChoices']:checked").val() === 'Choice2') {
+                printData1.push('A' + (260 + oilOffsetXSlider) + ',' + (275 + oilOffsetYSlider) + ',0,1,1,1,N,"(' + PrintableDateFormat() + ')"\n');
             }
 
-        var printData2 = [
-            'A75,302,0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
-            'A75,362,0,4,1,1,N,"' + nextunit + '"\n',
-            'A75,387,0,5,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
-            'P1,1\n'
-        ];
+            var printData2 = [
+                'A' + (75 + oilOffsetXSlider) + ',' + (302 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
+                'A' + (75 + oilOffsetXSlider) + ',' + (362 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextunit + '"\n',
+                'A' + (75 + oilOffsetXSlider) + ',' + (387 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
+                'P1,1\n'
+            ];
 
-        var printData = $.merge(printData1, printData2);
+            var printData = $.merge(printData1, printData2);
 
-                
-        qz.print(config, printData).catch(displayError);
+            return qz.print(config, printData);
+
+        }).catch(function (e) { console.error(e); });
+
+
+        //qz.websocket.connect().then(function () {
+        //    return qz.printers.find($('#HidSelectedOilPrinter').val());             
+        //}).then(function (printer) {
+        //    var config = qz.configs.create(printer);      
+
+        //    var printData1;
+
+        //    printData1 = [
+        //        'N\n',
+        //        'Q400\n',
+        //        'q440\n',
+        //        'D12\n',
+        //        'A' + (90 + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
+        //        'A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n',
+        //        'A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
+        //        'A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
+        //        'A' + (75 + oilOffsetXSlider) + ', ' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n',
+        //    ];
+
+        //    if ($('#hidDateFormatPrint').val() === "True" &&
+        //        ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
+        //        $("input[name='PrintChoices']:checked").val() === 'Choice2') {
+        //        printData1.push('A' + (260 + oilOffsetXSlider) + ',' + (275 + oilOffsetYSlider) + ',0,1,1,1,N,"(' + PrintableDateFormat() + ')"\n');
+        //    }
+
+        //    var printData2 = [
+        //        'A' + (75 + oilOffsetXSlider) + ',' + (302 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
+        //        'A' + (75 + oilOffsetXSlider) + ',' + (362 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextunit + '"\n',
+        //        'A' + (75 + oilOffsetXSlider) + ',' + (387 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
+        //        'P1,1\n'
+        //    ];
+
+        //    var printData = $.merge(printData1, printData2);
+
+        //    return qz.print(config, printData);
+        //}).catch(function (e) { console.error(e); });
     }
 });

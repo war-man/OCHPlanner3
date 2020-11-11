@@ -15,6 +15,10 @@
 @Html.Hidden("hidDateFormat", currentUser.GarageSetting.FormatDate)
 @Html.Hidden("hidDateFormatPrint", currentUser.GarageSetting.FormatDatePrint)
 
+@Html.Hidden("HidSelectedOilPrinter", Model.PrinterConfiguration.SelectedOilPrinter)
+@Html.Hidden("HidOilOffsetX", Model.PrinterConfiguration.OilOffsetX)
+@Html.Hidden("HidOilOffsetY", Model.PrinterConfiguration.OilOffsetY)
+
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
 <style>

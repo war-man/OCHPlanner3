@@ -17,14 +17,17 @@ namespace OCHPlanner3.Controllers
         public readonly IReferenceService _referenceService;
         public readonly IUserService _userService;
         public readonly IGarageService _garageService;
+        public readonly IOptionService _optionService;
 
         public StickerController(IReferenceService referenceService,
              IHttpContextAccessor httpContextAccessor,
              IGarageService garageService,
+             IOptionService optionService,
              IUserService userService) : base(httpContextAccessor, userService)
         {
             _referenceService = referenceService;
             _garageService = garageService;
+            _optionService = optionService;
         }
         public IActionResult Index()
         {
@@ -35,7 +38,8 @@ namespace OCHPlanner3.Controllers
         {
             var model = new StickerSimpleViewModel()
             {
-                RootUrl = BaseRootUrl
+                RootUrl = BaseRootUrl,
+                PrinterConfiguration = await _optionService.GetPrinterConfiguration(CurrentUser.GarageId)
             };
 
             //Get garage default
