@@ -38,5 +38,11 @@ namespace OCHPlanner3.Controllers
 
             return View(model);
         }
+
+        [HttpPost("/{lang:lang}/Options/Printer/Save")]
+        public async Task<int> SavePrinter(PrinterConfigurationViewModel printerConfig)
+        {
+            return await _optionService.SavePrinterConfiguration(printerConfig, base.CurrentUser.GarageId);
+        }
     }
 }

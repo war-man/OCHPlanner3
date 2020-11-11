@@ -8,6 +8,8 @@
 }
 
 @Html.Hidden("HidSelectedOilPrinter", Model.SelectedOilPrinter)
+@Html.Hidden("HidOilOffsetX", Model.OilOffsetX)
+@Html.Hidden("HidOilOffsetY", Model.OilOffsetY)
 
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
@@ -52,12 +54,12 @@
                                                         <h6 class="header-title">Marges de l'étiquette</h6>
                                                         <div class="row mt-2">
                                                             <div class="col-md-6">
-                                                                <span id="oilOffsetXValLabel">Marge de gauche : <span id="oilOffsetXSliderVal">0</span></span>
-                                                                <input id="oilOffsetX" type="text" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="0" />
+                                                                <span id="oilOffsetXValLabel">Marge de gauche : <span id="oilOffsetXSliderVal">@Model.OilOffsetX</span></span>
+                                                                <input id="oilOffsetX" type="text" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="@Model.OilOffsetX" />
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <span id="oilOffsetYValLabel">Marge du haut : <span id="oilOffsetYSliderVal">0</span></span>
-                                                                <input id="oilOffsetY" type="text" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="0" />
+                                                                <span id="oilOffsetYValLabel">Marge du haut : <span id="oilOffsetYSliderVal">@Model.OilOffsetY</span></span>
+                                                                <input id="oilOffsetY" type="text" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="@Model.OilOffsetY" />
                                                             </div>
                                                         </div>
                                                         <div class="row justify-content-center mt-4">

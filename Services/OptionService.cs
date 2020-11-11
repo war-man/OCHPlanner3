@@ -31,26 +31,26 @@ namespace OCHPlanner3.Services
             return printerConfiguration;
         }
 
-        //public async Task<int> SaveSingleDefault(StickerSimpleDefaultValueViewModel defaultValues, int garageId)
-        //{
-        //    var defaultValueModel = new GarageDefaultModel()
-        //    {
-        //        GarageId = garageId,
-        //        Screen = "SINGLE",
-        //        DefaultValues = JsonConvert.SerializeObject(defaultValues)
-        //    };
+        public async Task<int> SavePrinterConfiguration(PrinterConfigurationViewModel configuration, int garageId)
+        {
 
-        //    var exist = await _garageFactory.GetSingleDefault(garageId, "SINGLE");
-        //    if (exist != null)
-        //    {
-        //        defaultValueModel.Id = exist.Id;
-        //    }
+            var defaultValueModel = new GarageDefaultModel()
+            {
+                GarageId = garageId,
+                Screen = "PRINTERCONFIGURATION",
+                DefaultValues = JsonConvert.SerializeObject(configuration)
+            };
 
-        //    return exist == null 
-        //        ? await _garageFactory.CreateSingleDefault(defaultValueModel)
-        //        : await _garageFactory.UpdateSingleDefault(defaultValueModel);
-        //}
+            var exist = await _garageFactory.GetSingleDefault(garageId, "PRINTERCONFIGURATION");
+            if (exist != null)
+            {
+                defaultValueModel.Id = exist.Id;
+            }
 
-       
+            return exist == null
+                ? await _garageFactory.CreateSingleDefault(defaultValueModel)
+                : await _garageFactory.UpdateSingleDefault(defaultValueModel);
+        }
+
     }
 }

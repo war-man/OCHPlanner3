@@ -1,21 +1,52 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
-    InitPage();
+    var oilOffsetXSlider = $("#oilOffsetX").slider();
+   // oilOffsetXSlider.slider('setValue', 5);
 
-    $("#oilOffsetX").slider();
     $("#oilOffsetX").on("slide", function (slideEvt) {
         $("#oilOffsetXSliderVal").text(slideEvt.value);
     });
 
-    $("#oilOffsetY").slider();
+    var oilOffsetYSlider = $("#oilOffsetY").slider();
     $("#oilOffsetY").on("slide", function (slideEvt) {
         $("#oilOffsetYSliderVal").text(slideEvt.value);
     });
 
+    InitPage();
+
     $(document).on("click", '.list-group-item', function () {
         $(".list-group-item").removeClass("active");
         $(this).addClass("active");
+    });
+
+    $(document).on("click", '#btnSave', function () {
+        var selectedPrinter = $('a.list-group-item.list-group-item-action.active')[0].innerText
+
+        var printerConfig = {
+            SelectedOilPrinter: selectedPrinter,
+            OilOffsetX: oilOffsetXSlider.slider('getValue'),
+            OilOffsetY: oilOffsetYSlider.slider('getValue')
+        };
+
+        $.ajax({
+            traditional: true,
+            url: ajaxUrl + '/options/printer/save',
+            type: 'POST',
+            data: printerConfig,
+            success: function (response) {
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sauvegardé avec succès!',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                   
+                });
+            }
+        });
     });
 
     function InitPage() {
@@ -23,6 +54,11 @@
             console.log("Connected!");
             displayAllPrinters();
         });
+
+        oilOffsetXSlider.slider('setValue', $('#HidOilOffsetX').val());
+        $("#oilOffsetXSliderVal").text($('#HidOilOffsetX').val());
+        oilOffsetYSlider.slider('setValue', $('#HidOilOffsetY').val());
+        $("#oilOffsetYSliderVal").text($('#HidOilOffsetY').val());
 
     }
 
@@ -54,5 +90,5 @@
         displayMessage(err, 'alert-danger');
     }
 
-    
+
 });
