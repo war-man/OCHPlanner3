@@ -7,7 +7,8 @@
     ViewData["Title"] = Localizer["Title"];
 }
 
-@Html.Hidden("HidRequired", @Localizer["Required"].Value)
+@Html.Hidden("HidSaveSuccess", Localizer["SaveSuccess"].Value)
+@Html.Hidden("HidRequired", Localizer["Required"].Value)
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
 <div class="page-title-area">
@@ -29,39 +30,39 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="header-title">Coordonnées</h4>
+                                    <h4 class="header-title">@Localizer["Coord"]</h4>
                                     <div class="form-group">
-                                        <label for="Name" class="control-label">Nom</label>
+                                        <label for="Name" class="control-label">@Localizer["Name"]</label>
                                         <input asp-for="Name" name="name" type="text" class="form-control" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="Address" class="control-label">Adresse</label>
+                                        <label for="Address" class="control-label">@Localizer["Address"]</label>
                                         <input asp-for="Address" name="address" type="text" class="form-control" />
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="City" class="control-label">City</label>
+                                            <label for="City" class="control-label">@Localizer["City"]</label>
                                             <input asp-for="City" type="text" class="form-control" />
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label for="Province" class="control-label">Province / État</label>
+                                            <label for="Province" class="control-label">@Localizer["Province"]</label>
                                             <input asp-for="Province" type="text" class="form-control" />
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label for="ZipCode" class="control-label">Code Postal</label>
+                                            <label for="ZipCode" class="control-label">@Localizer["PostalCode"]</label>
                                             <input asp-for="ZipCode" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <label for="Phone" class="control-label">Téléphone</label>
+                                                <label for="Phone" class="control-label">@Localizer["Phone"]</label>
                                                 <input asp-for="Phone" name="phone" type="text" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <label for="Email" class="control-label">Courriel</label>
+                                                <label for="Email" class="control-label">@Localizer["Email"]</label>
                                                 <input asp-for="Email" name="email" type="email" class="form-control" />
                                             </div>
                                         </div>
@@ -72,26 +73,26 @@
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">Modules</h4>
-                                        <div class="form-check">
-                                            <input asp-for="Support" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="Support">Support</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="OilReset" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="OilReset">OilReset</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="Communication" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="Communication">Communication</label>
-                                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Modules</h4>
+                                    <div class="form-check">
+                                        <input asp-for="Support" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="Support">Support</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="OilReset" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="OilReset">OilReset</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="Communication" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="Communication">Communication</label>
                                     </div>
                                 </div>
-
                             </div>
+
+                        </div>
                         }
                     </div>
                 </div>
@@ -100,9 +101,9 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="header-title">Configuration</h4>
+                                    <h4 class="header-title">@Localizer["Configuration"]</h4>
                                     <div class="form-group">
-                                        <label for="bannerList" class="control-label">Bannière</label>
+                                        <label for="bannerList" class="control-label">@Localizer["Banner"]</label>
                                         <select asp-for="SelectedBannerId" asp-items="Model.BannerList" class="form-control">
                                             <option value="">-- Select --</option>
                                         </select>
@@ -110,7 +111,7 @@
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <label for="SelectedLanguageCode" class="control-label">Langue</label>
+                                                <label for="SelectedLanguageCode" class="control-label">@Localizer["Language"]</label>
                                                 <select asp-for="SelectedLanguageCode" asp-items="Model.LanguageList" class="form-control">
                                                     <option value="">-- Select --</option>
                                                 </select>
@@ -118,7 +119,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <label for="NbrUser" class="control-label">Nbr utilisateurs permis</label>
+                                                <label for="NbrUser" class="control-label">@Localizer["NbrUsers"]</label>
                                                 <input asp-for="NbrUser" name="nbrUser" type="number" class="form-control" />
                                             </div>
                                         </div>
@@ -126,7 +127,7 @@
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <label for="SelectedDateFormatCode" class="control-label">Format de date</label>
+                                                <label for="SelectedDateFormatCode" class="control-label">@Localizer["DateFormat"]</label>
                                                 <select asp-for="SelectedDateFormatCode" asp-items="Model.DateFormatList" class="form-control">
                                                     <option value="">-- Select --</option>
                                                 </select>
@@ -134,14 +135,14 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <label for="ActivationDate" class="control-label">Date d'activation</label>
+                                                <label for="ActivationDate" class="control-label">@Localizer["ActivationDate"]</label>
                                                 <input asp-for="ActivationDate" type="date" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-check">
                                         <input asp-for="PersonalizedSticker" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="PersonalizedSticker">Autocollant personnalisé</label>
+                                        <label class="form-check-label" for="PersonalizedSticker">@Localizer["PersonalisedSticker"]</label>
                                     </div>
 
                                 </div>
@@ -149,17 +150,17 @@
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">Notes</h4>
-                                        <div class="form-group">
-                                            <label for="Note" class="control-label">Notes</label>
-                                            <textarea asp-for="Note" class="form-control" rows="3"></textarea>
-                                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Notes</h4>
+                                    <div class="form-group">
+                                        <label for="Note" class="control-label">Notes</label>
+                                        <textarea asp-for="Note" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         }
                     </div>
                 </div>
@@ -169,7 +170,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row justify-content-center">
-                                <button id="btnSave" type="button" class="btn btn-primary">Sauvegarder</button>
+                                <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
                             </div>
                         </div>
                     </div>

@@ -12,10 +12,10 @@
                 "aTargets": [0],
                 "visible": false
             },
-            //{
-            //    "aTargets": [2],
-            //    "className": 'text-center'
-            //}
+            {
+                "aTargets": [4,7,8,9],
+                "className": 'text-center'
+            }
         ],
         buttons: [
             {

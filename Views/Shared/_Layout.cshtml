@@ -88,57 +88,6 @@
                                     </i>
                                     <div class="dropdown-menu bell-notify-box notify-box">
                                         <span class="notify-title">Aucune nouvelles notifications</span>
-                                        @*<div class="nofity-list">
-                                                <a href="#" class="notify-item">
-                                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
-                                                    <div class="notify-text">
-                                                        <p>You have Changed Your Password</p>
-                                                        <span>Just Now</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="notify-item">
-                                                    <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
-                                                    <div class="notify-text">
-                                                        <p>New Commetns On Post</p>
-                                                        <span>30 Seconds ago</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="notify-item">
-                                                    <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
-                                                    <div class="notify-text">
-                                                        <p>Some special like you</p>
-                                                        <span>Just Now</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="notify-item">
-                                                    <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
-                                                    <div class="notify-text">
-                                                        <p>New Commetns On Post</p>
-                                                        <span>30 Seconds ago</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="notify-item">
-                                                    <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
-                                                    <div class="notify-text">
-                                                        <p>Some special like you</p>
-                                                        <span>Just Now</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="notify-item">
-                                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
-                                                    <div class="notify-text">
-                                                        <p>You have Changed Your Password</p>
-                                                        <span>Just Now</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="notify-item">
-                                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
-                                                    <div class="notify-text">
-                                                        <p>You have Changed Your Password</p>
-                                                        <span>Just Now</span>
-                                                    </div>
-                                                </a>
-                                            </div>*@
                                     </div>
                                 </li>
                             </ul>
@@ -147,7 +96,7 @@
                             <div class="user-profile m-0">
                                 <h4 class="user-name dropdown-toggle" data-toggle="dropdown">@User.Identity.Name <i class="fa fa-angle-down"></i></h4>
                                 <div class="dropdown-menu">
-                                    <a id="logout" class="dropdown-item" href="#"><i class="fad fa-sign-out-alt pr-2"></i>déconnecter</a>
+                                    <a id="logout" class="dropdown-item" href="#"><i class="fad fa-sign-out-alt pr-2"></i>@Localizer["Logout"]</a>
                                 </div>
                                 <div class="hidden">
                                     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "Identity" })" method="post" id="logoutForm">
@@ -173,23 +122,22 @@
                                     <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")">
                                         <a href="javascript:void(0)">
                                             <i class="fad fa-print"></i><span>
-                                                Impression
+                                                @Localizer["MenuPrint"]
                                             </span>
                                         </a>
                                         <ul class="submenu">
                                             <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")"><a asp-controller="Sticker" asp-action="Simple">Simple</a></li>
-                                            <li><a href="index3-horizontalmenu.html">Huile (à venir)</a></li>
                                         </ul>
                                     </li>
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                     {
                                     <li class="@(Html.IsMenuActive("/Users") || Html.IsMenuActive("/Roles")  ? "active" : "")">
-                                        <a href="javascript:void(0)"><i class="fad fa-users"></i><span>Gestion des utilisateurs</span></a>
+                                        <a href="javascript:void(0)"><i class="fad fa-users"></i><span>@Localizer["MenuUserManagement"]</span></a>
                                         <ul class="submenu">
-                                            <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">Utilisateurs</a></li>
+                                            <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">@Localizer["MenuUsers"]</a></li>
                                             @if (User.IsInRole("SuperAdmin"))
                                             {
-                                            <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">Rôles</a></li>
+                                            <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">@Localizer["MenuRoles"]</a></li>
                                             }
                                         </ul>
                                     </li>
@@ -199,18 +147,18 @@
                                 <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
                                     @if (User.IsInRole("SuperAdmin"))
                                     {
-                                    <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>Gestion des garages</a>
+                                    <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
                                     }
                                     else if(User.IsInRole("Administrator"))
                                     {
-                                    <a asp-controller="Garage" asp-action="Edit" asp-route-id="@currentUser.GarageId"><i class="fad fa-car-mechanic"></i>Gestion garage</a>
+                                <a asp-controller="Garage" asp-action="Edit" asp-route-id="@currentUser.GarageId"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
                                     }
                                 </li>
                                     }
                                     <li class="@(Html.IsMenuActive("/Options") ? "active" : "")">
-                                        <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>Options</span></a>
+                                        <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>@Localizer["MenuOptions"]</span></a>
                                         <ul class="submenu">
-                                            <li class="@(Html.IsMenuActive("/Options")  ? "active" : "")"><a asp-controller="Options" asp-action="Printer">Imprimantes</a></li>
+                                            <li class="@(Html.IsMenuActive("/Options")  ? "active" : "")"><a asp-controller="Options" asp-action="Printer">@Localizer["MenuPrinters"]</a></li>
                                         </ul>
                                     </li>
                                 </ul>
