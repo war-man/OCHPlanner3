@@ -10,6 +10,7 @@
 @Html.Hidden("HidSelectedOilPrinter", Model.SelectedOilPrinter)
 @Html.Hidden("HidOilOffsetX", Model.OilOffsetX)
 @Html.Hidden("HidOilOffsetY", Model.OilOffsetY)
+@Html.Hidden("HidSaveSuccess", Localizer["SaveSuccess"].Value)
 
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
@@ -33,7 +34,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link" data-toggle="collapse" href="#accordion31" aria-expanded="true">
-                                        Imprimante pour huile
+                                        @Localizer["OilPrinterTitle"]
                                     </a>
                                 </div>
                                 <div id="accordion31" class="collapse show" data-parent="#accordion3" style="">
@@ -42,7 +43,7 @@
                                             <div class="col-md-6 mt-1">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h6 class="header-title">Imprimantes disponibles</h6>
+                                                        <h6 class="header-title">@Localizer["AvailablePrinters"]</h6>
                                                         <div id="printer-list" class="list-group">
                                                         </div>
                                                     </div>
@@ -51,19 +52,19 @@
                                             <div class="col-md-6 mt-1">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h6 class="header-title">Marges de l'étiquette</h6>
+                                                        <h6 class="header-title">@Localizer["StickerMargin"]</h6>
                                                         <div class="row mt-2">
                                                             <div class="col-md-6">
-                                                                <span id="oilOffsetXValLabel">Marge de gauche : <span id="oilOffsetXSliderVal">@Model.OilOffsetX</span></span>
+                                                                <span id="oilOffsetXValLabel">@Localizer["LeftMargin"] : <span id="oilOffsetXSliderVal">@Model.OilOffsetX</span></span>
                                                                 <input id="oilOffsetX" type="text" data-slider-min="-40" data-slider-max="40" data-slider-step="1" data-slider-value="@Model.OilOffsetX" />
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <span id="oilOffsetYValLabel">Marge du haut : <span id="oilOffsetYSliderVal">@Model.OilOffsetY</span></span>
+                                                                <span id="oilOffsetYValLabel">@Localizer["TopMargin"] : <span id="oilOffsetYSliderVal">@Model.OilOffsetY</span></span>
                                                                 <input id="oilOffsetY" type="text" data-slider-min="-40" data-slider-max="40" data-slider-step="1" data-slider-value="@Model.OilOffsetY" />
                                                             </div>
                                                         </div>
                                                         <div class="row justify-content-center mt-4">
-                                                            <button id="btnTestOffset" type="button" class="btn btn-primary"><i class="fad fa-print mr-2"></i>Tester les marges</button>
+                                                            <button id="btnTestOffset" type="button" class="btn btn-primary"><i class="fad fa-print mr-2"></i>@Localizer["TestMargins"]</button>
                                                         </div>
 
                                                     </div>
@@ -84,7 +85,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-center">
-                            <button id="btnSave" type="button" class="btn btn-primary">Sauvegarder</button>
+                            <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
                         </div>
                     </div>
                 </div>

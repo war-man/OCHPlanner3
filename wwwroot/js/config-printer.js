@@ -36,7 +36,7 @@
 
                 Swal.fire({
                     icon: 'success',
-                    title: 'Sauvegardé avec succès!',
+                    title: $('#HidSaveSuccess').val(),
                     showCancelButton: false,
                     showConfirmButton: false,
                     timer: 2000,
