@@ -4,8 +4,8 @@
 
     moment.locale('fr');
 
-    var nextunit = 'PROCH. KM';
-    var nextdate = 'PROCH. DATE';
+    var nextunit = $('#HidNextUnitKm').val();
+    var nextdate = $('#HidNextDate1').val();
 
     qz.websocket.connect().then(function () {
         console.log("Connected!");
@@ -15,8 +15,8 @@
     if ($('#HidSelectedOilPrinter').val() === '') {
         Swal.fire({
             icon: 'error',
-            title: 'Imprimante non défini',
-            text: 'Aucune configuration d\'imprimante trouvée',
+            title: $('#HidPrinterNotDefined').val(),
+            text: $('#HidPrinterNotDefinedText').val(),
             showConfirmButton: true,
             allowOutsideClick: false
         }).then((result) => {
@@ -88,7 +88,7 @@
     });
 
     function Choice1_Click() {
-        nextdate = 'PROCH. DATE';
+        nextdate = $('#HidNextDate1').val();
 
         UpdateMonthChoice1();
         UpdateMileageChoice1();
@@ -97,7 +97,7 @@
     function UpdateMonthChoice1() {
         var month = parseInt($('select[name="SelectedPeriodChoice1"] option:selected').text());
         $('#datebox-preview').val(moment().add(month, 'M').format('' + $('#hidDateFormat').val().toUpperCase() + ''));
-        $('#label-datebox-preview').html('Prochaine date ou avant le <span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
+        $('#label-datebox-preview').html($('#HidNextDateOrBefore').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
     }
 
     function UpdateMileageChoice1() {
@@ -121,9 +121,9 @@
     });
 
     function Choice2_Click() {
-        $('#label-datebox-preview').html('Entretien effectué le <span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
+        $('#label-datebox-preview').html($('#HidLastService').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
         $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
-        nextdate = 'EFFECTUE LE';
+        nextdate = $('#HidNextDate2').val();;
         UpdateMileageChoice2();
     }
 
@@ -151,8 +151,8 @@
     });
 
     function Choice3_Click() {
-        $('#label-datebox-preview').text('Prochaine visite');
-        nextdate = 'PROCH. VISITE';
+        $('#label-datebox-preview').text($('#HidNextService').val());
+        nextdate = $('#HidNextDate3').val();;
         Choice3UpdatePreview();
         UpdateMileageChoice3();
     }
@@ -233,7 +233,7 @@
                 if (response == 1) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Sauvegardé avec succès!',
+                        title: $('#HidSaveSuccess').val(),
                         showCancelButton: false,
                         showConfirmButton: false,
                         timer: 2000,
@@ -245,21 +245,21 @@
     });
 
     function UpdateKM() {
-        $('#label-unit').text('Kilomètres actuel');
-        $('#label-unit-preview').text('Prochain Kilomètres');
-        nextunit = 'PROCH. KM';
+        $('#label-unit').text($('#HidActualKm').val());
+        $('#label-unit-preview').text($('#HidNextKm').val());
+        nextunit = $('#HidNextUnitKm').val();;
     }
 
     function UpdateMiles() {
-        $('#label-unit').text('Miles actuel');
-        $('#label-unit-preview').text('Prochain Miles');
-        nextunit = 'PROCH. MILES';
+        $('#label-unit').text($('#HidActualMiles').val());
+        $('#label-unit-preview').text($('#HidNextMiles').val());
+        nextunit = $('#HidNextUnitMiles').val();;
     }
 
     function UpdateHM() {
-        $('#label-unit').text('Heures moteur actuel');
-        $('#label-unit-preview').text('Prochain Heures moteur');
-        nextunit = 'PROCH. HR. MOTEUR';
+        $('#label-unit').text($('#HidActualHm').val());
+        $('#label-unit-preview').text($('#HidNextHm').val());
+        nextunit = $('#HidNextUnitHrMotor').val();;
     }
 
     function PrintableDateFormat() {
@@ -342,43 +342,5 @@
             return qz.print(config, printData);
 
         }).catch(function (e) { console.error(e); });
-
-
-        //qz.websocket.connect().then(function () {
-        //    return qz.printers.find($('#HidSelectedOilPrinter').val());             
-        //}).then(function (printer) {
-        //    var config = qz.configs.create(printer);      
-
-        //    var printData1;
-
-        //    printData1 = [
-        //        'N\n',
-        //        'Q400\n',
-        //        'q440\n',
-        //        'D12\n',
-        //        'A' + (90 + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
-        //        'A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n',
-        //        'A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
-        //        'A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
-        //        'A' + (75 + oilOffsetXSlider) + ', ' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n',
-        //    ];
-
-        //    if ($('#hidDateFormatPrint').val() === "True" &&
-        //        ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
-        //        $("input[name='PrintChoices']:checked").val() === 'Choice2') {
-        //        printData1.push('A' + (260 + oilOffsetXSlider) + ',' + (275 + oilOffsetYSlider) + ',0,1,1,1,N,"(' + PrintableDateFormat() + ')"\n');
-        //    }
-
-        //    var printData2 = [
-        //        'A' + (75 + oilOffsetXSlider) + ',' + (302 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
-        //        'A' + (75 + oilOffsetXSlider) + ',' + (362 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextunit + '"\n',
-        //        'A' + (75 + oilOffsetXSlider) + ',' + (387 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
-        //        'P1,1\n'
-        //    ];
-
-        //    var printData = $.merge(printData1, printData2);
-
-        //    return qz.print(config, printData);
-        //}).catch(function (e) { console.error(e); });
     }
 });

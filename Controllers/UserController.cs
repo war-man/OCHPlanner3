@@ -284,7 +284,7 @@ namespace OCHPlanner3.Controllers
                         LastName = claims.Any(c => c.Type == "LastName") ? claims.FirstOrDefault(c => c.Type == "LastName")?.Value : string.Empty,
                         UserName = user.UserName,
                         GarageId = claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0,
-                        GarageName = garage.Name,
+                        GarageName = garage?.Name,
                     });
                 }
             }

@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using OCHPlanner3.Helper;
+using System.Security.Claims;
+using OCHPlanner3.Services.Interfaces;
 
 namespace OCHPlanner3.Areas.Identity.Pages.Account
 {
@@ -21,13 +23,16 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IGarageService _garageService;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
+            IGarageService garageService,
             UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _garageService = garageService;
             _logger = logger;
         }
 
@@ -84,8 +89,24 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    //Get claims
+                    var identityUser = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                    IList<Claim> claims = await _signInManager.UserManager.GetClaimsAsync(identityUser);
+
+                    //Get language in garage
+                    var defaultLanguage = "fr";
+                    var garageId = claims.FirstOrDefault(p => p.Type.ToUpper() == "GARAGEID");
+                    if (garageId != null) 
+                    {
+                        var garage = await _garageService.GetGarage(Convert.ToInt32(garageId.Value));
+                        if(garage != null)
+                        {
+                            defaultLanguage = garage.Language;
+                        }
+                    }
+
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(UserHelper.GetStartUpUrl(returnUrl));
+                    return LocalRedirect(UserHelper.GetStartUpUrl(defaultLanguage, returnUrl));
                 }
                 if (result.RequiresTwoFactor)
                 {

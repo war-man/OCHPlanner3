@@ -34,7 +34,7 @@ namespace OCHPlanner3.Models
                     return "All";
                 }
 
-                return GarageName;
+                return string.IsNullOrWhiteSpace(GarageName) ? "N/A" : GarageName;
             }
         }
         public string RolesToDisplay
