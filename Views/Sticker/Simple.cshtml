@@ -205,16 +205,16 @@
                                         <h6>@currentUser.GarageSetting.Phone.ToPhone()</h6>
                                     </div>
                                     <div class="form-group mt-3">
-                                        <input autocomplete="off" class="form-control input" id="comment-preview" maxlength="20" name="comment-preview" placeholder="Commentaire" type="text" value="">
+                                        <input autocomplete="off" class="form-control input" id="comment-preview" maxlength="20" name="comment-preview" placeholder="@Localizer["Comment"]" type="text" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label for="selectedOil" class="control-label">Huile</label>
+                                        <label for="selectedOil" class="control-label">@Localizer["Oil"]</label>
                                         <select asp-for="SelectedOil" name="oillist-preview" asp-items="Model.OilList" class="form-control">
                                             <option value="">-- Select --</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="DateBox" id="label-datebox-preview" class="control-label">Prochaine date ou avant le</label>
+                                        <label for="DateBox" id="label-datebox-preview" class="control-label">@Localizer["NextDateOrBefore"]</label>
                                         <input autocomplete="off" class="form-control input" id="datebox-preview" maxlength="10" name="datebox-preview" placeholder="Date" type="text" value="">
 
                                     </div>
