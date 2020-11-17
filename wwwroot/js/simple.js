@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     var ajaxUrl = $('#HidRootUrl').val();
-
+ 
     moment.locale('fr');
 
     var nextunit = $('#HidNextUnitKm').val();

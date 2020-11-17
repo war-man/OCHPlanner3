@@ -131,29 +131,29 @@
                                     </li>
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                     {
-                                    <li class="@(Html.IsMenuActive("/Users") || Html.IsMenuActive("/Roles")  ? "active" : "")">
-                                        <a href="javascript:void(0)"><i class="fad fa-users"></i><span>@Localizer["MenuUserManagement"]</span></a>
-                                        <ul class="submenu">
-                                            <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">@Localizer["MenuUsers"]</a></li>
-                                            @if (User.IsInRole("SuperAdmin"))
-                                            {
-                                            <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">@Localizer["MenuRoles"]</a></li>
-                                            }
-                                        </ul>
-                                    </li>
+                                        <li class="@(Html.IsMenuActive("/Users") || Html.IsMenuActive("/Roles")  ? "active" : "")">
+                                            <a href="javascript:void(0)"><i class="fad fa-users"></i><span>@Localizer["MenuUserManagement"]</span></a>
+                                            <ul class="submenu">
+                                                <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">@Localizer["MenuUsers"]</a></li>
+                                                @if (User.IsInRole("SuperAdmin"))
+                                                {
+                                                    <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">@Localizer["MenuRoles"]</a></li>
+                                                }
+                                            </ul>
+                                        </li>
                                     }
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                     {
-                                <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
-                                    @if (User.IsInRole("SuperAdmin"))
-                                    {
-                                    <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
-                                    }
-                                    else if(User.IsInRole("Administrator"))
-                                    {
-                                <a asp-controller="Garage" asp-action="Edit" asp-route-id="@currentUser.GarageId"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
-                                    }
-                                </li>
+                                        <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
+                                            @if (User.IsInRole("SuperAdmin"))
+                                            {
+                                                <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
+                                            }
+                                            else if (User.IsInRole("Administrator"))
+                                            {
+                                                <a asp-controller="Garage" asp-action="Edit" asp-route-id="@currentUser.GarageId"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
+                                            }
+                                        </li>
                                     }
                                     <li class="@(Html.IsMenuActive("/Options") ? "active" : "")">
                                         <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>@Localizer["MenuOptions"]</span></a>
@@ -225,16 +225,13 @@
     <!-- Datatables Language -->
     <script type="text/javascript" src="~/js/language.js"></script>
 
-    <!-- Required scripts -->
+    <!-- QZ Tray Print -->
     <script type="text/javascript" src="~/js/qz-tray/qz-tray.js"></script>
+    <script type="text/javascript" src="~/js/print-auth.js"></script>
 
     <!-- Pollyfills -->
     <script type="text/javascript" src="~/js/qz-tray/promise-polyfill-8.1.3.min.js"></script>
     <script type="text/javascript" src="~/js/qz-tray/whatwg-fetch-3.0.0.min.js"></script>
-
-
-    <!-- Print -->
-    @*<script type="text/javascript" src="~/js/print2.js"></script>*@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10.6.1/dist/sweetalert2.all.min.js"></script>
 
