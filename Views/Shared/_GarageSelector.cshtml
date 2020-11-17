@@ -4,8 +4,19 @@
 
 @inject IViewLocalizer Localizer
 
-<select id="@Model.UniqueId" class="form-control custom-select" asp-for="SelectedGarageId"
-        asp-items="Model.Garages">
-    <option value="">@Localizer["SelectOption"]</option>
-</select>
+@if (Model.disabled)
+{
+    <select id="@Model.UniqueId" class="form-control custom-select" asp-for="SelectedGarageId"
+            asp-items="Model.Garages" disabled>
+        <option value="">@Localizer["SelectOption"]</option>
+    </select>
+}
+else
+{
+    <select id="@Model.UniqueId" class="form-control custom-select" asp-for="SelectedGarageId"
+            asp-items="Model.Garages">
+        <option value="">@Localizer["SelectOption"]</option>
+    </select>
+}
+
 <span asp-validation-for="SelectedGarageId" class="text-danger"></span>

@@ -53,19 +53,16 @@ namespace OCHPlanner3.Controllers
             var language = claims.Any(c => c.Type == "Language") ? claims.FirstOrDefault(c => c.Type == "Language")?.Value : "FR";
 
             var users = HttpContext.User.IsInRole("Administrator") ? await GetUsers(CurrentUser.GarageId) : await GetUsers();
-            ////Filter users
-            //if(HttpContext.User.IsInRole("Administrator"))
-            //{
-            //    users = users.Where(p => p.GarageId)
-            //}
-
+            
             var model = new UserListViewModel()
             {
                 RootUrl = BaseRootUrl,
                 Users = users,
                 GarageSelector = new GarageSelectorViewModel
                 {
-                    Garages = await _garageService.GetGaragesSelectList()
+                    Garages = await _garageService.GetGaragesSelectList(),
+                    SelectedGarageId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.GarageId : 0,
+                    disabled = HttpContext.User.IsInRole("Administrator")
                 },
             };
 
@@ -250,7 +247,9 @@ namespace OCHPlanner3.Controllers
         [HttpGet("/{lang:lang}/users/list")]
         public async Task<IActionResult> GetUserList()
         {
-            var model = new UserListViewModel() { Users = await GetUsers() };
+            var users = HttpContext.User.IsInRole("Administrator") ? await GetUsers(CurrentUser.GarageId) : await GetUsers();
+
+            var model = new UserListViewModel() { Users = users };
             return PartialView("_users", model);
         }
 

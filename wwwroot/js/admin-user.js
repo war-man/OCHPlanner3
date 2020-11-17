@@ -65,8 +65,10 @@
 
         if (form.valid()) {
 
+            var disabled = form.find(':input:disabled').removeAttr('disabled');
             var formData = $(form).serialize();
-
+            disabled.attr('disabled', 'disabled');
+            
             // Submit the form using AJAX.
             $.ajax({
                 url: ajaxUrl + '/CreateUser',
@@ -145,7 +147,9 @@
         });
 
         if (form.valid()) {
+            var disabled = form.find(':input:disabled').removeAttr('disabled');
             var formData = $(form).serialize();
+            disabled.attr('disabled', 'disabled');
 
             // Submit the form using AJAX.
             $.ajax({

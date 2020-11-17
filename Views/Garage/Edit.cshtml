@@ -10,6 +10,7 @@
 @Html.Hidden("HidSaveSuccess", Localizer["SaveSuccess"].Value)
 @Html.Hidden("HidRequired", @Localizer["Required"].Value)
 @Html.Hidden("HidRootUrl", Model.RootUrl)
+@Html.Hidden("HidIsSuperAdmin", User.IsInRole("SuperAdmin"))
 
 <div class="page-title-area">
     <div class="row align-items-center">
@@ -74,26 +75,26 @@
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                        <div class="col-12 mt-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title">Modules</h4>
-                                    <div class="form-check">
-                                        <input asp-for="Support" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="Support">Support</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input asp-for="OilReset" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="OilReset">OilReset</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input asp-for="Communication" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="Communication">Communication</label>
+                            <div class="col-12 mt-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Modules</h4>
+                                        <div class="form-check">
+                                            <input asp-for="Support" type="checkbox" class="form-check-input" />
+                                            <label class="form-check-label" for="Support">Support</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="OilReset" type="checkbox" class="form-check-input" />
+                                            <label class="form-check-label" for="OilReset">OilReset</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="Communication" type="checkbox" class="form-check-input" />
+                                            <label class="form-check-label" for="Communication">Communication</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
+                            </div>
                         }
                     </div>
                 </div>
@@ -151,32 +152,35 @@
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                        <div class="col-12 mt-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title">Notes</h4>
-                                    <div class="form-group">
-                                        <label for="Note" class="control-label">Notes</label>
-                                        <textarea asp-for="Note" class="form-control" rows="3"></textarea>
+                            <div class="col-12 mt-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Notes</h4>
+                                        <div class="form-group">
+                                            <label for="Note" class="control-label">Notes</label>
+                                            <textarea asp-for="Note" class="form-control" rows="3"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         }
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-12 mt-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row justify-content-center">
-                                <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <div class="row justify-content-center">
+                    <div class="col-md-12 mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </form>

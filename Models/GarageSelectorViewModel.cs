@@ -10,6 +10,8 @@ namespace OCHPlanner3.Models
     {
         public string Name { get; set; }
         public int SelectedGarageId { get; set; }
+
+        public bool disabled { get; set; }
         public IEnumerable<SelectListItem> Garages { get; set; }
         public string UniqueId
         {

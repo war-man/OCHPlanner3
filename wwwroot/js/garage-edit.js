@@ -1,6 +1,16 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    //readonly everything if not SuperAdmin
+    if ($('#HidIsSuperAdmin').val() == 'False') {
+        var form = $('#garage-edit');
+        form.find(':input').prop('readonly', true);
+        $("#SelectedBannerId").prop('disabled', 'disabled');
+        $("#SelectedDateFormatCode").prop('disabled', 'disabled');
+        $("#SelectedLanguageCode").prop('disabled', 'disabled');
+        $("#PersonalizedSticker").prop('disabled', 'disabled');
+    }
+
     $('#btnSave').on('click', function () {
         var form = $('#garage-edit');
 
