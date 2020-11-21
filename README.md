@@ -1,6 +1,14 @@
 # OCHPlanner3
 
-SendGrid
+SMTP sur Likuid.com
+ "MailServer": "mail.ochplanner.com",
+    "MailPort": 26,
+    "SenderName": "OCH Planner",
+    "SenderEmail": "support@ochplanner.com",
+    "User": "support@ochplanner.com",
+    "Password": "9MNdhLH@;Cr8",
+
+SendGrid (Non utilisé)
 
 user: info@ochplanner.com
 Pass: Doogie01Doogie02
