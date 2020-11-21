@@ -77,7 +77,7 @@ namespace OCHPlanner3.Controllers
             try
             {
                 var fullName = $"{firstName} {lastName}";
-                var user = new IdentityUser { Email = email.ToLower(), UserName = userName.ToLower() };
+                var user = new IdentityUser { Email = email.ToLower(), UserName = userName.ToLower(), EmailConfirmed = true };
 
                 var result = await _userIdentity.UserManager.CreateAsync(user, DefaultNewUserPassword);
                 if (result.Succeeded)

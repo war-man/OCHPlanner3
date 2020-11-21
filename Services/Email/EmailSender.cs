@@ -5,6 +5,7 @@ using OCHPlanner3.Services.Email.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Services.Email
@@ -40,10 +41,14 @@ namespace OCHPlanner3.Services.Email
 					Text = message
 				};
 
+				var cts = new CancellationTokenSource();
+				var token = cts.Token;
+				cts.CancelAfter(4000);
+
 				using (var client = new SmtpClient())
 				{
 					// For demo-purposes, accept all SSL certificates (in case the server supports STARTTLS)
-					client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+					//client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
 					// The third parameter is useSSL (true if the client should make an SSL-wrapped
 					// connection to the server; otherwise, false).
