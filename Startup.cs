@@ -24,6 +24,8 @@ using Microsoft.AspNetCore.Routing;
 using System.Reflection;
 using Microsoft.Extensions.Localization;
 using OCHPlanner3.Data.Mapper;
+using OCHPlanner3.Services.Email;
+using OCHPlanner3.Services.Email.Entities;
 
 namespace OCHPlanner3
 {
@@ -46,7 +48,8 @@ namespace OCHPlanner3
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-           // services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            // services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -94,6 +97,8 @@ namespace OCHPlanner3
             services.AddTransient<IReferenceFactory, ReferenceFactory>();
             services.AddTransient<IGarageFactory, GarageFactory>();
 
+            // Email Sender
+            services.AddSingleton<IEmailSender, EmailSender>();
 
             services.Configure<RouteOptions>(options =>
             {

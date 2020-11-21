@@ -11,6 +11,13 @@
         console.log("Connected!");
     });
 
+    //Detect ENTER key
+    $(document).on("keypress", "input", function (e) {
+        if (e.which == 13) {
+            var inputVal = $(this).val();
+            $('#btnPrint').focus();
+        }
+    });
     //Warning if no printer selected
     if ($('#HidSelectedOilPrinter').val() === '') {
         Swal.fire({
