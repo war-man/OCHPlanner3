@@ -10,5 +10,4 @@ SMTP sur Likuid.com
 
 SendGrid (Non utilisé)
 
-user: info@ochplanner.com
-Pass: Doogie01Doogie02
+Voir email OCHPLANNER SENDGRID
