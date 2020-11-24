@@ -1,16 +1,28 @@
 ﻿$(document).ready(function () {
 
-    $('#forgot-form').validate({
+    $('#reset-form').validate({
         rules: {
             'Input.Email': {
                 required: true,
                 email: true,
+            },
+            'Input.Password': {
+                required: true
+            },
+            'Input.ConfirmPassword': {
+                required: true
             }
         },
         messages: {
             'Input.Email': {
-                required: "l'adresse courriel est requise",
-                email: "Format de l'adresse courriel est invalide"
+                required: "Please enter a email address",
+                email: "Please enter a vaild email address"
+            },
+            'Input.Password': {
+                required: "Please enter a password"
+            },
+            'Input.ConfirmPassword': {
+                required: "Please confirm your password"
             }
         },
         errorElement: 'span',
@@ -25,16 +37,4 @@
             $(element).removeClass('is-invalid');
         }
     });
-
-    $.urlParam = function (name) {
-        return new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    }
-
-    if ($.urlParam('Confirmation')) {
-        Swal.fire(
-            'Succès!',
-            'Le lien à été envoyé, Veuillez vérifier votre boite courriel pour réinitialiser votre mot de passe.',
-            'success'
-        )
-    }
 });

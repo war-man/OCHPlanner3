@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCHPlanner3.Services.Email;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 
 namespace OCHPlanner3.Areas.Identity.Pages.Account
 {
@@ -18,12 +19,15 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IStringLocalizer<ForgotPasswordModel> _localizer;
 
         public ForgotPasswordModel(UserManager<IdentityUser> userManager, 
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IStringLocalizer<ForgotPasswordModel> localizer)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _localizer = localizer;
         }
 
         [BindProperty]
@@ -49,6 +53,8 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
                         return RedirectToPage("./ForgotPasswordConfirmation");
                     }
 
+                    string urlDomain = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+
                     // For more information on how to enable account confirmation and password reset please 
                     // visit https://go.microsoft.com/fwlink/?LinkID=532713
                     var code = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -61,8 +67,8 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(
                         Input.Email,
-                        "Reset Password",
-                        $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        "Réinitialiser votre mot de passe",
+                        GetMessageForgotPassword(urlDomain, callbackUrl));
 
                     return Redirect("./ForgotPassword?Confirmation=true");
                 }
@@ -72,6 +78,18 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             {
                 throw ex;
             }
+        }
+
+        private string GetMessageForgotPassword(string urlDomain, string callbackUrl)
+        {
+            string emailMsg = _localizer["ForgotPasswordEmail"];
+
+            emailMsg = emailMsg.Replace("{URL_DOMAIN}", urlDomain);
+
+            string url = HtmlEncoder.Default.Encode(callbackUrl);
+            emailMsg = emailMsg.Replace("{URL_TAG}", url);
+
+            return emailMsg;
         }
     }
 }
