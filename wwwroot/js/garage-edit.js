@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('#Phone').mask('(000) 000-0000');
+
     //readonly everything if not SuperAdmin
     if ($('#HidIsSuperAdmin').val() == 'False') {
         var form = $('#garage-edit');

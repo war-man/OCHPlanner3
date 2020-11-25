@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('#Phone').mask('(000) 000-0000');
+
     $('#btnSave').on('click', function () {
         var form = $('#garage-create');
 
