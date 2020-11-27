@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Models;
+using OCHPlanner3.Helper;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
 using System;
@@ -80,6 +81,7 @@ namespace OCHPlanner3.Services
             {
                 //default to Canada
                 model.Country = "CA";
+                model.Phone = model.Phone.ToPhoneDatabase();
 
                 var factoryModel = model.Adapt<GarageModel>();
 
@@ -100,6 +102,8 @@ namespace OCHPlanner3.Services
         {
             try
             {
+                model.Phone = model.Phone.ToPhoneDatabase();
+
                 var factoryModel = model.Adapt<GarageModel>();
 
                 return await _garageFactory.Update(factoryModel);

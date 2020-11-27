@@ -11,5 +11,13 @@ namespace OCHPlanner3.Helper
         {
             return String.Format("{0:(###) ###-####}", double.Parse(phone));
         }
+
+        public static string ToPhoneDatabase(this string phone)
+        {
+            return phone.Replace("(", "")
+                        .Replace(")", "")
+                        .Replace(" ", "")
+                        .Replace("-", "");
+        }
     }
 }
