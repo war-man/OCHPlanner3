@@ -113,5 +113,10 @@ namespace OCHPlanner3.Services
                 throw ex;
             }
         }
+
+        public async Task IncrementPrintCounter(int garageId)
+        {
+            await _garageFactory.IncrementPrintCounter(garageId);
+        }
     }
 }

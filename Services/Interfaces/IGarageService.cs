@@ -15,5 +15,6 @@ namespace OCHPlanner3.Services.Interfaces
         Task<int> Create(GarageViewModel model);
         Task<int> Delete(int garageId);
         Task<int> Update(GarageViewModel model);
+        Task IncrementPrintCounter(int garageId);
     }
 }

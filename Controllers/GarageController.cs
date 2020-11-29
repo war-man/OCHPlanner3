@@ -96,6 +96,20 @@ namespace OCHPlanner3.Controllers
             }
         }
 
+        [HttpPost("/{lang:lang}/Garage/IncrementPrintCounter")]
+        public async Task<IActionResult> IncrementPrintCounter()
+        {
+            try
+            {
+                await _garageService.IncrementPrintCounter(CurrentUser.GarageId);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPut("/{lang:lang}/Garage/Edit")]
         public async Task<IActionResult> Edit(GarageViewModel model)
         {

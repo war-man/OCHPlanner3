@@ -18,6 +18,7 @@
             $('#btnPrint').focus();
         }
     });
+
     //Warning if no printer selected
     if ($('#HidSelectedOilPrinter').val() === '') {
         Swal.fire({
@@ -346,7 +347,16 @@
 
             var printData = $.merge(printData1, printData2);
 
-            return qz.print(config, printData);
+            qz.print(config, printData);
+
+            //Increment Print Count
+            $.ajax({
+                url: ajaxUrl + '/garage/IncrementPrintCounter',
+                type: 'POST',
+                success: function (response) {
+                    
+                }
+            });  
 
         }).catch(function (e) { console.error(e); });
     }

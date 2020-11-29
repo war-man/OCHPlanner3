@@ -234,5 +234,24 @@ namespace OCHPlanner3.Data.Factory
                 throw ex;
             }
         }
+
+        public async Task IncrementPrintCounter(int garageId)
+        {
+            var sql = @"UPDATE [dbo].[Garages]
+                        SET PrintCount = PrintCount + 1
+                        WHERE Id = @garageId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        GarageId = garageId
+                    },
+                    commandType: CommandType.Text);
+            }
+        }
     }
 }
