@@ -4,6 +4,9 @@
  
     moment.locale('fr');
 
+    //calculate garage name center position
+    centerTitle($('#garage-name-print').val());
+
     var nextunit = $('#HidNextUnitKm').val();
     var nextdate = $('#HidNextDate1').val();
 
@@ -325,7 +328,7 @@
                 'Q400\n',
                 'q440\n',
                 'D12\n',
-                'A' + (90 + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
+                'A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
                 'A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n',
                 'A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
                 'A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
@@ -359,5 +362,20 @@
             });  
 
         }).catch(function (e) { console.error(e); });
+    }
+
+    function centerTitle(word) {
+        $.ajax({
+            url: ajaxUrl + '/print/center',
+            type: "GET",
+            data: { word: word },
+            async: false,
+            success: function (response) {
+                $('#HidCenterGarageNameOffset').val(response);
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
     }
 });
