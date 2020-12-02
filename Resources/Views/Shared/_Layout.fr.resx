@@ -123,6 +123,9 @@
   <data name="MenuGarageManagement" xml:space="preserve">
     <value>Gestion des garages</value>
   </data>
+  <data name="MenuHelp" xml:space="preserve">
+    <value>Aide</value>
+  </data>
   <data name="MenuOptions" xml:space="preserve">
     <value>Options</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="MenuSimple" xml:space="preserve">
     <value>Simple</value>
+  </data>
+  <data name="MenuStickerOrder" xml:space="preserve">
+    <value>COMMANDER DES ETIQUETTES</value>
   </data>
   <data name="MenuUserManagement" xml:space="preserve">
     <value>Gestion des utilisateurs</value>

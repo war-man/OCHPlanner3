@@ -1,5 +1,13 @@
 ﻿/*   LAYOUT   */
 
+#btn-order {
+    color: #007bff;
+}
+
+    #btn-order:hover {
+        color: #fff;
+    }
+
 .notification-area .dropdown-menu, .user-profile .dropdown-menu {
     background: #e9e9e9;
     left: 0px !important;
