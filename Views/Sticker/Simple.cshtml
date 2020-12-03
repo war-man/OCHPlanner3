@@ -40,6 +40,7 @@
 @Html.Hidden("HidNextHm", Localizer["NextHm"].Value)
 
 @Html.Hidden("HidCenterGarageNameOffset", "")
+@Html.Hidden("HidPersonalizedSticker", currentUser.GarageSetting.PersonalizedSticker)
 
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 

@@ -322,18 +322,22 @@
 
             var config = qz.configs.create(printer);       // Create a default config for the found printer
             var printData1;
-
+            
             printData1 = [
                 'N\n',
                 'Q400\n',
                 'q440\n',
                 'D12\n',
-                'A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n',
-                'A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n',
-                'A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n',
-                'A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n',
-                'A' + (75 + oilOffsetXSlider) + ', ' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n',
-            ];
+             ];
+
+            if ($('#HidPersonalizedSticker').val() === "False") {
+                printData1.push('A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n');
+                printData1.push('A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n');
+            }
+
+            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n');
+            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n');
+            printData1.push('A' + (75 + oilOffsetXSlider) + ', ' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
 
             if ($('#hidDateFormatPrint').val() === "True" &&
                 ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
