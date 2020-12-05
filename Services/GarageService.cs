@@ -118,5 +118,26 @@ namespace OCHPlanner3.Services
         {
             await _garageFactory.IncrementPrintCounter(garageId);
         }
+
+        public async Task<IEnumerable<OilViewModel>> GetOilList(int garageId)
+        {
+            var oilList = await _garageFactory.GetOilList(garageId);
+            return oilList.Adapt<IEnumerable<OilViewModel>>();
+        }
+
+        public async Task<int> CreateOil(int garageId, string name)
+        {
+            return await _garageFactory.CreateOil(garageId, name);
+        }
+
+        public async Task<int> UpdateOil(int oilId, string name)
+        {
+            return await _garageFactory.UpdateOil(oilId, name);
+        }
+
+        public async Task<int> DeleteOil(int oilId)
+        {
+            return await _garageFactory.DeleteOil(oilId);
+        }
     }
 }

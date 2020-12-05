@@ -10,7 +10,7 @@ namespace OCHPlanner3.Data.Interfaces
     {
         Task<IEnumerable<OilModel>> GetOilList(int garageId);
         Task<IEnumerable<MileageModel>> GetMileageList(int garageId, int mileageType = 1);
-        Task<IEnumerable<PeriodModel>> GetPeriodList(int garageId);
+        Task<IEnumerable<PeriodModel>> GetPeriodList();
         Task<IEnumerable<BannerModel>> GetBannerList();
     }
 }

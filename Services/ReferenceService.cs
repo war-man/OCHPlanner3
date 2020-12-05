@@ -45,9 +45,9 @@ namespace OCHPlanner3.Services
             }).OrderBy(o => o.Text);
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetPeriodSelectListItem(int garageId, int selectedId = 0)
+        public async Task<IEnumerable<SelectListItem>> GetPeriodSelectListItem(int selectedId = 0)
         {
-            var periodList = await _referenceFactory.GetPeriodList(garageId);
+            var periodList = await _referenceFactory.GetPeriodList();
 
             return periodList.Where(p => p.Name.ToUpper() != "N/A").Select(x => new SelectListItem()
             {

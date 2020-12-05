@@ -126,6 +126,9 @@
   <data name="MenuHelp" xml:space="preserve">
     <value>Aide</value>
   </data>
+  <data name="MenuOils" xml:space="preserve">
+    <value>Gestion des huiles</value>
+  </data>
   <data name="MenuOptions" xml:space="preserve">
     <value>Options</value>
   </data>

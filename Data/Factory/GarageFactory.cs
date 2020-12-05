@@ -253,5 +253,92 @@ namespace OCHPlanner3.Data.Factory
                     commandType: CommandType.Text);
             }
         }
+
+        public async Task<IEnumerable<OilModel>> GetOilList(int garageId)
+        {
+            var sql = @"SELECT OilTypeId, OilTypeName
+                        FROM [dbo].[OilType]
+                        WHERE GarageId = @garageId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<OilModel>(sql,
+                    new
+                    {
+                        GarageId = garageId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<int> CreateOil(int garageId, string name)
+        {
+            var sql = @"INSERT INTO [dbo].[OilType]
+                        VALUES(
+                        @OilTypeName,
+                        @GarageId
+                        )";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        GarageId = garageId,
+                        OilTypeName = name,
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<int> UpdateOil(int oilId, string name)
+        {
+            var sql = @"UPDATE [dbo].[OilType]
+                        SET OilTypeName = @Name
+                        WHERE OilTypeId = @OilId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        OilId = oilId,
+                        Name = name
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<int> DeleteOil(int oilId)
+        {
+            var sql = @"DELETE FROM [dbo].[OilType]
+                        WHERE OilTypeID = @OilId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        OilId = oilId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }

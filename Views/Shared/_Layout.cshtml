@@ -155,12 +155,15 @@
                                             }
                                         </li>
                                     }
-                                    <li class="@(Html.IsMenuActive("/Options") ? "active" : "")">
-                                        <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>@Localizer["MenuOptions"]</span></a>
-                                        <ul class="submenu">
-                                            <li class="@(Html.IsMenuActive("/Options")  ? "active" : "")"><a asp-controller="Options" asp-action="Printer">@Localizer["MenuPrinters"]</a></li>
-                                        </ul>
-                                    </li>
+                                <li class="@(Html.IsMenuActive("/Options") || Html.IsMenuActive("/OilManagement") ? "active" : "")">
+                                    <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>@Localizer["MenuOptions"]</span></a>
+                                    <ul class="submenu">
+                                        <li class="@(Html.IsMenuActive("/Options")  ? "active" : "")"><a asp-controller="Options" asp-action="Printer">@Localizer["MenuPrinters"]</a></li>
+                                    </ul>
+                                    <ul class="submenu">
+                                        <li class="@(Html.IsMenuActive("/Oil")  ? "active" : "")"><a asp-controller="Garage" asp-action="Oil" asp-route-id="@currentUser.GarageId">@Localizer["MenuOils"]</a></li>
+                                    </ul>
+                                </li>
                                     <li>
                                         <a href="@(currentUser.GarageSetting.Language.ToUpper() == "FR" ? "https://ochplanner.com/support/" : "https://ochplanner.com/en/support/")" target="_blank"><i class="fad fa-question-square"></i><span>@Localizer["MenuHelp"]</span></a>
                                     </li>

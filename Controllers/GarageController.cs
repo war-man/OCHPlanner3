@@ -40,11 +40,30 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
 
+        [Route("/{lang:lang}/Garage/Oil/{id}")]
+        public async Task<IActionResult> OilManagement(int id)
+        {
+            var model = new OilManagementViewModel()
+            {
+                RootUrl = BaseRootUrl,
+                OilList = await _garageService.GetOilList(id)
+            };
+
+            return View(model);
+        }
+
         [HttpGet("/{lang:lang}/Garage/List")]
         public async Task<IActionResult> GetGarageList()
         {
             var model = new GarageListViewModel() { Garages = await _garageService.GetGarages() };
             return PartialView("_garages", model);
+        }
+
+        [HttpGet("/{lang:lang}/Garage/Oil/List")]
+        public async Task<IActionResult> GetOilList()
+        {
+            var model = new OilManagementViewModel() { OilList = await _garageService.GetOilList(CurrentUser.GarageId) };
+            return PartialView("_oils", model);
         }
 
         [HttpGet("/{lang:lang}/Garage/Create")]
@@ -96,6 +115,20 @@ namespace OCHPlanner3.Controllers
             }
         }
 
+        [HttpPost("/{lang:lang}/Garage/[action]")]
+        public async Task<IActionResult> CreateOil(string name)
+        {
+            try
+            {
+                var result = await _garageService.CreateOil(CurrentUser.GarageId, name);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("/{lang:lang}/Garage/IncrementPrintCounter")]
         public async Task<IActionResult> IncrementPrintCounter()
         {
@@ -124,12 +157,41 @@ namespace OCHPlanner3.Controllers
             }
         }
 
+        [HttpPost("/{lang:lang}/Garage/[action]")]
+        public async Task<IActionResult> UpdateOil(int id, string name)
+        {
+            try
+            {
+                var result = await _garageService.UpdateOil(id, name);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpDelete("/{lang:lang}/Garage/Delete")]
         public async Task<IActionResult> Delete(int garageId)
         {
             try
             {
                 var result = await _garageService.Delete(garageId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+            return BadRequest();
+        }
+
+        [HttpDelete("/{lang:lang}/Garage/Oil/Delete")]
+        public async Task<IActionResult> DeleteOil(int id)
+        {
+            try
+            {
+                var result = await _garageService.DeleteOil(id);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -16,5 +16,9 @@ namespace OCHPlanner3.Services.Interfaces
         Task<int> Delete(int garageId);
         Task<int> Update(GarageViewModel model);
         Task IncrementPrintCounter(int garageId);
+        Task<IEnumerable<OilViewModel>> GetOilList(int garageId);
+        Task<int> CreateOil(int garageId, string name);
+        Task<int> UpdateOil(int oilId, string name);
+        Task<int> DeleteOil(int oilId);
     }
 }
