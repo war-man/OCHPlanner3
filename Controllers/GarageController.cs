@@ -40,16 +40,32 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
 
-        [Route("/{lang:lang}/Garage/Oil/{id}")]
-        public async Task<IActionResult> OilManagement(int id)
+        [Route("/{lang:lang}/Garage/Oil")]
+        public async Task<IActionResult> OilManagement()
         {
             var model = new OilManagementViewModel()
             {
                 RootUrl = BaseRootUrl,
-                OilList = await _garageService.GetOilList(id)
+                OilList = await _garageService.GetOilList(CurrentUser.GarageId),
+                GarageSelector = new GarageSelectorViewModel
+                {
+                    Garages = await _garageService.GetGaragesSelectList(),
+                    SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
+                    disabled = HttpContext.User.IsInRole("Administrator")
+                },
             };
 
             return View(model);
+        }
+
+        [HttpGet("/{lang:lang}/Garage/Oil/{id}")]
+        public async Task<IActionResult> OilManagementList(int id)
+        {
+            if (id == 0)
+                throw new ApplicationException("OilManagementList - Id should ne be set to 0");
+
+            var model = new OilManagementViewModel() { OilList = await _garageService.GetOilList(id) };
+            return PartialView("_oils", model);
         }
 
         [HttpGet("/{lang:lang}/Garage/List")]
@@ -78,7 +94,7 @@ namespace OCHPlanner3.Controllers
                 RootUrl = BaseRootUrl
             };
 
-           return View(model);
+            return View(model);
         }
 
         [HttpGet("/{lang:lang}/Garage/Edit/{id}")]
@@ -90,14 +106,14 @@ namespace OCHPlanner3.Controllers
             DateTime.TryParse(model.ActivationDate, out activationDate);
 
             model.RootUrl = BaseRootUrl;
-            if(activationDate != null)
+            if (activationDate != null)
             {
                 model.ActivationDate = activationDate.ToString("yyyy-MM-dd");
             }
             model.BannerList = await _referenceService.GetBannerSelectListItem();
             model.LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language);
             model.DateFormatList = await _referenceService.GetDateFormatSelectList();
-                       
+
             return View(model);
         }
 
@@ -109,18 +125,18 @@ namespace OCHPlanner3.Controllers
                 var result = await _garageService.Create(model);
                 return Ok(result);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return BadRequest();
             }
         }
 
         [HttpPost("/{lang:lang}/Garage/[action]")]
-        public async Task<IActionResult> CreateOil(string name)
+        public async Task<IActionResult> CreateOil(int selectedGarageId, string name)
         {
             try
             {
-                var result = await _garageService.CreateOil(CurrentUser.GarageId, name);
+                var result = await _garageService.CreateOil(selectedGarageId, name);
                 return Ok(result);
             }
             catch (Exception)

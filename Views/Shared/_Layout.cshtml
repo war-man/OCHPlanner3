@@ -163,7 +163,7 @@
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                     {
                                         <ul class="submenu">
-                                            <li class="@(Html.IsMenuActive("/Garage/Oil") ? "active" : "")"><a asp-controller="Garage" asp-action="Oil" asp-route-id="@currentUser.GarageId">@Localizer["MenuOils"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Garage/Oil") ? "active" : "")"><a asp-controller="Garage" asp-action="Oil">@Localizer["MenuOils"]</a></li>
                                         </ul>
                                     }
                                     </li>

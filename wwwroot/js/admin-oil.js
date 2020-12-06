@@ -1,6 +1,15 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('select[name="SelectedGarageId"]').select2();
+
+    $('select[name="SelectedGarageId"]').on('change', function () {
+        var selectedGarage = $(this).val();
+        $('#hidSelectedGarageId').val(selectedGarage);
+        $('input[name="selectedGarageId"]').val(selectedGarage);
+        updateOilList(selectedGarage);
+    });
+
     var tableSettings = {
         dom: 'Bfrtip',
         select: {
@@ -122,9 +131,6 @@
                 type: "POST",
                 dataType: "json",
                 data: formData,
-                //data: {
-                //    name: form[0][0].value
-                //},
                 async: false,
                 success: function (response) {
                     addDone();
@@ -182,9 +188,9 @@
         }
     });
 
-    function updateOilList() {
+    function updateOilList(selectedGarage) {
         $.ajax({
-            url: ajaxUrl + '/Garage/oil/list',
+            url: ajaxUrl + '/Garage/Oil/' + selectedGarage,
             type: "GET",
             dataType: "html",
             async: false,
@@ -208,7 +214,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList();
+                updateOilList($('#hidSelectedGarageId').val());
             }
         });
     }
@@ -223,7 +229,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList();
+                updateOilList($('#hidSelectedGarageId').val());
             }
         });
     }
@@ -241,7 +247,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList();
+                updateOilList($('#hidSelectedGarageId').val());
             }
         });
     }

@@ -8,5 +8,6 @@ namespace OCHPlanner3.Models
     public class OilManagementViewModel : BaseViewModel
     {
         public IEnumerable<OilViewModel> OilList { get; set; }
+        public GarageSelectorViewModel GarageSelector { get; set; }
     }
 }
