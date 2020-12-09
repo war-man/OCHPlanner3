@@ -3,4 +3,5 @@
     $('#logout').on('click', function () {
         $("#logoutForm").submit();
     });
+
 });

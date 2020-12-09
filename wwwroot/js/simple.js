@@ -1,8 +1,15 @@
 ﻿$(document).ready(function () {
 
     var ajaxUrl = $('#HidRootUrl').val();
- 
-    moment.locale('fr');
+
+    if($('#hidLanguage').val() === 'FR')
+    {
+        moment.locale('fr');
+    }
+    else
+    {
+        moment.locale('en');
+    }
 
     //calculate garage name center position
     centerTitle($('#garage-name-print').val());
@@ -172,8 +179,12 @@
     function Choice3UpdatePreview() {
         var month = parseInt($('select[name="Choice3SelectedMonth"] option:selected').val());
         var year = parseInt($('select[name="Choice3SelectedYear"] option:selected').val());
+        var dateFormat = "MMMYY"; //default format for French
+        if ($('#hidLanguage').val().toUpperCase() === "EN") {
+            dateFormat = "MMM-YY";
+        }
 
-        $('#datebox-preview').val(moment(year + "/" + (month <= 9 ? '0' + month : month) + "/01").format("MMMYY").toUpperCase());
+        $('#datebox-preview').val(moment(year + "/" + (month <= 9 ? '0' + month : month) + "/01").format(dateFormat).toUpperCase());
     }
 
     //replication for selected Mileage
