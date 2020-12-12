@@ -48,6 +48,8 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             public string Email { get; set; }
             public string Submit { get; set; }
             public string Cancel { get; set; }
+            public string ConfirmationTitle { get; set; }
+            public string ConfirmationMessage { get; set; }
 
         }
 
@@ -65,7 +67,9 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
                     Message = _localizer["Message"],
                     Email = _localizer["Email"],
                     Submit = _localizer["Submit"],
-                    Cancel = _localizer["Cancel"]
+                    Cancel = _localizer["Cancel"],
+                    ConfirmationTitle = _localizer["ConfirmationTitle"],
+                    ConfirmationMessage = _localizer["ConfirmationMessage"]
                 }
             };
 
@@ -77,10 +81,9 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             {
                 if (ModelState.IsValid)
                 {
-                    if (HttpContext.Request.Query.ContainsKey("lang"))
-                        CultureInfo.CurrentUICulture = new CultureInfo(HttpContext.Request.Query["lang"], false);
-                    else
-                        CultureInfo.CurrentUICulture = new CultureInfo("fr", false);
+                    var language = HttpContext.Request.Query.ContainsKey("lang") ? HttpContext.Request.Query["lang"].ToString() : "fr";
+
+                    CultureInfo.CurrentUICulture = new CultureInfo(language, false);
 
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
@@ -103,10 +106,10 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(
                         Input.Email,
-                        "Réinitialiser votre mot de passe",
-                        GetMessageForgotPassword(urlDomain, callbackUrl));
+                        _localizer["ForgotPasswordEmailTitle"],
+                        GetMessageForgotPassword(urlDomain, callbackUrl + $"&lang={language}", language));
 
-                    return Redirect("./ForgotPassword?Confirmation=true");
+                    return Redirect($"./ForgotPassword?lang={language}&Confirmation=true");
                 }
                 return Page();
             }
@@ -116,8 +119,10 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             }
         }
 
-        private string GetMessageForgotPassword(string urlDomain, string callbackUrl)
+        private string GetMessageForgotPassword(string urlDomain, string callbackUrl, string language)
         {
+            CultureInfo.CurrentUICulture = new CultureInfo(language, false);
+
             string emailMsg = _localizer["ForgotPasswordEmail"];
 
             emailMsg = emailMsg.Replace("{URL_DOMAIN}", urlDomain);

@@ -32,8 +32,8 @@
 
     if ($.urlParam('Confirmation')) {
         Swal.fire(
-            'Succès!',
-            'Le lien à été envoyé, Veuillez vérifier votre boite courriel pour réinitialiser votre mot de passe.',
+            $('#hidConfirmationTitle').val(),
+            $('#hidConfirmationMessage').val(),
             'success'
         )
     }

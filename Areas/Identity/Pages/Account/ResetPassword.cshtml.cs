@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 
 namespace OCHPlanner3.Areas.Identity.Pages.Account
 {
@@ -16,10 +18,13 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IStringLocalizer<ResetPasswordModel> _localizer;
 
-        public ResetPasswordModel(UserManager<IdentityUser> userManager)
+        public ResetPasswordModel(UserManager<IdentityUser> userManager,
+            IStringLocalizer<ResetPasswordModel> localizer)
         {
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [BindProperty]
@@ -42,8 +47,18 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
+
+            public TranslationModel Translation { get; set; }
         }
 
+        public class TranslationModel
+        {
+            public string Message { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string ConfirmPassword { get; set; }
+            public string ResetPassword { get; set; }
+        }
         public IActionResult OnGet(string code = null)
         {
             if (code == null)
@@ -52,9 +67,22 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             }
             else
             {
+                if (HttpContext.Request.Query.ContainsKey("lang"))
+                    CultureInfo.CurrentUICulture = new CultureInfo(HttpContext.Request.Query["lang"], false);
+                else
+                    CultureInfo.CurrentUICulture = new CultureInfo("fr", false);
+
                 Input = new InputModel
                 {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
+                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code)),
+                    Translation = new TranslationModel()
+                    {
+                        Message = _localizer["Message"],
+                        Email = _localizer["Email"],
+                        Password = _localizer["Password"],
+                        ConfirmPassword = _localizer["ConfirmPassword"],
+                        ResetPassword = _localizer["ResetPassword"]
+                    }
                 };
                 return Page();
             }
@@ -62,6 +90,20 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var language = HttpContext.Request.Query.ContainsKey("lang") ? HttpContext.Request.Query["lang"].ToString() : "fr";
+
+            CultureInfo.CurrentUICulture = new CultureInfo(language, false);
+
+            Input.Translation = new TranslationModel()
+            {
+                Message = _localizer["Message"],
+                Email = _localizer["Email"],
+                Password = _localizer["Password"],
+                ConfirmPassword = _localizer["ConfirmPassword"],
+                ResetPassword = _localizer["ResetPassword"]
+
+            };
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -71,13 +113,13 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToPage("./ResetPasswordConfirmation");
+                return RedirectToPage("./ResetPasswordConfirmation", new { lang = language });
             }
 
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
-                return RedirectToPage("./ResetPasswordConfirmation");
+                return RedirectToPage("./ResetPasswordConfirmation", new { lang = language });
             }
 
             foreach (var error in result.Errors)
