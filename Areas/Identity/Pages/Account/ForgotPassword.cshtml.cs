@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCHPlanner3.Services.Email;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace OCHPlanner3.Areas.Identity.Pages.Account
 {
@@ -21,7 +22,7 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IStringLocalizer<ForgotPasswordModel> _localizer;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, 
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager,
             IEmailSender emailSender,
             IStringLocalizer<ForgotPasswordModel> localizer)
         {
@@ -38,6 +39,36 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+            public TranslationModel Translation { get; set; }
+        }
+
+        public class TranslationModel
+        {
+            public string Message { get; set; }
+            public string Email { get; set; }
+            public string Submit { get; set; }
+            public string Cancel { get; set; }
+
+        }
+
+        public async Task OnGetAsync(string returnUrl = null)
+        {
+            if (HttpContext.Request.Query.ContainsKey("lang"))
+                CultureInfo.CurrentUICulture = new CultureInfo(HttpContext.Request.Query["lang"], false);
+            else
+                CultureInfo.CurrentUICulture = new CultureInfo("fr", false);
+
+            Input = new InputModel()
+            {
+                Translation = new TranslationModel()
+                {
+                    Message = _localizer["Message"],
+                    Email = _localizer["Email"],
+                    Submit = _localizer["Submit"],
+                    Cancel = _localizer["Cancel"]
+                }
+            };
+
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -46,6 +77,11 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             {
                 if (ModelState.IsValid)
                 {
+                    if (HttpContext.Request.Query.ContainsKey("lang"))
+                        CultureInfo.CurrentUICulture = new CultureInfo(HttpContext.Request.Query["lang"], false);
+                    else
+                        CultureInfo.CurrentUICulture = new CultureInfo("fr", false);
+
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                     {

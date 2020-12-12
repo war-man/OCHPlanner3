@@ -117,81 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>Retour à la page de connexion</value>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Connect</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Courriel</value>
+    <value>Email</value>
   </data>
-  <data name="ForgotPasswordEmail" xml:space="preserve">
-    <value>&lt;html&gt;
-    &lt;head&gt;
-        &lt;meta http-equiv=Content-Type content="text/html; charset=utf-8"&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;div&gt;
-            &lt;p&gt;&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-            &lt;table&gt;
-                &lt;tr style='height:70px;'&gt;
-                    &lt;td style='border:none;background:#0070C0;'&gt;
-                        &lt;table&gt;
-                            &lt;tr&gt;
-                                &lt;td style='width:400pt;border:none;padding:0 0 0 35px'&gt;
-                                    &lt;p style='vertical-align:baseline'&gt;
-                                        &lt;b&gt;&lt;span style='font-size:12.0pt;font-family:"Arial",sans-serif;color:white'&gt;Mot de passe oublié&lt;/span&gt;&lt;/b&gt;
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                                
-                        &lt;/table&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;tr&gt;
-                    &lt;td style='width:423.0pt;border:none;background:#F2F2F2;padding:1cm 1cm 0cm 1cm'&gt;
-                        &lt;p&gt;
-                                                        &lt;img id="ImgOchPlanner" src="{URL_DOMAIN}/images/logo110.jpg"&gt;
-                                                    &lt;/p&gt;
-						&lt;p&gt;&lt;span style='font-size:10pt;font-family:"Arial",sans-serif'&gt;Bonjour,&lt;/span&gt;&lt;/p&gt;
-                        &lt;p&gt;
-                            &lt;span style='font-size:10pt;font-family:"Arial",sans-serif'&gt;
-                                Vous avez demandé la réinitialisation de votre mot de passe pour accéder à OCH Planner.&lt;br/&gt;
-                                Vous pouvez choisir un nouveau mot de passe en cliquant sur le bouton ci-bas &lt;br/&gt;
-                                &lt;p style='margin-bottom:0cm;margin-bottom:.0001pt;box-sizing: border-box'&gt;
-                                    &lt;span style='color:#767676'&gt;
-                                        &lt;a href="{URL_TAG}"&gt;
-                                            &lt;span style='color:white;border:solid #0070C0 6.0pt;padding:0cm;background:#0070C0'&gt;Réinitialiser mon mot de passe&lt;/span&gt;
-                                        &lt;/a&gt;
-                                    &lt;/span&gt;
-                                &lt;/p&gt;
-                            &lt;/span&gt;
-                        &lt;/p&gt;        
-                        &lt;p&gt;
-                            &lt;span style='font-size:10pt;font-family:"Arial",sans-serif'&gt;
-                                Merci!
-                            &lt;/span&gt;
-                        &lt;/p&gt;
-                            &lt;span style='font-size:10pt;font-family:"Arial",sans-serif;color:red'&gt;
-                                Note: Le lien pour réinitialiser votre mot de passe est bon pour 48 heures seulement.
-                            &lt;/span&gt;
-                        &lt;/p&gt;
-						&lt;p&gt;&lt;span&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;tr style='height:70px;'&gt;
-                    &lt;td style='border:none;background:#0070C0;padding:0.25cm 0cm 0.25cm 1cm'&gt;
-                        
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-
-                
-            &lt;/table&gt;
-        &lt;/div&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</value>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot Password?</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Vous avez oublié votre mot de passe? Vous pouvez le réinitialiser ici.</value>
+    <value>Please connect to start your session</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Demander un nouveau mot de passe</value>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember Me</value>
   </data>
 </root>

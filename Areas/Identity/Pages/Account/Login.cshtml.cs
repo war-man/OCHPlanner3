@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OCHPlanner3.Helper;
-using System.Security.Claims;
 using OCHPlanner3.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace OCHPlanner3.Areas.Identity.Pages.Account
 {
@@ -24,16 +25,19 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IGarageService _garageService;
+        private readonly IStringLocalizer<LoginModel> _localizer;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
             IGarageService garageService,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IStringLocalizer<LoginModel> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _garageService = garageService;
             _logger = logger;
+            _localizer = localizer;
         }
 
         [BindProperty]
@@ -58,11 +62,28 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
+            public TranslationModel Translation { get; set; }
+        }
+
+        public class TranslationModel
+        {
+            public string Message { get; set; }
+            public string RememberMe { get; set; }
+            public string ConnectButton { get; set; }
+            public string ForgotPassword { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            
+            if(HttpContext.Request.Query.ContainsKey("lang"))
+                CultureInfo.CurrentUICulture = new CultureInfo(HttpContext.Request.Query["lang"], false);
+            else
+                CultureInfo.CurrentUICulture = new CultureInfo("fr", false);
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -74,6 +95,19 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            Input = new InputModel()
+            {
+                Translation = new TranslationModel()
+                {
+                    Message = _localizer["Message"],
+                    RememberMe = _localizer["RememberMe"],
+                    ConnectButton = _localizer["ConnectButton"],
+                    ForgotPassword = _localizer["ForgotPassword"],
+                    Email = _localizer["Email"],
+                    Password = _localizer["Password"],
+                }
+            };
 
             ReturnUrl = returnUrl;
         }
