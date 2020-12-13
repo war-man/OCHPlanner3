@@ -68,7 +68,7 @@
             var disabled = form.find(':input:disabled').removeAttr('disabled');
             var formData = $(form).serialize();
             disabled.attr('disabled', 'disabled');
-            
+
             // Submit the form using AJAX.
             $.ajax({
                 url: ajaxUrl + '/CreateUser',
@@ -234,7 +234,6 @@
             success: function (response) {
                 $('#user-list').empty().html(response);
                 initTable();
-
             },
             error: function (xhr, status, error) {
                 alert('Error');
@@ -355,6 +354,18 @@
         }
 
         table = $('#usersTable').DataTable(tableSettings);
+
+        // Disable ADD button if max number of user reached
+        var remainingUsers = parseInt($('#hidRemainingUsers').val());
+
+        if (remainingUsers === 0) {
+            table.button(0).enable(false);
+            $('#MaxUserWarning').removeClass('hidden');
+        }
+        else {
+            table.button(0).enable(true);
+            $('#MaxUserWarning').addClass('hidden');
+        }
     }
 
     $('#addModal').on('hidden.bs.modal', function () {
@@ -388,6 +399,11 @@
             timer: 2000,
             timerProgressBar: true
         });
+
+        //Update remainingUsers
+        var total = parseInt($('#hidRemainingUsers').val());
+        $('#hidRemainingUsers').val(total-1);
+
         updateUserList();
     }
 

@@ -7,5 +7,6 @@ namespace OCHPlanner3.Models
     {
         public IEnumerable<UserViewModel> Users { get; set; }
         public GarageSelectorViewModel GarageSelector { get; set; }
+        public int RemainingUsers { get; set; }
     }
 }

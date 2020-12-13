@@ -58,6 +58,7 @@ namespace OCHPlanner3.Controllers
             {
                 RootUrl = BaseRootUrl,
                 Users = users,
+                RemainingUsers = !HttpContext.User.IsInRole("SuperAdmin") ? await _userService.GetRemainingUsers(CurrentUser.GarageId) : 9999,
                 GarageSelector = new GarageSelectorViewModel
                 {
                     Garages = await _garageService.GetGaragesSelectList(),

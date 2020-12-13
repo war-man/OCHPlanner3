@@ -17,13 +17,17 @@ namespace OCHPlanner3.Services
         private readonly SignInManager<IdentityUser> _userIdentity;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IGarageFactory _garageFactory;
+        private readonly UserManager<IdentityUser> _userManager;
+
         public UserService(SignInManager<IdentityUser> userIdentity,
             IGarageFactory garageFactory,
+            UserManager<IdentityUser> userManager,
             IHttpContextAccessor contextAccessor)
         {
             _userIdentity = userIdentity;
             _contextAccessor = contextAccessor;
             _garageFactory = garageFactory;
+            _userManager = userManager;
         }
         public UserCredentials GetCurrentUserCredentials()
         {
@@ -48,6 +52,20 @@ namespace OCHPlanner3.Services
             return await _userIdentity.UserManager.FindByIdAsync(userId);
         }
 
+        public async Task<int> GetRemainingUsers(int garageId)
+        {
+            var garage = await _garageFactory.GetGarage(garageId);
+            var currentUsers = await GetUsersForClaim("GarageId", garageId.ToString());
+
+            if (garage == null)
+                throw new ApplicationException($"Garage id {garageId} not found in database");
+
+            var maxUserCount = garage.NbrUser;
+            var currentUserCount = currentUsers.Count();
+
+            return (maxUserCount - currentUserCount) < 0 ? 0 : (maxUserCount - currentUserCount);
+        }
+
         private int GetGarageId()
         {
             var garageId = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "GarageId")?.Value;
@@ -70,6 +88,12 @@ namespace OCHPlanner3.Services
 
         }
 
-       
+        private async Task<IEnumerable<IdentityUser>> GetUsersForClaim(string userClaimType, string claimValue)
+        {
+            var claim = new Claim(userClaimType, claimValue);
+            var users = await _userManager.GetUsersForClaimAsync(claim);
+            return users;
+        }
+
     }
 }

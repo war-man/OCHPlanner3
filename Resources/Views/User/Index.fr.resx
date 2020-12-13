@@ -183,6 +183,9 @@
   <data name="Locked" xml:space="preserve">
     <value>Compte vérouillé</value>
   </data>
+  <data name="MaxUserReached" xml:space="preserve">
+    <value>&lt;strong&gt;Attention!&lt;/strong&gt; Vous avez atteint le nombre maximal d'utilisateurs permis par votre license. Contactez-nous pour augmenter le nombre permis d'utilisateur pour votre garage.</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>

@@ -183,6 +183,9 @@
   <data name="Locked" xml:space="preserve">
     <value>Account Locked</value>
   </data>
+  <data name="MaxUserReached" xml:space="preserve">
+    <value>&lt;strong&gt;Warning!&lt;/strong&gt; You have reached the maximum number of users allowed by your license. Contact us to increase the number of user permits for your garage.</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>New password</value>
   </data>

@@ -11,5 +11,6 @@ namespace OCHPlanner3.Services.Interfaces
         UserCredentials GetCurrentUserCredentials();
         Task<IList<Claim>> GetUserClaims(string userId);
         Task<IdentityUser> GetUserById(string userId);
+        Task<int> GetRemainingUsers(int garageId);
     }
 }
