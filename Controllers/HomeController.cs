@@ -22,7 +22,7 @@ namespace OCHPlanner3.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Simple", "Sticker");
         }
 
         public IActionResult Privacy()
