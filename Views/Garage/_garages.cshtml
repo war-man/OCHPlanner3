@@ -5,24 +5,30 @@
 
 @inject IViewLocalizer Localizer
 
-    <table id="garagesTable" class="table table-striped dataTable" data-processing="true">
-        <thead>
-            <tr>
-                <th data-data="id">Id</th>
-                <th data-data="name">Nom</th>
-                <th data-data="address">Adresse</th>
-                <th data-data="city">Ville</th>
-                <th data-data="province">Province</th>
-                <th data-data="phone">Téléphone</th>
-                <th data-data="banner">Banière</th>
-                <th data-data="nbrUser">Nbr Usager</th>
-                <th data-data="nbrClient">Nbr Client</th>
-                <th data-data="count">Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var garage in Model.Garages)
-            {
+@Html.Hidden("hid10Rows", Localizer["10Rows"].Value)
+@Html.Hidden("hid25Rows", Localizer["25Rows"].Value)
+@Html.Hidden("hid50Rows", Localizer["50Rows"].Value)
+@Html.Hidden("hidAllRows", Localizer["AllRows"].Value)
+
+
+<table id="garagesTable" class="table table-striped dataTable" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="name">Nom</th>
+            <th data-data="address">Adresse</th>
+            <th data-data="city">Ville</th>
+            <th data-data="province">Province</th>
+            <th data-data="phone">Téléphone</th>
+            <th data-data="banner">Banière</th>
+            <th data-data="nbrUser">Nbr Usager</th>
+            <th data-data="nbrClient">Nbr Client</th>
+            <th data-data="count">Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var garage in Model.Garages)
+        {
             <tr>
                 <td>@garage.Id</td>
                 <td>@garage.Name</td>
@@ -35,6 +41,6 @@
                 <td>@garage.NbrCustomer</td>
                 <td>@garage.PrintCount</td>
             </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

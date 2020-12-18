@@ -10,6 +10,11 @@
         + '"sLoadingRecords": "Chargement en cours...",'
         + '"sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",'
         + '"sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",'
+
+        + '"buttons": {'
+        + '"pageLength": {"-1": "Montrer tous", "_": "%d rangées"}'
+        + '},'
+
         + '"oPaginate": {'
         + '"sFirst": "Premier",'
         + '"sPrevious": "Pr&eacute;c&eacute;dent",'
