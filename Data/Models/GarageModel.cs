@@ -40,5 +40,12 @@ namespace OCHPlanner3.Data.Models
         public int FormatDateId { get; set; }
         public string FormatDate { get; set; }
         public bool FormatDatePrint { get; set; }
+
+        public int CounterMonthly { get; set; }
+        public int CounterOrder { get; set; }
+        public int CounterAlert { get; set; }
+        public int CounterStock { get; set; }
+        public bool UpdateCounterStock { get; set; }
+
     }
 }

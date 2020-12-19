@@ -24,23 +24,32 @@
             <th data-data="nbrUser">Nbr Usager</th>
             <th data-data="nbrClient">Nbr Client</th>
             <th data-data="count">Count</th>
+            <th data-data="monthly">Monthly</th>
+            <th data-data="order">Order</th>
+            <th data-data="alert">Alert</th>
+            <th data-data="stock">Stock</th>
+
         </tr>
     </thead>
     <tbody>
         @foreach (var garage in Model.Garages)
         {
-            <tr>
-                <td>@garage.Id</td>
-                <td>@garage.Name</td>
-                <td>@garage.Address</td>
-                <td>@garage.City</td>
-                <td>@garage.Province</td>
-                <td>@garage.Phone</td>
-                <td>@garage.Banner</td>
-                <td>@garage.NbrUser</td>
-                <td>@garage.NbrCustomer</td>
-                <td>@garage.PrintCount</td>
-            </tr>
+        <tr>
+            <td>@garage.Id</td>
+            <td>@garage.Name</td>
+            <td>@garage.Address</td>
+            <td>@garage.City</td>
+            <td>@garage.Province</td>
+            <td>@garage.Phone</td>
+            <td>@garage.Banner</td>
+            <td>@garage.NbrUser</td>
+            <td>@garage.NbrCustomer</td>
+            <td class="text-center">@garage.PrintCount</td>
+            <td class="text-center">@garage.CounterMonthly</td>
+            <td class="text-center">@garage.CounterOrder</td>
+            <td class="text-center">@garage.CounterAlert</td>
+            <td class="text-center">@garage.CounterStock</td>
+        </tr>
         }
     </tbody>
 </table>

@@ -80,7 +80,6 @@
             var formData = $(form).serialize();
 
             // Submit the form using AJAX.
-
             $.ajax({
                 traditional: true,
                 url: ajaxUrl + '/garage/edit',
@@ -103,5 +102,26 @@
                 }
             });
         }
+    });
+
+    $('#CounterOrder').on('blur', function () {
+
+        var counter = $(this).val();
+
+        swal.fire({
+            title: "Mise à jour",
+            text: "Voulez vous mettre à jour la quantité en stock?",
+            icon: 'warning',
+            showCancelButton: true,
+            //confirmButtonColor: '#DD6B55',
+            confirmButtonText: "Oui"
+        }).then(function (result) {
+            if (result.value) {
+                $('#stock-span').text(counter);
+                $('#UpdateCounterStock').val(true);
+            }
+        });
+
+        
     });
 });

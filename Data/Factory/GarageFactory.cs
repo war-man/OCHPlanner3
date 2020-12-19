@@ -38,10 +38,7 @@ namespace OCHPlanner3.Data.Factory
 
         public async Task<GarageModel> GetGarage(int garageId)
         {
-            var sql = @"SELECT G.*, FD.FormatDateId, FD.Français AS 'FormatDate', FD.FormatDatePrint 
-                        FROM [dbo].[Garages] G
-                        INNER JOIN [dbo].[FormatDate] FD ON FD.[GarageId] = G.ID
-                        WHERE [ID] = @GarageId";
+            var sql = "[web].[Garage_Select]";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
@@ -49,7 +46,7 @@ namespace OCHPlanner3.Data.Factory
 
                 var result = await connection.QueryFirstOrDefaultAsync<GarageModel>(sql,
                     new { GarageId = garageId },
-                    commandType: CommandType.Text);
+                    commandType: CommandType.StoredProcedure);
 
                 return result;
             }
@@ -222,7 +219,10 @@ namespace OCHPlanner3.Data.Factory
                             OilResetModule = garage.OilResetModule,
                             Support = garage.Support,
                             Note = garage.Note,
-                            FormatDate = garage.FormatDate
+                            FormatDate = garage.FormatDate,
+                            CounterOrder = garage.CounterOrder,
+                            CounterAlert = garage.CounterAlert,
+                            UpdateCounterStock = garage.UpdateCounterStock
                         },
                         commandType: CommandType.StoredProcedure);
 
@@ -238,7 +238,8 @@ namespace OCHPlanner3.Data.Factory
         public async Task IncrementPrintCounter(int garageId)
         {
             var sql = @"UPDATE [dbo].[Garages]
-                        SET PrintCount = PrintCount + 1
+                        SET PrintCount = PrintCount + 1,
+                            CounterStock = CounterStock - 1
                         WHERE Id = @garageId";
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))

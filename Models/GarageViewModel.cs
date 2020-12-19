@@ -52,5 +52,11 @@ namespace OCHPlanner3.Models
         public string SelectedDateFormatCode { get; set; }
         public IEnumerable<SelectListItem> DateFormatList { get; set; }
 
+        public int CounterMonthly { get; set; }
+        public int CounterOrder { get; set; }
+        public int CounterAlert { get; set; }
+        public int CounterStock { get; set; }
+
+        public bool UpdateCounterStock { get; set; }
     }
 }

@@ -11,6 +11,7 @@
 @Html.Hidden("HidRequired", @Localizer["Required"].Value)
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 @Html.Hidden("HidIsSuperAdmin", User.IsInRole("SuperAdmin"))
+@Html.Hidden("HidOriginalStock", Model.CounterStock);
 
 <div class="page-title-area">
     <div class="row align-items-center">
@@ -24,6 +25,7 @@
 
 <form id="garage-edit">
     @Html.HiddenFor(p => p.Id)
+    @Html.HiddenFor(p => p.UpdateCounterStock)
     <div class="main-content-inner">
         <div class="container">
             <div class="row">
@@ -164,6 +166,52 @@
                                 </div>
                             </div>
                         }
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card card-counter">
+                                        <div class="card-body">
+                                            <h4 class="header-title">Mensuel</h4>
+                                            <hr />
+                                            @Model.CounterMonthly
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card card-counter">
+                                        <div class="card-body">
+                                            <h4 class="header-title">Qty commandé</h4>
+                                            <hr />
+                                            <input asp-for="CounterOrder" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card card-counter">
+                                        <div class="card-body">
+                                            <h4 class="header-title">Alerte</h4>
+                                            <hr />
+                                            <input asp-for="CounterAlert" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card card-counter">
+                                        <div class="card-body">
+                                            <h4 class="header-title">Stock</h4>
+                                            <hr />
+                                            <span id="stock-span">@Model.CounterStock</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

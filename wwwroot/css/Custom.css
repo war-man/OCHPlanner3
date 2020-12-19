@@ -63,3 +63,24 @@ span.field-validation-error {
         line-height: inherit;
         padding: 0.5rem 1rem;
     }
+
+/* CARD COUNTER */
+
+.card-counter {
+    background-color: #5bc0de;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+    .card-counter h4 {
+        color: #fff;
+    }
+
+    .card-counter input {
+        width: 65px;
+        background-color: #5bc0de;
+        border: none;
+        color: #fff;
+        text-align: center;
+    }
