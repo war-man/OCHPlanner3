@@ -70,6 +70,11 @@
                 pageLength: '%d'
             }
         },
+        rowCallback: function (row, data, index) {
+            if (parseInt(data.stock) !== 0 && parseInt(data.alert) && parseInt(data.stock) <= parseInt(data.alert) ) {
+                $(row).find('td:eq(11)').css('background-color', '#f55742');
+            }
+        },
         initComplete: function () {
             $('#garagesTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
         }
