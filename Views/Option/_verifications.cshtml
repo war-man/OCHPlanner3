@@ -1,0 +1,26 @@
+﻿
+@model VerificationManagementViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+    <table id="VerificationListTable" class="table table-striped dataTable" data-processing="true">
+        <thead>
+            <tr>
+                <th data-data="id">Id</th>
+                <th data-data="name">Nom</th>
+                <th data-data="description">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.VerificationList)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+            </tr>
+            }
+        </tbody>
+    </table>

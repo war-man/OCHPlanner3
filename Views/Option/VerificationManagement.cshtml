@@ -1,0 +1,145 @@
+﻿@model VerificationManagementViewModel
+
+@using OCHPlanner3.Services.Interfaces
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IUserService  userService
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
+}
+
+@Html.Hidden("hidNewButton", Localizer["Add"].Value)
+@Html.Hidden("hidEditButton", Localizer["Edit"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["Delete"].Value)
+@Html.Hidden("hidDeleteTitle", Localizer["DeleteTitle"].Value)
+@Html.Hidden("hidDeleteText", Localizer["DeleteText"].Value)
+@Html.Hidden("hidDeleteButton", Localizer["DeleteButton"].Value)
+@Html.Hidden("hidDeleteSuccess", Localizer["DeleteSuccess"].Value)
+@Html.Hidden("hidSaveSuccess", Localizer["SaveSuccess"].Value)
+@Html.Hidden("hidUpdateSuccess", Localizer["UpdateSuccess"].Value)
+
+@Html.Hidden("hidNameRequired", Localizer["NameRequired"].Value)
+@Html.Hidden("hidSelectedGarageId", @currentUser.GarageId)
+
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <h4 class="page-title pull-left">@Localizer["Title"]</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content-inner">
+    <div class="container">
+        @if (User.IsInRole("SuperAdmin"))
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row align-items-center">
+                                <div class="col-md-2 my-1">
+                                    <label>Garage</label>
+                                </div>
+                                <div class="col-md-10 my-1">
+                                    @await Html.PartialAsync("_GarageSelector", Model.GarageSelector)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row pt-3">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="verification-list">
+                            @await Html.PartialAsync("_verifications", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Localizer["AddVerification"]</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="addForm">
+                    <input name="selectedGarageId" type="hidden" value="@currentUser.GarageId" />
+                    <div id="VerificationError" class="alert alert-danger hidden" role="alert"></div>
+                    <div class="form-group">
+                        <label for="name">@Localizer["Name"]:</label>
+                        <input name="name" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">@Localizer["Description"]:</label>
+                        <input name="description" type="text" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["Close"]</button>
+                <button type="button" id="submitAddForm" form="roleForm" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Localizer["EditVerification"]</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="editForm">
+                    <div id="editError" class="alert alert-danger hidden" role="alert"></div>
+                    <div class="form-group">
+                        <input name="id" type="hidden" />
+                        <label for="name">@Localizer["Name"]:</label>
+                        <input name="name" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">@Localizer["Description"]:</label>
+                        <input name="description" type="text" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["Close"]</button>
+                <button type="button" id="submitEditForm" form="editForm" class="btn btn-primary">@Localizer["Save"]</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/admin-verification.js"></script>
+}
+

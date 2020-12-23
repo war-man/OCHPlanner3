@@ -1,0 +1,24 @@
+﻿
+@model AppointmentManagementViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+    <table id="AppointmentListTable" class="table table-striped dataTable" data-processing="true">
+        <thead>
+            <tr>
+                <th data-data="id">Id</th>
+                <th data-data="name">Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AppointmentList)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+            </tr>
+            }
+        </tbody>
+    </table>

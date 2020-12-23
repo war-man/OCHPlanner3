@@ -1,0 +1,24 @@
+﻿
+@model OilManagementViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+    <table id="OilListTable" class="table table-striped dataTable" data-processing="true">
+        <thead>
+            <tr>
+                <th data-data="id">Id</th>
+                <th data-data="name">Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oil in Model.OilList)
+            {
+            <tr>
+                <td>@oil.OilTypeId</td>
+                <td>@oil.OilTypeName</td>
+            </tr>
+            }
+        </tbody>
+    </table>

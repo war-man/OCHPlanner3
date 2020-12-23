@@ -96,6 +96,7 @@ namespace OCHPlanner3
             // Factory
             services.AddTransient<IReferenceFactory, ReferenceFactory>();
             services.AddTransient<IGarageFactory, GarageFactory>();
+            services.AddTransient<IOptionFactory, OptionFactory>();
 
             // Email Sender
             services.AddSingleton<IEmailSender, EmailSender>();

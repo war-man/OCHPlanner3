@@ -7,7 +7,7 @@
         var selectedGarage = $(this).val();
         $('#hidSelectedGarageId').val(selectedGarage);
         $('input[name="selectedGarageId"]').val(selectedGarage);
-        updateOilList(selectedGarage);
+        updateAppointmentList(selectedGarage);
     });
 
     var tableSettings = {
@@ -26,7 +26,7 @@
             {
                 text: $('#hidNewButton').val(),
                 action: function (e, dt, button, config) {
-                    $('#oilError').hide();
+                    $('#appointmentError').hide();
                     $('#addForm').trigger('reset');
                     $('#addModal').modal({ backdrop: 'static' });
                 }
@@ -37,7 +37,6 @@
                 action: function (e, dt, button, config) {
                     var data = dt.row({ selected: true }).data();
                     $('#editError').hide();
-                    $('#tabs a:first').tab('show');
                     $('#editForm').trigger('reset');
 
                     $('#editForm input[name=name]').val(data.name);
@@ -64,7 +63,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Options/DeleteOil',
+                                url: ajaxUrl + '/Options/DeleteAppointment',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -75,7 +74,7 @@
             }
         ],
         initComplete: function () {
-            $('#OilListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
+            $('#AppointmentListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
         }
     };
 
@@ -87,7 +86,7 @@
             tableSettings.language = JSON.parse(datables_french());
         }
 
-        var table = $('#OilListTable').DataTable(tableSettings);
+        var table = $('#AppointmentListTable').DataTable(tableSettings);
 
         table.on('select deselect', function (e, dt, type, indexes) {
             var rowData = table.rows(indexes).data().toArray();
@@ -127,7 +126,7 @@
             formData = formData;
 
             $.ajax({
-                url: ajaxUrl + '/Options/CreateOil',
+                url: ajaxUrl + '/Options/CreateAppointment',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -136,7 +135,7 @@
                     addDone();
                 },
                 error: function (xhr, status, error) {
-                    oilFail(xhr, status, error);
+                    appointmentFail(xhr, status, error);
                 }
             });
         }
@@ -173,7 +172,7 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: ajaxUrl + '/Options/UpdateOil',
+                url: ajaxUrl + '/Options/UpdateAppointment',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -182,20 +181,20 @@
                     editDone();
                 },
                 error: function (xhr, status, error) {
-                    oilFail(xhr, status, error);
+                   appointmentFail(xhr, status, error);
                 }
             });
         }
     });
 
-    function updateOilList(selectedGarage) {
+    function updateAppointmentList(selectedGarage) {
         $.ajax({
-            url: ajaxUrl + '/Options/Oil/' + selectedGarage,
+            url: ajaxUrl + '/Options/Appointment/' + selectedGarage,
             type: "GET",
             dataType: "html",
             async: false,
             success: function (response) {
-                $('#oil-list').empty().html(response);
+                $('#appointment-list').empty().html(response);
                 initTable();
             },
             error: function (xhr, status, error) {
@@ -214,7 +213,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList($('#hidSelectedGarageId').val());
+                updateAppointmentList($('#hidSelectedGarageId').val());
             }
         });
     }
@@ -229,12 +228,12 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList($('#hidSelectedGarageId').val());
+                updateAppointmentList($('#hidSelectedGarageId').val());
             }
         });
     }
 
-    function oilFail(xhr, status, error) {
+    function appointmentFail(xhr, status, error) {
         alert(xhr.responseText || error);
     }
 
@@ -247,7 +246,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList($('#hidSelectedGarageId').val());
+                updateAppointmentList($('#hidSelectedGarageId').val());
             }
         });
     }

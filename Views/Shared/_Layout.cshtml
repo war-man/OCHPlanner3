@@ -155,16 +155,18 @@
                                             }
                                         </li>
                                     }
-                                    <li class="@(Html.IsMenuActive("/Options") || Html.IsMenuActive("/Garage/Oil") ? "active" : "")">
+                                    <li class="@(Html.IsMenuActive("/Options") ? "active" : "")">
                                         <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>@Localizer["MenuOptions"]</span></a>
-                                        <ul class="submenu">
-                                            <li class="@(Html.IsMenuActive("/Options")  ? "active" : "")"><a asp-controller="Options" asp-action="Printer">@Localizer["MenuPrinters"]</a></li>
+                                        <ul class="submenu" style="width:280px;">
+                                            <li class="@(Html.IsMenuActive("/Options/Printer")  ? "active" : "")"><a asp-controller="Options" asp-action="Printer">@Localizer["MenuPrinters"]</a></li>
 
                                             @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                             {
 
-                                                <li class="@(Html.IsMenuActive("/Garage/Oil") ? "active" : "")"><a asp-controller="Garage" asp-action="Oil">@Localizer["MenuOils"]</a></li>
-
+                                                <li class="@(Html.IsMenuActive("/Options/Oil") ? "active" : "")"><a asp-controller="Options" asp-action="Oil">@Localizer["MenuOils"]</a></li>
+                                                <li class="@(Html.IsMenuActive("/Options/Verification") ? "active" : "")"><a asp-controller="Options" asp-action="Verification">@Localizer["MenuVerification"]</a></li>
+                                                <li class="@(Html.IsMenuActive("/Options/Maintenance") ? "active" : "")"><a asp-controller="Options" asp-action="Maintenance">@Localizer["MenuMaintenance"]</a></li>
+                                                <li class="@(Html.IsMenuActive("/Options/Appointment") ? "active" : "")"><a asp-controller="Options" asp-action="Appointment">@Localizer["MenuNextAppointment"]</a></li>
                                             }
                                         </ul>
                                     </li>

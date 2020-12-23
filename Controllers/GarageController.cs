@@ -40,46 +40,11 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
 
-        [Route("/{lang:lang}/Garage/Oil")]
-        public async Task<IActionResult> OilManagement()
-        {
-            var model = new OilManagementViewModel()
-            {
-                RootUrl = BaseRootUrl,
-                OilList = await _garageService.GetOilList(CurrentUser.GarageId),
-                GarageSelector = new GarageSelectorViewModel
-                {
-                    Garages = await _garageService.GetGaragesSelectList(),
-                    SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
-                    disabled = HttpContext.User.IsInRole("Administrator")
-                },
-            };
-
-            return View(model);
-        }
-
-        [HttpGet("/{lang:lang}/Garage/Oil/{id}")]
-        public async Task<IActionResult> OilManagementList(int id)
-        {
-            if (id == 0)
-                throw new ApplicationException("OilManagementList - Id should ne be set to 0");
-
-            var model = new OilManagementViewModel() { OilList = await _garageService.GetOilList(id) };
-            return PartialView("_oils", model);
-        }
-
         [HttpGet("/{lang:lang}/Garage/List")]
         public async Task<IActionResult> GetGarageList()
         {
             var model = new GarageListViewModel() { Garages = await _garageService.GetGarages() };
             return PartialView("_garages", model);
-        }
-
-        [HttpGet("/{lang:lang}/Garage/Oil/List")]
-        public async Task<IActionResult> GetOilList()
-        {
-            var model = new OilManagementViewModel() { OilList = await _garageService.GetOilList(CurrentUser.GarageId) };
-            return PartialView("_oils", model);
         }
 
         [HttpGet("/{lang:lang}/Garage/Create")]
@@ -131,20 +96,6 @@ namespace OCHPlanner3.Controllers
             }
         }
 
-        [HttpPost("/{lang:lang}/Garage/[action]")]
-        public async Task<IActionResult> CreateOil(int selectedGarageId, string name)
-        {
-            try
-            {
-                var result = await _garageService.CreateOil(selectedGarageId, name);
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpPost("/{lang:lang}/Garage/IncrementPrintCounter")]
         public async Task<IActionResult> IncrementPrintCounter()
         {
@@ -173,20 +124,6 @@ namespace OCHPlanner3.Controllers
             }
         }
 
-        [HttpPost("/{lang:lang}/Garage/[action]")]
-        public async Task<IActionResult> UpdateOil(int id, string name)
-        {
-            try
-            {
-                var result = await _garageService.UpdateOil(id, name);
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpDelete("/{lang:lang}/Garage/Delete")]
         public async Task<IActionResult> Delete(int garageId)
         {
@@ -199,22 +136,7 @@ namespace OCHPlanner3.Controllers
             {
                 return BadRequest();
             }
-            return BadRequest();
-        }
 
-        [HttpDelete("/{lang:lang}/Garage/Oil/Delete")]
-        public async Task<IActionResult> DeleteOil(int id)
-        {
-            try
-            {
-                var result = await _garageService.DeleteOil(id);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest();
-            }
-            return BadRequest();
         }
 
     }

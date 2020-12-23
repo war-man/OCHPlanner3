@@ -126,6 +126,12 @@
   <data name="MenuHelp" xml:space="preserve">
     <value>Aide</value>
   </data>
+  <data name="MenuMaintenance" xml:space="preserve">
+    <value>Gestion des entretiens</value>
+  </data>
+  <data name="MenuNextAppointment" xml:space="preserve">
+    <value>Gestion des rendez-vous</value>
+  </data>
   <data name="MenuOils" xml:space="preserve">
     <value>Gestion des huiles</value>
   </data>
@@ -152,5 +158,8 @@
   </data>
   <data name="MenuUsers" xml:space="preserve">
     <value>Utilisateurs</value>
+  </data>
+  <data name="MenuVerification" xml:space="preserve">
+    <value>Gestion des vérifications</value>
   </data>
 </root>

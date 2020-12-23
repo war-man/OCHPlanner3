@@ -284,7 +284,6 @@
     font-size: 15px;
     padding: 10px 20px;
     color: #000000;
-    text-transform: capitalize;
 }
 
 .horizontal-menu ul li:hover>a,

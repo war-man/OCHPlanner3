@@ -7,7 +7,7 @@
         var selectedGarage = $(this).val();
         $('#hidSelectedGarageId').val(selectedGarage);
         $('input[name="selectedGarageId"]').val(selectedGarage);
-        updateOilList(selectedGarage);
+        updateVerificationList(selectedGarage);
     });
 
     var tableSettings = {
@@ -26,7 +26,7 @@
             {
                 text: $('#hidNewButton').val(),
                 action: function (e, dt, button, config) {
-                    $('#oilError').hide();
+                    $('#VerificationError').hide();
                     $('#addForm').trigger('reset');
                     $('#addModal').modal({ backdrop: 'static' });
                 }
@@ -37,10 +37,10 @@
                 action: function (e, dt, button, config) {
                     var data = dt.row({ selected: true }).data();
                     $('#editError').hide();
-                    $('#tabs a:first').tab('show');
                     $('#editForm').trigger('reset');
 
                     $('#editForm input[name=name]').val(data.name);
+                    $('#editForm input[name=description]').val(data.description);
                     $('#editForm input[name=id]').val(data.id);
 
                     $('#editModal').modal({ backdrop: 'static' });
@@ -64,7 +64,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Options/DeleteOil',
+                                url: ajaxUrl + '/Options/DeleteVerification',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -75,7 +75,7 @@
             }
         ],
         initComplete: function () {
-            $('#OilListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
+            $('#VerificationListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
         }
     };
 
@@ -87,7 +87,7 @@
             tableSettings.language = JSON.parse(datables_french());
         }
 
-        var table = $('#OilListTable').DataTable(tableSettings);
+        var table = $('#VerificationListTable').DataTable(tableSettings);
 
         table.on('select deselect', function (e, dt, type, indexes) {
             var rowData = table.rows(indexes).data().toArray();
@@ -127,7 +127,7 @@
             formData = formData;
 
             $.ajax({
-                url: ajaxUrl + '/Options/CreateOil',
+                url: ajaxUrl + '/Options/CreateVerification',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -136,7 +136,7 @@
                     addDone();
                 },
                 error: function (xhr, status, error) {
-                    oilFail(xhr, status, error);
+                    verificationFail(xhr, status, error);
                 }
             });
         }
@@ -173,7 +173,7 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: ajaxUrl + '/Options/UpdateOil',
+                url: ajaxUrl + '/Options/UpdateVerification',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -182,20 +182,20 @@
                     editDone();
                 },
                 error: function (xhr, status, error) {
-                    oilFail(xhr, status, error);
+                    verificationFail(xhr, status, error);
                 }
             });
         }
     });
 
-    function updateOilList(selectedGarage) {
+    function updateVerificationList(selectedGarage) {
         $.ajax({
-            url: ajaxUrl + '/Options/Oil/' + selectedGarage,
+            url: ajaxUrl + '/Options/Verification/' + selectedGarage,
             type: "GET",
             dataType: "html",
             async: false,
             success: function (response) {
-                $('#oil-list').empty().html(response);
+                $('#verification-list').empty().html(response);
                 initTable();
             },
             error: function (xhr, status, error) {
@@ -214,7 +214,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList($('#hidSelectedGarageId').val());
+                updateVerificationList($('#hidSelectedGarageId').val());
             }
         });
     }
@@ -229,12 +229,12 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList($('#hidSelectedGarageId').val());
+                updateVerificationList($('#hidSelectedGarageId').val());
             }
         });
     }
 
-    function oilFail(xhr, status, error) {
+    function verificationFail(xhr, status, error) {
         alert(xhr.responseText || error);
     }
 
@@ -247,7 +247,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateOilList($('#hidSelectedGarageId').val());
+                updateVerificationList($('#hidSelectedGarageId').val());
             }
         });
     }
