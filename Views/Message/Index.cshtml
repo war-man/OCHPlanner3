@@ -1,0 +1,305 @@
+﻿@model MessageClientViewModel
+@using OCHPlanner3.Services.Interfaces
+@using OCHPlanner3.Helper
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IUserService  userService
+
+@{
+    ViewData["Title"] = @Localizer["Title"];
+}
+
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
+}
+
+@Html.Hidden("hidDateFormat", currentUser.GarageSetting.FormatDate)
+@Html.Hidden("hidDateFormatPrint", currentUser.GarageSetting.FormatDatePrint)
+
+@Html.Hidden("HidSelectedOilPrinter", Model.PrinterConfiguration.SelectedOilPrinter)
+@Html.Hidden("HidOilOffsetX", Model.PrinterConfiguration.OilOffsetX)
+@Html.Hidden("HidOilOffsetY", Model.PrinterConfiguration.OilOffsetY)
+@*@Html.Hidden("HidNextUnitKm", Localizer["NextUnitKm"].Value)
+    @Html.Hidden("HidNextUnitMiles", Localizer["NextUnitMiles"].Value)
+    @Html.Hidden("HidNextUnitHrMotor", Localizer["NextUnitHrMotor"].Value)
+    @Html.Hidden("HidNextDate1", Localizer["NextDate1"].Value)
+    @Html.Hidden("HidNextDate2", Localizer["NextDate2"].Value)
+    @Html.Hidden("HidNextDate3", Localizer["NextDate3"].Value)
+    @Html.Hidden("HidPrinterNotDefined", Localizer["PrinterNotDefined"].Value)
+    @Html.Hidden("HidPrinterNotDefinedText", Localizer["PrinterNotDefinedText"].Value)
+    @Html.Hidden("HidLastService", Localizer["LastService"].Value)
+    @Html.Hidden("HidNextDateOrBefore", Localizer["NextDateOrBefore"].Value)
+    @Html.Hidden("HidNextService", Localizer["NextService"].Value)
+    @Html.Hidden("HidSaveSuccess", Localizer["SaveSuccess"].Value)
+    @Html.Hidden("HidActualKm", Localizer["ActualKm"].Value)
+    @Html.Hidden("HidNextKm", Localizer["NextKm"].Value)
+    @Html.Hidden("HidActualMiles", Localizer["ActualMiles"].Value)
+    @Html.Hidden("HidNextMiles", Localizer["NextMiles"].Value)
+    @Html.Hidden("HidActualHm", Localizer["ActualHm"].Value)
+    @Html.Hidden("HidNextHm", Localizer["NextHm"].Value)*@
+
+@Html.Hidden("HidCenterGarageNameOffset", "")
+@Html.Hidden("HidPersonalizedSticker", currentUser.GarageSetting.PersonalizedSticker)
+
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
+<style>
+    .form-group {
+        margin-bottom: 0.5rem !important;
+    }
+</style>
+
+<div class="main-content-inner">
+    <div class="container">
+
+        <div class="row">
+            <!-- trading history area start -->
+            <div class="col-lg-8 mt-sm-30 mt-xs-30">
+                <div class="card">
+                    <div class="card-body" style="min-height:620px;">
+                        <div class="form-group row">
+                            <label for="unit" class="control-label col-md-4">@Localizer["SelectUnit"]</label>
+                            <div class="col-md-8">
+                                <label class="mr-4"><input asp-for="SelectedUnit" value="KM" type="radio" class="mr-1" checked />@Localizer["KM"]</label>
+                                <label class="mr-4"><input asp-for="SelectedUnit" value="MI" type="radio" class="mr-1" />@Localizer["Miles"]</label>
+                                <label><input asp-for="SelectedUnit" value="HM" type="radio" class="mr-1" />@Localizer["HrMotor"]</label>
+                            </div>
+                        </div>
+
+                        <div id="Choice1">
+                            <div class="alert alert-dark" role="alert">
+                                <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
+                                    <h6 class="col-md-6 alert-heading">@Localizer["VerificationTitle"]</h6>
+                                    <div class="col-md-6"><input value="Choice1" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice1" name="PrintChoices"></div>
+                                </div>
+
+                                <div class="col-md-12 row pt-2">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <select asp-for="SelectedVerificationId" asp-items="Model.VerificationList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedDate" class="control-label col-md-3 mt-2">@Localizer["Date"]</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                                                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedMileage" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedMileageChoice1" name="Choice1SelectedMileage" asp-items="Model.MileageList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Choice2">
+                            <div class="alert alert-dark" role="alert">
+                                <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
+                                    <h6 class="col-md-6 alert-heading">@Localizer["MaintenanceTitle"]</h6>
+                                    <div class="col-md-6"><input value="Choice2" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice2" name="PrintChoices"></div>
+                                </div>
+
+                                <div class="col-md-12 row pt-2">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <select asp-for="SelectedMaintenanceId" asp-items="Model.MaintenanceList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedDate" class="control-label col-md-3 mt-2">@Localizer["Date"]</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
+                                                        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedMileage" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
+                                            <div class="col-md-8">
+                                                <select asp-for="SelectedMileageChoice2" name="Choice2SelectedMileage" asp-items="Model.MileageList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Choice3">
+                            <div class="alert alert-dark" role="alert">
+                                <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
+                                    <h6 class="col-md-6 alert-heading">@Localizer["FixData"]</h6>
+                                    <div class="col-md-6"><input value="Choice3" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice3" name="PrintChoices"></div>
+                                </div>
+                                <div class="col-md-12 row pt-2">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedMonthFixe" class="control-label col-md-4 mt-2">@Localizer["Month"]</label>
+                                            <div class="col-md-8">
+                                                @*<select asp-for="SelectedMonthChoice3" name="Choice3SelectedMonth" asp-items="Model.MonthList" class="form-control">
+                                                        <option value="0">-- Select --</option>
+                                                    </select>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedYearFixe" class="control-label col-md-4 mt-2">@Localizer["Year"]</label>
+                                            <div class="col-md-8">
+                                                @*<select asp-for="SelectedYearChoice3" name="Choice3SelectedYear" asp-items="Model.YearList" class="form-control">
+                                                        <option value="0">-- Select --</option>
+                                                    </select>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedMileageFixe" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
+                                            <div class="col-md-8">
+                                                @*<select asp-for="SelectedMileageChoice3" name="Choice3SelectedMileage" asp-items="Model.MileageList" class="form-control">
+                                                        <option value="0">-- Select --</option>
+                                                    </select>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Choice4">
+                            <div class="alert alert-dark" role="alert">
+                                <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
+                                    <h6 class="col-md-6 alert-heading">@Localizer["FixData"]</h6>
+                                    <div class="col-md-6"><input value="Choice3" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice3" name="PrintChoices"></div>
+                                </div>
+                                <div class="col-md-12 row pt-2">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedMonthFixe" class="control-label col-md-4 mt-2">@Localizer["Month"]</label>
+                                            <div class="col-md-8">
+                                                @*<select asp-for="SelectedMonthChoice3" name="Choice3SelectedMonth" asp-items="Model.MonthList" class="form-control">
+                                                        <option value="0">-- Select --</option>
+                                                    </select>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedYearFixe" class="control-label col-md-4 mt-2">@Localizer["Year"]</label>
+                                            <div class="col-md-8">
+                                                @*<select asp-for="SelectedYearChoice3" name="Choice3SelectedYear" asp-items="Model.YearList" class="form-control">
+                                                        <option value="0">-- Select --</option>
+                                                    </select>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="SelectedMileageFixe" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
+                                            <div class="col-md-8">
+                                                @*<select asp-for="SelectedMileageChoice3" name="Choice3SelectedMileage" asp-items="Model.MileageList" class="form-control">
+                                                        <option value="0">-- Select --</option>
+                                                    </select>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- trading history area end -->
+            <!-- Preview area end -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body" style="min-height:620px;">
+
+                        <div class="row justify-content-center">
+                            <div class="form-group col col-md-8 text-center">
+                                <label id="label-unit" for="unitValue" class="p-2 btn-primary control-label mt-2" style="border-radius:5px;">Kilomètre actuel</label>
+                                <input asp-for="UnitValue" name="unitvalue" class="form-control" />
+                            </div>
+                        </div>
+                        <div>
+                            <div style="border-bottom: 2px solid #f3f3f3;">
+                                <div class="text-center"><img src="~/Images/logo.jpg" style="width:140px;" /></div>
+                            </div>
+                            <div class="mt-2">
+                                <form id="loginform" class="form-horizontal" role="form">
+                                    <input id="garage-name-print" type="hidden" value="@currentUser.GarageSetting.Name" />
+                                    <div class="row col-md-12 justify-content-center">
+                                        <h6>@currentUser.GarageSetting.Name</h6>
+                                    </div>
+                                    <input id="garage-phone-print" type="hidden" value="@currentUser.GarageSetting.Phone.ToPhone()" />
+                                    <div class="row col-md-12 justify-content-center">
+                                        <h6>@currentUser.GarageSetting.Phone.ToPhone()</h6>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <input autocomplete="off" class="form-control input" id="comment-preview" maxlength="20" name="comment-preview" placeholder="@Localizer["Comment"]" type="text" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DateBox" id="label-datebox-preview" class="control-label">@Localizer["NextDateOrBefore"]</label>
+                                        <input autocomplete="off" class="form-control input" id="datebox-preview" maxlength="10" name="datebox-preview" placeholder="Date" type="text" value="">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UnitValue" id="label-unit-preview" class="control-label">Prochain kilomètre</label>
+                                        <input autocomplete="off" class="form-control input" id="unitvalue-preview" maxlength="10" name="unitvalue-preview" placeholder="0" type="text" value="">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="form-group row mt-3">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary w-100" id="btnReset"><i class="fad fa-redo-alt mr-2"></i>@Localizer["Restart"]</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary w-100" id="btnPrint"><i class="fad fa-print mr-2"></i>@Localizer["Print"]</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Preview area end -->
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/messages.js"></script>
+}

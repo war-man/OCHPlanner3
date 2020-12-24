@@ -34,7 +34,7 @@ namespace OCHPlanner3.Data.Factory
                 case OptionTypeEnum.Maintenance:
                     sql = "SELECT [Id],[Name],[Description] FROM [dbo].[OptionsMaintenance] WHERE GarageId = @garageId";
                     break;
-                case OptionTypeEnum.NextAppointment:
+                case OptionTypeEnum.Appointment:
                     sql = "SELECT [Id],[Name],[Description] FROM [dbo].[OptionsNextAppointment] WHERE GarageId = @garageId";
                     break;
             }
@@ -66,7 +66,7 @@ namespace OCHPlanner3.Data.Factory
                 case OptionTypeEnum.Maintenance:
                     sql = @"INSERT INTO [dbo].[OptionsMaintenance] VALUES(@Name, @Description, @GarageId)";
                     break;
-                case OptionTypeEnum.NextAppointment:
+                case OptionTypeEnum.Appointment:
                     sql = @"INSERT INTO [dbo].[OptionsNextAppointment] VALUES(@Name, @Description, @GarageId)";
                     break;
             }
@@ -100,7 +100,7 @@ namespace OCHPlanner3.Data.Factory
                 case OptionTypeEnum.Maintenance:
                     sql = @"UPDATE [dbo].[OptionsMaintenance] SET Name = @Name, Description = @Description WHERE Id = @Id";
                     break;
-                case OptionTypeEnum.NextAppointment:
+                case OptionTypeEnum.Appointment:
                     sql = @"UPDATE [dbo].[OptionsNextAppointment] SET Name = @Name, Description = @Description WHERE Id = @Id";
                     break;
             }
@@ -134,7 +134,7 @@ namespace OCHPlanner3.Data.Factory
                 case OptionTypeEnum.Maintenance:
                     sql = @"DELETE FROM [dbo].[OptionsMaintenance] WHERE Id = @Id";
                     break;
-                case OptionTypeEnum.NextAppointment:
+                case OptionTypeEnum.Appointment:
                     sql = @"DELETE FROM [dbo].[OptionsNextAppointment] WHERE Id = @Id";
                     break;
             }

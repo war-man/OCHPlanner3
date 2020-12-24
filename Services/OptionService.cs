@@ -64,6 +64,16 @@ namespace OCHPlanner3.Services
             var verificationList = await _optionFactory.GetOptions(OptionTypeEnum.Verification, garageId);
             return verificationList.Adapt<IEnumerable<OptionViewModel>>();
         }
+        public async Task<IEnumerable<SelectListItem>> GetVerificationSelectList(int garageId)
+        {
+            var optionList = await _optionFactory.GetOptions(OptionTypeEnum.Verification, garageId);
+
+            return optionList.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).OrderBy(o => o.Text);
+        }
 
         public async Task<int> CreateVerification(int garageId, string name, string description)
         {
@@ -90,6 +100,17 @@ namespace OCHPlanner3.Services
             return maintenanceList.Adapt<IEnumerable<OptionViewModel>>();
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetMaintenanceSelectList(int garageId)
+        {
+            var optionList = await _optionFactory.GetOptions(OptionTypeEnum.Maintenance, garageId);
+
+            return optionList.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).OrderBy(o => o.Text);
+        }
+
         public async Task<int> CreateMaintenance(int garageId, string name)
         {
             return await _optionFactory.CreateOption(OptionTypeEnum.Maintenance, garageId, name, string.Empty);
@@ -111,23 +132,33 @@ namespace OCHPlanner3.Services
 
         public async Task<IEnumerable<OptionViewModel>> GetAppointmentList(int garageId)
         {
-            var appointmentList = await _optionFactory.GetOptions(OptionTypeEnum.NextAppointment, garageId);
+            var appointmentList = await _optionFactory.GetOptions(OptionTypeEnum.Appointment, garageId);
             return appointmentList.Adapt<IEnumerable<OptionViewModel>>();
+        }
+        public async Task<IEnumerable<SelectListItem>> GetAppointmentSelectList(int garageId)
+        {
+            var optionList = await _optionFactory.GetOptions(OptionTypeEnum.Appointment, garageId);
+
+            return optionList.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).OrderBy(o => o.Text);
         }
 
         public async Task<int> CreateAppointment(int garageId, string name)
         {
-            return await _optionFactory.CreateOption(OptionTypeEnum.NextAppointment, garageId, name, string.Empty);
+            return await _optionFactory.CreateOption(OptionTypeEnum.Appointment, garageId, name, string.Empty);
         }
 
         public async Task<int> UpdateAppointment(int id, string name)
         {
-            return await _optionFactory.UpdateOption(OptionTypeEnum.NextAppointment, id, name, string.Empty);
+            return await _optionFactory.UpdateOption(OptionTypeEnum.Appointment, id, name, string.Empty);
         }
 
         public async Task<int> DeleteAppointment(int id)
         {
-            return await _optionFactory.DeleteOption(OptionTypeEnum.NextAppointment, id);
+            return await _optionFactory.DeleteOption(OptionTypeEnum.Appointment, id);
         }
 
         #endregion

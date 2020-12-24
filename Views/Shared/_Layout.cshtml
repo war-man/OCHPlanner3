@@ -46,6 +46,8 @@
     <link rel="stylesheet" href="~/template/css/responsive.css">
     <link rel="stylesheet" href="~/css/custom.css" />
 
+    <link rel="stylesheet" href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css" />
+
     <!-- modernizr css -->
     <script src="~/template/js/vendor/modernizr-2.8.3.min.js"></script>
 
@@ -119,7 +121,7 @@
                             <nav>
                                 <ul id="nav_menu">
 
-                                    <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")">
+                                    <li class="@(Html.IsMenuActive("/Sticker") || Html.IsMenuActive("/Message") ? "active" : "")">
                                         <a href="javascript:void(0)">
                                             <i class="fad fa-print"></i><span>
                                                 @Localizer["MenuPrint"]
@@ -127,6 +129,7 @@
                                         </a>
                                         <ul class="submenu">
                                             <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")"><a asp-controller="Sticker" asp-action="Simple">Simple</a></li>
+                                            <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">Messages client</a></li>
                                         </ul>
                                     </li>
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
@@ -252,6 +255,8 @@
     <script type="text/javascript" src="~/js/qz-tray/whatwg-fetch-3.0.0.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10.6.1/dist/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript" src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

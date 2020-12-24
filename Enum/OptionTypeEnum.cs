@@ -9,6 +9,6 @@ namespace OCHPlanner3.Enum
     {
         Verification,
         Maintenance,
-        NextAppointment
+        Appointment
     }
 }

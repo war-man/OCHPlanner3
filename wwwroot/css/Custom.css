@@ -84,3 +84,11 @@ span.field-validation-error {
         color: #fff;
         text-align: center;
     }
+
+.bootstrap-datetimepicker-widget table {
+    width:250px !important;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+    width: 260px !important;
+}
