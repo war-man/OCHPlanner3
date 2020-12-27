@@ -57,7 +57,7 @@
             <!-- trading history area start -->
             <div class="col-lg-8 mt-sm-30 mt-xs-30">
                 <div class="card">
-                    <div class="card-body" style="min-height:620px;">
+                    <div class="card-body" style="min-height:650px;">
                         <div class="form-group row">
                             <label for="unit" class="control-label col-md-4">@Localizer["SelectUnit"]</label>
                             <div class="col-md-8">
@@ -74,7 +74,7 @@
                                     <div class="col-md-6"><input value="Choice1" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice1" name="PrintChoices"></div>
                                 </div>
 
-                                <div class="col-md-12 row pt-2">
+                                <div class="row pt-2">
                                     <div class="col-md-4">
                                         <div class="form-group row">
                                             <div class="col-md-12">
@@ -119,7 +119,7 @@
                                     <div class="col-md-6"><input value="Choice2" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice2" name="PrintChoices"></div>
                                 </div>
 
-                                <div class="col-md-12 row pt-2">
+                                <div class="row pt-2">
                                     <div class="col-md-4">
                                         <div class="form-group row">
                                             <div class="col-md-12">
@@ -146,11 +146,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedMileage" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
+                                            <label for="SelectedMileage" class="control-label col-md-4 mt-2">@Localizer["Km"]</label>
                                             <div class="col-md-8">
-                                                <select asp-for="SelectedMileageChoice2" name="Choice2SelectedMileage" asp-items="Model.MileageList" class="form-control">
-                                                    <option value="">-- Select --</option>
-                                                </select>
+                                                <input asp-for="UnitValueChoice2" name="UnitValueChoice2" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -160,37 +158,42 @@
                         <div id="Choice3">
                             <div class="alert alert-dark" role="alert">
                                 <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
-                                    <h6 class="col-md-6 alert-heading">@Localizer["FixData"]</h6>
+                                    <h6 class="col-md-6 alert-heading">@Localizer["AppointmentTitle"]</h6>
                                     <div class="col-md-6"><input value="Choice3" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice3" name="PrintChoices"></div>
                                 </div>
-                                <div class="col-md-12 row pt-2">
+
+                                <div class="row pt-2">
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedMonthFixe" class="control-label col-md-4 mt-2">@Localizer["Month"]</label>
-                                            <div class="col-md-8">
-                                                @*<select asp-for="SelectedMonthChoice3" name="Choice3SelectedMonth" asp-items="Model.MonthList" class="form-control">
-                                                        <option value="0">-- Select --</option>
-                                                    </select>*@
+                                            <div class="col-md-12">
+                                                <select asp-for="SelectedAppointmentId" asp-items="Model.AppointmentList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedYearFixe" class="control-label col-md-4 mt-2">@Localizer["Year"]</label>
-                                            <div class="col-md-8">
-                                                @*<select asp-for="SelectedYearChoice3" name="Choice3SelectedYear" asp-items="Model.YearList" class="form-control">
-                                                        <option value="0">-- Select --</option>
-                                                    </select>*@
+                                            <label for="SelectedDate" class="control-label col-md-3 mt-2">@Localizer["Date"]</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <div class="input-group datetime" id="datetimepicker3" data-target-input="nearest">
+                                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" />
+                                                        <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedMileageFixe" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
+                                            <label for="SelectedMileage" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
                                             <div class="col-md-8">
-                                                @*<select asp-for="SelectedMileageChoice3" name="Choice3SelectedMileage" asp-items="Model.MileageList" class="form-control">
-                                                        <option value="0">-- Select --</option>
-                                                    </select>*@
+                                                <select asp-for="SelectedMileageChoice3" name="Choice3SelectedMileage" asp-items="Model.MileageList" class="form-control">
+                                                    <option value="">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -200,37 +203,47 @@
                         <div id="Choice4">
                             <div class="alert alert-dark" role="alert">
                                 <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
-                                    <h6 class="col-md-6 alert-heading">@Localizer["FixData"]</h6>
+                                    <h6 class="col-md-6 alert-heading">@Localizer["KeyTitle"]</h6>
                                     <div class="col-md-6"><input value="Choice3" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice3" name="PrintChoices"></div>
                                 </div>
-                                <div class="col-md-12 row pt-2">
+                                <div class="row pt-2">
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedMonthFixe" class="control-label col-md-4 mt-2">@Localizer["Month"]</label>
+                                            <label for="SelectedMake" class="control-label col-md-4 mt-2">@Localizer["Make"]</label>
                                             <div class="col-md-8">
-                                                @*<select asp-for="SelectedMonthChoice3" name="Choice3SelectedMonth" asp-items="Model.MonthList" class="form-control">
-                                                        <option value="0">-- Select --</option>
-                                                    </select>*@
+                                                <select asp-for="SelectedCarMake" name="carMakeList" asp-items="Model.CarMakeList" class="form-control">
+                                                    <option value="0">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedYearFixe" class="control-label col-md-4 mt-2">@Localizer["Year"]</label>
+                                            <label for="SelectedModel" class="control-label col-md-4 mt-2">@Localizer["Model"]</label>
                                             <div class="col-md-8">
-                                                @*<select asp-for="SelectedYearChoice3" name="Choice3SelectedYear" asp-items="Model.YearList" class="form-control">
-                                                        <option value="0">-- Select --</option>
-                                                    </select>*@
+                                                <select asp-for="SelectedCarModel" name="carModelList" asp-items="Model.CarModelList" class="form-control">
+                                                    <option value="0">-- Select --</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedMileageFixe" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
+                                            <label for="SelectedColor" class="control-label col-md-4 mt-2">@Localizer["Color"]</label>
                                             <div class="col-md-8">
-                                                @*<select asp-for="SelectedMileageChoice3" name="Choice3SelectedMileage" asp-items="Model.MileageList" class="form-control">
-                                                        <option value="0">-- Select --</option>
-                                                    </select>*@
+                                                <select asp-for="SelectedCarColor" name="carColorList" asp-items="Model.CarColorList" class="form-control">
+                                                    <option value="0">-- Select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="SelectedColor" class="control-label col-md-1 mt-2">@Localizer["Note"]</label>
+                                            <div class="col-md-11">
+                                                <input asp-for="Note" class="form-control" style="margin-left: 25px; width: 750px;" />
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +257,7 @@
             <!-- Preview area end -->
             <div class="col-lg-4">
                 <div class="card">
-                    <div class="card-body" style="min-height:620px;">
+                    <div class="card-body" style="min-height:650px;">
 
                         <div class="row justify-content-center">
                             <div class="form-group col col-md-8 text-center">

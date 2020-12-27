@@ -87,7 +87,7 @@
                                     <div class="col-md-6"><input value="Choice1" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" @(Model.SelectedChoice == "Choice1" ? "checked" : "") id="PrintChoice1" name="PrintChoices"></div>
                                 </div>
 
-                                <div class="col-md-12 row pt-2">
+                                <div class="row pt-2">
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="SelectedMonth" class="control-label col-md-4 mt-2">@Localizer["Month"]</label>
@@ -117,7 +117,7 @@
                                     <h6 class="col-md-6 alert-heading">@Localizer["DayDate"]</h6>
                                     <div class="col-md-6"><input value="Choice2" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" @(Model.SelectedChoice == "Choice2" ? "checked" : "") id="PrintChoice2" name="PrintChoices"></div>
                                 </div>
-                                <div class="col-md-12 row pt-2">
+                                <div class="row pt-2">
                                     <div class="col-md-6 mt-2">
                                         <label for="SelectedPeriod" class="control-label">@Localizer["PrintDayDate"]</label>
                                         : <strong>@DateTime.Now.ToString("dd/MM/yy", System.Globalization.CultureInfo.InvariantCulture)</strong>
@@ -141,7 +141,7 @@
                                     <h6 class="col-md-6 alert-heading">@Localizer["FixData"]</h6>
                                     <div class="col-md-6"><input value="Choice3" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" @(Model.SelectedChoice == "Choice3" ? "checked" : "") id="PrintChoice3" name="PrintChoices"></div>
                                 </div>
-                                <div class="col-md-12 row pt-2">
+                                <div class="row pt-2">
                                     <div class="col-md-4">
                                         <div class="form-group row">
                                             <label for="SelectedMonthFixe" class="control-label col-md-4 mt-2">@Localizer["Month"]</label>

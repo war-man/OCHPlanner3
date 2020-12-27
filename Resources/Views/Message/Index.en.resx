@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppointmentTitle" xml:space="preserve">
+    <value>Next Appointment</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -126,14 +132,23 @@
   <data name="Interval" xml:space="preserve">
     <value>Interval</value>
   </data>
+  <data name="KeyTitle" xml:space="preserve">
+    <value>Key sticker</value>
+  </data>
   <data name="KM" xml:space="preserve">
     <value>Kilometers</value>
   </data>
   <data name="MaintenanceTitle" xml:space="preserve">
     <value>Maintenance Done</value>
   </data>
+  <data name="Make" xml:space="preserve">
+    <value>Make</value>
+  </data>
   <data name="Miles" xml:space="preserve">
     <value>Miles</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Model</value>
   </data>
   <data name="SelectUnit" xml:space="preserve">
     <value>Select Unit</value>

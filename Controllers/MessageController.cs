@@ -18,16 +18,19 @@ namespace OCHPlanner3.Controllers
         public readonly IUserService _userService;
         public readonly IGarageService _garageService;
         public readonly IOptionService _optionService;
+        public readonly IVehicleService _vehicleService;
 
         public MessageController(IReferenceService referenceService,
              IHttpContextAccessor httpContextAccessor,
              IGarageService garageService,
              IOptionService optionService,
+             IVehicleService vehicleService,
              IUserService userService) : base(httpContextAccessor, userService)
         {
             _referenceService = referenceService;
             _garageService = garageService;
             _optionService = optionService;
+            _vehicleService = vehicleService;
         }
         public async Task<IActionResult> Index()
         {
@@ -38,7 +41,10 @@ namespace OCHPlanner3.Controllers
                 RootUrl = BaseRootUrl,
                 PrinterConfiguration = printerConfiguration ?? new PrinterConfigurationViewModel(),
                 VerificationList = await _optionService.GetVerificationSelectList(CurrentUser.GarageId),
-                MaintenanceList = await _optionService.GetMaintenanceSelectList(CurrentUser.GarageId)
+                MaintenanceList = await _optionService.GetMaintenanceSelectList(CurrentUser.GarageId),
+                AppointmentList = await _optionService.GetAppointmentSelectList(CurrentUser.GarageId),
+                CarMakeList = await _vehicleService.GetCarMakeSelectList(),
+                CarColorList = await _vehicleService.GetCarColorSelectList(CurrentUser.GarageSetting.Language)
             };
 
             //Get garage default
@@ -65,5 +71,10 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
 
+        [HttpGet("/{lang:lang}/Message/ModelSelectList")]
+        public async Task<IEnumerable<SelectListItem>> GetModelListList(string make)
+        {
+            return await _vehicleService.GetCarModelSelectList(make);
+        }
     }
 }

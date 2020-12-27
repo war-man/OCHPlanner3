@@ -85,10 +85,10 @@ span.field-validation-error {
         text-align: center;
     }
 
-.bootstrap-datetimepicker-widget table {
-    width:250px !important;
+.bootstrap-datetimepicker-widget.dropdown-menu {
+    padding: 10px !important;
 }
 
-.bootstrap-datetimepicker-widget.dropdown-menu {
+.dropdown-menu.usetwentyfour {
     width: 260px !important;
 }

@@ -153,6 +153,19 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
                 }
                 else
                 {
+                    Input = new InputModel()
+                    {
+                        Translation = new TranslationModel()
+                        {
+                            Message = _localizer["Message"],
+                            RememberMe = _localizer["RememberMe"],
+                            ConnectButton = _localizer["ConnectButton"],
+                            ForgotPassword = _localizer["ForgotPassword"],
+                            Email = _localizer["Email"],
+                            Password = _localizer["Password"],
+                        }
+                    };
+
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }

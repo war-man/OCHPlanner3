@@ -21,8 +21,21 @@ namespace OCHPlanner3.Models
 
         public int SelectedMaintenanceId { get; set; }
         public IEnumerable<SelectListItem> MaintenanceList { get; set; }
-        public int SelectedMileageChoice2 { get; set; }
+        public string UnitValueChoice2 { get; set; }
 
+        public int SelectedAppointmentId { get; set; }
+        public IEnumerable<SelectListItem> AppointmentList { get; set; }
+        public int SelectedMileageChoice3 { get; set; }
 
+        public IEnumerable<SelectListItem> CarMakeList { get; set; }
+        public string SelectedCarMake { get; set; }
+
+        public IEnumerable<SelectListItem> CarModelList { get; set; }
+        public string SelectedCarModel { get; set; }
+
+        public IEnumerable<SelectListItem> CarColorList { get; set; }
+        public string SelectedCarColor { get; set; }
+
+        public string Note { get; set; }
     }
 }

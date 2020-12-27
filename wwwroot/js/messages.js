@@ -2,6 +2,8 @@
 
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('select[name="carMakeList"]').select2();
+
     if($('#hidLanguage').val() === 'FR')
     {
         moment.locale('fr');
@@ -11,16 +13,13 @@
         moment.locale('en');
     }
 
-    $('#datetimepicker1').datetimepicker({
+    $('.date').datetimepicker({
         format: 'L',
-        defaultDate: moment(),
-        //format: $('#hidDateFormat').val().toUpperCase()
+        defaultDate: moment()
     });
 
-    $('#datetimepicker2').datetimepicker({
-        format: 'L',
-        defaultDate: moment(),
-        //format: $('#hidDateFormat').val().toUpperCase()
+    $('.datetime').datetimepicker({
+        sideBySide: true,
     });
 
     //calculate garage name center position
@@ -79,9 +78,32 @@
     });
 
     //replication for oil list value
-    //$(document).on("change", 'select[name="oillist"]', function () {
-    //    $('select[name="oillist-preview"]').val($('select[name="oillist"]').val());
-    //});
+    $(document).on("change", 'select[name="carMakeList"]', function () {
+        $.ajax({
+            url: ajaxUrl + '/Message/ModelSelectList',
+            type: "GET",
+            data: {
+                make: $(this).val()
+            },
+            async: false,
+            success: function (response) {
+                $('select[name="carModelList"]').empty();
+                
+
+                var options = '';
+                options += '<option value="Select">-- Select --</option>';
+                for (var i = 0; i < response.length; i++) {
+                    options += '<option value="' + response[i].Text + '">' + response[i].Text + '</option>';
+                }
+
+                $('select[name="carModelList"]').append(options);
+                $('select[name="carModelList"]').select2();
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+    });
 
     ////replication for comment
     //$(document).on("keyup", "#Comment", function () {
