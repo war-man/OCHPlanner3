@@ -10,5 +10,6 @@ namespace OCHPlanner3.Models
         public string SelectedOilPrinter { get; set; }
         public int OilOffsetX { get; set; }
         public int OilOffsetY { get; set; }
+        public bool RotationSelected { get; set; }
     }
 }

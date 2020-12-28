@@ -55,9 +55,6 @@
         })
     }
 
-    //Initial Setup
-    InitialSetup();
-
     $(document).on("click", "#btnPrint", function () {
         printSimpleSticker();
     });
@@ -77,49 +74,7 @@
         }
     });
 
-    //replication for car make list value
-    $(document).on("change", 'select[name="carMakeList"]', function () {
-        // Get Models
-        $.ajax({
-            url: ajaxUrl + '/Message/ModelSelectList',
-            type: "GET",
-            data: {
-                make: $(this).val()
-            },
-            async: false,
-            success: function (response) {
-                $('select[name="carModelList"]').empty();
-                
-
-                var options = '';
-                options += '<option value="Select">-- Select --</option>';
-                for (var i = 0; i < response.length; i++) {
-                    options += '<option value="' + response[i].Text + '">' + response[i].Text + '</option>';
-                }
-
-                $('select[name="carModelList"]').append(options);
-                $('select[name="carModelList"]').select2();
-            },
-            error: function (xhr, status, error) {
-                alert('Error');
-            }
-        });
-
-        //Update Preview
-        $('#make-preview').val($(this).val());
-    });
-
-    //replication for car model list value
-    $(document).on("change", 'select[name="carModelList"]', function () {
-        $('#model-preview').val($(this).val());
-    });
-
-    //replication for car color list value
-    $(document).on("change", 'select[name="carColorList"]', function () {
-        $('#color-preview').val($(this).val());
-    });
-
-    //replication for unitvalue
+     //replication for unitvalue
     $(document).on("blur", "#UnitValue", function () {
         if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
             Choice1_Click();
@@ -129,7 +84,10 @@
         }
         if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
             Choice3_Click();
-        }     
+        }   
+        if ($("input[name='PrintChoices']:checked").val() === 'Choice4') {
+            Choice4_Click();
+        }   
     });
 
     //CHOICE 1
@@ -139,6 +97,7 @@
 
     //Verification value to display
     $(document).on("change", 'select[name="SelectedVerificationId"]', function () {
+       
         $.ajax({
             url: ajaxUrl + '/Message/VerificationMessageToDisplay',
             type: "GET",
@@ -154,10 +113,16 @@
                 alert('Error');
             }
         });
+
+        //check choice 1
+        selectChoice(1);
     });
 
     $(document).on("change", 'select[name="Choice1SelectedMileage"]', function () {
         UpdateMileageChoice1();
+
+        //check choice 1
+        selectChoice(1);
     });
 
     function Choice1_Click() {
@@ -172,6 +137,8 @@
 
     $("#datetimepicker1").on("change.datetimepicker", ({ date, oldDate }) => {
         $('#datebox-preview').val(moment(date._d).format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+        //check choice 1
+        selectChoice(1);
     })
 
     function UpdateDateChoice1() {
@@ -197,10 +164,23 @@
 
     $(document).on("change", 'select[name="SelectedMaintenanceId"]', function () {
         $('#comment-preview').val($('select[name="SelectedMaintenanceId"] option:selected').text());
+
+        //check choice 2
+        selectChoice(2);
+    });
+
+    $(document).on("blur", 'input[name="UnitValueChoice2"]', function () {
+        UpdateMileageChoice2();
+
+        //check choice 2
+        selectChoice(2);
     });
 
     $("#datetimepicker2").on("change.datetimepicker", ({ date, oldDate }) => {
         $('#datebox-preview').val(moment(date._d).format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+
+        //check choice 2
+        selectChoice(2);
     })
 
     function Choice2_Click() {
@@ -214,13 +194,8 @@
     }
 
     function UpdateMileageChoice2() {
-        var startMileage = $('input[name="unitvalue"]').val();
-        if (startMileage === '') {
-            startMileage = 0;
-        }
-
         var mileage = $('input[name="UnitValueChoice2"]').val();
-        $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
+        $('input[name="unitvalue-preview"]').val(parseInt(mileage));
     }
 
     //CHOICE 3
@@ -230,14 +205,23 @@
 
     $(document).on("change", 'select[name="Choice3SelectedMileage"]', function () {
         UpdateMileageChoice3();
+
+        //check choice 3
+        selectChoice(3);
     });
 
     $(document).on("change", 'select[name="SelectedAppointmentId"]', function () {
         $('#comment-preview').val($('select[name="SelectedAppointmentId"] option:selected').text());
+
+        //check choice 3
+        selectChoice(3);
     });
 
     $("#datetimepicker3").on("change.datetimepicker", ({ date, oldDate }) => {
         $('#datebox-preview').val(moment(date._d).format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+
+        //check choice 3
+        selectChoice(3);
     })
        
     function Choice3_Click() {
@@ -271,41 +255,90 @@
       
     }
 
+    //replication for car make list value
+    $(document).on("change", 'select[name="carMakeList"]', function () {
+        // Get Models
+        $.ajax({
+            url: ajaxUrl + '/Message/ModelSelectList',
+            type: "GET",
+            data: {
+                make: $(this).val()
+            },
+            async: false,
+            success: function (response) {
+                $('select[name="carModelList"]').empty();
+
+
+                var options = '';
+                options += '<option value="Select">-- Select --</option>';
+                for (var i = 0; i < response.length; i++) {
+                    options += '<option value="' + response[i].Text + '">' + response[i].Text + '</option>';
+                }
+
+                $('select[name="carModelList"]').append(options);
+                $('select[name="carModelList"]').select2();
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+
+        //Update Preview
+        $('#make-preview').val($(this).val());
+
+        //check choice 4
+        selectChoice(4);
+
+    });
+
+    //replication for car model list value
+    $(document).on("change", 'select[name="carModelList"]', function () {
+        $('#model-preview').val($(this).val());
+
+        //check choice 4
+        selectChoice(4);
+    });
+
+    //replication for car color list value
+    $(document).on("change", 'select[name="carColorList"]', function () {
+        $('#color-preview').val($(this).val());
+
+        //check choice 4
+        selectChoice(4);
+    });
 
     //replication for note
     $(document).on("blur", "#Note", function () {
         $('#comment-preview').val($(this).val());
+
+        //check choice 4
+        selectChoice(4);
     });
-
-
-    function InitialSetup() {
-        //if ($('input[name="SelectedUnit"]:checked').val() === 'KM') {
-        //    UpdateKM();
-        //}
-        //if ($('input[name="SelectedUnit"]:checked').val() === 'MI') {
-        //    UpdateMiles();
-        //}
-        //if ($('input[name="SelectedUnit"]:checked').val() === 'HM') {
-        //    UpdateHM();
-        //}
-        //$('input[name="comment-preview"]').val($('input[name="comment"]').val());
-        //if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
-        //    Choice1_Click();
-        //}
-        //if ($("input[name='PrintChoices']:checked").val() === 'Choice2') {
-        //    Choice2_Click();
-        //}
-        //if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
-        //    Choice3_Click();
-        //}  
-
-    }
 
     //Reset Preview
     $(document).on("click", "#btnReset", function () {
         $('input[name="unitvalue"]').val('');
         InitialSetup();
     });
+
+    function selectChoice(choice) {
+        if (choice === 1) {
+            $("#PrintChoice1").prop("checked", true);
+            Choice1_Click();
+        }
+        else if (choice === 2) {
+            $("#PrintChoice2").prop("checked", true);
+            Choice2_Click();
+        }
+        else if (choice === 3) {
+            $("#PrintChoice3").prop("checked", true);
+            Choice3_Click();
+        }
+        else if (choice === 4) {
+            $("#PrintChoice4").prop("checked", true);
+            Choice4_Click();
+        }
+    }
 
     function UpdateKM() {
         $('#label-unit').text($('#HidActualKm').val());

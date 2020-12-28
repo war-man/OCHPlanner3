@@ -126,6 +126,9 @@
   <data name="OilPrinterTitle" xml:space="preserve">
     <value>Imprimante pour huile</value>
   </data>
+  <data name="Rotation" xml:space="preserve">
+    <value>Activer la rotation de l'étiquette</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="StickerMargin" xml:space="preserve">
     <value>Marges de l'étiquette</value>
+  </data>
+  <data name="StickerRotation" xml:space="preserve">
+    <value>Rotation de l'étiquette</value>
   </data>
   <data name="TestMargins" xml:space="preserve">
     <value>Tester les marges</value>

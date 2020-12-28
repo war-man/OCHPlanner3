@@ -24,7 +24,8 @@
         var printerConfig = {
             SelectedOilPrinter: selectedPrinter,
             OilOffsetX: oilOffsetXSlider.slider('getValue'),
-            OilOffsetY: oilOffsetYSlider.slider('getValue')
+            OilOffsetY: oilOffsetYSlider.slider('getValue'),
+            RotationSelected: $('input[name="rotation-active"]')[0].checked
         };
 
         $.ajax({
@@ -85,7 +86,7 @@
         $("#oilOffsetXSliderVal").text($('#HidOilOffsetX').val());
         oilOffsetYSlider.slider('setValue', $('#HidOilOffsetY').val());
         $("#oilOffsetYSliderVal").text($('#HidOilOffsetY').val());
-
+        
     }
 
     function displayAllPrinters(printers) {

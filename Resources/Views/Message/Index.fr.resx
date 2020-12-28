@@ -192,6 +192,12 @@
   <data name="NextUnitMiles" xml:space="preserve">
     <value>PROCH. MILES</value>
   </data>
+  <data name="Print" xml:space="preserve">
+    <value>Imprimer</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Recommencer</value>
+  </data>
   <data name="SelectUnit" xml:space="preserve">
     <value>Sélectionnez unitée</value>
   </data>
