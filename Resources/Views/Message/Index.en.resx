@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActualHm" xml:space="preserve">
+    <value>Actual Hour Motor</value>
+  </data>
+  <data name="ActualKm" xml:space="preserve">
+    <value>Actual Kilometers</value>
+  </data>
+  <data name="ActualMiles" xml:space="preserve">
+    <value>Actual Miles</value>
+  </data>
   <data name="AppointmentTitle" xml:space="preserve">
     <value>Next Appointment</value>
   </data>
@@ -138,6 +147,9 @@
   <data name="KM" xml:space="preserve">
     <value>Kilometers</value>
   </data>
+  <data name="LastService" xml:space="preserve">
+    <value>Last Service On</value>
+  </data>
   <data name="MaintenanceTitle" xml:space="preserve">
     <value>Maintenance Done</value>
   </data>
@@ -149,6 +161,36 @@
   </data>
   <data name="Model" xml:space="preserve">
     <value>Model</value>
+  </data>
+  <data name="NextDate1" xml:space="preserve">
+    <value>NEXT DATE</value>
+  </data>
+  <data name="NextDate2" xml:space="preserve">
+    <value>LAST SERVICE</value>
+  </data>
+  <data name="NextDate3" xml:space="preserve">
+    <value>NEXT SERVICE</value>
+  </data>
+  <data name="NextDateOrBefore" xml:space="preserve">
+    <value>Next date or before</value>
+  </data>
+  <data name="NextHm" xml:space="preserve">
+    <value>Next Hour Motor</value>
+  </data>
+  <data name="NextKm" xml:space="preserve">
+    <value>Next Kilometers</value>
+  </data>
+  <data name="NextMiles" xml:space="preserve">
+    <value>Next Miles</value>
+  </data>
+  <data name="NextUnitHrMotor" xml:space="preserve">
+    <value>NEXT HR. MOTEUR</value>
+  </data>
+  <data name="NextUnitKm" xml:space="preserve">
+    <value>NEXT KM</value>
+  </data>
+  <data name="NextUnitMiles" xml:space="preserve">
+    <value>NEXT MILES</value>
   </data>
   <data name="SelectUnit" xml:space="preserve">
     <value>Select Unit</value>

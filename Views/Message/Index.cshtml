@@ -39,6 +39,21 @@
     @Html.Hidden("HidActualHm", Localizer["ActualHm"].Value)
     @Html.Hidden("HidNextHm", Localizer["NextHm"].Value)*@
 
+@Html.Hidden("HidNextDateOrBefore", Localizer["NextDateOrBefore"].Value)
+@Html.Hidden("HidActualHm", Localizer["ActualHm"].Value)
+@Html.Hidden("HidNextKm", Localizer["NextKm"].Value)
+@Html.Hidden("HidNextUnitKm", Localizer["NextUnitKm"].Value)
+@Html.Hidden("HidActualMiles", Localizer["ActualMiles"].Value)
+@Html.Hidden("HidNextMiles", Localizer["NextMiles"].Value)
+@Html.Hidden("HidNextUnitMiles", Localizer["NextUnitMiles"].Value)
+@Html.Hidden("HidActualHm", Localizer["ActualHm"].Value)
+@Html.Hidden("HidNextHm", Localizer["NextHm"].Value)
+@Html.Hidden("HidNextUnitHrMotor", Localizer["NextUnitHrMotor"].Value)
+@Html.Hidden("HidNextDate1", Localizer["NextDate1"].Value)
+@Html.Hidden("HidNextDate2", Localizer["NextDate2"].Value)
+@Html.Hidden("HidNextDate3", Localizer["NextDate3"].Value)
+@Html.Hidden("HidLastService", Localizer["LastService"].Value)
+
 @Html.Hidden("HidCenterGarageNameOffset", "")
 @Html.Hidden("HidPersonalizedSticker", currentUser.GarageSetting.PersonalizedSticker)
 
@@ -81,6 +96,7 @@
                                                 <select asp-for="SelectedVerificationId" asp-items="Model.VerificationList" class="form-control">
                                                     <option value="">-- Select --</option>
                                                 </select>
+                                                @Html.Hidden("HidVerificationValueToDisplay", "")
                                             </div>
                                         </div>
                                     </div>
@@ -92,7 +108,7 @@
                                                     <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
                                                         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                            <div class="input-group-text"><i class="fad fa-calendar"></i></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -137,7 +153,7 @@
                                                     <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
                                                         <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                            <div class="input-group-text"><i class="fad fa-calendar"></i></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -180,7 +196,7 @@
                                                     <div class="input-group datetime" id="datetimepicker3" data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" />
                                                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                            <div class="input-group-text"><i class="fad fa-calendar"></i></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -204,7 +220,7 @@
                             <div class="alert alert-dark" role="alert">
                                 <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
                                     <h6 class="col-md-6 alert-heading">@Localizer["KeyTitle"]</h6>
-                                    <div class="col-md-6"><input value="Choice3" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice3" name="PrintChoices"></div>
+                                    <div class="col-md-6"><input value="Choice4" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice4" name="PrintChoices"></div>
                                 </div>
                                 <div class="row pt-2">
                                     <div class="col-md-4">
@@ -280,18 +296,34 @@
                                         <h6>@currentUser.GarageSetting.Phone.ToPhone()</h6>
                                     </div>
                                     <div class="form-group mt-3">
-                                        <input autocomplete="off" class="form-control input" id="comment-preview" maxlength="20" name="comment-preview" placeholder="@Localizer["Comment"]" type="text" value="">
+                                        <textarea id="comment-preview" name="comment-preview" class="form-control input" rows="4" cols="50"></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="DateBox" id="label-datebox-preview" class="control-label">@Localizer["NextDateOrBefore"]</label>
-                                        <input autocomplete="off" class="form-control input" id="datebox-preview" maxlength="10" name="datebox-preview" placeholder="Date" type="text" value="">
+                                    <div id="choice123-preview">
+                                        <div class="form-group">
+                                            <label for="DateBox" id="label-datebox-preview" class="control-label">@Localizer["NextDateOrBefore"]</label>
+                                            <input autocomplete="off" class="form-control input" id="datebox-preview" maxlength="10" name="datebox-preview" placeholder="Date" type="text" value="">
 
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="UnitValue" id="label-unit-preview" class="control-label">Prochain kilomètre</label>
+                                            <input autocomplete="off" class="form-control input" id="unitvalue-preview" maxlength="10" name="unitvalue-preview" placeholder="0" type="text" value="">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="UnitValue" id="label-unit-preview" class="control-label">Prochain kilomètre</label>
-                                        <input autocomplete="off" class="form-control input" id="unitvalue-preview" maxlength="10" name="unitvalue-preview" placeholder="0" type="text" value="">
-                                    </div>
+                                    <div id="choice4-preview" style="display:none">
+                                        <div class="form-group">
+                                            <label for="make-preview" id="label-datebox-preview" class="control-label">@Localizer["Make"]</label>
+                                            <input autocomplete="off" class="form-control input" id="make-preview" maxlength="10" name="make-preview" type="text" value="">
 
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="model-preview" id="label-unit-preview" class="control-label">@Localizer["Model"]</label>
+                                            <input autocomplete="off" class="form-control input" id="model-preview" maxlength="10" name="model-preview" type="text" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="color-preview" id="label-unit-preview" class="control-label">@Localizer["Color"]</label>
+                                            <input autocomplete="off" class="form-control input" id="color-preview" maxlength="10" name="color-preview" type="text" value="">
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
 

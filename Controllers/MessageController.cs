@@ -76,5 +76,12 @@ namespace OCHPlanner3.Controllers
         {
             return await _vehicleService.GetCarModelSelectList(make);
         }
+
+        [HttpGet("/{lang:lang}/Message/VerificationMessageToDisplay")]
+        public async Task<string> GetVerificationMessageToDisplay(int verificationId)
+        {
+            var verificationList = await _optionService.GetVerificationList(CurrentUser.GarageId);
+            return verificationList.FirstOrDefault(p => p.Id == verificationId)?.Description;
+        }
     }
 }

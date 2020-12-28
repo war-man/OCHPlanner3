@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActualHm" xml:space="preserve">
+    <value>Heures moteur actuel</value>
+  </data>
+  <data name="ActualKm" xml:space="preserve">
+    <value>Kilomètres actuel</value>
+  </data>
+  <data name="ActualMiles" xml:space="preserve">
+    <value>Miles actuel</value>
+  </data>
   <data name="AppointmentTitle" xml:space="preserve">
     <value>Prochain RDV</value>
   </data>
@@ -138,6 +147,9 @@
   <data name="KM" xml:space="preserve">
     <value>Kilomètres</value>
   </data>
+  <data name="LastService" xml:space="preserve">
+    <value>Entretien effectué le</value>
+  </data>
   <data name="MaintenanceTitle" xml:space="preserve">
     <value>Entretien effectué</value>
   </data>
@@ -149,6 +161,36 @@
   </data>
   <data name="Model" xml:space="preserve">
     <value>Modèle</value>
+  </data>
+  <data name="NextDate1" xml:space="preserve">
+    <value>PROCH. DATE</value>
+  </data>
+  <data name="NextDate2" xml:space="preserve">
+    <value>EFFECTUE LE</value>
+  </data>
+  <data name="NextDate3" xml:space="preserve">
+    <value>PROCH. VISITE</value>
+  </data>
+  <data name="NextDateOrBefore" xml:space="preserve">
+    <value>Prochaine date ou avant le</value>
+  </data>
+  <data name="NextHm" xml:space="preserve">
+    <value>Prochain heures moteur</value>
+  </data>
+  <data name="NextKm" xml:space="preserve">
+    <value>Prochain Kilomètres</value>
+  </data>
+  <data name="NextMiles" xml:space="preserve">
+    <value>Prochain Miles</value>
+  </data>
+  <data name="NextUnitHrMotor" xml:space="preserve">
+    <value>PROCH. HR. MOTEUR</value>
+  </data>
+  <data name="NextUnitKm" xml:space="preserve">
+    <value>PROCH. KM</value>
+  </data>
+  <data name="NextUnitMiles" xml:space="preserve">
+    <value>PROCH. MILES</value>
   </data>
   <data name="SelectUnit" xml:space="preserve">
     <value>Sélectionnez unitée</value>

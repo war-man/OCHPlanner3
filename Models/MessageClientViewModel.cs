@@ -36,6 +36,10 @@ namespace OCHPlanner3.Models
         public IEnumerable<SelectListItem> CarColorList { get; set; }
         public string SelectedCarColor { get; set; }
 
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string Color { get; set; }
+
         public string Note { get; set; }
     }
 }
