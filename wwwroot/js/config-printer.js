@@ -61,6 +61,7 @@
                 'Q400\n',
                 'q440\n',
                 'D12\n',
+                ($('input[name="rotation-active"]')[0].checked ? 'ZB\n' : 'ZT\n'),
                 'A' + (140 + oilOffsetXSlider.slider('getValue')) + ',' + (157 + oilOffsetYSlider.slider('getValue')) + ',0,3,1,1,N,"Test Garage"\n',
                 'A' + (120 + oilOffsetXSlider.slider('getValue')) + ',' + (182 + oilOffsetYSlider.slider('getValue')) + ',0,3,1,1,N,"(514) 555-5555"\n',
                 'A' + (75 + oilOffsetXSlider.slider('getValue')) + ',' + (212 + oilOffsetYSlider.slider('getValue')) + ',0,3,1,1,N,"Comment"\n',
@@ -68,9 +69,10 @@
                 'A' + (75 + oilOffsetXSlider.slider('getValue')) + ',' + (272 + oilOffsetYSlider.slider('getValue')) + ',0,4,1,1,N,"PROCH. DATE"\n',
                 'A' + (75 + oilOffsetXSlider.slider('getValue')) + ',' + (302 + oilOffsetYSlider.slider('getValue')) + ',0,5,1,1,N,"MAI 21"\n',
                 'A' + (75 + oilOffsetXSlider.slider('getValue')) + ',' + (362 + oilOffsetYSlider.slider('getValue')) + ',0,4,1,1,N,"PROCH. KM"\n',
-                'A' + (75 + oilOffsetXSlider.slider('getValue')) + ', ' + (387 + oilOffsetYSlider.slider('getValue')) + ',0,5,1,1,N,"125000"\n',
+                'A' + (75 + oilOffsetXSlider.slider('getValue')) + ',' + (387 + oilOffsetYSlider.slider('getValue')) + ',0,5,1,1,N,"125000"\n',
                 'P1,1\n'
             ];
+            
             return qz.print(config, data);
 
         }).catch(function (e) { console.error(e); });

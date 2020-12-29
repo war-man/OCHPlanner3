@@ -11,7 +11,7 @@ using OCHPlanner3.Services.Interfaces;
 
 namespace OCHPlanner3.Controllers
 {
-    [Authorize(Roles = "SuperAdmin, Administrator")]
+    [Authorize]
     [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class GarageController : BaseController
     {
@@ -47,6 +47,7 @@ namespace OCHPlanner3.Controllers
             return PartialView("_garages", model);
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("/{lang:lang}/Garage/Create")]
         public async Task<IActionResult> Create()
         {
@@ -62,6 +63,7 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("/{lang:lang}/Garage/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -82,6 +84,7 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpPost("/{lang:lang}/Garage/Create")]
         public async Task<IActionResult> Create(GarageViewModel model)
         {
@@ -110,6 +113,7 @@ namespace OCHPlanner3.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpPut("/{lang:lang}/Garage/Edit")]
         public async Task<IActionResult> Edit(GarageViewModel model)
         {
@@ -124,6 +128,7 @@ namespace OCHPlanner3.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpDelete("/{lang:lang}/Garage/Delete")]
         public async Task<IActionResult> Delete(int garageId)
         {

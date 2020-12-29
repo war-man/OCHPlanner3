@@ -339,6 +339,7 @@
                 'Q400\n',
                 'q440\n',
                 'D12\n',
+                ($('#HidPrinterRotation').val().toLowerCase() === 'true' ? 'ZB\n' : 'ZT\n'),
              ];
 
             if ($('#HidPersonalizedSticker').val() === "False") {
