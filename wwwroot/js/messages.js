@@ -56,7 +56,7 @@
     }
 
     $(document).on("click", "#btnPrint", function () {
-        printSimpleSticker();
+        printSticker();
     });
 
     $(document).on("change", 'input[name="SelectedUnit"]', function () {
@@ -318,7 +318,6 @@
     //Reset Preview
     $(document).on("click", "#btnReset", function () {
         $('input[name="unitvalue"]').val('');
-        InitialSetup();
     });
 
     function selectChoice(choice) {
@@ -396,7 +395,7 @@
         });
     }
 
-    function printSimpleSticker() {
+    function printSticker() {
         var oilOffsetXSlider = parseInt($('#HidOilOffsetX').val());
         var oilOffsetYSlider = parseInt($('#HidOilOffsetY').val());
 
@@ -413,16 +412,22 @@
                 'Q400\n',
                 'q440\n',
                 'D12\n',
-             ];
+                ($('#HidPrinterRotation').val().toLowerCase() === 'true' ? 'ZB\n' : 'ZT\n')
+            ];
 
             if ($('#HidPersonalizedSticker').val() === "False") {
                 printData1.push('A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n');
                 printData1.push('A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n');
             }
 
-            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n');
-            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n');
-            printData1.push('A' + (75 + oilOffsetXSlider) + ', ' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
+            if ($('#comment-preview').val().length > 20) {
+                printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#comment-preview').val().substring(0, 20) + '"\n');
+                printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (240 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#comment-preview').val().substring(20, 40) + '"\n');
+            }
+            else {
+                printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#comment-preview').val() + '"\n');
+            }
+            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
 
             if ($('#hidDateFormatPrint').val() === "True" &&
                 ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
