@@ -23,15 +23,18 @@
 @Html.Hidden("HidPrinterRotation", Model.PrinterConfiguration.RotationSelected)
 
 @Html.Hidden("HidNextDateOrBefore", Localizer["NextDateOrBefore"].Value)
-@Html.Hidden("HidActualHm", Localizer["ActualHm"].Value)
+@Html.Hidden("HidActualKm", Localizer["ActualKm"].Value)
 @Html.Hidden("HidNextKm", Localizer["NextKm"].Value)
 @Html.Hidden("HidNextUnitKm", Localizer["NextUnitKm"].Value)
+@Html.Hidden("HidActualUnitKm", Localizer["ActualUnitKm"].Value)
 @Html.Hidden("HidActualMiles", Localizer["ActualMiles"].Value)
 @Html.Hidden("HidNextMiles", Localizer["NextMiles"].Value)
 @Html.Hidden("HidNextUnitMiles", Localizer["NextUnitMiles"].Value)
+@Html.Hidden("HidActualUnitMiles", Localizer["ActualUnitMiles"].Value)
 @Html.Hidden("HidActualHm", Localizer["ActualHm"].Value)
 @Html.Hidden("HidNextHm", Localizer["NextHm"].Value)
 @Html.Hidden("HidNextUnitHrMotor", Localizer["NextUnitHrMotor"].Value)
+@Html.Hidden("HidActualUnitHrMotor", Localizer["ActualUnitHrMotor"].Value)
 @Html.Hidden("HidNextDate1", Localizer["NextDate1"].Value)
 @Html.Hidden("HidNextDate2", Localizer["NextDate2"].Value)
 @Html.Hidden("HidNextDate3", Localizer["NextDate3"].Value)
@@ -264,7 +267,7 @@
 
                         <div class="row justify-content-center">
                             <div class="form-group col col-md-8 text-center">
-                                <label id="label-unit" for="unitValue" class="p-2 btn-primary control-label mt-2" style="border-radius:5px;">Kilomètre actuel</label>
+                                <label id="label-unit" for="unitValue" class="p-2 btn-primary control-label mt-2" style="border-radius:5px;">@Localizer["ActualKm"]</label>
                                 <input asp-for="UnitValue" name="unitvalue" class="form-control" />
                             </div>
                         </div>

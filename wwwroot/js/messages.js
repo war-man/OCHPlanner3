@@ -131,6 +131,8 @@
 
         UpdateDateChoice1();
         UpdateMileageChoice1();
+        UpdateLabelUnitPreview();
+        UpdateNextUnit();
     }
 
     $("#datetimepicker1").on("change.datetimepicker", ({ date, oldDate }) => {
@@ -187,8 +189,10 @@
 
         $('#label-datebox-preview').html($('#HidLastService').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
         $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
-        nextdate = $('#HidNextDate2').val();;
+        UpdateLabelUnitPreview();
+        nextdate = $('#HidNextDate2').val();
         UpdateMileageChoice2();
+        UpdateNextUnit();
     }
 
     function UpdateMileageChoice2() {
@@ -228,8 +232,10 @@
 
         $('#label-datebox-preview').text($('#HidNextService').val());
 
+        UpdateLabelUnitPreview();
         nextdate = $('#HidNextDate3').val();;
         UpdateMileageChoice3();
+        UpdateNextUnit();
     }
 
     function UpdateMileageChoice3() {
@@ -289,6 +295,54 @@
 
     });
 
+    function UpdateLabelUnitPreview() {
+
+        var choice = $("input[name='PrintChoices']:checked").val()
+        if (choice == 'Choice1' || choice == 'Choice3') {
+            if ($('input[name="SelectedUnit"]:checked').val() == 'KM') {
+                $('#label-unit-preview').text($('#HidNextKm').val());
+            }
+            else if ($('input[name="SelectedUnit"]:checked').val() == 'MI') {
+                $('#label-unit-preview').text($('#HidNextMiles').val());
+            }
+            else if ($('input[name="SelectedUnit"]:checked').val() == 'HM') {
+                $('#label-unit-preview').text($('#HidNextHm').val());
+            }
+        }
+        else if (choice == 'Choice2') {
+            $('#label-unit-preview').text($('#label-unit').text());
+        }
+        
+    }
+
+    function UpdateNextUnit() {
+
+        var choice = $("input[name='PrintChoices']:checked").val()
+        if (choice == 'Choice1' || choice == 'Choice3') {
+            if ($('input[name="SelectedUnit"]:checked').val() == 'KM') {
+                nextunit = $('#HidNextUnitKm').val();
+            }
+            else if ($('input[name="SelectedUnit"]:checked').val() == 'MI') {
+                nextunit = $('#HidNextUnitMiles').val();
+            }
+            else if ($('input[name="SelectedUnit"]:checked').val() == 'HM') {
+                nextunit = $('#HidNextUnitHrMotor').val();
+            }
+        }
+        else if (choice == 'Choice2') {
+            if ($('input[name="SelectedUnit"]:checked').val() == 'KM') {
+                nextunit = $('#HidActualUnitKm').val();
+            }
+            else if ($('input[name="SelectedUnit"]:checked').val() == 'MI') {
+                nextunit = $('#HidActualUnitMiles').val();
+            }
+            else if ($('input[name="SelectedUnit"]:checked').val() == 'HM') {
+                nextunit = $('#HidActualUnitHrMotor').val();
+            }
+        }
+
+    }
+
     //replication for car model list value
     $(document).on("change", 'select[name="carModelList"]', function () {
         $('#model-preview').val($(this).val());
@@ -339,20 +393,20 @@
 
     function UpdateKM() {
         $('#label-unit').text($('#HidActualKm').val());
-        $('#label-unit-preview').text($('#HidNextKm').val());
-        nextunit = $('#HidNextUnitKm').val();;
+        UpdateLabelUnitPreview();
+        UpdateNextUnit();
     }
 
     function UpdateMiles() {
         $('#label-unit').text($('#HidActualMiles').val());
-        $('#label-unit-preview').text($('#HidNextMiles').val());
-        nextunit = $('#HidNextUnitMiles').val();;
+        UpdateLabelUnitPreview();
+        UpdateNextUnit();
     }
 
     function UpdateHM() {
         $('#label-unit').text($('#HidActualHm').val());
-        $('#label-unit-preview').text($('#HidNextHm').val());
-        nextunit = $('#HidNextUnitHrMotor').val();;
+        UpdateLabelUnitPreview();
+        UpdateNextUnit();
     }
 
     function PrintableDateFormat() {
@@ -481,12 +535,12 @@
         printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (217 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(0, 17) + '"\n');
         printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (247 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(17, 34) + '"\n');
 
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (290 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidMake').val() + '"\n');
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (315 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#make-preview').val() + '"\n');
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (350 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidModel').val() + '"\n');
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (375 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#model-preview').val() + '"\n');
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (410 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidColor').val() + '"\n');
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (435 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#color-preview').val() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (290 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidMake').val().toUpperCase() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (315 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#make-preview').val().toUpperCase() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (350 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidModel').val().toUpperCase() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (375 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#model-preview').val().toUpperCase() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (410 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidColor').val().toUpperCase() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (435 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#color-preview').val().toUpperCase() + '"\n');
 
         printData1.push('P1,1\n');
 

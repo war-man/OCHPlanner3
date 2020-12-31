@@ -126,6 +126,15 @@
   <data name="ActualMiles" xml:space="preserve">
     <value>Miles actuels</value>
   </data>
+  <data name="ActualUnitHrMotor1" xml:space="preserve">
+    <value>HRM ACTUEL</value>
+  </data>
+  <data name="ActualUnitKm" xml:space="preserve">
+    <value>KM ACTUEL</value>
+  </data>
+  <data name="ActualUnitMiles" xml:space="preserve">
+    <value>MILES ACTUEL</value>
+  </data>
   <data name="AppointmentTitle" xml:space="preserve">
     <value>Prochain RDV</value>
   </data>

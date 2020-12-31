@@ -184,7 +184,7 @@
     <value>Prochaine visite</value>
   </data>
   <data name="NextServiceInterval" xml:space="preserve">
-    <value>Intervale prochain service</value>
+    <value>Intervalle prochain service</value>
   </data>
   <data name="NextUnitHrMotor" xml:space="preserve">
     <value>PROCH. HR. MOTEUR</value>
