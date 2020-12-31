@@ -4,12 +4,10 @@
 
     $('select[name="carMakeList"]').select2();
 
-    if($('#hidLanguage').val() === 'FR')
-    {
+    if ($('#hidLanguage').val() === 'FR') {
         moment.locale('fr');
     }
-    else
-    {
+    else {
         moment.locale('en');
     }
 
@@ -74,7 +72,7 @@
         }
     });
 
-     //replication for unitvalue
+    //replication for unitvalue
     $(document).on("blur", "#UnitValue", function () {
         if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
             Choice1_Click();
@@ -84,10 +82,10 @@
         }
         if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
             Choice3_Click();
-        }   
+        }
         if ($("input[name='PrintChoices']:checked").val() === 'Choice4') {
             Choice4_Click();
-        }   
+        }
     });
 
     //CHOICE 1
@@ -97,7 +95,7 @@
 
     //Verification value to display
     $(document).on("change", 'select[name="SelectedVerificationId"]', function () {
-       
+
         $.ajax({
             url: ajaxUrl + '/Message/VerificationMessageToDisplay',
             type: "GET",
@@ -223,13 +221,13 @@
         //check choice 3
         selectChoice(3);
     })
-       
+
     function Choice3_Click() {
         $('#choice4-preview').hide();
         $('#choice123-preview').show();
 
         $('#label-datebox-preview').text($('#HidNextService').val());
-        
+
         nextdate = $('#HidNextDate3').val();;
         UpdateMileageChoice3();
     }
@@ -252,7 +250,7 @@
     function Choice4_Click() {
         $('#choice123-preview').hide();
         $('#choice4-preview').show();
-      
+
     }
 
     //replication for car make list value
@@ -396,8 +394,6 @@
     }
 
     function printSticker() {
-        var oilOffsetXSlider = parseInt($('#HidOilOffsetX').val());
-        var oilOffsetYSlider = parseInt($('#HidOilOffsetY').val());
 
         var selectedPrinter = $('#HidSelectedOilPrinter').val();
 
@@ -405,44 +401,7 @@
             console.log("Printer: " + printer);
 
             var config = qz.configs.create(printer);       // Create a default config for the found printer
-            var printData1;
-            
-            printData1 = [
-                'N\n',
-                'Q400\n',
-                'q440\n',
-                'D12\n',
-                ($('#HidPrinterRotation').val().toLowerCase() === 'true' ? 'ZB\n' : 'ZT\n')
-            ];
-
-            if ($('#HidPersonalizedSticker').val() === "False") {
-                printData1.push('A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n');
-                printData1.push('A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n');
-            }
-
-            if ($('#comment-preview').val().length > 20) {
-                printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#comment-preview').val().substring(0, 20) + '"\n');
-                printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (240 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#comment-preview').val().substring(20, 40) + '"\n');
-            }
-            else {
-                printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#comment-preview').val() + '"\n');
-            }
-            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
-
-            if ($('#hidDateFormatPrint').val() === "True" &&
-                ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
-                $("input[name='PrintChoices']:checked").val() === 'Choice2') {
-                printData1.push('A' + (260 + oilOffsetXSlider) + ',' + (275 + oilOffsetYSlider) + ',0,1,1,1,N,"(' + PrintableDateFormat() + ')"\n');
-            }
-
-            var printData2 = [
-                'A' + (75 + oilOffsetXSlider) + ',' + (302 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
-                'A' + (75 + oilOffsetXSlider) + ',' + (362 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextunit + '"\n',
-                'A' + (75 + oilOffsetXSlider) + ',' + (387 + oilOffsetYSlider) + ',0,5,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
-                'P1,1\n'
-            ];
-
-            var printData = $.merge(printData1, printData2);
+            var printData = ($("input[name='PrintChoices']:checked").val() === 'Choice4' ? GetKeyMessage() : GetClientMessage());
 
             qz.print(config, printData);
 
@@ -451,11 +410,87 @@
                 url: ajaxUrl + '/garage/IncrementPrintCounter',
                 type: 'POST',
                 success: function (response) {
-                    
+
                 }
-            });  
+            });
 
         }).catch(function (e) { console.error(e); });
+    }
+
+    function GetClientMessage() {
+        var oilOffsetXSlider = parseInt($('#HidOilOffsetX').val());
+        var oilOffsetYSlider = parseInt($('#HidOilOffsetY').val());
+
+        var printData1;
+
+        printData1 = [
+            'N\n',
+            'Q400\n',
+            'q440\n',
+            'D12\n',
+            ($('#HidPrinterRotation').val().toLowerCase() === 'true' ? 'ZB\n' : 'ZT\n')
+        ];
+
+        if ($('#HidPersonalizedSticker').val() === "False") {
+            printData1.push('A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n');
+            printData1.push('A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n');
+        }
+
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (222 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(0, 17) + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (252 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(17, 34) + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (282 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(34, 51) + '"\n');
+
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (342 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
+
+        if ($('#hidDateFormatPrint').val() === "True" &&
+            ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
+            $("input[name='PrintChoices']:checked").val() === 'Choice2') {
+            printData1.push('A' + (260 + oilOffsetXSlider) + ',' + (345 + oilOffsetYSlider) + ',0,2,1,1,N,"(' + PrintableDateFormat() + ')"\n');
+        }
+
+        var printData2 = [
+            'A' + (75 + oilOffsetXSlider) + ',' + (372 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('input[name="datebox-preview"]').val().toUpperCase() + '"\n',
+            'A' + (75 + oilOffsetXSlider) + ',' + (412 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextunit + '"\n',
+            'A' + (75 + oilOffsetXSlider) + ',' + (437 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('input[name="unitvalue-preview"]').val() + '"\n',
+            'P1,1\n'
+        ];
+
+        var printData = $.merge(printData1, printData2);
+
+        return printData;
+    }
+
+    function GetKeyMessage() {
+        var oilOffsetXSlider = parseInt($('#HidOilOffsetX').val());
+        var oilOffsetYSlider = parseInt($('#HidOilOffsetY').val());
+        var printData1;
+
+        printData1 = [
+            'N\n',
+            'Q400\n',
+            'q440\n',
+            'D12\n',
+            ($('#HidPrinterRotation').val().toLowerCase() === 'true' ? 'ZB\n' : 'ZT\n')
+        ];
+
+        if ($('#HidPersonalizedSticker').val() === "False") {
+            printData1.push('A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n');
+            printData1.push('A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n');
+        }
+
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (217 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(0, 17) + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (247 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(17, 34) + '"\n');
+
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (290 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidMake').val() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (315 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#make-preview').val() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (350 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidModel').val() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (375 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#model-preview').val() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (410 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#HidColor').val() + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (435 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#color-preview').val() + '"\n');
+
+        printData1.push('P1,1\n');
+
+        return printData1;
     }
 
     function centerTitle(word) {

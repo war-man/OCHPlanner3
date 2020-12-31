@@ -37,6 +37,10 @@
 @Html.Hidden("HidNextDate3", Localizer["NextDate3"].Value)
 @Html.Hidden("HidLastService", Localizer["LastService"].Value)
 
+@Html.Hidden("HidMake", Localizer["Make"].Value)
+@Html.Hidden("HidModel", Localizer["Model"].Value)
+@Html.Hidden("HidColor", Localizer["Color"].Value)
+
 @Html.Hidden("HidCenterGarageNameOffset", "")
 @Html.Hidden("HidPersonalizedSticker", currentUser.GarageSetting.PersonalizedSticker)
 
@@ -242,7 +246,7 @@
                                         <div class="form-group row">
                                             <label for="SelectedColor" class="control-label col-md-1 mt-2">@Localizer["Note"]</label>
                                             <div class="col-md-11">
-                                                <input asp-for="Note" class="form-control" style="margin-left: 25px; width: 750px;" />
+                                                <input asp-for="Note" class="form-control" maxlength="51" style="margin-left: 25px; width: 750px;" />
                                             </div>
                                         </div>
                                     </div>
