@@ -40,6 +40,11 @@
 @Html.Hidden("HidNextDate3", Localizer["NextDate3"].Value)
 @Html.Hidden("HidLastService", Localizer["LastService"].Value)
 
+@Html.Hidden("HidNextAppointDate", Localizer["NextAppointDate"].Value)
+@Html.Hidden("HidNextAppointTime", Localizer["NextAppointTime"].Value)
+@Html.Hidden("HidNextAppointDateLabel", Localizer["NextAppointDateLabel"].Value)
+@Html.Hidden("HidNextAppointTimeLabel", Localizer["NextAppointTimeLabel"].Value)
+
 @Html.Hidden("HidMake", Localizer["Make"].Value)
 @Html.Hidden("HidModel", Localizer["Model"].Value)
 @Html.Hidden("HidColor", Localizer["Color"].Value)
@@ -183,7 +188,7 @@
                                             <label for="SelectedDate" class="control-label col-md-3 mt-2">@Localizer["Date"]</label>
                                             <div class="col-md-9">
                                                 <div class="form-group">
-                                                    <div class="input-group datetime" id="datetimepicker3" data-target-input="nearest">
+                                                    <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" />
                                                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fad fa-calendar"></i></div>
@@ -195,11 +200,16 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group row">
-                                            <label for="SelectedMileage" class="control-label col-md-4 mt-2">@Localizer["Interval"]</label>
-                                            <div class="col-md-8">
-                                                <select asp-for="SelectedMileageChoice3" name="Choice3SelectedMileage" asp-items="Model.MileageList" class="form-control">
-                                                    <option value="">-- Select --</option>
-                                                </select>
+                                            <label for="SelectedTime" class="control-label col-md-3 mt-2">@Localizer["Time"]</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <div class="input-group time" id="datetimepicker31" data-target-input="nearest">
+                                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker31" />
+                                                        <div class="input-group-append" data-target="#datetimepicker31" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fad fa-clock"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

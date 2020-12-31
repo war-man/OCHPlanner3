@@ -16,8 +16,8 @@
         defaultDate: moment()
     });
 
-    $('.datetime').datetimepicker({
-        sideBySide: true,
+    $('.time').datetimepicker({
+        format: 'HH:mm'
     });
 
     //calculate garage name center position
@@ -226,28 +226,22 @@
         selectChoice(3);
     })
 
+    $("#datetimepicker31").on("change.datetimepicker", ({ date, oldDate }) => {
+        $('input[name="unitvalue-preview"]').val(moment(date._d).format('HH:mm'));
+    })
+
     function Choice3_Click() {
         $('#choice4-preview').hide();
         $('#choice123-preview').show();
 
-        $('#label-datebox-preview').text($('#HidNextService').val());
+        $('#label-datebox-preview').html($('#HidNextAppointDateLabel').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
+        $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
 
         UpdateLabelUnitPreview();
-        nextdate = $('#HidNextDate3').val();;
-        UpdateMileageChoice3();
+        nextdate = $('#HidNextAppointDate').val();
         UpdateNextUnit();
     }
-
-    function UpdateMileageChoice3() {
-        var startMileage = $('input[name="unitvalue"]').val();
-        if (startMileage === '') {
-            startMileage = 0;
-        }
-
-        var mileage = $('select[name="Choice3SelectedMileage"] option:selected').text();
-        $('input[name="unitvalue-preview"]').val(parseInt(startMileage) + parseInt(mileage));
-    }
-
+       
     //CHOICE 4
     $(document).on("click", "#PrintChoice4", function () {
         Choice4_Click();
@@ -298,7 +292,7 @@
     function UpdateLabelUnitPreview() {
 
         var choice = $("input[name='PrintChoices']:checked").val()
-        if (choice == 'Choice1' || choice == 'Choice3') {
+        if (choice == 'Choice1') {
             if ($('input[name="SelectedUnit"]:checked').val() == 'KM') {
                 $('#label-unit-preview').text($('#HidNextKm').val());
             }
@@ -312,13 +306,16 @@
         else if (choice == 'Choice2') {
             $('#label-unit-preview').text($('#label-unit').text());
         }
+        else if (choice == 'Choice3') {
+            $('#label-unit-preview').text($('#HidNextAppointTimeLabel').val());
+        }
         
     }
 
     function UpdateNextUnit() {
 
         var choice = $("input[name='PrintChoices']:checked").val()
-        if (choice == 'Choice1' || choice == 'Choice3') {
+        if (choice == 'Choice1') {
             if ($('input[name="SelectedUnit"]:checked').val() == 'KM') {
                 nextunit = $('#HidNextUnitKm').val();
             }
@@ -340,6 +337,12 @@
                 nextunit = $('#HidActualUnitHrMotor').val();
             }
         }
+        else if (choice == 'Choice3') {
+            nextunit = $('#HidNextAppointTime').val();
+        }
+
+       
+
 
     }
 
@@ -496,9 +499,7 @@
 
         printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (342 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
 
-        if ($('#hidDateFormatPrint').val() === "True" &&
-            ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
-            $("input[name='PrintChoices']:checked").val() === 'Choice2') {
+        if ($('#hidDateFormatPrint').val() === "True") {
             printData1.push('A' + (260 + oilOffsetXSlider) + ',' + (345 + oilOffsetYSlider) + ',0,2,1,1,N,"(' + PrintableDateFormat() + ')"\n');
         }
 
