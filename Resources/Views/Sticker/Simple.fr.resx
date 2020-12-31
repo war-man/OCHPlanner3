@@ -121,13 +121,13 @@
     <value>actuel</value>
   </data>
   <data name="ActualHm" xml:space="preserve">
-    <value>Heures moteur actuel</value>
+    <value>Heures moteur actuels</value>
   </data>
   <data name="ActualKm" xml:space="preserve">
-    <value>Kilomètres actuel</value>
+    <value>Kilomètres actuels</value>
   </data>
   <data name="ActualMiles" xml:space="preserve">
-    <value>Miles actuel</value>
+    <value>Miles actuels</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Ajouter</value>
@@ -139,13 +139,13 @@
     <value>Date du jour</value>
   </data>
   <data name="FixData" xml:space="preserve">
-    <value>Données fixe</value>
+    <value>Données fixes</value>
   </data>
   <data name="HrMotor" xml:space="preserve">
     <value>Heures moteur</value>
   </data>
   <data name="Interval" xml:space="preserve">
-    <value>Intervale</value>
+    <value>Intervalle</value>
   </data>
   <data name="KM" xml:space="preserve">
     <value>Kilomètres</value>
@@ -175,7 +175,7 @@
     <value>Prochain heures moteur</value>
   </data>
   <data name="NextKm" xml:space="preserve">
-    <value>Prochain Kilomètres</value>
+    <value>Prochains Kilomètres</value>
   </data>
   <data name="NextMiles" xml:space="preserve">
     <value>Prochain Miles</value>

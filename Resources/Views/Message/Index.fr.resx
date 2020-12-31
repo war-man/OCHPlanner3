@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActualHm" xml:space="preserve">
-    <value>Heures moteur actuel</value>
+    <value>Heures moteur actuels</value>
   </data>
   <data name="ActualKm" xml:space="preserve">
-    <value>Kilomètres actuel</value>
+    <value>Kilomètres actuels</value>
   </data>
   <data name="ActualMiles" xml:space="preserve">
-    <value>Miles actuel</value>
+    <value>Miles actuels</value>
   </data>
   <data name="AppointmentTitle" xml:space="preserve">
     <value>Prochain RDV</value>
@@ -139,7 +139,7 @@
     <value>Heures moteur</value>
   </data>
   <data name="Interval" xml:space="preserve">
-    <value>Intervale</value>
+    <value>Intervalle</value>
   </data>
   <data name="KeyTitle" xml:space="preserve">
     <value>Autocollant pour clé</value>
@@ -178,7 +178,7 @@
     <value>Prochain heures moteur</value>
   </data>
   <data name="NextKm" xml:space="preserve">
-    <value>Prochain Kilomètres</value>
+    <value>Prochains Kilomètres</value>
   </data>
   <data name="NextMiles" xml:space="preserve">
     <value>Prochain Miles</value>
