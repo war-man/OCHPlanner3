@@ -90,6 +90,16 @@
 
         table.on('select deselect', function (e, dt, type, indexes) {
             var rowData = table.rows(indexes).data().toArray();
+
+            //Cannot delete base options
+            if (parseInt(rowData[0]['id']) >= 250000) {
+                table.button(1).enable(false);
+                table.button(2).enable(false);
+            }
+            else {
+                table.button(1).enable(true);
+                table.button(2).enable(true);
+            }
         });
     }
 
