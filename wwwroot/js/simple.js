@@ -98,11 +98,13 @@
     //replication for selected Period
     $(document).on("change", 'select[name="SelectedPeriodChoice1"]', function () {
         UpdateMonthChoice1();
+        selectChoice(1);
     });
 
     //replication for selected mileage
     $(document).on("change", 'select[name="Choice1SelectedMileage"]', function () {
         UpdateMileageChoice1()
+        selectChoice(1);
     });
 
     function Choice1_Click() {
@@ -136,6 +138,7 @@
     //replication for selected Mileage
     $(document).on("change", 'select[name="Choice2SelectedMileage"]', function () {
         UpdateMileageChoice2();
+        selectChoice(2);
     });
 
     function Choice2_Click() {
@@ -162,10 +165,12 @@
 
     $(document).on("change", 'select[name="Choice3SelectedMonth"]', function () {
         Choice3UpdatePreview();
+        selectChoice(3);
     });
 
     $(document).on("change", 'select[name="Choice3SelectedYear"]', function () {
         Choice3UpdatePreview();
+        selectChoice(3);
     });
 
     function Choice3_Click() {
@@ -190,6 +195,7 @@
     //replication for selected Mileage
     $(document).on("change", 'select[name="Choice3SelectedMileage"]', function () {
         UpdateMileageChoice3();
+        selectChoice(3);
     });
 
     function UpdateMileageChoice3() {
@@ -296,6 +302,20 @@
 
     }
 
+    function selectChoice(choice) {
+        if (choice === 1) {
+            $("#PrintChoice1").prop("checked", true);
+            Choice1_Click();
+        }
+        else if (choice === 2) {
+            $("#PrintChoice2").prop("checked", true);
+            Choice2_Click();
+        }
+        else if (choice === 3) {
+            $("#PrintChoice3").prop("checked", true);
+            Choice3_Click();
+        }
+    }
     function refreshIntervalSelectList(mileageType) {
         $.ajax({
             url: ajaxUrl + '/reference/intervalSelectList/' + mileageType,
