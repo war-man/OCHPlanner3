@@ -341,8 +341,14 @@
                         $('#pwdForm input[name=id]').val(data.id);
                         $('#pwdModal').modal({ backdrop: 'static' });
                     }
-                }
+                },
+                'pageLength'
             ],
+            language: {
+                buttons: {
+                    pageLength: '%d'
+                }
+            },
             initComplete: function () {
                 $('#usersTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
 
