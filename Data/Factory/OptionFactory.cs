@@ -21,7 +21,27 @@ namespace OCHPlanner3.Data.Factory
         {
             _configuration = configuration;
         }
-               
+
+        public async Task<IEnumerable<OptionModel>> GetBaseOptions(OptionTypeEnum optionType, string language)
+        {
+            var sql = "SELECT [Id],[Name],[Description] FROM [dbo].[OptionsBase] WHERE OptionType = @optionType AND Language = @language";
+                       
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<OptionModel>(sql,
+                    new
+                    {
+                        OptionType = (int)optionType,
+                        Language = language.ToUpper()
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
         public async Task<IEnumerable<OptionModel>> GetOptions(OptionTypeEnum optionType, int garageId)
         {
             var sql = "";

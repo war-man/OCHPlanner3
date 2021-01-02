@@ -7,8 +7,8 @@ namespace OCHPlanner3.Enum
 {
     public enum OptionTypeEnum
     {
-        Verification,
-        Maintenance,
-        Appointment
+        Verification = 1,
+        Maintenance = 2,
+        Appointment = 3
     }
 }
