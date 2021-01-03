@@ -22,6 +22,7 @@
                 "visible": false
             }
         ],
+        "order": [[1, "asc"]],
         buttons: [
             {
                 text: $('#hidNewButton').val(),

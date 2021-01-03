@@ -12,7 +12,7 @@
     }
 
     $('.date').datetimepicker({
-        format: 'L',
+        format: $('#hidDateFormat').val().toUpperCase(),
         defaultDate: moment()
     });
 
@@ -187,12 +187,17 @@
         $('#choice4-preview').hide();
         $('#choice123-preview').show();
 
-        $('#label-datebox-preview').html($('#HidLastService').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
-        $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+        UpdateDateChoice2();
         UpdateLabelUnitPreview();
         nextdate = $('#HidNextDate2').val();
         UpdateMileageChoice2();
         UpdateNextUnit();
+    }
+
+    function UpdateDateChoice2() {
+        var selectedDate = $('#datetimepicker2').datetimepicker('viewDate');
+        $('#datebox-preview').val(moment(selectedDate).format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+        $('#label-datebox-preview').html($('#HidLastService').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
     }
 
     function UpdateMileageChoice2() {
@@ -234,14 +239,18 @@
         $('#choice4-preview').hide();
         $('#choice123-preview').show();
 
-        $('#label-datebox-preview').html($('#HidNextAppointDateLabel').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
-        $('#datebox-preview').val(moment().format('' + $('#hidDateFormat').val().toUpperCase() + ''));
-
+        UpdateDateChoice3();
         UpdateLabelUnitPreview();
         nextdate = $('#HidNextAppointDate').val();
         UpdateNextUnit();
     }
-       
+
+    function UpdateDateChoice3() {
+        var selectedDate = $('#datetimepicker3').datetimepicker('viewDate');
+        $('#datebox-preview').val(moment(selectedDate).format('' + $('#hidDateFormat').val().toUpperCase() + ''));
+        $('#label-datebox-preview').html($('#HidNextAppointDateLabel').val() + '<span class="ml-3 small font-weight-bold">(' + PrintableDateFormat() + ')</span>');
+    }
+
     //CHOICE 4
     $(document).on("click", "#PrintChoice4", function () {
         Choice4_Click();
