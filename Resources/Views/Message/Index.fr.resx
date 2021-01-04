@@ -229,9 +229,9 @@
     <value>Messages client</value>
   </data>
   <data name="Verification" xml:space="preserve">
-    <value>Vérification</value>
+    <value>Recommandations</value>
   </data>
   <data name="VerificationTitle" xml:space="preserve">
-    <value>Vérification à effectuer</value>
+    <value>Recommandations</value>
   </data>
 </root>

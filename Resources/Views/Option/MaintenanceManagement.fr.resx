@@ -160,7 +160,7 @@
     <value>Entretien sauvegardée avec succès!</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Gestion des entretiens</value>
+    <value>Gestion des entretiens effectués</value>
   </data>
   <data name="UpdateSuccess" xml:space="preserve">
     <value>Entretien mise-à-jour avec succès!</value>

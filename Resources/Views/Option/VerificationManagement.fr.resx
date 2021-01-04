@@ -121,7 +121,7 @@
     <value>Ajouter</value>
   </data>
   <data name="AddVerification" xml:space="preserve">
-    <value>Ajouter une vérification</value>
+    <value>Ajouter une recommandation</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Fermer</value>
@@ -130,22 +130,22 @@
     <value>Supprimer</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
-    <value>Oui, supprimer cette vérification</value>
+    <value>Oui, supprimer cette recommandation</value>
   </data>
   <data name="DeleteSuccess" xml:space="preserve">
-    <value>Vérification supprimé avec succès!</value>
+    <value>Recommandation supprimée avec succès!</value>
   </data>
   <data name="DeleteText" xml:space="preserve">
-    <value>Voulez-vous vraiment supprimer cette vérification?</value>
+    <value>Voulez-vous vraiment supprimer cette recommandation?</value>
   </data>
   <data name="DeleteTitle" xml:space="preserve">
-    <value>Supprimer cette vérification</value>
+    <value>Supprimer cette recommandation</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
   </data>
   <data name="EditVerification" xml:space="preserve">
-    <value>Modifier une vérification</value>
+    <value>Modifier une recommandation</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
@@ -157,12 +157,12 @@
     <value>Sauvegarder</value>
   </data>
   <data name="SaveSuccess" xml:space="preserve">
-    <value>Vérification sauvegardée avec succès!</value>
+    <value>Recommandation sauvegardée avec succès!</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Gestion des vérifications</value>
+    <value>Gestion des recommandations</value>
   </data>
   <data name="UpdateSuccess" xml:space="preserve">
-    <value>Vérification mise-à-jour avec succès!</value>
+    <value>Recommandation mise-à-jour avec succès!</value>
   </data>
 </root>

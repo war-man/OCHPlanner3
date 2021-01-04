@@ -127,7 +127,7 @@
     <value>Aide</value>
   </data>
   <data name="MenuMaintenance" xml:space="preserve">
-    <value>Gestion des entretiens</value>
+    <value>Gestion des entretiens effectués</value>
   </data>
   <data name="MenuNextAppointment" xml:space="preserve">
     <value>Gestion des rendez-vous</value>
@@ -160,6 +160,6 @@
     <value>Utilisateurs</value>
   </data>
   <data name="MenuVerification" xml:space="preserve">
-    <value>Gestion des vérifications</value>
+    <value>Gestion des recommandations</value>
   </data>
 </root>
