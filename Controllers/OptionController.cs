@@ -127,15 +127,15 @@ namespace OCHPlanner3.Controllers
 
         #endregion
 
-        #region Verification Management
+        #region Recommendation Management
 
-        [Route("/{lang:lang}/Options/Verification")]
-        public async Task<IActionResult> VerificationManagement()
+        [Route("/{lang:lang}/Options/Recommendation")]
+        public async Task<IActionResult> RecommendationManagement()
         {
-            var model = new VerificationManagementViewModel()
+            var model = new RecommendationManagementViewModel()
             {
                 RootUrl = BaseRootUrl,
-                VerificationList = await _optionService.GetVerificationList(CurrentUser.GarageId),
+                RecommendationList = await _optionService.GetRecommendationList(CurrentUser.GarageId),
                 GarageSelector = new GarageSelectorViewModel
                 {
                     Garages = await _garageService.GetGaragesSelectList(),
@@ -147,22 +147,22 @@ namespace OCHPlanner3.Controllers
             return View(model);
         }
               
-        [HttpGet("/{lang:lang}/Options/Verification/{id}")]
-        public async Task<IActionResult> VerificationManagementList(int id)
+        [HttpGet("/{lang:lang}/Options/Recommendation/{id}")]
+        public async Task<IActionResult> RecommendationManagementList(int id)
         {
             if (id == 0)
-                throw new ApplicationException("VerificationManagementList - Id should ne be set to 0");
+                throw new ApplicationException("RecommendationManagementList - Id should ne be set to 0");
 
-            var model = new VerificationManagementViewModel() { VerificationList = await _optionService.GetVerificationList(id) };
-            return PartialView("_verifications", model);
+            var model = new RecommendationManagementViewModel() { RecommendationList = await _optionService.GetRecommendationList(id) };
+            return PartialView("_recommendations", model);
         }
 
-        [HttpPost("/{lang:lang}/Options/CreateVerification")]
-        public async Task<IActionResult> CreateVerification(int selectedGarageId, string name, string description)
+        [HttpPost("/{lang:lang}/Options/CreateRecommendation")]
+        public async Task<IActionResult> CreateRecommendation(int selectedGarageId, string name, string description)
         {
             try
             {
-                var result = await _optionService.CreateVerification(selectedGarageId, name, description);
+                var result = await _optionService.CreateRecommendation(selectedGarageId, name, description);
                 return Ok(result);
             }
             catch (Exception)
@@ -171,12 +171,12 @@ namespace OCHPlanner3.Controllers
             }
         }
 
-        [HttpPost("/{lang:lang}/Options/UpdateVerification")]
-        public async Task<IActionResult> UpdateVerification(int id, string name, string description)
+        [HttpPost("/{lang:lang}/Options/UpdateRecommendation")]
+        public async Task<IActionResult> UpdateRecommendation(int id, string name, string description)
         {
             try
             {
-                var result = await _optionService.UpdateVerification(id, name, description);
+                var result = await _optionService.UpdateRecommendation(id, name, description);
                 return Ok(result);
             }
             catch (Exception)
@@ -186,12 +186,12 @@ namespace OCHPlanner3.Controllers
         }
 
 
-        [HttpDelete("/{lang:lang}/Options/DeleteVerification")]
-        public async Task<IActionResult> DeleteVerification(int id)
+        [HttpDelete("/{lang:lang}/Options/DeleteRecommendation")]
+        public async Task<IActionResult> DeleteRecommendation(int id)
         {
             try
             {
-                var result = await _optionService.DeleteVerification(id);
+                var result = await _optionService.DeleteRecommendation(id);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -48,8 +48,8 @@ namespace OCHPlanner3.Data.Factory
 
             switch (optionType)
             {
-                case OptionTypeEnum.Verification:
-                    sql = "SELECT [Id],[Name],[Description] FROM [dbo].[OptionsVerification] WHERE GarageId = @garageId";
+                case OptionTypeEnum.Recommendation:
+                    sql = "SELECT [Id],[Name],[Description] FROM [dbo].[OptionsRecommendation] WHERE GarageId = @garageId";
                     break;
                 case OptionTypeEnum.Maintenance:
                     sql = "SELECT [Id],[Name],[Description] FROM [dbo].[OptionsMaintenance] WHERE GarageId = @garageId";
@@ -80,8 +80,8 @@ namespace OCHPlanner3.Data.Factory
 
             switch (optionType)
             {
-                case OptionTypeEnum.Verification:
-                    sql = @"INSERT INTO [dbo].[OptionsVerification] VALUES(@Name, @Description, @GarageId)";
+                case OptionTypeEnum.Recommendation:
+                    sql = @"INSERT INTO [dbo].[OptionsRecommendation] VALUES(@Name, @Description, @GarageId)";
                     break;
                 case OptionTypeEnum.Maintenance:
                     sql = @"INSERT INTO [dbo].[OptionsMaintenance] VALUES(@Name, @Description, @GarageId)";
@@ -114,8 +114,8 @@ namespace OCHPlanner3.Data.Factory
            
             switch (optionType)
             {
-                case OptionTypeEnum.Verification:
-                    sql = @"UPDATE [dbo].[OptionsVerification] SET Name = @Name, Description = @Description WHERE Id = @Id";
+                case OptionTypeEnum.Recommendation:
+                    sql = @"UPDATE [dbo].[OptionsRecommendation] SET Name = @Name, Description = @Description WHERE Id = @Id";
                     break;
                 case OptionTypeEnum.Maintenance:
                     sql = @"UPDATE [dbo].[OptionsMaintenance] SET Name = @Name, Description = @Description WHERE Id = @Id";
@@ -148,8 +148,8 @@ namespace OCHPlanner3.Data.Factory
 
             switch (optionType)
             {
-                case OptionTypeEnum.Verification:
-                    sql = @"DELETE FROM [dbo].[OptionsVerification] WHERE Id = @Id";
+                case OptionTypeEnum.Recommendation:
+                    sql = @"DELETE FROM [dbo].[OptionsRecommendation] WHERE Id = @Id";
                     break;
                 case OptionTypeEnum.Maintenance:
                     sql = @"DELETE FROM [dbo].[OptionsMaintenance] WHERE Id = @Id";

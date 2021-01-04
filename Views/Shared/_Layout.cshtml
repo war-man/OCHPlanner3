@@ -129,10 +129,7 @@
                                         </a>
                                         <ul class="submenu">
                                             <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")"><a asp-controller="Sticker" asp-action="Simple">Simple</a></li>
-                                            @if (User.IsInRole("SuperAdmin")) 
-                                            {
-                                                <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">Messages client</a></li>
-                                            }
+                                            <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">Messages client</a></li>
                                         </ul>
                                     </li>
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
@@ -170,7 +167,7 @@
                                             {
 
                                             <li class="@(Html.IsMenuActive("/Options/Oil") ? "active" : "")"><a asp-controller="Options" asp-action="Oil">@Localizer["MenuOils"]</a></li>
-                                            <li class="@(Html.IsMenuActive("/Options/Verification") ? "active" : "")"><a asp-controller="Options" asp-action="Verification">@Localizer["MenuVerification"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Options/Recommendation") ? "active" : "")"><a asp-controller="Options" asp-action="Recommendation">@Localizer["MenuRecommendation"]</a></li>
                                             <li class="@(Html.IsMenuActive("/Options/Maintenance") ? "active" : "")"><a asp-controller="Options" asp-action="Maintenance">@Localizer["MenuMaintenance"]</a></li>
                                             <li class="@(Html.IsMenuActive("/Options/Appointment") ? "active" : "")"><a asp-controller="Options" asp-action="Appointment">@Localizer["MenuNextAppointment"]</a></li>
                                             }

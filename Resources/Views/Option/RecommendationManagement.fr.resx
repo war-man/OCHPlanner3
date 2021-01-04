@@ -120,7 +120,7 @@
   <data name="Add" xml:space="preserve">
     <value>Ajouter</value>
   </data>
-  <data name="AddVerification" xml:space="preserve">
+  <data name="AddRecommendation" xml:space="preserve">
     <value>Ajouter une recommandation</value>
   </data>
   <data name="Close" xml:space="preserve">
@@ -144,7 +144,7 @@
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
   </data>
-  <data name="EditVerification" xml:space="preserve">
+  <data name="EditRecommendation" xml:space="preserve">
     <value>Modifier une recommandation</value>
   </data>
   <data name="Name" xml:space="preserve">

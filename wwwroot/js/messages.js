@@ -93,18 +93,18 @@
         Choice1_Click();
     });
 
-    //Verification value to display
-    $(document).on("change", 'select[name="SelectedVerificationId"]', function () {
+    //Recommendation value to display
+    $(document).on("change", 'select[name="SelectedRecommendationId"]', function () {
 
         $.ajax({
-            url: ajaxUrl + '/Message/VerificationMessageToDisplay',
+            url: ajaxUrl + '/Message/RecommendationMessageToDisplay',
             type: "GET",
             data: {
-                verificationId: $(this).val()
+                recommendationId: $(this).val()
             },
             async: false,
             success: function (response) {
-                $('#HidVerificationValueToDisplay').val(response);
+                $('#HidRecommandationValueToDisplay').val(response);
                 $('#comment-preview').val(response);
             },
             error: function (xhr, status, error) {

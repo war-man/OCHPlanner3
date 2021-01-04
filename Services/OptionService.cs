@@ -58,26 +58,26 @@ namespace OCHPlanner3.Services
         }
         #endregion
 
-        #region Verification
-        public async Task<IEnumerable<OptionViewModel>> GetVerificationList(int garageId)
+        #region Recommendation
+        public async Task<IEnumerable<OptionViewModel>> GetRecommendationList(int garageId)
         {
             var result = new List<OptionViewModel>();
 
             var garage = await _garageFactory.GetGarage(garageId);
-            var optionBaseList = await _optionFactory.GetBaseOptions(OptionTypeEnum.Verification, garage.Language);
+            var optionBaseList = await _optionFactory.GetBaseOptions(OptionTypeEnum.Recommendation, garage.Language);
             result.AddRange(optionBaseList.Adapt<IEnumerable<OptionViewModel>>());
 
-            var verificationList = await _optionFactory.GetOptions(OptionTypeEnum.Verification, garageId);
-            result.AddRange(verificationList.Adapt<IEnumerable<OptionViewModel>>());
+            var reommendationList = await _optionFactory.GetOptions(OptionTypeEnum.Recommendation, garageId);
+            result.AddRange(reommendationList.Adapt<IEnumerable<OptionViewModel>>());
 
             return result;
         }
-        public async Task<IEnumerable<SelectListItem>> GetVerificationSelectList(int garageId)
+        public async Task<IEnumerable<SelectListItem>> GetRecommendationSelectList(int garageId)
         {
             var result = new List<SelectListItem>();
 
             var garage = await _garageFactory.GetGarage(garageId);
-            var optionBaseList = await _optionFactory.GetBaseOptions(OptionTypeEnum.Verification, garage.Language);
+            var optionBaseList = await _optionFactory.GetBaseOptions(OptionTypeEnum.Recommendation, garage.Language);
 
             optionBaseList.ToList().ForEach(opt =>
             {
@@ -88,7 +88,7 @@ namespace OCHPlanner3.Services
                 });
             });
 
-            var optionList = await _optionFactory.GetOptions(OptionTypeEnum.Verification, garageId);
+            var optionList = await _optionFactory.GetOptions(OptionTypeEnum.Recommendation, garageId);
 
             optionList.ToList().ForEach(opt =>
             {
@@ -102,19 +102,19 @@ namespace OCHPlanner3.Services
             return result.OrderBy(o => o.Text);
         }
 
-        public async Task<int> CreateVerification(int garageId, string name, string description)
+        public async Task<int> CreateRecommendation(int garageId, string name, string description)
         {
-            return await _optionFactory.CreateOption(OptionTypeEnum.Verification, garageId, name, description);
+            return await _optionFactory.CreateOption(OptionTypeEnum.Recommendation, garageId, name, description);
         }
 
-        public async Task<int> UpdateVerification(int id, string name, string description)
+        public async Task<int> UpdateRecommendation(int id, string name, string description)
         {
-            return await _optionFactory.UpdateOption(OptionTypeEnum.Verification, id, name, description);
+            return await _optionFactory.UpdateOption(OptionTypeEnum.Recommendation, id, name, description);
         }
         
-        public async Task<int> DeleteVerification(int id)
+        public async Task<int> DeleteRecommendation(int id)
         {
-            return await _optionFactory.DeleteOption(OptionTypeEnum.Verification, id);
+            return await _optionFactory.DeleteOption(OptionTypeEnum.Recommendation, id);
         }
 
         #endregion

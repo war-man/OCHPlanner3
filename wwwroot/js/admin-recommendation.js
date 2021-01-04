@@ -7,7 +7,7 @@
         var selectedGarage = $(this).val();
         $('#hidSelectedGarageId').val(selectedGarage);
         $('input[name="selectedGarageId"]').val(selectedGarage);
-        updateVerificationList(selectedGarage);
+        updateRecommendationList(selectedGarage);
     });
 
     var tableSettings = {
@@ -27,7 +27,7 @@
             {
                 text: $('#hidNewButton').val(),
                 action: function (e, dt, button, config) {
-                    $('#VerificationError').hide();
+                    $('#RecommendationError').hide();
                     $('#addForm').trigger('reset');
                     $('#addModal').modal({ backdrop: 'static' });
                 }
@@ -65,7 +65,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Options/DeleteVerification',
+                                url: ajaxUrl + '/Options/DeleteRecommendation',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -76,7 +76,7 @@
             }
         ],
         initComplete: function () {
-            $('#VerificationListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
+            $('#RecommendationListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
         }
     };
 
@@ -88,7 +88,7 @@
             tableSettings.language = JSON.parse(datables_french());
         }
 
-        var table = $('#VerificationListTable').DataTable(tableSettings);
+        var table = $('#RecommendationListTable').DataTable(tableSettings);
 
         table.on('select deselect', function (e, dt, type, indexes) {
             var rowData = table.rows(indexes).data().toArray();
@@ -138,7 +138,7 @@
             formData = formData;
 
             $.ajax({
-                url: ajaxUrl + '/Options/CreateVerification',
+                url: ajaxUrl + '/Options/CreateRecommendation',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -147,7 +147,7 @@
                     addDone();
                 },
                 error: function (xhr, status, error) {
-                    verificationFail(xhr, status, error);
+                    recommendationFail(xhr, status, error);
                 }
             });
         }
@@ -184,7 +184,7 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: ajaxUrl + '/Options/UpdateVerification',
+                url: ajaxUrl + '/Options/UpdateRecommendation',
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -193,20 +193,20 @@
                     editDone();
                 },
                 error: function (xhr, status, error) {
-                    verificationFail(xhr, status, error);
+                    recommendationFail(xhr, status, error);
                 }
             });
         }
     });
-
-    function updateVerificationList(selectedGarage) {
+            
+    function updateRecommendationList(selectedGarage) {
         $.ajax({
-            url: ajaxUrl + '/Options/Verification/' + selectedGarage,
+            url: ajaxUrl + '/Options/Recommendation/' + selectedGarage,
             type: "GET",
             dataType: "html",
             async: false,
             success: function (response) {
-                $('#verification-list').empty().html(response);
+                $('#recommendation-list').empty().html(response);
                 initTable();
             },
             error: function (xhr, status, error) {
@@ -225,7 +225,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateVerificationList($('#hidSelectedGarageId').val());
+                updateRecommendationList($('#hidSelectedGarageId').val());
             }
         });
     }
@@ -240,12 +240,12 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateVerificationList($('#hidSelectedGarageId').val());
+                updateRecommendationList($('#hidSelectedGarageId').val());
             }
         });
     }
 
-    function verificationFail(xhr, status, error) {
+    function recommendationFail(xhr, status, error) {
         alert(xhr.responseText || error);
     }
 
@@ -258,7 +258,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateVerificationList($('#hidSelectedGarageId').val());
+                updateRecommendationList($('#hidSelectedGarageId').val());
             }
         });
     }

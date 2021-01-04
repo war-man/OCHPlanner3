@@ -9,11 +9,11 @@ namespace OCHPlanner3.Services.Interfaces
     {
         Task<PrinterConfigurationViewModel> GetPrinterConfiguration(int garageId);
         Task<int> SavePrinterConfiguration(PrinterConfigurationViewModel configuration, int garageId);
-        Task<IEnumerable<OptionViewModel>> GetVerificationList(int garageId);
-        Task<IEnumerable<SelectListItem>> GetVerificationSelectList(int garageId);
-        Task<int> CreateVerification(int garageId, string name, string description);
-        Task<int> UpdateVerification(int id, string name, string description);
-        Task<int> DeleteVerification(int id);
+        Task<IEnumerable<OptionViewModel>> GetRecommendationList(int garageId);
+        Task<IEnumerable<SelectListItem>> GetRecommendationSelectList(int garageId);
+        Task<int> CreateRecommendation(int garageId, string name, string description);
+        Task<int> UpdateRecommendation(int id, string name, string description);
+        Task<int> DeleteRecommendation(int id);
         Task<IEnumerable<OptionViewModel>> GetMaintenanceList(int garageId);
         Task<IEnumerable<SelectListItem>> GetMaintenanceSelectList(int garageId);
         Task<int> CreateMaintenance(int garageId, string name);

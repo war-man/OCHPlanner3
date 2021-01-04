@@ -216,6 +216,12 @@
   <data name="Print" xml:space="preserve">
     <value>Imprimer</value>
   </data>
+  <data name="Recommendation" xml:space="preserve">
+    <value>Recommandations</value>
+  </data>
+  <data name="RecommendationTitle" xml:space="preserve">
+    <value>Recommandations</value>
+  </data>
   <data name="Restart" xml:space="preserve">
     <value>Recommencer</value>
   </data>
@@ -227,11 +233,5 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>Messages client</value>
-  </data>
-  <data name="Verification" xml:space="preserve">
-    <value>Recommandations</value>
-  </data>
-  <data name="VerificationTitle" xml:space="preserve">
-    <value>Recommandations</value>
   </data>
 </root>

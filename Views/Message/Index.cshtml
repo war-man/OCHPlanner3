@@ -80,7 +80,7 @@
                         <div id="Choice1">
                             <div class="alert alert-dark" role="alert">
                                 <div class="row py-1" style="border-bottom: 1px solid #b9b9b9;">
-                                    <h6 class="col-md-6 alert-heading">@Localizer["VerificationTitle"]</h6>
+                                    <h6 class="col-md-6 alert-heading">@Localizer["RecommendationTitle"]</h6>
                                     <div class="col-md-6"><input value="Choice1" type="radio" class="mr-2" style="margin-top:3px; float:right; transform: scale(2);" id="PrintChoice1" name="PrintChoices"></div>
                                 </div>
 
@@ -88,10 +88,10 @@
                                     <div class="col-md-4">
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <select asp-for="SelectedVerificationId" asp-items="Model.VerificationList" class="form-control">
+                                                <select asp-for="SelectedRecommendationId" asp-items="Model.RecommendationList" class="form-control">
                                                     <option value="">-- Select --</option>
                                                 </select>
-                                                @Html.Hidden("HidVerificationValueToDisplay", "")
+                                                @Html.Hidden("HidRecommendationValueToDisplay", "")
                                             </div>
                                         </div>
                                     </div>

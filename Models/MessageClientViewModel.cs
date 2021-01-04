@@ -15,8 +15,8 @@ namespace OCHPlanner3.Models
         public IEnumerable<SelectListItem> MileageList { get; set; }
 
 
-        public int SelectedVerificationId { get; set; }
-        public IEnumerable<SelectListItem> VerificationList { get; set; }
+        public int SelectedRecommendationId { get; set; }
+        public IEnumerable<SelectListItem> RecommendationList { get; set; }
         public int SelectedMileageChoice1 { get; set; }
 
         public int SelectedMaintenanceId { get; set; }

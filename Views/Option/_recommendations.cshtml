@@ -1,11 +1,11 @@
 ﻿
-@model VerificationManagementViewModel
+@model RecommendationManagementViewModel
 
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
-    <table id="VerificationListTable" class="table table-striped dataTable" data-processing="true">
+    <table id="RecommendationListTable" class="table table-striped dataTable" data-processing="true">
         <thead>
             <tr>
                 <th data-data="id">Id</th>
@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.VerificationList)
+            @foreach (var item in Model.RecommendationList)
             {
             <tr>
                 <td>@item.Id</td>

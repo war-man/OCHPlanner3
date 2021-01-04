@@ -40,7 +40,7 @@ namespace OCHPlanner3.Controllers
             {
                 RootUrl = BaseRootUrl,
                 PrinterConfiguration = printerConfiguration ?? new PrinterConfigurationViewModel(),
-                VerificationList = await _optionService.GetVerificationSelectList(CurrentUser.GarageId),
+                RecommendationList = await _optionService.GetRecommendationSelectList(CurrentUser.GarageId),
                 MaintenanceList = await _optionService.GetMaintenanceSelectList(CurrentUser.GarageId),
                 AppointmentList = await _optionService.GetAppointmentSelectList(CurrentUser.GarageId),
                 CarMakeList = await _vehicleService.GetCarMakeSelectList(),
@@ -77,11 +77,11 @@ namespace OCHPlanner3.Controllers
             return await _vehicleService.GetCarModelSelectList(make);
         }
 
-        [HttpGet("/{lang:lang}/Message/VerificationMessageToDisplay")]
-        public async Task<string> GetVerificationMessageToDisplay(int verificationId)
+        [HttpGet("/{lang:lang}/Message/RecommendationMessageToDisplay")]
+        public async Task<string> GetRecommendationMessageToDisplay(int recommendationId)
         {
-            var verificationList = await _optionService.GetVerificationList(CurrentUser.GarageId);
-            return verificationList.FirstOrDefault(p => p.Id == verificationId)?.Description;
+            var recommendationList = await _optionService.GetRecommendationList(CurrentUser.GarageId);
+            return recommendationList.FirstOrDefault(p => p.Id == recommendationId)?.Description;
         }
     }
 }

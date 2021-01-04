@@ -2,9 +2,9 @@
 
 namespace OCHPlanner3.Models
 {
-    public class VerificationManagementViewModel : BaseViewModel
+    public class RecommendationManagementViewModel : BaseViewModel
     {
-        public IEnumerable<OptionViewModel> VerificationList { get; set; }
+        public IEnumerable<OptionViewModel> RecommendationList { get; set; }
         public GarageSelectorViewModel GarageSelector { get; set; }
     }
 }
