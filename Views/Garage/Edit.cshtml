@@ -144,11 +144,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input asp-for="PersonalizedSticker" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="PersonalizedSticker">@Localizer["PersonalisedSticker"]</label>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-check">
+                                                <input asp-for="PersonalizedSticker" type="checkbox" class="form-check-input" />
+                                                <label class="form-check-label" for="PersonalizedSticker">@Localizer["PersonalisedSticker"]</label>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="post">
+                                        <div class="buttons">
+                                            <div class="upload-button">
+                                                <div class="label">Click me!</div>
+                                                <input id="file" name="file" type="file" size="1" onchange="uploadFile('file');" />
+                                            </div>
+                                        </div>
+                                    </form>
 
+                                    @*<form asp-controller="Garage" asp-action="UploadLogo" method="post" enctype="multipart/form-data">*@
+                                    @*<input type="file" name="file" onchange="this.form.submit()" />*@
+                                    @*<input asp-for="FileUpload" type="file" name="fileUpload" />*@
+                                    @*<button type="submit">Upload File</button>*@
+                                    @*</form>*@
                                 </div>
                             </div>
                         </div>
@@ -234,6 +251,28 @@
 </form>
 
 @section Scripts {
+    <script>
+        function uploadFile(inputId) {
+            debugger
+            var input = document.getElementById(inputId);
+            var files = input.files;
+            var formData = new FormData();
 
+            formData.append("MyUploader", files[0]);
+
+            $.ajax(
+                {
+                    type: "POST",
+                    url: '/fr/garage/UploadLogo',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        alert(data);
+                    }
+                }
+            );
+        }
+    </script>
     <script src="~/js/garage-edit.js"></script>
 }

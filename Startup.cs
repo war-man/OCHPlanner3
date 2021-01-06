@@ -93,6 +93,7 @@ namespace OCHPlanner3
             services.AddTransient<IGarageService, GarageService>();
             services.AddTransient<IOptionService, OptionService>();
             services.AddTransient<IVehicleService, VehicleService>();
+            services.AddTransient<IBlobStorageService, BlobStorageService>();
 
             // Factory
             services.AddTransient<IReferenceFactory, ReferenceFactory>();

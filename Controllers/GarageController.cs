@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using OCHPlanner3.Helper;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
+using System.IO;
 
 namespace OCHPlanner3.Controllers
 {
@@ -18,14 +20,17 @@ namespace OCHPlanner3.Controllers
         private readonly IUserService _userService;
         private readonly IGarageService _garageService;
         private readonly IReferenceService _referenceService;
+        private readonly IBlobStorageService _blobStorageService;
 
         public GarageController(IHttpContextAccessor httpContextAccessor,
             IUserService userService,
             IReferenceService referenceService,
+            IBlobStorageService blobStorageService,
             IGarageService garageService) : base(httpContextAccessor, userService)
         {
             _garageService = garageService;
             _referenceService = referenceService;
+            _blobStorageService = blobStorageService;
         }
 
         [Route("/{lang:lang}/Garages")]
@@ -144,5 +149,26 @@ namespace OCHPlanner3.Controllers
 
         }
 
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpPost]
+        public async Task<ActionResult> UploadLogo(IFormFile MyUploader)
+        {
+            try
+            {
+                byte[] fileData;
+                using (var target = new MemoryStream())
+                {
+                    MyUploader.CopyTo(target);
+                    fileData = target.ToArray();
+                }
+
+                var imageUrl = _blobStorageService.UploadFileToBlob($"{CurrentUser.GarageId}.png", fileData, MyUploader.ContentType);
+                return Ok(imageUrl);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

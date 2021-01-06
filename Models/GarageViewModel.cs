@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -58,5 +59,7 @@ namespace OCHPlanner3.Models
         public int CounterStock { get; set; }
 
         public bool UpdateCounterStock { get; set; }
+
+        public IFormFile FileUpload { get; set; }
     }
 }
