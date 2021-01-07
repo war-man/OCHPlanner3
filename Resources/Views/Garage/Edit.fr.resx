@@ -171,6 +171,9 @@
   <data name="SaveSuccess" xml:space="preserve">
     <value>Sauvegardé avec succès!</value>
   </data>
+  <data name="StickerLogo" xml:space="preserve">
+    <value>Logo pour autocollant</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Modifier un garage</value>
   </data>

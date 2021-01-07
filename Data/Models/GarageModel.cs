@@ -46,6 +46,6 @@ namespace OCHPlanner3.Data.Models
         public int CounterAlert { get; set; }
         public int CounterStock { get; set; }
         public bool UpdateCounterStock { get; set; }
-
+        public string StickerLogo { get; set; }
     }
 }

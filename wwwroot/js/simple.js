@@ -361,7 +361,7 @@
                 'D12\n',
                 ($('#HidPrinterRotation').val().toLowerCase() === 'true' ? 'ZB\n' : 'ZT\n'),
              ];
-
+                       
             if ($('#HidPersonalizedSticker').val() === "False") {
                 printData1.push('A' + (parseInt($('#HidCenterGarageNameOffset').val()) + oilOffsetXSlider) + ',' + (157 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-name-print').val() + '"\n');
                 printData1.push('A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n');
@@ -369,12 +369,17 @@
 
             printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n');
             printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n');
-            printData1.push('A' + (75 + oilOffsetXSlider) + ', ' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
+            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
 
             if ($('#hidDateFormatPrint').val() === "True" &&
                 ($("input[name='PrintChoices']:checked").val() === 'Choice1') ||
                 $("input[name='PrintChoices']:checked").val() === 'Choice2') {
                 printData1.push('A' + (260 + oilOffsetXSlider) + ',' + (275 + oilOffsetYSlider) + ',0,1,1,1,N,"(' + PrintableDateFormat() + ')"\n');
+            }
+
+            //Sticker Logo
+            if ($('#HidStickerLogo').val() !== "") {
+                printData1.push({ type: 'raw', format: 'image', flavor: 'file', data: $('#HidStickerLogo').val(), options: { dotDensity: 'single', language: 'EPL', xmlTag: 'v7:Image', pageHeight: '190', pageWidth: '300', x: '75', y: '45' } });
             }
 
             var printData2 = [
@@ -385,6 +390,8 @@
             ];
 
             var printData = $.merge(printData1, printData2);
+
+           
 
             qz.print(config, printData);
 

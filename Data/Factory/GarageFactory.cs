@@ -222,7 +222,8 @@ namespace OCHPlanner3.Data.Factory
                             FormatDate = garage.FormatDate,
                             CounterOrder = garage.CounterOrder,
                             CounterAlert = garage.CounterAlert,
-                            UpdateCounterStock = garage.UpdateCounterStock
+                            UpdateCounterStock = garage.UpdateCounterStock,
+                            StickerLogo = garage.StickerLogo
                         },
                         commandType: CommandType.StoredProcedure);
 

@@ -61,5 +61,6 @@ namespace OCHPlanner3.Models
         public bool UpdateCounterStock { get; set; }
 
         public IFormFile FileUpload { get; set; }
+        public string StickerLogo { get; set; }
     }
 }

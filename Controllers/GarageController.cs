@@ -151,7 +151,7 @@ namespace OCHPlanner3.Controllers
 
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
-        public async Task<ActionResult> UploadLogo(IFormFile MyUploader)
+        public async Task<ActionResult> UploadLogo(int garageId, IFormFile MyUploader)
         {
             try
             {
@@ -162,7 +162,7 @@ namespace OCHPlanner3.Controllers
                     fileData = target.ToArray();
                 }
 
-                var imageUrl = _blobStorageService.UploadFileToBlob($"{CurrentUser.GarageId}.png", fileData, MyUploader.ContentType);
+                var imageUrl = _blobStorageService.UploadFileToBlob($"{garageId}.png", fileData, MyUploader.ContentType);
                 return Ok(imageUrl);
             }
             catch (Exception ex)

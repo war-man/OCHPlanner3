@@ -77,26 +77,26 @@
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">Modules</h4>
-                                        <div class="form-check">
-                                            <input asp-for="Support" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="Support">Support</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="OilReset" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="OilReset">OilReset</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="Communication" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="Communication">Communication</label>
-                                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Modules</h4>
+                                    <div class="form-check">
+                                        <input asp-for="Support" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="Support">Support</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="OilReset" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="OilReset">OilReset</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="Communication" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="Communication">Communication</label>
                                     </div>
                                 </div>
-
                             </div>
+
+                        </div>
                         }
                     </div>
                 </div>
@@ -152,36 +152,41 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="post">
-                                        <div class="buttons">
-                                            <div class="upload-button">
-                                                <div class="label">Click me!</div>
-                                                <input id="file" name="file" type="file" size="1" onchange="uploadFile('file');" />
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <div class="form-row">
+                                        <label class="form-check-label" for="PersonalizedSticker">@Localizer["StickerLogo"]</label>
+                                    </div>
+                                    <div class="form-row mt-3">
 
-                                    @*<form asp-controller="Garage" asp-action="UploadLogo" method="post" enctype="multipart/form-data">*@
-                                    @*<input type="file" name="file" onchange="this.form.submit()" />*@
-                                    @*<input asp-for="FileUpload" type="file" name="fileUpload" />*@
-                                    @*<button type="submit">Upload File</button>*@
-                                    @*</form>*@
+                                        <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="post">
+                                            <div class="buttons">
+                                                <div class="upload-button">
+                                                    <input id="file" name="file" type="file" size="1" onchange="uploadFile('file');" />
+                                                    <input asp-for="StickerLogo" type="hidden" id="hidStickerLogo" value="@Model.StickerLogo" />
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="form-row mt-3">
+                                        <img id="garage-logo" src="@Model.StickerLogo" width="300" height="190" />
+                                        <i class="far fa-trash-alt fa-2x ml-3"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">Notes</h4>
-                                        <div class="form-group">
-                                            <label for="Note" class="control-label">Notes</label>
-                                            <textarea asp-for="Note" class="form-control" rows="3"></textarea>
-                                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Notes</h4>
+                                    <div class="form-group">
+                                        <label for="Note" class="control-label">Notes</label>
+                                        <textarea asp-for="Note" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         }
                     </div>
                 </div>
@@ -234,17 +239,17 @@
             </div>
             @if (User.IsInRole("SuperAdmin"))
             {
-                <div class="row justify-content-center">
-                    <div class="col-md-12 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row justify-content-center">
-                                    <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
-                                </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
         </div>
     </div>
@@ -258,6 +263,7 @@
             var files = input.files;
             var formData = new FormData();
 
+            formData.append("garageId", $('#Id').val());
             formData.append("MyUploader", files[0]);
 
             $.ajax(
@@ -268,7 +274,8 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        alert(data);
+                        $('#garage-logo').attr('src', data);
+                        $('#hidStickerLogo').val(data);
                     }
                 }
             );

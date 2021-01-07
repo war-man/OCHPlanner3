@@ -502,9 +502,14 @@
             printData1.push('A' + (116 + oilOffsetXSlider) + ',' + (182 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('#garage-phone-print').val() + '"\n');
         }
 
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (222 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(0, 17) + '"\n');
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (252 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(17, 34) + '"\n');
-        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (282 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(34, 51) + '"\n');
+        //Sticker Logo
+        if ($('#HidStickerLogo').val() !== "") {
+            printData1.push({ type: 'raw', format: 'image', flavor: 'file', data: $('#HidStickerLogo').val(), options: { dotDensity: 'single', language: 'EPL', xmlTag: 'v7:Image', pageHeight: '190', pageWidth: '300', x: '75', y: '45' } });
+        }
+
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (232 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(0, 17) + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (262 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(17, 34) + '"\n');
+        printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (292 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('#comment-preview').val().substring(34, 51) + '"\n');
 
         printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (342 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
 

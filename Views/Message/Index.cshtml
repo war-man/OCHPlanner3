@@ -21,6 +21,7 @@
 @Html.Hidden("HidOilOffsetX", Model.PrinterConfiguration.OilOffsetX)
 @Html.Hidden("HidOilOffsetY", Model.PrinterConfiguration.OilOffsetY)
 @Html.Hidden("HidPrinterRotation", Model.PrinterConfiguration.RotationSelected)
+@Html.Hidden("HidStickerLogo", currentUser.GarageSetting.StickerLogo)
 
 @Html.Hidden("HidNextDateOrBefore", Localizer["NextDateOrBefore"].Value)
 @Html.Hidden("HidActualKm", Localizer["ActualKm"].Value)
