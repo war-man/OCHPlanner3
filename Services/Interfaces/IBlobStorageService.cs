@@ -8,5 +8,6 @@ namespace OCHPlanner3.Services.Interfaces
     public interface IBlobStorageService
     {
         string UploadFileToBlob(string strFileName, byte[] fileData, string fileMimeType);
+        Task<bool> DeleteBlobData(int garageId);
     }
 }

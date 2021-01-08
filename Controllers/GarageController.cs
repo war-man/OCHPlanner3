@@ -150,6 +150,21 @@ namespace OCHPlanner3.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
+        [HttpDelete]
+        public async Task<ActionResult> DeleteLogo(int garageId)
+        {
+            try
+            {
+                await _blobStorageService.DeleteBlobData(garageId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         public async Task<ActionResult> UploadLogo(int garageId, IFormFile MyUploader)
         {

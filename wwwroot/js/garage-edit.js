@@ -13,6 +13,22 @@
         $("#PersonalizedSticker").prop('disabled', 'disabled');
     }
 
+    $('.fa-trash-alt').on('click', function () {
+        $.ajax(
+            {
+                type: "DELETE",
+                url: ajaxUrl + '/garage/deleteLogo/',
+                data: { garageId: $('#Id').val() },
+                async: false,
+                success: function (data) {
+                    $('#garage-logo').attr('src', '');
+                    $('#hidStickerLogo').val('');
+                    $('.fa-trash-alt').hide();
+                }
+            }
+        );
+    });
+
     $('#btnSave').on('click', function () {
         var form = $('#garage-edit');
 

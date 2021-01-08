@@ -379,7 +379,7 @@
 
             //Sticker Logo
             if ($('#HidStickerLogo').val() !== "") {
-                printData1.push({ type: 'raw', format: 'image', flavor: 'file', data: $('#HidStickerLogo').val(), options: { dotDensity: 'single', language: 'EPL', xmlTag: 'v7:Image', pageHeight: '190', pageWidth: '300', x: '75', y: '45' } });
+                printData1.push({ type: 'raw', format: 'image', flavor: 'file', data: $('#HidStickerLogo').val(), options: { dotDensity: 'single', language: 'EPL', xmlTag: 'v7:Image', pageHeight: '190', pageWidth: '300', x: '' + (75 + oilOffsetXSlider) + '', y: '' + (45 + oilOffsetYSlider) + '' } });
             }
 
             var printData2 = [

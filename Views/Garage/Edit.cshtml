@@ -169,7 +169,8 @@
                                     </div>
                                     <div class="form-row mt-3">
                                         <img id="garage-logo" src="@Model.StickerLogo" width="300" height="190" />
-                                        <i class="far fa-trash-alt fa-2x ml-3"></i>
+                                        <i class="far fa-trash-alt fa-2x ml-3" style="display:@(Model.StickerLogo == "" ? "none" : "block")"></i>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -276,6 +277,7 @@
                     success: function (data) {
                         $('#garage-logo').attr('src', data);
                         $('#hidStickerLogo').val(data);
+                        $('.fa-trash-alt').show();
                     }
                 }
             );

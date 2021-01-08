@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using OCHPlanner3.Services.Interfaces;
 using System;
@@ -10,11 +11,17 @@ namespace OCHPlanner3.Services
 {
     public class BlobStorageService : IBlobStorageService
     {
+        private readonly IConfiguration _configuration;
+
+        public BlobStorageService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public string UploadFileToBlob(string strFileName, byte[] fileData, string fileMimeType)
         {
             try
             {
-
                 var _task = Task.Run(() => this.UploadFileToBlobAsync(strFileName, fileData, fileMimeType));
                 _task.Wait();
                 string fileUrl = _task.Result;
@@ -26,18 +33,47 @@ namespace OCHPlanner3.Services
             }
         }
 
-        private async Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType)
+        public async Task<bool> DeleteBlobData(int garageId)
         {
-            string storageconnstring = "DefaultEndpointsProtocol=https;AccountName=ochplanner3;AccountKey=vzxMgoqLpHA7ne39QCgYHmM2ZjxXULJbNd6MFdsYBk+7sLqWwCnLK+O8+5WIQwj2lTRem9Vs4xnDxAWOiSXhrA==;EndpointSuffix=core.windows.net";
-
             try
             {
-                CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(storageconnstring); //accesskey
+                string fileName = $"{garageId}.png";
+
+                CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_configuration.GetConnectionString("StorageConnection"));
+                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+                string strContainerName = "logos";
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(strContainerName);
+
+                if (await cloudBlobContainer.ExistsAsync())
+                {
+                    CloudBlob file = cloudBlobContainer.GetBlobReference(fileName);
+
+                    if (await file.ExistsAsync())
+                    {
+                        await file.DeleteAsync();
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
+
+        private async Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType)
+        {
+            try
+            {
+                CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_configuration.GetConnectionString("StorageConnection")); 
                 CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
                 string strContainerName = "logos";
                 CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(strContainerName);
                 string fileName = strFileName;
-                               
+
                 if (fileName != null && fileData != null)
                 {
                     CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
