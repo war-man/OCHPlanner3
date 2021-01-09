@@ -37,24 +37,25 @@
             $('#btnPrint').focus();
         }
     });
-
-    //Warning if no printer selected
-    if ($('#HidSelectedOilPrinter').val() === '') {
-        Swal.fire({
-            icon: 'error',
-            title: $('#HidPrinterNotDefined').val(),
-            text: $('#HidPrinterNotDefinedText').val(),
-            showConfirmButton: true,
-            allowOutsideClick: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                location.href = ajaxUrl + "/Options/Printer"
-            }
-        })
-    }
-
+        
     $(document).on("click", "#btnPrint", function () {
-        printSticker();
+        //Warning if no printer selected
+        if ($('#HidSelectedOilPrinter').val() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: $('#HidPrinterNotDefined').val(),
+                text: $('#HidPrinterNotDefinedText').val(),
+                showConfirmButton: true,
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = ajaxUrl + "/Options/Printer"
+                }
+            })
+        }
+        else {
+            printSticker();
+        }
     });
 
     $(document).on("change", 'input[name="SelectedUnit"]', function () {
