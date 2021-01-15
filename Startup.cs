@@ -26,6 +26,7 @@ using Microsoft.Extensions.Localization;
 using OCHPlanner3.Data.Mapper;
 using OCHPlanner3.Services.Email;
 using OCHPlanner3.Services.Email.Entities;
+using Exceptionless;
 
 namespace OCHPlanner3
 {
@@ -150,6 +151,8 @@ namespace OCHPlanner3
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             LocalizationPipeline.ConfigureOptions(options.Value);
             app.UseRequestLocalization(options.Value);
+
+            app.UseExceptionless("d6tk47QLBGbUHdBkD0VkhQr4J2svHRpyqYo5TLbF");
 
             app.UseEndpoints(endpoints =>
             {

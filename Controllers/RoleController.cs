@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Exceptionless;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,35 +33,51 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Roles")]
         public async Task<IActionResult> Index()
         {
-            var model = new RoleListViewModel()
+            try
             {
-                Roles = await GetRoles(),
-                RootUrl = BaseRootUrl
-            };
+                var model = new RoleListViewModel()
+                {
+                    Roles = await GetRoles(),
+                    RootUrl = BaseRootUrl
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         private async Task<List<RoleViewModel>> GetRoles()
         {
-            var result = new List<RoleViewModel>();
-
-            var RolesList = _roleManager.Roles.OrderBy(x => x.Name).ToList();
-
-            var roles = RolesList.Adapt<IEnumerable<RoleViewModel>>();
-
-            foreach (var role in roles)
+            try
             {
-                var RolesUserlist = await _userIdentity.UserManager.GetUsersInRoleAsync(role.Name);
-                result.Add(new RoleViewModel()
-                {
-                    Id = role.Id,
-                    Name = role.Name,
-                    UserCount = RolesUserlist.Count
-                });
-            }
+                var result = new List<RoleViewModel>();
 
-            return result; ;
+                var RolesList = _roleManager.Roles.OrderBy(x => x.Name).ToList();
+
+                var roles = RolesList.Adapt<IEnumerable<RoleViewModel>>();
+
+                foreach (var role in roles)
+                {
+                    var RolesUserlist = await _userIdentity.UserManager.GetUsersInRoleAsync(role.Name);
+                    result.Add(new RoleViewModel()
+                    {
+                        Id = role.Id,
+                        Name = role.Name,
+                        UserCount = RolesUserlist.Count
+                    });
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return null;
+            }
         }
 
         [HttpPost("/{lang:lang}/roles/[action]")]
@@ -80,6 +97,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -105,6 +123,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -112,8 +131,16 @@ namespace OCHPlanner3.Controllers
         [HttpGet("/{lang:lang}/roles/list")]
         public async Task<IActionResult> GetRoleList()
         {
-            var model = new RoleListViewModel() { Roles = await GetRoles() };
-            return PartialView("_roles", model);
+            try
+            {
+                var model = new RoleListViewModel() { Roles = await GetRoles() };
+                return PartialView("_roles", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpDelete("/{lang:lang}/roles/[action]")]
@@ -135,6 +162,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }

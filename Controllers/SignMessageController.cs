@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Exceptionless;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -59,11 +60,13 @@ namespace OCHPlanner3.Controllers
                         STORAGE_FLAGS = STORAGE_FLAGS & ~X509KeyStorageFlags.MachineKeySet;
                         return SignRequest();
                     }
+                    ex.ToExceptionless().Submit();
                     throw ex;
                 }
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 throw ex;
             }
 

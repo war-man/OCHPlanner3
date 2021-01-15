@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Exceptionless;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,19 +36,35 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Options/Printer")]
         public async Task<IActionResult> Printer()
         {
-            //Get printer Configuration
-            var printerConfiguration = await _optionService.GetPrinterConfiguration(CurrentUser.GarageId);
+            try
+            {
+                //Get printer Configuration
+                var printerConfiguration = await _optionService.GetPrinterConfiguration(CurrentUser.GarageId);
 
-            var model = printerConfiguration ?? new PrinterConfigurationViewModel();
-            model.RootUrl = BaseRootUrl;
+                var model = printerConfiguration ?? new PrinterConfigurationViewModel();
+                model.RootUrl = BaseRootUrl;
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpPost("/{lang:lang}/Options/Printer/Save")]
         public async Task<int> SavePrinter(PrinterConfigurationViewModel printerConfig)
         {
-            return await _optionService.SavePrinterConfiguration(printerConfig, base.CurrentUser.GarageId);
+            try
+            {
+                return await _optionService.SavePrinterConfiguration(printerConfig, base.CurrentUser.GarageId);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return 0;
+            }
         }
 
         #endregion
@@ -57,29 +74,45 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Options/Oil")]
         public async Task<IActionResult> OilManagement()
         {
-            var model = new OilManagementViewModel()
+            try
             {
-                RootUrl = BaseRootUrl,
-                OilList = await _garageService.GetOilList(CurrentUser.GarageId),
-                GarageSelector = new GarageSelectorViewModel
+                var model = new OilManagementViewModel()
                 {
-                    Garages = await _garageService.GetGaragesSelectList(),
-                    SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
-                    disabled = HttpContext.User.IsInRole("Administrator")
-                },
-            };
+                    RootUrl = BaseRootUrl,
+                    OilList = await _garageService.GetOilList(CurrentUser.GarageId),
+                    GarageSelector = new GarageSelectorViewModel
+                    {
+                        Garages = await _garageService.GetGaragesSelectList(),
+                        SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
+                        disabled = HttpContext.User.IsInRole("Administrator")
+                    },
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpGet("/{lang:lang}/Options/Oil/{id}")]
         public async Task<IActionResult> OilManagementList(int id)
         {
-            if (id == 0)
-                throw new ApplicationException("OilManagementList - Id should ne be set to 0");
+            try
+            {
+                if (id == 0)
+                    throw new ApplicationException("OilManagementList - Id should ne be set to 0");
 
-            var model = new OilManagementViewModel() { OilList = await _garageService.GetOilList(id) };
-            return PartialView("_oils", model);
+                var model = new OilManagementViewModel() { OilList = await _garageService.GetOilList(id) };
+                return PartialView("_oils", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpPost("/{lang:lang}/Options/CreateOil")]
@@ -90,8 +123,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _garageService.CreateOil(selectedGarageId, name);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -104,8 +138,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _garageService.UpdateOil(id, name);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -121,6 +156,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -132,29 +168,45 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Options/Recommendation")]
         public async Task<IActionResult> RecommendationManagement()
         {
-            var model = new RecommendationManagementViewModel()
+            try
             {
-                RootUrl = BaseRootUrl,
-                RecommendationList = await _optionService.GetRecommendationList(CurrentUser.GarageId),
-                GarageSelector = new GarageSelectorViewModel
+                var model = new RecommendationManagementViewModel()
                 {
-                    Garages = await _garageService.GetGaragesSelectList(),
-                    SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
-                    disabled = HttpContext.User.IsInRole("Administrator")
-                },
-            };
+                    RootUrl = BaseRootUrl,
+                    RecommendationList = await _optionService.GetRecommendationList(CurrentUser.GarageId),
+                    GarageSelector = new GarageSelectorViewModel
+                    {
+                        Garages = await _garageService.GetGaragesSelectList(),
+                        SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
+                        disabled = HttpContext.User.IsInRole("Administrator")
+                    },
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
               
         [HttpGet("/{lang:lang}/Options/Recommendation/{id}")]
         public async Task<IActionResult> RecommendationManagementList(int id)
         {
-            if (id == 0)
-                throw new ApplicationException("RecommendationManagementList - Id should ne be set to 0");
+            try
+            {
+                if (id == 0)
+                    throw new ApplicationException("RecommendationManagementList - Id should ne be set to 0");
 
-            var model = new RecommendationManagementViewModel() { RecommendationList = await _optionService.GetRecommendationList(id) };
-            return PartialView("_recommendations", model);
+                var model = new RecommendationManagementViewModel() { RecommendationList = await _optionService.GetRecommendationList(id) };
+                return PartialView("_recommendations", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpPost("/{lang:lang}/Options/CreateRecommendation")]
@@ -165,8 +217,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _optionService.CreateRecommendation(selectedGarageId, name, description);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -179,8 +232,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _optionService.UpdateRecommendation(id, name, description);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -196,6 +250,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -206,29 +261,45 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Options/Maintenance")]
         public async Task<IActionResult> MaintenanceManagement()
         {
-            var model = new MaintenanceManagementViewModel()
+            try
             {
-                RootUrl = BaseRootUrl,
-                MaintenanceList = await _optionService.GetMaintenanceList(CurrentUser.GarageId),
-                GarageSelector = new GarageSelectorViewModel
+                var model = new MaintenanceManagementViewModel()
                 {
-                    Garages = await _garageService.GetGaragesSelectList(),
-                    SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
-                    disabled = HttpContext.User.IsInRole("Administrator")
-                },
-            };
+                    RootUrl = BaseRootUrl,
+                    MaintenanceList = await _optionService.GetMaintenanceList(CurrentUser.GarageId),
+                    GarageSelector = new GarageSelectorViewModel
+                    {
+                        Garages = await _garageService.GetGaragesSelectList(),
+                        SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
+                        disabled = HttpContext.User.IsInRole("Administrator")
+                    },
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpGet("/{lang:lang}/Options/Maintenance/{id}")]
         public async Task<IActionResult> MaintenanceManagementList(int id)
         {
-            if (id == 0)
-                throw new ApplicationException("MaintenanceManagementList - Id should ne be set to 0");
+            try
+            {
+                if (id == 0)
+                    throw new ApplicationException("MaintenanceManagementList - Id should ne be set to 0");
 
-            var model = new MaintenanceManagementViewModel() { MaintenanceList = await _optionService.GetMaintenanceList(id) };
-            return PartialView("_maintenances", model);
+                var model = new MaintenanceManagementViewModel() { MaintenanceList = await _optionService.GetMaintenanceList(id) };
+                return PartialView("_maintenances", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpPost("/{lang:lang}/Options/CreateMaintenance")]
@@ -239,8 +310,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _optionService.CreateMaintenance(selectedGarageId, name);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -253,8 +325,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _optionService.UpdateMaintenance(id, name);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -270,6 +343,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -280,29 +354,45 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Options/Appointment")]
         public async Task<IActionResult> AppointmentManagement()
         {
-            var model = new AppointmentManagementViewModel()
+            try
             {
-                RootUrl = BaseRootUrl,
-                AppointmentList = await _optionService.GetAppointmentList(CurrentUser.GarageId),
-                GarageSelector = new GarageSelectorViewModel
+                var model = new AppointmentManagementViewModel()
                 {
-                    Garages = await _garageService.GetGaragesSelectList(),
-                    SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
-                    disabled = HttpContext.User.IsInRole("Administrator")
-                },
-            };
+                    RootUrl = BaseRootUrl,
+                    AppointmentList = await _optionService.GetAppointmentList(CurrentUser.GarageId),
+                    GarageSelector = new GarageSelectorViewModel
+                    {
+                        Garages = await _garageService.GetGaragesSelectList(),
+                        SelectedGarageId = HttpContext.User.IsInRole("SuperAdmin") ? 0 : CurrentUser.GarageId,
+                        disabled = HttpContext.User.IsInRole("Administrator")
+                    },
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpGet("/{lang:lang}/Options/Appointment/{id}")]
         public async Task<IActionResult> AppointmentManagementList(int id)
         {
-            if (id == 0)
-                throw new ApplicationException("AppointmentManagementList - Id should ne be set to 0");
+            try
+            {
+                if (id == 0)
+                    throw new ApplicationException("AppointmentManagementList - Id should ne be set to 0");
 
-            var model = new AppointmentManagementViewModel() { AppointmentList = await _optionService.GetAppointmentList(id) };
-            return PartialView("_appointments", model);
+                var model = new AppointmentManagementViewModel() { AppointmentList = await _optionService.GetAppointmentList(id) };
+                return PartialView("_appointments", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpPost("/{lang:lang}/Options/CreateAppointment")]
@@ -313,8 +403,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _optionService.CreateAppointment(selectedGarageId, name);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -327,8 +418,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _optionService.UpdateAppointment(id, name);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -344,6 +436,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }

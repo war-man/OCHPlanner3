@@ -10,6 +10,7 @@ using OCHPlanner3.Helper;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
 using System.IO;
+using Exceptionless;
 
 namespace OCHPlanner3.Controllers
 {
@@ -36,57 +37,89 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Garages")]
         public async Task<IActionResult> Index()
         {
-            var model = new GarageListViewModel()
+            try
             {
-                RootUrl = BaseRootUrl,
-                Garages = await _garageService.GetGarages()
-            };
+                var model = new GarageListViewModel()
+                {
+                    RootUrl = BaseRootUrl,
+                    Garages = await _garageService.GetGarages()
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpGet("/{lang:lang}/Garage/List")]
         public async Task<IActionResult> GetGarageList()
         {
-            var model = new GarageListViewModel() { Garages = await _garageService.GetGarages() };
-            return PartialView("_garages", model);
+            try
+            {
+                var model = new GarageListViewModel() { Garages = await _garageService.GetGarages() };
+                return PartialView("_garages", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("/{lang:lang}/Garage/Create")]
         public async Task<IActionResult> Create()
         {
-            var model = new GarageViewModel()
+            try
             {
-                ActivationDate = DateTime.Now.ToString("yyyy-MM-dd"),
-                BannerList = await _referenceService.GetBannerSelectListItem(),
-                LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language),
-                DateFormatList = await _referenceService.GetDateFormatSelectList(),
-                RootUrl = BaseRootUrl
-            };
+                var model = new GarageViewModel()
+                {
+                    ActivationDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                    BannerList = await _referenceService.GetBannerSelectListItem(),
+                    LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language),
+                    DateFormatList = await _referenceService.GetDateFormatSelectList(),
+                    RootUrl = BaseRootUrl
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("/{lang:lang}/Garage/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-            DateTime activationDate;
-            var model = await _garageService.GetGarage(id);
-
-            DateTime.TryParse(model.ActivationDate, out activationDate);
-
-            model.RootUrl = BaseRootUrl;
-            if (activationDate != null)
+            try
             {
-                model.ActivationDate = activationDate.ToString("yyyy-MM-dd");
-            }
-            model.BannerList = await _referenceService.GetBannerSelectListItem();
-            model.LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language);
-            model.DateFormatList = await _referenceService.GetDateFormatSelectList();
+                DateTime activationDate;
+                var model = await _garageService.GetGarage(id);
 
-            return View(model);
+                DateTime.TryParse(model.ActivationDate, out activationDate);
+
+                model.RootUrl = BaseRootUrl;
+                if (activationDate != null)
+                {
+                    model.ActivationDate = activationDate.ToString("yyyy-MM-dd");
+                }
+                model.BannerList = await _referenceService.GetBannerSelectListItem();
+                model.LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language);
+                model.DateFormatList = await _referenceService.GetDateFormatSelectList();
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [Authorize(Roles = "SuperAdmin, Administrator")]
@@ -98,8 +131,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _garageService.Create(model);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -112,8 +146,9 @@ namespace OCHPlanner3.Controllers
                 await _garageService.IncrementPrintCounter(CurrentUser.GarageId);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -127,8 +162,9 @@ namespace OCHPlanner3.Controllers
                 var result = await _garageService.Update(model);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -144,6 +180,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
 
@@ -160,6 +197,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }
@@ -182,6 +220,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return BadRequest();
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Exceptionless;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,7 +27,15 @@ namespace OCHPlanner3.Controllers
         [HttpGet("/{lang:lang}/reference/intervalSelectList/{mileageType}")]
         public async Task<IEnumerable<MileageViewModel>> GetIntervalSelectListItem(int mileageType)
         {
-            return await _referenceService.GetMileageList(CurrentUser.GarageId, mileageType);
+            try
+            {
+                return await _referenceService.GetMileageList(CurrentUser.GarageId, mileageType);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return null;
+            }
         }
     }
 }

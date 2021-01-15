@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Exceptionless;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -46,30 +47,38 @@ namespace OCHPlanner3.Controllers
         [Route("/{lang:lang}/Users")]
         public async Task<IActionResult> Index()
         {
-            //Get current user
-            var user = await GetCurrentUserAsync();
-            var claims = await _userService.GetUserClaims(user.Id);
-            
-            var language = claims.Any(c => c.Type == "Language") ? claims.FirstOrDefault(c => c.Type == "Language")?.Value : "FR";
-
-            var users = HttpContext.User.IsInRole("Administrator") ? await GetUsers(CurrentUser.GarageId) : await GetUsers();
-            
-            var model = new UserListViewModel()
+            try
             {
-                RootUrl = BaseRootUrl,
-                Users = users,
-                RemainingUsers = !HttpContext.User.IsInRole("SuperAdmin") ? await _userService.GetRemainingUsers(CurrentUser.GarageId) : 9999,
-                GarageSelector = new GarageSelectorViewModel
+                //Get current user
+                var user = await GetCurrentUserAsync();
+                var claims = await _userService.GetUserClaims(user.Id);
+
+                var language = claims.Any(c => c.Type == "Language") ? claims.FirstOrDefault(c => c.Type == "Language")?.Value : "FR";
+
+                var users = HttpContext.User.IsInRole("Administrator") ? await GetUsers(CurrentUser.GarageId) : await GetUsers();
+
+                var model = new UserListViewModel()
                 {
-                    Garages = await _garageService.GetGaragesSelectList(),
-                    SelectedGarageId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.GarageId : 0,
-                    disabled = HttpContext.User.IsInRole("Administrator")
-                },
-            };
+                    RootUrl = BaseRootUrl,
+                    Users = users,
+                    RemainingUsers = !HttpContext.User.IsInRole("SuperAdmin") ? await _userService.GetRemainingUsers(CurrentUser.GarageId) : 9999,
+                    GarageSelector = new GarageSelectorViewModel
+                    {
+                        Garages = await _garageService.GetGaragesSelectList(),
+                        SelectedGarageId = HttpContext.User.IsInRole("Administrator") ? CurrentUser.GarageId : 0,
+                        disabled = HttpContext.User.IsInRole("Administrator")
+                    },
+                };
 
-            ViewBag.Roles = _roles;
+                ViewBag.Roles = _roles;
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         [HttpPost("/{lang:lang}/[action]")]
@@ -105,6 +114,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -189,6 +199,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -212,6 +223,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -241,6 +253,7 @@ namespace OCHPlanner3.Controllers
             }
             catch (Exception ex)
             {
+                ex.ToExceptionless().Submit();
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -248,76 +261,107 @@ namespace OCHPlanner3.Controllers
         [HttpGet("/{lang:lang}/users/list")]
         public async Task<IActionResult> GetUserList()
         {
-            var users = HttpContext.User.IsInRole("Administrator") ? await GetUsers(CurrentUser.GarageId) : await GetUsers();
+            try
+            {
+                var users = HttpContext.User.IsInRole("Administrator") ? await GetUsers(CurrentUser.GarageId) : await GetUsers();
 
-            var model = new UserListViewModel() { Users = users };
-            return PartialView("_users", model);
+                var model = new UserListViewModel() { Users = users };
+                return PartialView("_users", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
 
         private Task<IdentityUser> GetCurrentUserAsync() => _userIdentity.UserManager.GetUserAsync(HttpContext.User);
 
         private async Task<IEnumerable<UserViewModel>> GetUsers(int garageId = 0)
         {
-            var result = new List<UserViewModel>();
-            var userList = _userIdentity.UserManager.Users.ToList();
-
-            var users = userList.Adapt<IEnumerable<UserViewModel>>();
-
-            foreach (var user in users)
+            try
             {
-                IdentityUser identityUser = await _userIdentity.UserManager.FindByIdAsync(user.Id);
-                IList<Claim> claims = await _userIdentity.UserManager.GetClaimsAsync(identityUser);
-                IList<string> roles = await _userIdentity.UserManager.GetRolesAsync(identityUser);
-                var garage = await _garageService.GetGarage(claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0);
+                var result = new List<UserViewModel>();
+                var userList = _userIdentity.UserManager.Users.ToList();
 
-                if (garageId == 0 || (garageId != 0 && garage.Id == garageId && !roles.Contains("SuperAdmin")))
+                var users = userList.Adapt<IEnumerable<UserViewModel>>();
+
+                foreach (var user in users)
                 {
-                    result.Add(new UserViewModel()
-                    {
-                        Id = user.Id,
-                        Email = user.Email,
-                        LockedOut = user.LockoutEnd != null,
-                        Roles = roles,
-                        Clients = claims.FirstOrDefault(c => c.Type == "Clients")?.Value.Split(",").ToList(),
-                        ClientsIdList = claims.Any(c => c.Type == "Clients") ? claims.FirstOrDefault(c => c.Type == "Clients")?.Value : string.Empty,
-                        FirstName = claims.Any(c => c.Type == "FirstName") ? claims.FirstOrDefault(c => c.Type == "FirstName")?.Value : string.Empty,
-                        LastName = claims.Any(c => c.Type == "LastName") ? claims.FirstOrDefault(c => c.Type == "LastName")?.Value : string.Empty,
-                        UserName = user.UserName,
-                        GarageId = claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0,
-                        GarageName = garage?.Name,
-                    });
-                }
-            }
+                    IdentityUser identityUser = await _userIdentity.UserManager.FindByIdAsync(user.Id);
+                    IList<Claim> claims = await _userIdentity.UserManager.GetClaimsAsync(identityUser);
+                    IList<string> roles = await _userIdentity.UserManager.GetRolesAsync(identityUser);
+                    var garage = await _garageService.GetGarage(claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0);
 
-            return result;
+                    if (garageId == 0 || (garageId != 0 && garage.Id == garageId && !roles.Contains("SuperAdmin")))
+                    {
+                        result.Add(new UserViewModel()
+                        {
+                            Id = user.Id,
+                            Email = user.Email,
+                            LockedOut = user.LockoutEnd != null,
+                            Roles = roles,
+                            Clients = claims.FirstOrDefault(c => c.Type == "Clients")?.Value.Split(",").ToList(),
+                            ClientsIdList = claims.Any(c => c.Type == "Clients") ? claims.FirstOrDefault(c => c.Type == "Clients")?.Value : string.Empty,
+                            FirstName = claims.Any(c => c.Type == "FirstName") ? claims.FirstOrDefault(c => c.Type == "FirstName")?.Value : string.Empty,
+                            LastName = claims.Any(c => c.Type == "LastName") ? claims.FirstOrDefault(c => c.Type == "LastName")?.Value : string.Empty,
+                            UserName = user.UserName,
+                            GarageId = claims.Any(c => c.Type == "GarageId") ? Convert.ToInt32(claims.FirstOrDefault(c => c.Type == "GarageId")?.Value) : 0,
+                            GarageName = garage?.Name,
+                        });
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return null;
+            }
         }
 
         private async Task<string> BuildClientToDisplay(IList<string> clients)
         {
-            var builder = new StringBuilder();
-
-            if (!clients.Any()) return string.Empty;
-
-            clients.ToList().ForEach(async c =>
+            try
             {
-                builder.Append(c);
-                builder.Append("<br />");
-            });
+                var builder = new StringBuilder();
 
-            return builder.Remove(builder.Length - 6, 6).ToString();
+                if (!clients.Any()) return string.Empty;
+
+                clients.ToList().ForEach(async c =>
+                {
+                    builder.Append(c);
+                    builder.Append("<br />");
+                });
+
+                return builder.Remove(builder.Length - 6, 6).ToString();
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return null;
+            }
         }
 
         private async Task NewUserCompleteRegistration(IdentityUser user, string userFullName)
         {
-            // For more information on how to enable account confirmation and password reset please 
-            // visit https://go.microsoft.com/fwlink/?LinkID=532713
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            token = System.Web.HttpUtility.UrlEncode(token);
-            string urlDomain = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-            string callbackUrl = $"{urlDomain}/Identity/Account/CompleteRegistration?token={token}";
+            try
+            {
+                // For more information on how to enable account confirmation and password reset please 
+                // visit https://go.microsoft.com/fwlink/?LinkID=532713
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                token = System.Web.HttpUtility.UrlEncode(token);
+                string urlDomain = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+                string callbackUrl = $"{urlDomain}/Identity/Account/CompleteRegistration?token={token}";
 
-            //TODO
-            //await _emailService.SendEmailCompleteRegistration(user.Email, userFullName, urlDomain, token, callbackUrl);
+                //TODO
+                //await _emailService.SendEmailCompleteRegistration(user.Email, userFullName, urlDomain, token, callbackUrl);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+            }
         }
     }
 }
