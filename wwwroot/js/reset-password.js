@@ -4,25 +4,31 @@
         rules: {
             'Input.Email': {
                 required: true,
+                noSpace: true,
                 email: true,
             },
             'Input.Password': {
-                required: true
+                required: true,
+                noSpace: true
             },
             'Input.ConfirmPassword': {
-                required: true
+                required: true,
+                noSpace: true
             }
         },
         messages: {
             'Input.Email': {
                 required: "Please enter a email address",
+                noSpace: "Please enter a email address",
                 email: "Please enter a vaild email address"
             },
             'Input.Password': {
-                required: "Please enter a password"
+                required: "Please enter a password",
+                noSpace: "Please enter a password"
             },
             'Input.ConfirmPassword': {
-                required: "Please confirm your password"
+                required: "Please confirm your password",
+                noSpace: "Please confirm your password"
             }
         },
         errorElement: 'span',

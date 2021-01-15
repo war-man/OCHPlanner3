@@ -12,19 +12,23 @@
         var validator = form.validate({
             rules: {
                 'username': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'firstname': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'lastname': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'SelectedGarageId': {
                     required: true
                 },
                 'email': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'roles[]': {
                     required: true
@@ -32,19 +36,23 @@
             },
             messages: {
                 'username': {
-                    required: $('#hidUsernameRequired').val()
+                    required: $('#hidUsernameRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'firstname': {
-                    required: $('#hidFirstnameRequired').val()
+                    required: $('#hidFirstnameRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'lastname': {
-                    required: $('#hidLastnameRequired').val()
+                    required: $('#hidLastnameRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'SelectedGarageId': {
                     required: $('#hidGarageRequired').val()
                 },
                 'email': {
-                    required: $('#hidEmailRequired').val()
+                    required: $('#hidEmailRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'roles[]': {
                     required: $('#hidRoleSelectionRequired').val()
@@ -95,19 +103,23 @@
         var validator = form.validate({
             rules: {
                 'username': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'firstname': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'lastname': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'SelectedGarageId': {
                     required: true
                 },
                 'email': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'roles[]': {
                     required: true
@@ -115,19 +127,23 @@
             },
             messages: {
                 'username': {
-                    required: $('#hidUsernameRequired').val()
+                    required: $('#hidUsernameRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'firstname': {
-                    required: $('#hidFirstnameRequired').val()
+                    required: $('#hidFirstnameRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'lastname': {
-                    required: $('#hidLastnameRequired').val()
+                    required: $('#hidLastnameRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'SelectedGarageId': {
                     required: $('#hidGarageRequired').val()
                 },
                 'email': {
-                    required: $('#hidEmailRequired').val()
+                    required: $('#hidEmailRequired').val(),
+                    noSpace: $('#hidUsernameRequired').val()
                 },
                 'roles[]': {
                     required: $('#hidRoleSelectionRequired').val()
@@ -176,19 +192,23 @@
         var validator = form.validate({
             rules: {
                 'password': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'verify': {
                     required: true,
+                    noSpace: true,
                     equalTo: "#password"
                 }
             },
             messages: {
                 'password': {
-                    required: $('#hidPasswordRequired').val()
+                    required: $('#hidPasswordRequired').val(),
+                    noSpace: $('#hidPasswordRequired').val()
                 },
                 'verify': {
                     required: $('#hidVerifyPasswordRequired').val(),
+                    noSpace: $('#hidPasswordRequired').val(),
                     equalTo: $('#hidPasswordNotEqual').val()
                 }
             },

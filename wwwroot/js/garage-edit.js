@@ -35,16 +35,20 @@
         var validator = form.validate({
             rules: {
                 'name': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'address': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'phone': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'email': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 },
                 'SelectedLanguageCode': {
                     required: true
@@ -58,16 +62,20 @@
             },
             messages: {
                 'name': {
-                    required: $('#HidRequired').val()
+                    required: $('#HidRequired').val(),
+                    noSpace: $('#HidRequired').val()
                 },
                 'address': {
-                    required: $('#HidRequired').val()
+                    required: $('#HidRequired').val(),
+                    noSpace: $('#HidRequired').val()
                 },
                 'phone': {
-                    required: $('#HidRequired').val()
+                    required: $('#HidRequired').val(),
+                    noSpace: $('#HidRequired').val()
                 },
                 'email': {
-                    required: $('#HidRequired').val()
+                    required: $('#HidRequired').val(),
+                    noSpace: $('#HidRequired').val()
                 },
                 'SelectedLanguageCode': {
                     required: $('#HidRequired').val()

@@ -4,12 +4,14 @@
         rules: {
             'Input.Email': {
                 required: true,
+                noSpace: true,
                 email: true,
             }
         },
         messages: {
             'Input.Email': {
                 required: "l'adresse courriel est requise",
+                noSpace: "l'adresse courriel est requise",
                 email: "Format de l'adresse courriel est invalide"
             }
         },

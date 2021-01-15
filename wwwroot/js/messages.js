@@ -350,10 +350,6 @@
         else if (choice == 'Choice3') {
             nextunit = $('#HidNextAppointTime').val();
         }
-
-       
-
-
     }
 
     //replication for car model list value

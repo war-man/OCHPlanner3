@@ -83,12 +83,14 @@
         form.validate({
             rules: {
                 'name': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 }
             },
             messages: {
                 'name': {
-                    required: $('#hidNameRequired').val()
+                    required: $('#hidNameRequired').val(),
+                    noSpace: $('#hidNameRequired').val()
                 }
             },
             errorElement: 'span',
@@ -131,12 +133,14 @@
         form.validate({
             rules: {
                 'name': {
-                    required: true
+                    required: true,
+                    noSpace: true
                 }
             },
             messages: {
                 'name': {
-                    required: $('#hidNameRequired').val()
+                    required: $('#hidNameRequired').val(),
+                    noSpace: $('#hidNameRequired').val()
                 }
             },
             errorElement: 'span',
