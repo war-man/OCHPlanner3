@@ -431,14 +431,15 @@
     }
 
     function refreshIntervalSelectList(mileageType) {
+        var Choice1SelectedMileage = $("select[name='Choice1SelectedMileage'] option:selected").val();
+
         $.ajax({
             url: ajaxUrl + '/reference/intervalSelectList/' + mileageType,
             type: "GET",
             async: false,
             success: function (response) {
                 $('select[name="Choice1SelectedMileage"]').empty();
-                $('select[name="Choice2SelectedMileage"]').empty();
-                $('select[name="Choice3SelectedMileage"]').empty();
+                
 
                 var options = '';
                 options += '<option value="Select">-- Select --</option>';
@@ -447,8 +448,9 @@
                 }
 
                 $('select[name="Choice1SelectedMileage"]').append(options);
-                $('select[name="Choice2SelectedMileage"]').append(options);
-                $('select[name="Choice3SelectedMileage"]').append(options);
+
+                $("select[name='Choice1SelectedMileage']").val(Choice1SelectedMileage);
+                $('input[name="unitvalue-preview"]').val($("select[name='Choice1SelectedMileage'] option:selected").text());
             },
             error: function (xhr, status, error) {
                 alert('Error');

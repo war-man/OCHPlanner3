@@ -131,27 +131,27 @@ namespace OCHPlanner3.Data.Factory
         {
             return new List<MileageModel>()
                 {
-                    new MileageModel() {Id = 101, GarageId = garageId, MileageTypeId = 1, Name = "300"},
-                    new MileageModel() {Id = 102, GarageId = garageId, MileageTypeId = 1, Name = "600"},
-                    new MileageModel() {Id = 103, GarageId = garageId, MileageTypeId = 1, Name = "3000"},
-                    new MileageModel() {Id = 104, GarageId = garageId, MileageTypeId = 1, Name = "4000"},
-                    new MileageModel() {Id = 105, GarageId = garageId, MileageTypeId = 1, Name = "5000"},
-                    new MileageModel() {Id = 106, GarageId = garageId, MileageTypeId = 1, Name = "6000"},
-                    new MileageModel() {Id = 107, GarageId = garageId, MileageTypeId = 1, Name = "7500"},
-                    new MileageModel() {Id = 108, GarageId = garageId, MileageTypeId = 1, Name = "10000"},
-                    new MileageModel() {Id = 109, GarageId = garageId, MileageTypeId = 1, Name = "11000"},
-                    new MileageModel() {Id = 110, GarageId = garageId, MileageTypeId = 1, Name = "12000"},
-                    new MileageModel() {Id = 111, GarageId = garageId, MileageTypeId = 1, Name = "15000"},
-                    new MileageModel() {Id = 112, GarageId = garageId, MileageTypeId = 1, Name = "22000"},
-                    new MileageModel() {Id = 113, GarageId = garageId, MileageTypeId = 1, Name = "30000"},
-                    new MileageModel() {Id = 114, GarageId = garageId, MileageTypeId = 1, Name = "37000"},
-                    new MileageModel() {Id = 115, GarageId = garageId, MileageTypeId = 1, Name = "45000"},
-                    new MileageModel() {Id = 116, GarageId = garageId, MileageTypeId = 1, Name = "52000"},
-                    new MileageModel() {Id = 117, GarageId = garageId, MileageTypeId = 1, Name = "60000"},
-                    new MileageModel() {Id = 118, GarageId = garageId, MileageTypeId = 1, Name = "75000"},
-                    new MileageModel() {Id = 119, GarageId = garageId, MileageTypeId = 1, Name = "90000"},
-                    new MileageModel() {Id = 120, GarageId = garageId, MileageTypeId = 1, Name = "120000"},
-                    new MileageModel() {Id = 121, GarageId = garageId, MileageTypeId = 1, Name = "150000"}
+                    new MileageModel() {Id = 1, GarageId = garageId, MileageTypeId = 1, Name = "300"},
+                    new MileageModel() {Id = 2, GarageId = garageId, MileageTypeId = 1, Name = "600"},
+                    new MileageModel() {Id = 3, GarageId = garageId, MileageTypeId = 1, Name = "3000"},
+                    new MileageModel() {Id = 4, GarageId = garageId, MileageTypeId = 1, Name = "4000"},
+                    new MileageModel() {Id = 5, GarageId = garageId, MileageTypeId = 1, Name = "5000"},
+                    new MileageModel() {Id = 6, GarageId = garageId, MileageTypeId = 1, Name = "6000"},
+                    new MileageModel() {Id = 7, GarageId = garageId, MileageTypeId = 1, Name = "7500"},
+                    new MileageModel() {Id = 8, GarageId = garageId, MileageTypeId = 1, Name = "10000"},
+                    new MileageModel() {Id = 9, GarageId = garageId, MileageTypeId = 1, Name = "11000"},
+                    new MileageModel() {Id = 10, GarageId = garageId, MileageTypeId = 1, Name = "12000"},
+                    new MileageModel() {Id = 11, GarageId = garageId, MileageTypeId = 1, Name = "15000"},
+                    new MileageModel() {Id = 12, GarageId = garageId, MileageTypeId = 1, Name = "22000"},
+                    new MileageModel() {Id = 13, GarageId = garageId, MileageTypeId = 1, Name = "30000"},
+                    new MileageModel() {Id = 14, GarageId = garageId, MileageTypeId = 1, Name = "37000"},
+                    new MileageModel() {Id = 15, GarageId = garageId, MileageTypeId = 1, Name = "45000"},
+                    new MileageModel() {Id = 16, GarageId = garageId, MileageTypeId = 1, Name = "52000"},
+                    new MileageModel() {Id = 17, GarageId = garageId, MileageTypeId = 1, Name = "60000"},
+                    new MileageModel() {Id = 18, GarageId = garageId, MileageTypeId = 1, Name = "75000"},
+                    new MileageModel() {Id = 19, GarageId = garageId, MileageTypeId = 1, Name = "90000"},
+                    new MileageModel() {Id = 20, GarageId = garageId, MileageTypeId = 1, Name = "120000"},
+                    new MileageModel() {Id = 21, GarageId = garageId, MileageTypeId = 1, Name = "150000"}
                 };
         }
     }

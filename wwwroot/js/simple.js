@@ -320,6 +320,10 @@
         }
     }
     function refreshIntervalSelectList(mileageType) {
+        var Choice1SelectedMileage = $("select[name='Choice1SelectedMileage'] option:selected").val();
+        var Choice2SelectedMileage = $("select[name='Choice2SelectedMileage'] option:selected").val();
+        var Choice3SelectedMileage = $("select[name='Choice3SelectedMileage'] option:selected").val();
+
         $.ajax({
             url: ajaxUrl + '/reference/intervalSelectList/' + mileageType,
             type: "GET",
@@ -338,6 +342,20 @@
                 $('select[name="Choice1SelectedMileage"]').append(options);
                 $('select[name="Choice2SelectedMileage"]').append(options);
                 $('select[name="Choice3SelectedMileage"]').append(options);
+
+                $("select[name='Choice1SelectedMileage']").val(Choice1SelectedMileage);
+                $("select[name='Choice2SelectedMileage']").val(Choice2SelectedMileage);
+                $("select[name='Choice3SelectedMileage']").val(Choice3SelectedMileage);
+
+                if ($("input[name='PrintChoices']:checked").val() === 'Choice1') {
+                    $('input[name="unitvalue-preview"]').val($("select[name='Choice1SelectedMileage'] option:selected").text());
+                }
+                if ($("input[name='PrintChoices']:checked").val() === 'Choice2') {
+                    $('input[name="unitvalue-preview"]').val($("select[name='Choice2SelectedMileage'] option:selected").text());
+                }
+                if ($("input[name='PrintChoices']:checked").val() === 'Choice3') {
+                    $('input[name="unitvalue-preview"]').val($("select[name='Choice3SelectedMileage'] option:selected").text());
+                }
             },
             error: function (xhr, status, error) {
                 alert('Error');
