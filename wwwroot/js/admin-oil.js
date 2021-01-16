@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
-
+        
     $('select[name="SelectedGarageId"]').select2();
 
     $('select[name="SelectedGarageId"]').on('change', function () {

@@ -1156,7 +1156,8 @@ $.validator.addMethod( "ziprange", function( value, element ) {
 }, "Your ZIP-code must be in the range 902xx-xxxx to 905xx-xxxx");
 
 $.validator.addMethod("noSpace", function (value, element) {
-	return value.indexOf(" ") < 0 && value != "";
+	debugger
+	return value.trim() !== "";
 }, "Required Field");
 
 return $;

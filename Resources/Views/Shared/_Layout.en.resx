@@ -129,6 +129,9 @@
   <data name="MenuMaintenance" xml:space="preserve">
     <value>Maintenance Management</value>
   </data>
+  <data name="MenuMessage" xml:space="preserve">
+    <value>Customer Communication</value>
+  </data>
   <data name="MenuNextAppointment" xml:space="preserve">
     <value>Appointement Management</value>
   </data>

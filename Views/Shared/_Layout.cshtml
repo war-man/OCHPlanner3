@@ -129,7 +129,7 @@
                                         </a>
                                         <ul class="submenu">
                                             <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")"><a asp-controller="Sticker" asp-action="Simple">Simple</a></li>
-                                            <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">Messages client</a></li>
+                                            <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">@Localizer["MenuMessage"]</a></li>
                                         </ul>
                                     </li>
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
@@ -209,7 +209,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/plugins/jquery-validation/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
     <script src="~/lib/bootstrap-slider/js/bootstrap-slider.min.js"></script>
 
     <script src="~/template/js/metisMenu.min.js"></script>
