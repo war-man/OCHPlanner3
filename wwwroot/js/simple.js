@@ -389,7 +389,10 @@
             }
 
             printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (212 + oilOffsetYSlider) + ',0,3,1,1,N,"' + $('input[name="comment-preview"]').val() + '"\n');
-            printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n');
+
+            if ($.trim($('select[name="oillist-preview"] option:selected').text()) !== '.') { //Hide oil if == .
+                printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (242 + oilOffsetYSlider) + ',0,4,1,1,N,"' + $('select[name="oillist-preview"] option:selected').text() + '"\n');
+            }
             printData1.push('A' + (75 + oilOffsetXSlider) + ',' + (272 + oilOffsetYSlider) + ',0,4,1,1,N,"' + nextdate + '"\n');
 
             if ($('#hidDateFormatPrint').val() === "True" &&
