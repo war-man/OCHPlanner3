@@ -16,10 +16,13 @@ namespace OCHPlanner3.Services
     public class GarageService : IGarageService
     {
         private readonly IGarageFactory _garageFactory;
+        private readonly IReferenceFactory _referenceFactory;
 
-        public GarageService(IGarageFactory garageFactory)
+        public GarageService(IGarageFactory garageFactory,
+            IReferenceFactory referenceFactory)
         {
             _garageFactory = garageFactory;
+            _referenceFactory = referenceFactory;
         }
 
         public async Task<IEnumerable<GarageViewModel>> GetGarages()
@@ -121,8 +124,14 @@ namespace OCHPlanner3.Services
 
         public async Task<IEnumerable<OilViewModel>> GetOilList(int garageId)
         {
+            var result = new List<OilViewModel>();
+
             var oilList = await _garageFactory.GetOilList(garageId);
-            return oilList.Adapt<IEnumerable<OilViewModel>>();
+            var oilBaseList = await _referenceFactory.GetBaseOil();
+            result.AddRange(oilList.Adapt<IEnumerable<OilViewModel>>());
+            result.AddRange(oilBaseList.Adapt<IEnumerable<OilViewModel>>());
+
+            return result;
         }
 
         public async Task<int> CreateOil(int garageId, string name)

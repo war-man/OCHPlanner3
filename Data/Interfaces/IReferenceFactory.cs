@@ -12,5 +12,6 @@ namespace OCHPlanner3.Data.Interfaces
         Task<IEnumerable<MileageModel>> GetMileageList(int garageId, int mileageType = 1);
         Task<IEnumerable<PeriodModel>> GetPeriodList();
         Task<IEnumerable<BannerModel>> GetBannerList();
+        Task<IEnumerable<OilModel>> GetBaseOil();
     }
 }

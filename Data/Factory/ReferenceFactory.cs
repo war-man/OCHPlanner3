@@ -154,5 +154,20 @@ namespace OCHPlanner3.Data.Factory
                     new MileageModel() {Id = 21, GarageId = garageId, MileageTypeId = 1, Name = "150000"}
                 };
         }
+
+        public async Task<IEnumerable<OilModel>> GetBaseOil()
+        {
+            var sql = "SELECT [OilTypeID],[OilTypeName] FROM [dbo].[OilBase]";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<OilModel>(sql,
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }

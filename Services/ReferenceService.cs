@@ -35,9 +35,11 @@ namespace OCHPlanner3.Services
 
         public async Task<IEnumerable<SelectListItem>> GetOilSelectListItem(int garageId, int selectedId = 0)
         {
-            var oilList = await _referenceFactory.GetOilList(garageId);
+            var result = new List<OilModel>();
+            result.AddRange(await _referenceFactory.GetBaseOil());
+            result.AddRange(await _referenceFactory.GetOilList(garageId));
 
-            return oilList.Select(x => new SelectListItem()
+            return result.Select(x => new SelectListItem()
             {
                 Value = x.OilTypeId.ToString(),
                 Text = x.OilTypeName,
