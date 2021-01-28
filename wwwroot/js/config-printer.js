@@ -43,6 +43,8 @@
                     timer: 2000,
                     timerProgressBar: true,
                    
+                }).then(function (result) {
+                   location.href = ajaxUrl + "/Sticker/Simple"
                 });
             }
         });
