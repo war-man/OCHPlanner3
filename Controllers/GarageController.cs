@@ -1,16 +1,13 @@
-﻿using System;
-using System.Web;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Exceptionless;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OCHPlanner3.Helper;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
+using System;
 using System.IO;
-using Exceptionless;
+using System.Threading.Tasks;
 
 namespace OCHPlanner3.Controllers
 {
@@ -75,8 +72,16 @@ namespace OCHPlanner3.Controllers
         {
             try
             {
+                var branding = await _referenceService.GetBranding(1);
+
                 var model = new GarageViewModel()
                 {
+                    BrandingId = 1,
+                    HelpLinkFr = branding.HelpLinkFr,
+                    HelpLinkEn = branding.HelpLinkEn,
+                    StoreLinkFr = branding.StoreLinkFr,
+                    StoreLinkEn = branding.StoreLinkEn,
+                    BrandingLogo = $"{branding.LogoUrl}/1_logo.jpg",
                     ActivationDate = DateTime.Now.ToString("yyyy-MM-dd"),
                     BannerList = await _referenceService.GetBannerSelectListItem(),
                     LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language),
@@ -100,6 +105,7 @@ namespace OCHPlanner3.Controllers
             try
             {
                 DateTime activationDate;
+
                 var model = await _garageService.GetGarage(id);
 
                 DateTime.TryParse(model.ActivationDate, out activationDate);
@@ -112,6 +118,7 @@ namespace OCHPlanner3.Controllers
                 model.BannerList = await _referenceService.GetBannerSelectListItem();
                 model.LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language);
                 model.DateFormatList = await _referenceService.GetDateFormatSelectList();
+                model.BrandingLogo = $"{model.BrandingLogo}/{model.BrandingId}_logo.jpg";
 
                 return View(model);
             }
@@ -188,11 +195,11 @@ namespace OCHPlanner3.Controllers
 
         [Authorize(Roles = "SuperAdmin")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteLogo(int garageId)
+        public async Task<IActionResult> DeleteLogo(int garageId)
         {
             try
             {
-                await _blobStorageService.DeleteBlobData(garageId);
+                await _blobStorageService.DeleteBlobData(garageId, "logos");
                 return Ok();
             }
             catch (Exception ex)
@@ -204,7 +211,7 @@ namespace OCHPlanner3.Controllers
 
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
-        public async Task<ActionResult> UploadLogo(int garageId, IFormFile MyUploader)
+        public async Task<IActionResult> UploadLogo(int garageId, IFormFile MyUploader)
         {
             try
             {
@@ -215,7 +222,7 @@ namespace OCHPlanner3.Controllers
                     fileData = target.ToArray();
                 }
 
-                var imageUrl = _blobStorageService.UploadFileToBlob($"{garageId}.png", fileData, MyUploader.ContentType);
+                var imageUrl = _blobStorageService.UploadFileToBlob($"{garageId}.png", fileData, MyUploader.ContentType, "logos");
                 return Ok(imageUrl);
             }
             catch (Exception ex)

@@ -18,11 +18,11 @@ namespace OCHPlanner3.Services
             _configuration = configuration;
         }
 
-        public string UploadFileToBlob(string strFileName, byte[] fileData, string fileMimeType)
+        public string UploadFileToBlob(string strFileName, byte[] fileData, string fileMimeType, string containerName)
         {
             try
             {
-                var _task = Task.Run(() => this.UploadFileToBlobAsync(strFileName, fileData, fileMimeType));
+                var _task = Task.Run(() => this.UploadFileToBlobAsync(strFileName, fileData, fileMimeType, containerName));
                 _task.Wait();
                 string fileUrl = _task.Result;
                 return fileUrl;
@@ -33,7 +33,7 @@ namespace OCHPlanner3.Services
             }
         }
 
-        public async Task<bool> DeleteBlobData(int garageId)
+        public async Task<bool> DeleteBlobData(int garageId, string containerName)
         {
             try
             {
@@ -41,8 +41,7 @@ namespace OCHPlanner3.Services
 
                 CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_configuration.GetConnectionString("StorageConnection"));
                 CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                string strContainerName = "logos";
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(strContainerName);
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(containerName);
 
                 if (await cloudBlobContainer.ExistsAsync())
                 {
@@ -62,16 +61,13 @@ namespace OCHPlanner3.Services
             }
         }
 
-
-
-        private async Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType)
+        private async Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType, string containerName)
         {
             try
             {
                 CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_configuration.GetConnectionString("StorageConnection")); 
                 CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                string strContainerName = "logos";
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(strContainerName);
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(containerName);
                 string fileName = strFileName;
 
                 if (fileName != null && fileData != null)
@@ -82,6 +78,52 @@ namespace OCHPlanner3.Services
                     return cloudBlockBlob.Uri.AbsoluteUri;
                 }
                 return "";
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
+        public async Task<bool> CopyBlob(int garageId, string container)
+        {
+            try
+            {
+                string fileName = $"{garageId}.png";
+
+                CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_configuration.GetConnectionString("StorageConnection"));
+                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(container);
+
+                // Get the name of the first blob in the container to use as the source.
+                var sourceBlob = cloudBlobContainer.GetBlobReference("99999.png");
+                // Ensure that the source blob exists.
+                if (await sourceBlob.ExistsAsync())
+                {
+                    // Lease the source blob for the copy operation 
+                    // to prevent another client from modifying it.
+                    var lease = sourceBlob.AcquireLeaseAsync(TimeSpan.FromSeconds(20));
+                                     
+                    // Get a BlobClient representing the destination blob with a unique name.
+                    var destBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
+
+                    // Start the copy operation.
+                    await destBlob.StartCopyAsync(sourceBlob.Uri);
+
+                    // Update the source blob's properties.
+                    await sourceBlob.FetchAttributesAsync();
+
+                    if (sourceBlob.Properties.LeaseState == LeaseState.Leased)
+                    {
+                        // Break the lease on the source blob.
+                        await sourceBlob.BreakLeaseAsync(TimeSpan.FromSeconds(0));
+                    }
+
+                    await DeleteBlobData(99999, "logos");
+                }
+
+                return true;
             }
             catch (Exception ex)
             {

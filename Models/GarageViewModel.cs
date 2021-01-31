@@ -62,5 +62,13 @@ namespace OCHPlanner3.Models
 
         public IFormFile FileUpload { get; set; }
         public string StickerLogo { get; set; }
+        public int BrandingId { get; set; }
+
+        public string BrandingLogo { get; set; }
+        public string HelpLinkFr { get; set; }
+        public string HelpLinkEn { get; set; }
+        public string StoreLinkFr { get; set; }
+        public string StoreLinkEn { get; set; }
+
     }
 }

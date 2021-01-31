@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Models;
+using OCHPlanner3.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -164,6 +165,22 @@ namespace OCHPlanner3.Data.Factory
                 connection.Open();
 
                 var result = await connection.QueryAsync<OilModel>(sql,
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<BrandingModel> GetBranding(int brandingId)
+        {
+            var sql = "SELECT [Id] ,[Name] ,[HelpLinkFr] ,[HelpLinkEn] ,[StoreLinkFr] ,[StoreLinkEn], [LogoUrl] FROM [dbo].[Branding] WHERE [Id] = @BrandingId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryFirstOrDefaultAsync<BrandingModel>(sql,
+                    new { BrandingId = brandingId },
                     commandType: CommandType.Text);
 
                 return result;

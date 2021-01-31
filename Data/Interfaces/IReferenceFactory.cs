@@ -1,4 +1,5 @@
 ﻿using OCHPlanner3.Data.Models;
+using OCHPlanner3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace OCHPlanner3.Data.Interfaces
         Task<IEnumerable<PeriodModel>> GetPeriodList();
         Task<IEnumerable<BannerModel>> GetBannerList();
         Task<IEnumerable<OilModel>> GetBaseOil();
+        Task<BrandingModel> GetBranding(int brandingId);
     }
 }

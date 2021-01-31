@@ -17,12 +17,15 @@ namespace OCHPlanner3.Services
     {
         private readonly IGarageFactory _garageFactory;
         private readonly IReferenceFactory _referenceFactory;
+        private readonly IBlobStorageService _blobStorageService;
 
         public GarageService(IGarageFactory garageFactory,
-            IReferenceFactory referenceFactory)
+            IReferenceFactory referenceFactory,
+            IBlobStorageService blobStorageService)
         {
             _garageFactory = garageFactory;
             _referenceFactory = referenceFactory;
+            _blobStorageService = blobStorageService;
         }
 
         public async Task<IEnumerable<GarageViewModel>> GetGarages()
@@ -38,13 +41,13 @@ namespace OCHPlanner3.Services
             return garages.Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
-                Text = x.Name 
+                Text = x.Name
             }).OrderBy(o => o.Text);
         }
 
         public async Task<GarageViewModel> GetGarage(int garageId)
         {
-            var garage =  await _garageFactory.GetGarage(garageId);
+            var garage = await _garageFactory.GetGarage(garageId);
             return garage.Adapt<GarageViewModel>();
         }
 
@@ -73,7 +76,7 @@ namespace OCHPlanner3.Services
                 defaultValueModel.Id = exist.Id;
             }
 
-            return exist == null 
+            return exist == null
                 ? await _garageFactory.CreateSingleDefault(defaultValueModel)
                 : await _garageFactory.UpdateSingleDefault(defaultValueModel);
         }
@@ -88,9 +91,14 @@ namespace OCHPlanner3.Services
 
                 var factoryModel = model.Adapt<GarageModel>();
 
-                return await _garageFactory.Create(factoryModel);
+                var garageId = await _garageFactory.Create(factoryModel);
+
+                //Copy Sticker Logo
+                await _blobStorageService.CopyBlob(garageId, "logos");
+                              
+                return garageId;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -98,6 +106,9 @@ namespace OCHPlanner3.Services
 
         public async Task<int> Delete(int garageId)
         {
+            //Delete Sticker Logo
+            await _blobStorageService.DeleteBlobData(garageId, "logos");
+
             return await _garageFactory.Delete(garageId);
         }
 

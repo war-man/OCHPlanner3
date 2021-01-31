@@ -13,6 +13,15 @@
         $("#PersonalizedSticker").prop('disabled', 'disabled');
     }
 
+    $(document).on("change", 'input[name="BrandingId"]', function () {
+        if ($(this).val() === '1') {
+            refreshBrandingPreview(1);
+        }
+        else if ($(this).val() === '2') {
+            refreshBrandingPreview(2);
+        }
+    });
+
     $('.fa-trash-alt').on('click', function () {
         $.ajax(
             {
@@ -21,7 +30,8 @@
                 data: { garageId: $('#Id').val() },
                 async: false,
                 success: function (data) {
-                    $('#garage-logo').attr('src', '');
+                    $('#file').val('');
+                    $('#garage-logo').attr('src', 'https://ochplanner3.blob.core.windows.net/logos/blank.png');
                     $('#hidStickerLogo').val('');
                     $('.fa-trash-alt').hide();
                 }
@@ -145,7 +155,24 @@
                 $('#UpdateCounterStock').val(true);
             }
         });
-
-        
+                
     });
+
+    function refreshBrandingPreview(id) {
+        $.ajax(
+            {
+                type: "GET",
+                url: ajaxUrl + '/reference/branding',
+                data: { brandingId: id },
+                async: false,
+                success: function (data) {
+                    $('#branding-logo').attr('src', data.LogoUrl + '/' + id + '_logo.jpg');
+                    $('#labelHelpLinkFr').text('Fr: ' + data.HelpLinkFr);
+                    $('#labelHelpLinkEn').text('En: ' + data.HelpLinkEn);
+                    $('#labelStoreLinkFr').text('Fr: ' + data.StoreLinkFr);
+                    $('#labelStoreLinkEn').text('En: ' + data.StoreLinkEn);
+                }
+            }
+        );
+    }
 });

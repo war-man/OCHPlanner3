@@ -37,5 +37,19 @@ namespace OCHPlanner3.Controllers
                 return null;
             }
         }
+
+        [HttpGet("/{lang:lang}/reference/branding")]
+        public async Task<IActionResult> GetBranding(int brandingId)
+        {
+            try
+            {
+                return Ok(await _referenceService.GetBranding(brandingId));
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
     }
 }

@@ -1,7 +1,33 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('.fa-trash-alt').on('click', function () {
+        $.ajax(
+            {
+                type: "DELETE",
+                url: ajaxUrl + '/garage/deleteLogo/',
+                data: { garageId: '99999' },
+                async: false,
+                success: function (data) {
+                    $('#file').val('');
+                    $('#garage-logo').attr('src', 'https://ochplanner3.blob.core.windows.net/logos/blank.png');
+                    $('#hidStickerLogo').val('');
+                    $('.fa-trash-alt').hide();
+                }
+            }
+        );
+    });
+
     $('#Phone').mask('(000) 000-0000');
+
+    $(document).on("change", 'input[name="BrandingId"]', function () {
+        if ($(this).val() === '1') {
+            refreshBrandingPreview(1);
+        }
+        else if ($(this).val() === '2') {
+            refreshBrandingPreview(2);
+        }
+    });
 
     $('#btnSave').on('click', function () {
         var form = $('#garage-create');
@@ -102,4 +128,22 @@
             });
         }
     });
+
+    function refreshBrandingPreview(id) {
+        $.ajax(
+            {
+                type: "GET",
+                url: ajaxUrl + '/reference/branding',
+                data: { brandingId: id },
+                async: false,
+                success: function (data) {
+                    $('#branding-logo').attr('src', data.LogoUrl + '/' + id + '_logo.jpg');
+                    $('#labelHelpLinkFr').text('Fr: ' + data.HelpLinkFr);
+                    $('#labelHelpLinkEn').text('En: ' + data.HelpLinkEn);
+                    $('#labelStoreLinkFr').text('Fr: ' + data.StoreLinkFr);
+                    $('#labelStoreLinkEn').text('En: ' + data.StoreLinkEn);
+                }
+            }
+        );
+    }
 });

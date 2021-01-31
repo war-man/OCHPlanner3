@@ -77,26 +77,60 @@
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                        <div class="col-12 mt-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title">Modules</h4>
-                                    <div class="form-check">
-                                        <input asp-for="Support" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="Support">Support</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input asp-for="OilReset" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="OilReset">OilReset</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input asp-for="Communication" type="checkbox" class="form-check-input" />
-                                        <label class="form-check-label" for="Communication">Communication</label>
+                            <div class="col-12 mt-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Modules</h4>
+                                        <div class="form-check">
+                                            <input asp-for="Support" type="checkbox" class="form-check-input" />
+                                            <label class="form-check-label" for="Support">Support</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="OilReset" type="checkbox" class="form-check-input" />
+                                            <label class="form-check-label" for="OilReset">OilReset</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="Communication" type="checkbox" class="form-check-input" />
+                                            <label class="form-check-label" for="Communication">Communication</label>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
 
-                        </div>
+                            <div class="col-12 mt-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">@Localizer["Branding"]</h4>
+                                        <div class="form-group row">
+                                            <label for="brandingId" class="control-label col-md-4">@Localizer["BrandingAs"]</label>
+                                            <div class="col-md-8">
+                                                <label class="mr-4"><input asp-for="BrandingId" value="1" type="radio" class="mr-1" />Och Planner</label>
+                                                <label><input asp-for="BrandingId" value="2" type="radio" class="mr-1" />TerraClean</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <img id="branding-logo" src="@Model.BrandingLogo" width="300" height="190" />
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label class="control-label w-100 font-weight-bold">@Localizer["HelpLink"]</label>
+                                                    <label id="labelHelpLinkFr" class="control-label">Fr: @Model.HelpLinkFr</label>
+                                                    <label id="labelHelpLinkEn" class="control-label">En: @Model.HelpLinkEn</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label w-100 font-weight-bold">@Localizer["StoreLink"]</label>
+                                                    <label id="labelStoreLinkFr" class="control-label">Fr: @Model.StoreLinkFr</label>
+                                                    <label id="labelStoreLinkEn" class="control-label">En: @Model.StoreLinkEn</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
                         }
                     </div>
                 </div>
@@ -168,7 +202,7 @@
 
                                     </div>
                                     <div class="form-row mt-3">
-                                        <img id="garage-logo" src="@Model.StickerLogo" width="300" height="190" />
+                                        <img id="garage-logo" src="@(string.IsNullOrWhiteSpace(Model.StickerLogo) ? "https://ochplanner3.blob.core.windows.net/logos/blank.png" : Model.StickerLogo)" width="300" height="190" />
                                         <i class="far fa-trash-alt fa-2x ml-3" style="display:@(Model.StickerLogo == "" ? "none" : "block")"></i>
                                        
                                     </div>

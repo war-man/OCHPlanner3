@@ -165,5 +165,10 @@ namespace OCHPlanner3.Services
             return languages;
         }
 
+        public async Task<BrandingViewModel> GetBranding(int brandingId)
+        {
+            var branding = await _referenceFactory.GetBranding(brandingId);
+            return branding.Adapt<BrandingViewModel>();
+        }
     }
 }

@@ -136,7 +136,7 @@ namespace OCHPlanner3.Data.Factory
                 {
                     connection.Open();
 
-                    var result = await connection.ExecuteAsync(sql,
+                    var result = await connection.ExecuteScalarAsync<int>(sql,
                         new
                         {
                             Name = garage.Name,
@@ -157,7 +157,9 @@ namespace OCHPlanner3.Data.Factory
                             OilResetModule = garage.OilResetModule,
                             Support = garage.Support,
                             Note = garage.Note,
-                            FormatDate = garage.FormatDate
+                            FormatDate = garage.FormatDate,
+                            StickerLogo = garage.StickerLogo,
+                            BrandingId = garage.BrandingId
                         },
                         commandType: CommandType.StoredProcedure);
 
@@ -223,7 +225,8 @@ namespace OCHPlanner3.Data.Factory
                             CounterOrder = garage.CounterOrder,
                             CounterAlert = garage.CounterAlert,
                             UpdateCounterStock = garage.UpdateCounterStock,
-                            StickerLogo = garage.StickerLogo
+                            StickerLogo = garage.StickerLogo,
+                            BrandingId = garage.BrandingId
                         },
                         commandType: CommandType.StoredProcedure);
 
