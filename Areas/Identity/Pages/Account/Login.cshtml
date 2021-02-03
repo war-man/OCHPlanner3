@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <div class="login-logo text-center">
-                    <img src="~/images/logo.jpg" style="width:220px;" />
+                    <img src=@($"https://ochplanner3.blob.core.windows.net/branding/{Model.Input.BrandingId}_logo.jpg") style="width:220px;" />
                 </div>
                 <!-- /.login-logo -->
                 <p class="login-box-msg">@Model.Input.Translation.Message</p>

@@ -20,6 +20,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OCHPlanner3</title>
+    <link rel="icon" type="image/png" href="@($"{currentUser.GarageSetting.BrandingLogo}/{currentUser.GarageSetting.BrandingId}_logo.jpg")">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/template/css/themify-icons.css">
     <link rel="stylesheet" href="~/template/css/metisMenu.css">
@@ -53,6 +54,18 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/lib/plugins/fontawesome-pro/css/all.min.css">
+
+    <!-- Hotjar Tracking Code for https://oilchangestickers.info -->
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 2228296, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
 </head>
 
 <body class="body-bg">
@@ -75,7 +88,9 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="https://www.ochplanner.com" target="_blank"><img src="~/images/logo.jpg" style="width:140px;" alt="logo" /></a>
+                            <a href="https://www.ochplanner.com" target="_blank">
+                                <img src="@($"{currentUser.GarageSetting.BrandingLogo}/{currentUser.GarageSetting.BrandingId}_logo.jpg")" style="width:140px;" alt="logo" />
+                            </a>
                         </div>
                     </div>
                     <!-- profile info & task notification -->
@@ -101,7 +116,7 @@
                                     <a id="logout" class="dropdown-item" href="#"><i class="fad fa-sign-out-alt pr-2"></i>@Localizer["Logout"]</a>
                                 </div>
                                 <div class="hidden">
-                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "Identity" })" method="post" id="logoutForm">
+                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-brandingId="@(currentUser.GarageSetting.BrandingId)" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "Identity" })" method="post" id="logoutForm">
                                         <button id="logoutButton" type="submit" class="logout"><i class="far fa-sign-out-alt"></i> Logout</button>
                                     </form>
                                 </div>
@@ -174,10 +189,10 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="@(currentUser.GarageSetting.Language.ToUpper() == "FR" ? "https://ochplanner.com/support/" : "https://ochplanner.com/en/support/")" target="_blank"><i class="fad fa-question-square"></i><span>@Localizer["MenuHelp"]</span></a>
+                                        <a href="@(currentUser.GarageSetting.Language.ToUpper() == "FR" ? currentUser.GarageSetting.HelpLinkFr : currentUser.GarageSetting.HelpLinkEn)" target="_blank"><i class="fad fa-question-square"></i><span>@Localizer["MenuHelp"]</span></a>
                                     </li>
                                     <li>
-                                        <a id="btn-order" href="@(currentUser.GarageSetting.Language.ToUpper() == "FR" ? "https://ochplanner.com/boutique/" : "https://ochplanner.com/en/boutique/")" target="_blank" class="btn btn-outline-primary btn-sm"><span>@Localizer["MenuStickerOrder"]</span></a>
+                                        <a id="btn-order" href="@(currentUser.GarageSetting.Language.ToUpper() == "FR" ? currentUser.GarageSetting.StoreLinkFr : currentUser.GarageSetting.StoreLinkEn)" target="_blank" class="btn btn-outline-primary btn-sm"><span>@Localizer["MenuStickerOrder"]</span></a>
                                     </li>
                                 </ul>
                             </nav>

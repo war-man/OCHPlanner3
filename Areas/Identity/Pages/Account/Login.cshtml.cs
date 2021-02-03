@@ -64,6 +64,8 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
 
             public TranslationModel Translation { get; set; }
+
+            public int BrandingId { get; set; }
         }
 
         public class TranslationModel
@@ -96,8 +98,16 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+            //Branding
+            var brandingId = 1;
+            if (HttpContext.Request.Query.ContainsKey("b"))
+            {
+                int.TryParse(HttpContext.Request.Query["b"], out brandingId);
+            }
+
             Input = new InputModel()
             {
+                BrandingId = brandingId,
                 Translation = new TranslationModel()
                 {
                     Message = _localizer["Message"],

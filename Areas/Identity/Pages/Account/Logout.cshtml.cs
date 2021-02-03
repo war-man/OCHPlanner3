@@ -26,12 +26,12 @@ namespace OCHPlanner3.Areas.Identity.Pages.Account
         {
         }
 
-        public async Task<IActionResult> OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnPost(string returnUrl = null, int brandingId = 1)
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             
-            return LocalRedirect("/Identity/Account/Login");
+            return LocalRedirect($"/Identity/Account/Login?b={brandingId}");
         }
     }
 }
