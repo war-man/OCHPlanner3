@@ -19,6 +19,7 @@ namespace OCHPlanner3.Data.Mapper
                 .Map(dest => dest.BannerId, src => src.SelectedBannerId)
                 .Map(dest => dest.Province, src => src.Province.ToUpper())
                 .Map(dest => dest.OilResetModule, src => src.OilReset)
+                .Map(dest => dest.MaintenanceModule, src => src.Maintenance)
                 .Map(dest => dest.CommunicationModule, src => src.Communication)
                 .Map(dest => dest.Support, src => src.Support)
                 .Map(dest => dest.ActivationDate, src => Convert.ToDateTime(src.ActivationDate).ToString("dd/MM/yyyy"));
@@ -29,6 +30,7 @@ namespace OCHPlanner3.Data.Mapper
                 .Map(dest => dest.SelectedLanguageCode, src => src.Language)
                 .Map(dest => dest.SelectedDateFormatCode, src => src.FormatDate)
                 .Map(dest => dest.Communication, src => src.CommunicationModule)
+                .Map(dest => dest.Maintenance, src => src.MaintenanceModule)
                 .Map(dest => dest.OilReset, src => src.OilResetModule);
         }
     }

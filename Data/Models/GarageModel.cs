@@ -36,6 +36,7 @@ namespace OCHPlanner3.Data.Models
         public int VINDecodeCount { get; set; }
         public bool FastEntry { get; set; }
         public bool CommunicationModule { get; set; }
+        public bool MaintenanceModule { get; set; }
         public bool OilResetModule { get; set; }
         public int FormatDateId { get; set; }
         public string FormatDate { get; set; }

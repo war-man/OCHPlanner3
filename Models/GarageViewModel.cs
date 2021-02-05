@@ -38,6 +38,7 @@ namespace OCHPlanner3.Models
         public bool Support { get; set; }
         public bool OilReset { get; set; }
         public bool Communication { get; set; }
+        public bool Maintenance { get; set; }
         public string SupportActivationDate { get; set; }
         public int SupportExpiration { get; set; }
         public string Note { get; set; }
