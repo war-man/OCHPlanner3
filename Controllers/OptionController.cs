@@ -18,7 +18,6 @@ namespace OCHPlanner3.Controllers
     [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class OptionController : BaseController
     {
-        private readonly IUserService _userService;
         private readonly IGarageService _garageService;
         private readonly IOptionService _optionService;
 

@@ -145,6 +145,10 @@
                                         <ul class="submenu">
                                             <li class="@(Html.IsMenuActive("/Sticker") ? "active" : "")"><a asp-controller="Sticker" asp-action="Simple">Simple</a></li>
                                             <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">@Localizer["MenuMessage"]</a></li>
+                                            @if (User.IsInRole("SuperAdmin") || currentUser.GarageSetting.Maintenance )
+                                            {
+                                                <li class="@(Html.IsMenuActive("/Maintenance") ? "active" : "")"><a asp-controller="MaintenancePlan" asp-action="Index">@Localizer["MenuMaintenancePlan"]</a></li>
+                                            }
                                         </ul>
                                     </li>
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
