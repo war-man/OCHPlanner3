@@ -117,14 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Auto / Notes</value>
+  </data>
+  <data name="Cellphone" xml:space="preserve">
+    <value>Cellulaire</value>
+  </data>
   <data name="Color" xml:space="preserve">
     <value>Couleur</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Compagnie</value>
+  </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Desc</value>
   </data>
   <data name="DriverInfo" xml:space="preserve">
     <value>Informations conducteur</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Courriel</value>
   </data>
   <data name="EntryDate" xml:space="preserve">
     <value>Mise en service</value>
@@ -136,16 +151,25 @@
     <value>KM dernier service</value>
   </data>
   <data name="MaintenancePlan" xml:space="preserve">
-    <value>Plan maintenance</value>
+    <value>Plan de maintenance</value>
   </data>
   <data name="MonthlyMileage" xml:space="preserve">
     <value>KM mensuel moyen</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
   <data name="OwnerInfo" xml:space="preserve">
     <value>Informations propriétaire</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
   <data name="Plate" xml:space="preserve">
     <value>Plaque</value>
+  </data>
+  <data name="Programs" xml:space="preserve">
+    <value>Programmes</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Plan de maintenance</value>
