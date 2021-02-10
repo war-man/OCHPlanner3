@@ -23,5 +23,7 @@ namespace OCHPlanner3.Models
         public string Color { get; set; }
         public int SelectedProgram { get; set; }
         public IEnumerable<SelectListItem> ProgramList { get; set; }
+        public int SelectedTransmission { get; set; }
+        public int SelectedPropulsion { get; set; }
     }
 }

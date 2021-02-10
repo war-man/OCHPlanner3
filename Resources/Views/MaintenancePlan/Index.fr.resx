@@ -135,29 +135,47 @@
   <data name="Description" xml:space="preserve">
     <value>Desc</value>
   </data>
+  <data name="DescriptionFull" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="DriverInfo" xml:space="preserve">
     <value>Informations conducteur</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Courriel</value>
   </data>
+  <data name="Engine" xml:space="preserve">
+    <value>Moteur</value>
+  </data>
   <data name="EntryDate" xml:space="preserve">
     <value>Mise en service</value>
   </data>
   <data name="LastServiceDate" xml:space="preserve">
-    <value>Date dernier service</value>
+    <value>Dernière visite</value>
   </data>
   <data name="LastServiceMileage" xml:space="preserve">
-    <value>KM dernier service</value>
+    <value>Dernier KM</value>
   </data>
   <data name="MaintenancePlan" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
+  <data name="MaintenancePlanFull" xml:space="preserve">
     <value>Plan de maintenance</value>
   </data>
+  <data name="Make" xml:space="preserve">
+    <value>Marque</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Modèle</value>
+  </data>
   <data name="MonthlyMileage" xml:space="preserve">
-    <value>KM mensuel moyen</value>
+    <value>KM moyen</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
+  </data>
+  <data name="Odometer" xml:space="preserve">
+    <value>Odometre</value>
   </data>
   <data name="OwnerInfo" xml:space="preserve">
     <value>Informations propriétaire</value>
@@ -168,11 +186,20 @@
   <data name="Plate" xml:space="preserve">
     <value>Plaque</value>
   </data>
+  <data name="Program" xml:space="preserve">
+    <value>Programme</value>
+  </data>
   <data name="Programs" xml:space="preserve">
     <value>Programmes</value>
   </data>
+  <data name="Propulsion" xml:space="preserve">
+    <value>Propulsion</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Plan de maintenance</value>
+  </data>
+  <data name="Transmission" xml:space="preserve">
+    <value>Transmission</value>
   </data>
   <data name="UnitNo" xml:space="preserve">
     <value>No unité</value>
@@ -185,5 +212,8 @@
   </data>
   <data name="VisitHistory" xml:space="preserve">
     <value>Historique des visites</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Année</value>
   </data>
 </root>
