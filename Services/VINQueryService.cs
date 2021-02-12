@@ -16,14 +16,11 @@ namespace OCHPlanner3.Services
 
         private string VINQueryUrl { get; set; }
         private string VINQueryKey { get; set; }
-       // private MediaTypeWithQualityHeaderValue DefaultRequestHeader { get; set; }
-        //protected static bool ShouldLogSupportActivity { get; private set; }
-
+ 
         private const string GETVINDECODE_URL = "?reportType=0&vin={0}";
 
         public VINQueryService(IConfiguration configuration)
         {
-            //DefaultRequestHeader = new MediaTypeWithQualityHeaderValue("application/json");
             _configuration = configuration;
             VINQueryUrl = _configuration.GetSection("VINQuery_Url").Value;
             VINQueryKey = _configuration.GetSection("VINQuery_Key").Value;
@@ -68,7 +65,6 @@ namespace OCHPlanner3.Services
             //set basic info of the httpClient to be used
             client.BaseAddress = new Uri(VINQueryUrl);
             client.DefaultRequestHeaders.Accept.Clear();
-            //client.DefaultRequestHeaders.Accept.Add(DefaultRequestHeader);
             return client;
         }
 
@@ -80,26 +76,7 @@ namespace OCHPlanner3.Services
 
             return true;
         }
-
-        //protected IEnumerable<T> GetLists<T>(string url)
-        //{
-        //    using (var client = GetHttpClient())
-        //    {
-        //        url += string.Format("&api_key={0}", VINQueryKey);
-
-        //        var response = client.GetAsync(url).Result;
-        //        if (!ValidateResponse(response)) return new List<T>();
-        //        //read the auth. response
-        //        var content = response.Content.ReadAsStreamAsync<List<T>>().Result;
-        //        return content;
-        //    }
-        //}
-
-        //protected T GetItem<T>(string url, int id)
-        //{
-        //    return GetItem<T>(string.Format(url, id));
-        //}
-
+      
         protected async Task<VINDetailResultViewModel> GetItem(string url)
         {
             var xdoc = new XmlDocument();
@@ -124,6 +101,9 @@ namespace OCHPlanner3.Services
                     result.Engine = xdoc.SelectSingleNode("/VINquery/VIN/Vehicle/Item[@Key='Engine Type']/@Value").Value;
                     result.Transmission = xdoc.SelectSingleNode("/VINquery/VIN/Vehicle/Item[@Key='Transmission-short']/@Value").Value;
                     result.DriveLine = xdoc.SelectSingleNode("/VINquery/VIN/Vehicle/Item[@Key='Driveline']/@Value").Value;
+                    result.BrakeSystem = xdoc.SelectSingleNode("/VINquery/VIN/Vehicle/Item[@Key='Anti-Brake System']/@Value").Value;
+                    result.Steering = xdoc.SelectSingleNode("/VINquery/VIN/Vehicle/Item[@Key='Steering Type']/@Value").Value;
+                    result.Seating = xdoc.SelectSingleNode("/VINquery/VIN/Vehicle/Item[@Key='Standard Seating']/@Value").Value;
                 }
 
                 return result;

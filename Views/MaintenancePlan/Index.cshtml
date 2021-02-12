@@ -400,10 +400,17 @@
                                 <label for="model">@Localizer["Model"]</label>
                                 <input id="model" name="model" type="text" class="form-control" />
                             </div>
-
                             <div class="form-group">
                                 <label for="color">@Localizer["Color"]</label>
                                 <input id="color" name="color" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="brake">@Localizer["BrakeSystem"]</label>
+                                <input id="brake" name="brake" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="steering">@Localizer["Steering"]</label>
+                                <input id="steering" name="steering" type="text" class="form-control" />
                             </div>
 
                             <div class="form-group">
@@ -428,20 +435,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="transmission">@Localizer["Transmission"]</label>
-                                <select asp-for="Vehicle.SelectedTransmission" name="transmissionList" class="form-control">
-                                    <option value="">-- Select --</option>
-                                    <option value="1">Automatique</option>
-                                    <option value="2">Manuel</option>
-                                </select>
+                                <input id="transmission" name="transmission" type="text" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label for="propulsion">@Localizer["Propulsion"]</label>
-                                <select asp-for="Vehicle.SelectedPropulsion" name="propulsionList" class="form-control">
-                                    <option value="">-- Select --</option>
-                                    <option value="1">Traction</option>
-                                    <option value="2">Propulsion</option>
-                                    <option value="3">4x4</option>
-                                </select>
+                                <input id="propulsion" name="propulsion" type="text" class="form-control" />
                             </div>
 
                             <div class="form-group">
@@ -455,6 +453,10 @@
                             <div class="form-group">
                                 <label for="plate">@Localizer["Plate"]</label>
                                 <input id="plate" name="plate" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="seating">@Localizer["Seating"]</label>
+                                <input id="seating" name="seating" type="text" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label for="program">@Localizer["Program"]</label>

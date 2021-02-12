@@ -2,7 +2,6 @@
     var ajaxUrl = $('#HidRootUrl').val();
 
     $(document).on("blur", 'input[name="VinCode"]', function () {
-        alert($(this).val());
 
         $.ajax({
             url: ajaxUrl + '/MaintenancePlan/VINDecode',
@@ -12,7 +11,7 @@
             },
             async: false,
             success: function (response) {
-                alert(response);
+                $('input[name="Description"]').val(response.Description);
             },
             error: function (xhr, status, error) {
                 alert('Error');
