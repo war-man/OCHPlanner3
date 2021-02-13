@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OCHPlanner3.Models
 {
-    public class VehicleViewModel
+    public class VehicleViewModel : BaseViewModel
     {
         public string VinCode { get; set; }
         public string Description { get; set; }

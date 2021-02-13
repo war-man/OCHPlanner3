@@ -1,0 +1,43 @@
+﻿@model VehicleViewModel
+@using OCHPlanner3.Services.Interfaces
+@using OCHPlanner3.Helper
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IUserService  userService
+
+@{
+    ViewData["Title"] = @Localizer["Title"];
+}
+
+@{
+    var currentUser = userService.GetCurrentUserCredentials();
+}
+
+@Html.Hidden("HidRootUrl", Model.RootUrl)
+
+<style>
+    .form-group {
+        margin-bottom: 0.5rem !important;
+    }
+</style>
+
+<div class="main-content-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title"><i class="fad fa-car-alt mr-2"></i>@Localizer["Section1Title"]</h4>
+                        ghfghfgh
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/vehicle.js"></script>
+}

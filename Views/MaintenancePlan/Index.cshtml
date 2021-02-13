@@ -7,6 +7,10 @@
     ViewData["Title"] = @Localizer["Title"];
 }
 
+@Html.Hidden("hidVINNotFoundTitle", Localizer["VINNotFoundTitle"].Value)
+@Html.Hidden("hidVINNotFoundText", Localizer["VINNotFoundText"].Value)
+@Html.Hidden("hidCreateVehicleButton", Localizer["CreateVehicle"].Value)
+
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
 <div class="main-content-inner">

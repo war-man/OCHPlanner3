@@ -135,6 +135,9 @@
   <data name="Company" xml:space="preserve">
     <value>Compagnie</value>
   </data>
+  <data name="CreateVehicle" xml:space="preserve">
+    <value>Créer un véhicule</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Desc</value>
   </data>
@@ -218,6 +221,12 @@
   </data>
   <data name="VehicleInfo" xml:space="preserve">
     <value>Informations véhicule</value>
+  </data>
+  <data name="VINNotFoundText" xml:space="preserve">
+    <value>Le VIN saisi est innexistant dans notre système. Veuillez essayer un autre VIN ou créer un véhicule associé à ce VIN.</value>
+  </data>
+  <data name="VINNotFoundTitle" xml:space="preserve">
+    <value>VIN innexistant!</value>
   </data>
   <data name="VisitHistory" xml:space="preserve">
     <value>Historique des visites</value>
