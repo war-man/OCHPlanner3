@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MaintenancePlan" xml:space="preserve">
+    <value>Maintenance Plan</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="Section1Title" xml:space="preserve">
     <value>Vehicle Informations</value>
+  </data>
+  <data name="Section2Title" xml:space="preserve">
+    <value>Additional Informations</value>
+  </data>
+  <data name="Section3Title" xml:space="preserve">
+    <value>Programs &amp; Plans</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Vehicle</value>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Address" xml:space="preserve">
-    <value>Adresse</value>
-  </data>
   <data name="Authorization" xml:space="preserve">
     <value>Auto / Notes</value>
   </data>
@@ -132,9 +129,6 @@
   <data name="Color" xml:space="preserve">
     <value>Couleur</value>
   </data>
-  <data name="Company" xml:space="preserve">
-    <value>Compagnie</value>
-  </data>
   <data name="CreateVehicle" xml:space="preserve">
     <value>Créer un véhicule</value>
   </data>
@@ -143,12 +137,6 @@
   </data>
   <data name="DescriptionFull" xml:space="preserve">
     <value>Description</value>
-  </data>
-  <data name="DriverInfo" xml:space="preserve">
-    <value>Informations conducteur</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Courriel</value>
   </data>
   <data name="Engine" xml:space="preserve">
     <value>Moteur</value>
@@ -177,17 +165,8 @@
   <data name="MonthlyMileage" xml:space="preserve">
     <value>KM moyen</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Nom</value>
-  </data>
   <data name="Odometer" xml:space="preserve">
     <value>Odometre</value>
-  </data>
-  <data name="OwnerInfo" xml:space="preserve">
-    <value>Informations propriétaire</value>
-  </data>
-  <data name="Phone" xml:space="preserve">
-    <value>Téléphone</value>
   </data>
   <data name="Plate" xml:space="preserve">
     <value>Plaque</value>
@@ -223,10 +202,10 @@
     <value>Informations véhicule</value>
   </data>
   <data name="VINNotFoundText" xml:space="preserve">
-    <value>Le VIN saisi est innexistant dans notre système. Veuillez essayer un autre VIN ou créer un véhicule associé à ce VIN.</value>
+    <value>Le VIN saisi n'est pas valide ou n'a pas été trouvé. Veuillez essayer un autre VIN ou créer un véhicule associé à ce VIN.</value>
   </data>
   <data name="VINNotFoundTitle" xml:space="preserve">
-    <value>VIN innexistant!</value>
+    <value>VIN non trouvé!</value>
   </data>
   <data name="VisitHistory" xml:space="preserve">
     <value>Historique des visites</value>

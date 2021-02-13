@@ -37,9 +37,10 @@ namespace OCHPlanner3.Controllers
                     Vehicle = new VehicleViewModel()
                     {
                         OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId),
-                        MaintenancePlanList = new List<SelectListItem>()
+                        MaintenancePlanList = new List<SelectListItem>(),
+                        Owner = new OwnerViewModel(),
+                        Driver = new DriverViewModel()
                     },
-                    Owner = new OwnerViewModel(),
                     RootUrl = BaseRootUrl
                 };
 

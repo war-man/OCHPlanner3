@@ -1,0 +1,40 @@
+﻿@model OwnerViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="header-title"><i class="fad fa-user mr-2"></i>@Localizer["OwnerInfo"]</h4>
+        <div class="form-group row">
+            <label for="Company" class="control-label col-md-4 mt-2">@Localizer["Company"]</label>
+            <div class="col-md-8">
+                <input asp-for="Company" name="Company" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Name" class="control-label col-md-4 mt-2">@Localizer["Name"]</label>
+            <div class="col-md-8">
+                <input asp-for="Name" name="Name" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Address" class="control-label col-md-4 mt-2">@Localizer["Address"]</label>
+            <div class="col-md-8">
+                <input asp-for="Address" name="Address" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Phone" class="control-label col-md-4 mt-2">@Localizer["Phone"]</label>
+            <div class="col-md-8">
+                <input asp-for="Phone" name="Phone" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row mb-0">
+            <label for="Email" class="control-label col-md-4 mt-2">@Localizer["Email"]</label>
+            <div class="col-md-8">
+                <input asp-for="Email" name="Email" class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>

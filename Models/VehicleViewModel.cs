@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 
 namespace OCHPlanner3.Models
@@ -14,6 +15,9 @@ namespace OCHPlanner3.Models
         public string Motor { get; set; }
         public string Transmission { get; set; }
         public string Propulsion { get; set; }
+        public string BrakeSystem { get; set; }
+        public string Steering { get; set; }
+        public string Seating { get; set; }
         public int SelectedOil { get; set; }
         public IEnumerable<SelectListItem> OilList { get; set; }
         public int SelectedMaintenancePlan { get; set; }
@@ -25,5 +29,11 @@ namespace OCHPlanner3.Models
         public IEnumerable<SelectListItem> ProgramList { get; set; }
         public int SelectedTransmission { get; set; }
         public int SelectedPropulsion { get; set; }
+        public string SelectedUnit { get; set; }
+        public DateTime EntryDate { get; set; }
+        public int MonthlyMileage { get; set; }
+
+        public OwnerViewModel Owner { get; set; }
+        public DriverViewModel Driver { get; set; }
     }
 }

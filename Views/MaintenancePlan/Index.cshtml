@@ -49,14 +49,14 @@
                             </div>
                             <label for="MonthlyMileage" class="control-label col-md-2 mt-2">@Localizer["MonthlyMileage"]</label>
                             <div class="col-md-2">
-                                <input asp-for="MonthlyMileage" name="LastServiceDate" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.MonthlyMileage" name="LastServiceDate" class="form-control" maxlength="20" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="EntryDate" class="control-label col-md-2 mt-2">@Localizer["EntryDate"]</label>
                             <div class="col-md-2">
-                                <input asp-for="EntryDate" name="EntryDate" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.EntryDate" name="EntryDate" class="form-control" maxlength="20" />
                             </div>
                             <label for="SelectedOil" class="control-label col-md-2 mt-2">@Localizer["UseOil"]</label>
                             <div class="col-md-2">
@@ -113,85 +113,17 @@
 
                 <div class="row mt-4">
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title"><i class="fad fa-user mr-2"></i>@Localizer["OwnerInfo"]</h4>
-                                <div class="form-group row">
-                                    <label for="Owner.Company" class="control-label col-md-4 mt-2">@Localizer["Company"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Owner.Company" name="Company" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Owner.Name" class="control-label col-md-4 mt-2">@Localizer["Name"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Owner.Name" name="Name" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Owner.Address" class="control-label col-md-4 mt-2">@Localizer["Address"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Owner.Address" name="Address" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Owner.Phone" class="control-label col-md-4 mt-2">@Localizer["Phone"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Owner.Phone" name="Phone" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-0">
-                                    <label for="Owner.Email" class="control-label col-md-4 mt-2">@Localizer["Email"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Owner.Email" name="Email" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @await Html.PartialAsync("_Owner", Model.Vehicle.Owner)
                     </div>
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title"><i class="fad fa-user mr-2"></i>@Localizer["DriverInfo"]</h4>
-                                <div class="form-group row">
-                                    <label for="Driver.Name" class="control-label col-md-4 mt-2">@Localizer["Name"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Driver.Name" name="Name" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Driver.Phone" class="control-label col-md-4 mt-2">@Localizer["Phone"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Driver.Phone" name="Phone" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Driver.Cellphone" class="control-label col-md-4 mt-2">@Localizer["CellPhone"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Driver.CellPhone" name="Cellphone" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="Driver.Email" class="control-label col-md-4 mt-2">@Localizer["Email"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Driver.Email" name="Email" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-0">
-                                    <label for="Driver.Autorization" class="control-label col-md-4 mt-2">@Localizer["Authorization"]</label>
-                                    <div class="col-md-8">
-                                        <input asp-for="Driver.Autorization" name="Autorization" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @await Html.PartialAsync("_Driver", Model.Vehicle.Driver)
                     </div>
                 </div>
             </div>
             <!-- Right column area  -->
             <div class="col-md-3">
                 <div class="card">
-                    <div class="card-body" style="min-height:785px;">
+                    <div class="card-body" style="min-height:765px;">
                         <h4 class="header-title"><i class="fad fa-history mr-2"></i>@Localizer["VisitHistory"]</h4>
 
                     </div>
