@@ -144,6 +144,9 @@
   <data name="DateFormat" xml:space="preserve">
     <value>Format de date</value>
   </data>
+  <data name="DefaultManagement" xml:space="preserve">
+    <value>Gestion des valeurs par défaut</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Courriel</value>
   </data>
@@ -153,11 +156,20 @@
   <data name="Language" xml:space="preserve">
     <value>Langue</value>
   </data>
+  <data name="MaintenancePlanManagement" xml:space="preserve">
+    <value>Gestion plan de maintenances</value>
+  </data>
+  <data name="MaintenanceTypeManagement" xml:space="preserve">
+    <value>Gestion des types d'entretiens</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
   <data name="NbrUsers" xml:space="preserve">
     <value>Nbr utilisateurs permis</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
   </data>
   <data name="PersonalisedSticker" xml:space="preserve">
     <value>Autocollant personnalisé</value>
@@ -167,6 +179,12 @@
   </data>
   <data name="PostalCode" xml:space="preserve">
     <value>Code Postal</value>
+  </data>
+  <data name="ProductManagement" xml:space="preserve">
+    <value>Gestion des produits</value>
+  </data>
+  <data name="ProgramManagement" xml:space="preserve">
+    <value>Gestion des programmes</value>
   </data>
   <data name="Province" xml:space="preserve">
     <value>Province / État</value>

@@ -440,5 +440,34 @@ namespace OCHPlanner3.Controllers
             }
         }
         #endregion
+
+        #region Product Management
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">GarageId</param>
+        /// <returns></returns>
+        [Route("/{lang:lang}/Options/Products/{id}")]
+        public async Task<IActionResult> ProductManagement(int id)
+        {
+            try
+            {
+                var model = new ProductManagementViewModel()
+                {
+                    RootUrl = BaseRootUrl,
+                    Products = new List<ProductViewModel>()
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        #endregion
     }
 }

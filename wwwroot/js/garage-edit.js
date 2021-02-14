@@ -138,7 +138,11 @@
         }
     });
 
-    $('#CounterOrder').on('blur', function () {
+    $(document).on("click", '#btnProduct', function () {
+        location.href = ajaxUrl + '/Options/Products/' + $('#Id').val();
+    });
+    
+    $(document).on("blur", '#CounterOrder', function () {
 
         var counter = $(this).val();
 

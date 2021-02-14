@@ -99,6 +99,22 @@ namespace OCHPlanner3.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Administrator")]
+        [HttpPost("/{lang:lang}/Garage/Create")]
+        public async Task<IActionResult> Create(GarageViewModel model)
+        {
+            try
+            {
+                var result = await _garageService.Create(model);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [Authorize(Roles = "SuperAdmin, Administrator")]
         [HttpGet("/{lang:lang}/Garage/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -130,12 +146,12 @@ namespace OCHPlanner3.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Administrator")]
-        [HttpPost("/{lang:lang}/Garage/Create")]
-        public async Task<IActionResult> Create(GarageViewModel model)
+        [HttpPut("/{lang:lang}/Garage/Edit")]
+        public async Task<IActionResult> Edit(GarageViewModel model)
         {
             try
             {
-                var result = await _garageService.Create(model);
+                var result = await _garageService.Update(model);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -152,22 +168,6 @@ namespace OCHPlanner3.Controllers
             {
                 await _garageService.IncrementPrintCounter(CurrentUser.GarageId);
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-                ex.ToExceptionless().Submit();
-                return BadRequest();
-            }
-        }
-
-        [Authorize(Roles = "SuperAdmin, Administrator")]
-        [HttpPut("/{lang:lang}/Garage/Edit")]
-        public async Task<IActionResult> Edit(GarageViewModel model)
-        {
-            try
-            {
-                var result = await _garageService.Update(model);
-                return Ok(result);
             }
             catch (Exception ex)
             {

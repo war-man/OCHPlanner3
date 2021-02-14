@@ -11,7 +11,7 @@
 @Html.Hidden("HidRequired", @Localizer["Required"].Value)
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 @Html.Hidden("HidIsSuperAdmin", User.IsInRole("SuperAdmin"))
-@Html.Hidden("HidOriginalStock", Model.CounterStock);
+@Html.Hidden("HidOriginalStock", Model.CounterStock)
 
 <div class="page-title-area">
     <div class="row align-items-center">
@@ -72,6 +72,24 @@
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">@Localizer["Options"]</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button id="btnProduct" type="button" class="btn btn-outline-secondary w-100">@Localizer["ProductManagement"]</button>
+                                            <button id="btnSave" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["ProgramManagement"]</button>
+                                            <button id="btnSave" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["DefaultManagement"]</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button id="btnSave" type="button" class="btn btn-outline-secondary w-100">@Localizer["MaintenanceTypeManagement"]</button>
+                                            <button id="btnSave" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["MaintenancePlanManagement"]</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
