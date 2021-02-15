@@ -25,7 +25,7 @@ namespace OCHPlanner3.Data.Factory
         public async Task<IEnumerable<OptionModel>> GetBaseOptions(OptionTypeEnum optionType, string language)
         {
             var sql = "SELECT [Id],[Name],[Description] FROM [dbo].[OptionsBase] WHERE OptionType = @optionType AND Language = @language";
-                       
+
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
@@ -111,7 +111,7 @@ namespace OCHPlanner3.Data.Factory
         public async Task<int> UpdateOption(OptionTypeEnum optionType, int id, string name, string description)
         {
             var sql = "";
-           
+
             switch (optionType)
             {
                 case OptionTypeEnum.Recommendation:
@@ -172,6 +172,85 @@ namespace OCHPlanner3.Data.Factory
 
                 return result;
             }
+        }
+
+        public async Task<IEnumerable<ProductModel>> GetProductList(int garageId)
+        {
+            var sql = @"SELECT [Id]
+                      ,[ProductNo]
+                      ,[Description]
+                      ,[CostPrice]
+                      ,[RetailPrice]
+                      ,[GarageId]
+                      FROM [dbo].[Products]
+                      WHERE GarageId = @GarageId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<ProductModel>(sql,
+                    new
+                    {
+                        GarageId = garageId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<int> CreateProduct(ProductModel productModel)
+        {
+            var sql = @"INSERT INTO [dbo].[Products] VALUES(@ProductNo, @Description, @CostPrice, @RetailPrice, @GarageId)";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        ProductNo = productModel.ProductNo,
+                        Description = productModel.Description,
+                        CostPrice = productModel.CostPrice,
+                        RetailPrice = productModel.RetailPrice,
+                        GarageId = productModel.GarageId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+
+        }
+
+        public async Task<int> UpdateProduct(ProductModel productModel)
+        {
+            var sql = @"UPDATE [dbo].[Products] 
+                        SET ProductNo = @ProductNo, 
+                            Description = @Description,
+                            CostPrice = @CostPrice, 
+                            RetailPrice = @RetailPrice
+                        WHERE Id = @Id";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        ProductNo = productModel.ProductNo,
+                        Description = productModel.Description,
+                        CostPrice = productModel.CostPrice,
+                        RetailPrice = productModel.RetailPrice,
+                        Id = productModel.Id
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+
         }
     }
 }

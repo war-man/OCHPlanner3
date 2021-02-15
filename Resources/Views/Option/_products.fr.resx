@@ -123,10 +123,10 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="Detail" xml:space="preserve">
-    <value>Price de détail</value>
-  </data>
   <data name="ProductNo" xml:space="preserve">
     <value>No produit</value>
+  </data>
+  <data name="Retail" xml:space="preserve">
+    <value>Price de détail</value>
   </data>
 </root>

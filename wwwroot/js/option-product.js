@@ -31,8 +31,11 @@
                     $('#editError').hide();
                     $('#editForm').trigger('reset');
 
-                    $('#editForm input[name=name]').val(data.name);
                     $('#editForm input[name=id]').val(data.id);
+                    $('#editForm input[name=productNo]').val(data.productNo);
+                    $('#editForm input[name=description]').val(data.description);
+                    $('#editForm input[name=costPrice]').val(data.costPrice);
+                    $('#editForm input[name=retailPrice]').val(data.retailPrice);
 
                     $('#editModal').modal({ backdrop: 'static' });
                 }
@@ -55,7 +58,7 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Options/DeleteMaintenance',
+                                url: ajaxUrl + '/Options/DeleteProduct',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
@@ -80,19 +83,7 @@
 
         var table = $('#ProductListTable').DataTable(tableSettings);
 
-        table.on('select deselect', function (e, dt, type, indexes) {
-            var rowData = table.rows(indexes).data().toArray();
-
-            //Cannot delete base options
-            if (parseInt(rowData[0]['id']) >= 250000) {
-                table.button(1).enable(false);
-                table.button(2).enable(false);
-            }
-            else {
-                table.button(1).enable(true);
-                table.button(2).enable(true);
-            }
-        });
+       
     }
 
     $('#submitAddForm').on('click', function () {
@@ -100,15 +91,39 @@
 
         form.validate({
             rules: {
-                'name': {
+                'productNo': {
+                    required: true,
+                    noSpace: true
+                },
+                'description': {
+                    required: true,
+                    noSpace: true
+                },
+                'cost': {
+                    required: true,
+                    noSpace: true
+                },
+                'retail': {
                     required: true,
                     noSpace: true
                 }
             },
             messages: {
-                'name': {
-                    required: $('#hidNameRequired').val(),
-                    noSpace: $('#hidNameRequired').val()
+                'productNo': {
+                    required: $('#hidProductNoRequired').val(),
+                    noSpace: $('#hidProductNoRequired').val()
+                },
+                'description': {
+                    required: $('#hidDescriptionRequired').val(),
+                    noSpace: $('#hidDescriptionRequired').val()
+                },
+                'cost': {
+                    required: $('#hidCostRequired').val(),
+                    noSpace: $('#hidCostRequired').val()
+                },
+                'retail': {
+                    required: $('#hidRetailRequired').val(),
+                    noSpace: $('#hidRetailRequired').val()
                 }
             },
             errorElement: 'span',
@@ -130,16 +145,14 @@
             formData = formData;
 
             $.ajax({
-                url: ajaxUrl + '/Options/CreateMaintenance',
+                url: ajaxUrl + '/Options/CreateProduct',
                 type: "POST",
-                dataType: "json",
                 data: formData,
-                async: false,
                 success: function (response) {
                     addDone();
                 },
                 error: function (xhr, status, error) {
-                    maintenanceFail(xhr, status, error);
+                    fail(xhr, status, error);
                 }
             });
         }
@@ -150,15 +163,39 @@
 
         form.validate({
             rules: {
-                'name': {
+                'productNo': {
+                    required: true,
+                    noSpace: true
+                },
+                'description': {
+                    required: true,
+                    noSpace: true
+                },
+                'cost': {
+                    required: true,
+                    noSpace: true
+                },
+                'retail': {
                     required: true,
                     noSpace: true
                 }
             },
             messages: {
-                'name': {
-                    required: $('#hidNameRequired').val(),
-                    noSpace: $('#hidNameRequired').val()
+                'productNo': {
+                    required: $('#hidProductNoRequired').val(),
+                    noSpace: $('#hidProductNoRequired').val()
+                },
+                'description': {
+                    required: $('#hidDescriptionRequired').val(),
+                    noSpace: $('#hidDescriptionRequired').val()
+                },
+                'cost': {
+                    required: $('#hidCostRequired').val(),
+                    noSpace: $('#hidCostRequired').val()
+                },
+                'retail': {
+                    required: $('#hidRetailRequired').val(),
+                    noSpace: $('#hidRetailRequired').val()
                 }
             },
             errorElement: 'span',
@@ -178,29 +215,27 @@
             var formData = $(form).serialize();
 
             $.ajax({
-                url: ajaxUrl + '/Options/UpdateMaintenance',
+                url: ajaxUrl + '/Options/UpdateProduct',
                 type: "POST",
-                dataType: "json",
                 data: formData,
-                async: false,
                 success: function (response) {
                     editDone();
                 },
                 error: function (xhr, status, error) {
-                    maintenanceFail(xhr, status, error);
+                   fail(xhr, status, error);
                 }
             });
         }
     });
 
-    function updateMaintenanceList(selectedGarage) {
+    function updateProductList(selectedGarage) {
         $.ajax({
-            url: ajaxUrl + '/Options/Maintenance/' + selectedGarage,
+            url: ajaxUrl + '/Options/Products/' + selectedGarage,
             type: "GET",
             dataType: "html",
             async: false,
             success: function (response) {
-                $('#maintenance-list').empty().html(response);
+                $('#product-list').empty().html(response);
                 initTable();
             },
             error: function (xhr, status, error) {
@@ -219,7 +254,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateMaintenanceList($('#hidSelectedGarageId').val());
+                updateProductList($('#GarageId').val());
             }
         });
     }
@@ -239,7 +274,7 @@
         });
     }
 
-    function maintenanceFail(xhr, status, error) {
+    function fail(xhr, status, error) {
         alert(xhr.responseText || error);
     }
 

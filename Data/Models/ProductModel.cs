@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OCHPlanner3.Models
+namespace OCHPlanner3.Data.Models
 {
-    public class ProductViewModel
+    public class ProductModel
     {
         public int Id { get; set; }
         public string ProductNo { get; set; }
@@ -13,11 +13,5 @@ namespace OCHPlanner3.Models
         public string CostPrice { get; set; }
         public string RetailPrice { get; set; }
         public int GarageId { get; set; }
-    }
-
-    public class ProductManagementViewModel : BaseViewModel
-    {
-        public int SelectedGarageId { get; set; }
-        public IEnumerable<ProductViewModel> Products { get; set; }
     }
 }

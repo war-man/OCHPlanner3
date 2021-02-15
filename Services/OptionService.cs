@@ -243,5 +243,34 @@ namespace OCHPlanner3.Services
         }
 
         #endregion
+
+        #region Product
+        
+        public async Task<int> CreateProduct(ProductViewModel product)
+        {
+            return await _optionFactory.CreateProduct(product.Adapt<ProductModel>());
+        }
+
+        public async Task<int> UpdateProduct(ProductViewModel product)
+        {
+            return await _optionFactory.UpdateProduct(product.Adapt<ProductModel>());
+        }
+
+        public async Task<int> DeleteProduct(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ProductViewModel>> GetProductList(int garageId)
+        {
+            var result = new List<ProductViewModel>();
+                       
+            var productList = await _optionFactory.GetProductList(garageId);
+            result.AddRange(productList.Adapt<IEnumerable<ProductViewModel>>());
+
+            return result;
+        }
+
+        #endregion
     }
 }

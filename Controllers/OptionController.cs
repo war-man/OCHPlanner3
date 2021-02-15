@@ -443,6 +443,24 @@ namespace OCHPlanner3.Controllers
 
         #region Product Management
 
+        [HttpGet("/{lang:lang}/Options/Product/{id}")]
+        public async Task<IActionResult> ProductManagementList(int id)
+        {
+            try
+            {
+                if (id == 0)
+                    throw new ApplicationException("ProductManagementList - Id should ne be set to 0");
+
+                var model = new ProductManagementViewModel() { Products = await _optionService.GetProductList(id) };
+                return PartialView("_appointments", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -456,10 +474,57 @@ namespace OCHPlanner3.Controllers
                 var model = new ProductManagementViewModel()
                 {
                     RootUrl = BaseRootUrl,
-                    Products = new List<ProductViewModel>()
+                    SelectedGarageId = id,
+                    Products = await _optionService.GetProductList(id)
                 };
 
+
                 return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("/{lang:lang}/Options/CreateProduct")]
+        public async Task<IActionResult> CreateProduct(ProductViewModel product)
+        {
+            try
+            {
+                var result = await _optionService.CreateProduct(product);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("/{lang:lang}/Options/UpdateProduct")]
+        public async Task<IActionResult> UpdateProduct(ProductViewModel product)
+        {
+            try
+            {
+                var result = await _optionService.UpdateProduct(product);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("/{lang:lang}/Options/DeleteProduct")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            try
+            {
+                var result = await _optionService.DeleteProduct(id);
+                return Ok(result);
             }
             catch (Exception ex)
             {

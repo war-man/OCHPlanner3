@@ -123,8 +123,17 @@
   <data name="AddOil" xml:space="preserve">
     <value>Ajouter un produit</value>
   </data>
+  <data name="AddProduct" xml:space="preserve">
+    <value>Ajouter un produit</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Fermer</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Prix coutant</value>
+  </data>
+  <data name="CostRequired" xml:space="preserve">
+    <value>Le prix coutant est requis</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Supprimer</value>
@@ -141,14 +150,35 @@
   <data name="DeleteTitle" xml:space="preserve">
     <value>Supprimer ce produit</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DescriptionRequired" xml:space="preserve">
+    <value>La description est requise</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
   </data>
   <data name="EditOil" xml:space="preserve">
     <value>Modifier un produit</value>
   </data>
+  <data name="EditProduct" xml:space="preserve">
+    <value>Modifier un produit</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
+  </data>
+  <data name="ProductNo" xml:space="preserve">
+    <value>No produit</value>
+  </data>
+  <data name="ProductNoRequired" xml:space="preserve">
+    <value>Le no de produit est requis</value>
+  </data>
+  <data name="Retail" xml:space="preserve">
+    <value>Prix de détail</value>
+  </data>
+  <data name="RetailRequired" xml:space="preserve">
+    <value>Le prix de détail est requis</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>

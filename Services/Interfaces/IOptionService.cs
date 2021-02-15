@@ -24,5 +24,9 @@ namespace OCHPlanner3.Services.Interfaces
         Task<int> CreateAppointment(int garageId, string name);
         Task<int> UpdateAppointment(int id, string name);
         Task<int> DeleteAppointment(int id);
+        Task<int> DeleteProduct(int id);
+        Task<int> CreateProduct(ProductViewModel product);
+        Task<int> UpdateProduct(ProductViewModel product);
+        Task<IEnumerable<ProductViewModel>> GetProductList(int garageId);
     }
 }

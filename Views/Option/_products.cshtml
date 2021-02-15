@@ -5,26 +5,26 @@
 
 @inject IViewLocalizer Localizer
 
-    <table id="ProductListTable" class="table table-striped dataTable" data-processing="true">
-        <thead>
-            <tr>
-                <th data-data="id">Id</th>
-                <th data-data="name">@Localizer["ProductNo"]</th>
-                <th data-data="name">@Localizer["Description"]</th>
-                <th data-data="name">@Localizer["Cost"]</th>
-                <th data-data="name">@Localizer["Detail"]</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model.Products)
-            {
+<table id="ProductListTable" class="table table-striped dataTable" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="productNo">@Localizer["ProductNo"]</th>
+            <th data-data="description">@Localizer["Description"]</th>
+            <th data-data="costPrice">@Localizer["Cost"]</th>
+            <th data-data="retailPrice">@Localizer["Retail"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
             <tr>
                 <td>@product.Id</td>
                 <td>@product.ProductNo</td>
                 <td>@product.Description</td>
                 <td>@product.CostPrice</td>
-                <td>@product.DetailPrice</td>
+                <td>@product.RetailPrice</td>
             </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

@@ -22,6 +22,11 @@
 @Html.Hidden("hidSaveSuccess", Localizer["SaveSuccess"].Value)
 @Html.Hidden("hidUpdateSuccess", Localizer["UpdateSuccess"].Value)
 
+@Html.Hidden("hidProductNoRequired", Localizer["ProductNoRequired"].Value)
+@Html.Hidden("hidDescriptionRequired", Localizer["DescriptionRequired"].Value)
+@Html.Hidden("hidCostRequired", Localizer["CostRequired"].Value)
+@Html.Hidden("hidRetailRequired", Localizer["RetailRequired"].Value)
+
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
 <div class="page-title-area">
@@ -41,7 +46,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div id="appointment-list">
+                        <div id="product-list">
                             @await Html.PartialAsync("_products", Model)
                         </div>
                     </div>
@@ -55,18 +60,30 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">@Localizer["AddAppointment"]</h4>
+                <h4 class="modal-title">@Localizer["AddProduct"]</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="addForm">
-                    <input name="selectedGarageId" type="hidden" value="@currentUser.GarageId" />
-                    <div id="AppointmentError" class="alert alert-danger hidden" role="alert"></div>
+                    <input name="GarageId" type="hidden" value="@Model.SelectedGarageId" />
+                    <div id="AddError" class="alert alert-danger hidden" role="alert"></div>
                     <div class="form-group">
-                        <label for="name">@Localizer["Name"]:</label>
-                        <input name="name" type="text" maxlength="51" class="form-control restrict" />
+                        <label for="productNo">@Localizer["ProductNo"]:</label>
+                        <input name="productNo" type="text" maxlength="51" class="form-control restrict" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">@Localizer["Description"]:</label>
+                        <input name="description" type="text" maxlength="51" class="form-control restrict" />
+                    </div>
+                    <div class="form-group">
+                        <label for="costPrice">@Localizer["Cost"]:</label>
+                        <input name="costPrice" type="number" step="any" maxlength="51" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="retailPrice">@Localizer["Retail"]:</label>
+                        <input name="retailPrice" type="number" step="any" maxlength="51" class="form-control" />
                     </div>
                 </form>
             </div>
@@ -85,7 +102,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">@Localizer["EditAppointment"]</h4>
+                <h4 class="modal-title">@Localizer["EditProduct"]</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -95,8 +112,20 @@
                     <div id="editError" class="alert alert-danger hidden" role="alert"></div>
                     <div class="form-group">
                         <input name="id" type="hidden" />
-                        <label for="name">@Localizer["Name"]:</label>
-                        <input name="name" maxlength="51" type="text" class="form-control restrict" />
+                        <label for="productNo">@Localizer["ProductNo"]:</label>
+                        <input name="productNo" type="text" maxlength="51" class="form-control restrict" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">@Localizer["Description"]:</label>
+                        <input name="description" type="text" maxlength="51" class="form-control restrict" />
+                    </div>
+                    <div class="form-group">
+                        <label for="costPrice">@Localizer["Cost"]:</label>
+                        <input name="costPrice" type="number" step="any" maxlength="51" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="retailPrice">@Localizer["Retail"]:</label>
+                        <input name="retailPrice" type="number" step="any" maxlength="51" class="form-control" />
                     </div>
                 </form>
             </div>
