@@ -230,7 +230,7 @@
 
     function updateProductList(selectedGarage) {
         $.ajax({
-            url: ajaxUrl + '/Options/Products/' + selectedGarage,
+            url: ajaxUrl + '/Options/Product/' + selectedGarage,
             type: "GET",
             dataType: "html",
             async: false,
@@ -254,7 +254,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateProductList($('#GarageId').val());
+                updateProductList($('#hidSelectedGarageId').val());
             }
         });
     }
@@ -269,7 +269,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateMaintenanceList($('#hidSelectedGarageId').val());
+                updateProductList($('#hidSelectedGarageId').val());
             }
         });
     }
@@ -287,7 +287,7 @@
             timer: 2000,
             timerProgressBar: true,
             onClose: () => {
-                updateMaintenanceList($('#hidSelectedGarageId').val());
+                updateProductList($('#hidSelectedGarageId').val());
             }
         });
     }

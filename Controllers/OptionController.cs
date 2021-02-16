@@ -452,7 +452,7 @@ namespace OCHPlanner3.Controllers
                     throw new ApplicationException("ProductManagementList - Id should ne be set to 0");
 
                 var model = new ProductManagementViewModel() { Products = await _optionService.GetProductList(id) };
-                return PartialView("_appointments", model);
+                return PartialView("_products", model);
             }
             catch (Exception ex)
             {

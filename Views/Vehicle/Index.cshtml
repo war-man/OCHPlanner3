@@ -54,10 +54,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="color" class="control-label col-md-2 mt-2">@Localizer["Color"]</label>
-                            <div class="col-md-2">
-                                <input id="color" name="color" type="text" class="form-control" />
-                            </div>
                             <label for="engine" class="control-label col-md-2 mt-2">@Localizer["Engine"]</label>
                             <div class="col-md-2">
                                 <input id="engine" name="engine" type="text" class="form-control" />
@@ -66,20 +62,23 @@
                             <div class="col-md-2">
                                 <input id="transmission" name="transmission" type="text" class="form-control " />
                             </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="propulsion" class="control-label col-md-2 mt-2">@Localizer["Propulsion"]</label>
                             <div class="col-md-2">
                                 <input id="propulsion" name="propulsion" type="text" class="form-control" />
                             </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="brake" class="control-label col-md-2 mt-2">@Localizer["BrakeSystem"]</label>
                             <div class="col-md-2">
                                 <input id="brake" name="brake" type="text" class="form-control" />
                             </div>
-
                             <label for="steering" class="control-label col-md-2 mt-2">@Localizer["Steering"]</label>
                             <div class="col-md-2">
                                 <input id="steering" name="steering" type="text" class="form-control" />
+                            </div>
+                            <label for="color" class="control-label col-md-2 mt-2">@Localizer["Color"]</label>
+                            <div class="col-md-2">
+                                <input id="color" name="color" type="text" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -102,7 +101,39 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title"><i class="fad fa-car-mechanic mr-2"></i>@Localizer["Section2Title"]</h4>
+                        <div class="form-group row">
+                            <label for="Odometer" class="control-label col-md-2 mt-2">@Localizer["Odometer"]</label>
+                            <div class="col-md-2">
+                                <input asp-for="Odometer" name="EntryDate" class="form-control" maxlength="20" />
+                            </div>
+                            <label for="unitNo" class="control-label col-md-2 mt-2">@Localizer["MileageSelection"]</label>
+                            <div class="col-md-2">
+                                <label class="mr-4"><input asp-for="SelectedUnit" value="KM" type="radio" class="mr-1" checked />@Localizer["KM"]</label>
+                                <label class="mr-4"><input asp-for="SelectedUnit" value="MI" type="radio" class="mr-1" />@Localizer["Miles"]</label>
+                            </div>
+                           
+                        </div>
+                        <div class="form-group row">
+                            <label for="EntryDate" class="control-label col-md-2 mt-2">@Localizer["EntryDate"]</label>
+                            <div class="col-md-2">
+                                <input asp-for="EntryDate" name="EntryDate" class="form-control" maxlength="20" />
+                            </div>
+                            <label for="monthlyMileage" class="control-label col-md-2 mt-2">@Localizer["MonthlyMileage"]</label>
+                            <div class="col-md-3">
+                                <input asp-for="MonthlyMileage" name="monthlyMileage" class="form-control" maxlength="20" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            @*<div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title"><i class="fad fa-car-mechanic mr-2"></i>@Localizer["Section2Title"]</h4>
@@ -120,7 +151,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="EntryDate" class="control-label col-md-3 mt-2">@Localizer["Odometer"]</label>
+                            <label for="Odometer" class="control-label col-md-3 mt-2">@Localizer["Odometer"]</label>
                             <div class="col-md-3">
                                 <input asp-for="Odometer" name="EntryDate" class="form-control" maxlength="20" />
                             </div>
@@ -139,14 +170,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
+            </div>*@
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title"><i class="fad fa-list-alt mr-2"></i>@Localizer["Section3Title"]</h4>
                         <div class="form-group row">
-                            <label for="SelectedOil" class="control-label col-md-3 mt-2">@Localizer["MaintenancePlan"]</label>
-                            <div class="col-md-9">
+                            <label for="SelectedOil" class="control-label col-md-2 mt-2">@Localizer["UseOil"]</label>
+                            <div class="col-md-2">
+                                <select asp-for="SelectedOil" name="oillist" asp-items="Model.OilList" class="form-control">
+                                    <option value="">-- Select --</option>
+                                </select>
+                            </div>
+                            <label for="SelectedMaintenancePlan" class="control-label col-md-2 mt-2">@Localizer["MaintenancePlan"]</label>
+                            <div class="col-md-3">
                                 <select asp-for="SelectedMaintenancePlan" name="maintenancePlan" asp-items="Model.MaintenancePlanList" class="form-control">
                                     <option value="">-- Select --</option>
                                 </select>

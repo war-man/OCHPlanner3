@@ -258,7 +258,7 @@ namespace OCHPlanner3.Services
 
         public async Task<int> DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            return await _optionFactory.DeleteProduct(id);
         }
 
         public async Task<IEnumerable<ProductViewModel>> GetProductList(int garageId)

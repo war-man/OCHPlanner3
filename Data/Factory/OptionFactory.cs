@@ -252,5 +252,26 @@ namespace OCHPlanner3.Data.Factory
             }
 
         }
+
+        public async Task<int> DeleteProduct(int id)
+        {
+
+            var sql = @"DELETE FROM [dbo].[Products] WHERE Id = @Id";
+
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }

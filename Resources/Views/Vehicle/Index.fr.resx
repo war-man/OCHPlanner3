@@ -117,11 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BrakeSystem" xml:space="preserve">
+    <value>Freins</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Engine" xml:space="preserve">
+    <value>Moteur</value>
+  </data>
   <data name="MaintenancePlan" xml:space="preserve">
     <value>Plan maintenance</value>
   </data>
+  <data name="Make" xml:space="preserve">
+    <value>Marque</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Modèle</value>
+  </data>
+  <data name="Plate" xml:space="preserve">
+    <value>Plaque</value>
+  </data>
+  <data name="Propulsion" xml:space="preserve">
+    <value>Propulsion</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>
+  </data>
+  <data name="Seating" xml:space="preserve">
+    <value>Nbr passagers</value>
   </data>
   <data name="Section1Title" xml:space="preserve">
     <value>Informations véhicule</value>
@@ -130,9 +157,27 @@
     <value>Informations supplémentaires</value>
   </data>
   <data name="Section3Title" xml:space="preserve">
-    <value>Programmes &amp; plans</value>
+    <value>Information relative maintenances</value>
+  </data>
+  <data name="Steering" xml:space="preserve">
+    <value>Type direction</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Véhicule</value>
+  </data>
+  <data name="Transmission" xml:space="preserve">
+    <value>Transmission</value>
+  </data>
+  <data name="UnitNo" xml:space="preserve">
+    <value>No unité</value>
+  </data>
+  <data name="UseOil" xml:space="preserve">
+    <value>Huile</value>
+  </data>
+  <data name="Vin" xml:space="preserve">
+    <value>VIN</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Année</value>
   </data>
 </root>

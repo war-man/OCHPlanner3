@@ -1,6 +1,13 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    //Detect ENTER key
+    $(document).on("keypress", 'input[name="VinCode"]', function (e) {
+        if (e.which == 13) {
+            $('input[name="Description"]').focus();
+        }
+    });
+
     $(document).on("blur", 'input[name="VinCode"]', function () {
 
         if ($(this).val().trim() === '')
