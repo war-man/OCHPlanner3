@@ -129,14 +129,26 @@
   <data name="Engine" xml:space="preserve">
     <value>Moteur</value>
   </data>
+  <data name="EntryDate" xml:space="preserve">
+    <value>Mise en service</value>
+  </data>
   <data name="MaintenancePlan" xml:space="preserve">
     <value>Plan maintenance</value>
   </data>
   <data name="Make" xml:space="preserve">
     <value>Marque</value>
   </data>
+  <data name="MileageSelection" xml:space="preserve">
+    <value>Type unitée</value>
+  </data>
   <data name="Model" xml:space="preserve">
     <value>Modèle</value>
+  </data>
+  <data name="MonthlyMileage" xml:space="preserve">
+    <value>Moyenne mensuelle</value>
+  </data>
+  <data name="Odometer" xml:space="preserve">
+    <value>Odomètre</value>
   </data>
   <data name="Plate" xml:space="preserve">
     <value>Plaque</value>
