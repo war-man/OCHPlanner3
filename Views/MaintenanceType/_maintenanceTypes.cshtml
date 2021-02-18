@@ -1,0 +1,25 @@
+﻿@model MaintenanceTypeManagementViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<table id="MaintenanceTypeListTable" class="table table-striped dataTable" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="code" style="width:25%">Code</th>
+            <th data-data="name">Nom</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MaintenanceTypeList)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Code</td>
+            <td>@item.Name</td>
+        </tr>
+        }
+    </tbody>
+</table>

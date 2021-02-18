@@ -28,5 +28,6 @@ namespace OCHPlanner3.Services.Interfaces
         Task<int> CreateProduct(ProductViewModel product);
         Task<int> UpdateProduct(ProductViewModel product);
         Task<IEnumerable<ProductViewModel>> GetProductList(int garageId);
+        Task<IEnumerable<SelectListItem>> GetProductSelectListItem(int garageId, int selectedId = 0);
     }
 }

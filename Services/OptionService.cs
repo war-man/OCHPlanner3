@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Models;
 using OCHPlanner3.Enum;
+using OCHPlanner3.Helper.Comparer;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
 using System;
@@ -271,6 +272,21 @@ namespace OCHPlanner3.Services
             return result;
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetProductSelectListItem(int garageId, int selectedId = 0)
+        {
+            var products = await _optionFactory.GetProductList(garageId);
+            return await BuildProductSelectListItem(products.OrderBy(x => x.Description, new SemiNumericComparer()), selectedId);
+        }
+
+        private async Task<IEnumerable<SelectListItem>> BuildProductSelectListItem(IEnumerable<ProductModel> productList, int selectedId = 0)
+        {
+            return productList.Select(x => new SelectListItem()
+            {
+                Value = x.Id.ToString(),
+                Text = x.Description,
+                Selected = selectedId != 0 && selectedId == x.Id
+            });
+        }
         #endregion
     }
 }

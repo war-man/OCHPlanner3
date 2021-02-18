@@ -138,10 +138,15 @@
         }
     });
 
+    //boutons de gestion
     $(document).on("click", '#btnProduct', function () {
         location.href = ajaxUrl + '/Options/Products/' + $('#Id').val();
     });
-    
+
+    $(document).on("click", '#btnMaintenanceType', function () {
+        location.href = ajaxUrl + '/MaintenanceType/' + $('#Id').val();
+    });
+
     $(document).on("blur", '#CounterOrder', function () {
 
         var counter = $(this).val();

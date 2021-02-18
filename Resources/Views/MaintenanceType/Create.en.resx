@@ -118,51 +118,69 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Add Product</value>
   </data>
-  <data name="AddMaintenance" xml:space="preserve">
-    <value>Add Maintenance</value>
+  <data name="CodeService" xml:space="preserve">
+    <value>Maintenance Code</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+  <data name="HourlyRate" xml:space="preserve">
+    <value>Hourly Rate</value>
   </data>
-  <data name="DeleteButton" xml:space="preserve">
-    <value>Yes, delete it!</value>
+  <data name="Labor" xml:space="preserve">
+    <value>Labor</value>
   </data>
-  <data name="DeleteSuccess" xml:space="preserve">
-    <value>Maintenance deleted successfully!</value>
+  <data name="MaintenanceTotalCost" xml:space="preserve">
+    <value>Maintenance Total Cost</value>
   </data>
-  <data name="DeleteText" xml:space="preserve">
-    <value>Do you really want to delete this maintenance?</value>
+  <data name="MaintenanceTotalPrice" xml:space="preserve">
+    <value>Maintenance Total Price</value>
   </data>
-  <data name="DeleteTitle" xml:space="preserve">
-    <value>Delete Maintenance</value>
+  <data name="MaintenanceTotalRetail" xml:space="preserve">
+    <value>Maintenance Total Retail</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
   </data>
-  <data name="EditMaintenance" xml:space="preserve">
-    <value>Edit Maintenance</value>
+  <data name="MaterialCost" xml:space="preserve">
+    <value>$ Cost</value>
+  </data>
+  <data name="MaterialRetail" xml:space="preserve">
+    <value>$ Retail</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Maintenance Name</value>
   </data>
-  <data name="NameRequired" xml:space="preserve">
-    <value>Name is required</value>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProductsUse" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="ProfitAmount" xml:space="preserve">
+    <value>$ Profit</value>
+  </data>
+  <data name="ProfitPercentage" xml:space="preserve">
+    <value>% Profit</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="SaveSuccess" xml:space="preserve">
-    <value>Maintenance saved successfully!</value>
-  </data>
   <data name="Title" xml:space="preserve">
-    <value>Maintenance List Management</value>
+    <value>Add Maintenance Type</value>
   </data>
-  <data name="UpdateSuccess" xml:space="preserve">
-    <value>Maintenance updated successfully!</value>
+  <data name="WorkCost" xml:space="preserve">
+    <value>Work Cost</value>
+  </data>
+  <data name="WorkTime" xml:space="preserve">
+    <value>Time Allowed</value>
+  </data>
+  <data name="WorkTotal" xml:space="preserve">
+    <value>Work Total</value>
   </data>
 </root>

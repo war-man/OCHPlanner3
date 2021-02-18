@@ -117,52 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="AddMaintenance" xml:space="preserve">
-    <value>Add Maintenance</value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="DeleteButton" xml:space="preserve">
-    <value>Yes, delete it!</value>
-  </data>
-  <data name="DeleteSuccess" xml:space="preserve">
-    <value>Maintenance deleted successfully!</value>
-  </data>
-  <data name="DeleteText" xml:space="preserve">
-    <value>Do you really want to delete this maintenance?</value>
-  </data>
-  <data name="DeleteTitle" xml:space="preserve">
-    <value>Delete Maintenance</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="EditMaintenance" xml:space="preserve">
-    <value>Edit Maintenance</value>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="NameRequired" xml:space="preserve">
-    <value>Name is required</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="SaveSuccess" xml:space="preserve">
-    <value>Maintenance saved successfully!</value>
+    <value>Nom</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Maintenance List Management</value>
-  </data>
-  <data name="UpdateSuccess" xml:space="preserve">
-    <value>Maintenance updated successfully!</value>
+    <value>Maintenance Type Management</value>
   </data>
 </root>
