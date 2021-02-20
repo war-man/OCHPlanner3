@@ -287,6 +287,13 @@ namespace OCHPlanner3.Services
                 Selected = selectedId != 0 && selectedId == x.Id
             });
         }
+
+        public async Task<ProductViewModel> GetProduct(int Id)
+        {
+            var product = await _optionFactory.GetProduct(Id);
+            return product.Adapt<ProductViewModel>();
+        }
+
         #endregion
     }
 }

@@ -120,14 +120,23 @@
   <data name="Add" xml:space="preserve">
     <value>Ajouter produit</value>
   </data>
+  <data name="CodeRequired" xml:space="preserve">
+    <value>Le code est requis</value>
+  </data>
   <data name="CodeService" xml:space="preserve">
     <value>Code de l'entretien</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Supprimer</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="HourlyRate" xml:space="preserve">
-    <value>Taux horaire</value>
+  <data name="HourlyRateBillable" xml:space="preserve">
+    <value>Taux horaire facturé</value>
+  </data>
+  <data name="HourlyRateCost" xml:space="preserve">
+    <value>Taux horaire coutant</value>
   </data>
   <data name="Labor" xml:space="preserve">
     <value>Main d'oeuvre</value>
@@ -153,6 +162,9 @@
   <data name="Name" xml:space="preserve">
     <value>Nom de l'entretien</value>
   </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>Le nom de l'entretien est requis</value>
+  </data>
   <data name="Product" xml:space="preserve">
     <value>Produits</value>
   </data>
@@ -168,8 +180,14 @@
   <data name="Quantity" xml:space="preserve">
     <value>Qty</value>
   </data>
+  <data name="QuantityRequired" xml:space="preserve">
+    <value>La quantité est requise</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>
+  </data>
+  <data name="SelectedProductRequired" xml:space="preserve">
+    <value>Sélection d'un produit requise</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Ajouter un type d'entretien</value>

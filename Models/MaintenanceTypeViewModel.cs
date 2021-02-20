@@ -26,7 +26,8 @@ namespace OCHPlanner3.Models
         public decimal MaterialRetail { get; set; }
 
         public decimal WorkTime { get; set; }
-        public decimal HourlyRate { get; set; }
+        public decimal HourlyRateCost { get; set; }
+        public decimal HourlyRateBillable { get; set; }
         public decimal WorkCost { get; set; }
         public decimal WorkTotal { get; set; }
 

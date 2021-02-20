@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MaintenanceTypeProductGroup>
+
+<table id="SelectedProductTable" class="table table-striped dataTable" data-processing="true">
+    <thead>
+        <tr>
+            <th data-data="id">Id</th>
+            <th data-data="description">Description</th>
+            <th data-data="quantity">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product.Id</td>
+                <td>@item.Product.Description</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,32 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Exceptionless;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
-using OCHPlanner3.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OCHPlanner3.Services.Interfaces;
-using OCHPlanner3.Services;
-using OCHPlanner3.Data.Interfaces;
-using OCHPlanner3.Data.Factory;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Razor;
-using OCHPlanner3.Helper;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Routing;
-using System.Reflection;
-using Microsoft.Extensions.Localization;
+using OCHPlanner3.Data;
+using OCHPlanner3.Data.Factory;
+using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Mapper;
+using OCHPlanner3.Helper;
+using OCHPlanner3.Services;
 using OCHPlanner3.Services.Email;
 using OCHPlanner3.Services.Email.Entities;
-using Exceptionless;
+using OCHPlanner3.Services.Interfaces;
+using System;
 
 namespace OCHPlanner3
 {
@@ -145,6 +138,7 @@ namespace OCHPlanner3
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

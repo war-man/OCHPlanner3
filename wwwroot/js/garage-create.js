@@ -117,7 +117,7 @@
                             title: $('#HidSaveSuccess').val(),
                             showCancelButton: false,
                             showConfirmButton: false,
-                            timer: 2000,
+                            timer: 1000,
                             timerProgressBar: true,
                             onClose: () => {
                                 location.href = ajaxUrl + '/Garages';

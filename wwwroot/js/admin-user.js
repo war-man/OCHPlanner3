@@ -422,7 +422,7 @@
             title: $('#hidCreateUserSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true
         });
 
@@ -449,7 +449,7 @@
             title: $('#hidUpdateUserSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true
         });
         updateUserList();
@@ -465,7 +465,7 @@
             title: $('#hidDeleteUserSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true
         });
         updateUserList();
@@ -481,7 +481,7 @@
             title: $('#hidChangePasswordSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true
         });
         $('#pwdModal').modal('hide');

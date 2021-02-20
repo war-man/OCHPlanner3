@@ -13,6 +13,7 @@ namespace OCHPlanner3.Data.Interfaces
         Task<int> UpdateOption(OptionTypeEnum optionType, int Id, string name, string description);
         Task<int> DeleteOption(OptionTypeEnum optionType, int id);
         Task<IEnumerable<ProductModel>> GetProductList(int garageId);
+        Task<ProductModel> GetProduct(int Id);
         Task<int> CreateProduct(ProductModel productModel);
         Task<int> UpdateProduct(ProductModel productModel);
         Task<int> DeleteProduct(int id);

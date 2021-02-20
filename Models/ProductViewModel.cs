@@ -16,7 +16,7 @@ namespace OCHPlanner3.Models
 
     public class MaintenanceTypeProductGroup
     {
-        public ProductViewModel product { get; set; }
+        public ProductViewModel Product { get; set; }
         public int Quantity { get; set; }
     }
 }

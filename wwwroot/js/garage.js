@@ -129,7 +129,7 @@
             title: $('#hidDeleteSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true
         });
         updateGarageList();

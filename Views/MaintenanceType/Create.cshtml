@@ -12,6 +12,14 @@
     var currentUser = userService.GetCurrentUserCredentials();
 }
 
+@Html.Hidden("hidSelectedProductRequired", @Localizer["SelectedProductRequired"].Value)
+@Html.Hidden("hidQuantityRequired", @Localizer["QuantityRequired"].Value)
+@Html.Hidden("hidCodeRequired", @Localizer["CodeRequired"].Value)
+@Html.Hidden("hidNameRequired", @Localizer["NameRequired"].Value)
+@Html.Hidden("hidDeleteButton", @Localizer["DeleteButton"].Value)
+
+
+
 @Html.Hidden("hidSelectedGarageId", Model.GarageId)
 
 @Html.Hidden("HidRootUrl", Model.RootUrl)
@@ -28,139 +36,154 @@
 
 <div class="main-content-inner">
     <div class="container">
+        <form id="createMaintenanceTypeForm">
 
-        <div class="row pt-3 pb-3">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label for="Code" class="control-label col-md-2 mt-2">@Localizer["CodeService"]</label>
-                            <div class="col-md-3">
-                                <input asp-for="Code" name="Code" class="form-control" />
-                            </div>
-                            <label for="Name" class="control-label col-md-2 mt-2">@Localizer["Name"]</label>
-                            <div class="col-md-5">
-                                <input asp-for="Name" name="Name" class="form-control" />
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="form-group row">
-                            <label for="product" class="control-label col-md-2 mt-2">@Localizer["ProductsUse"]</label>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="SelectedProduct" class="control-label mt-2">@Localizer["Product"]</label>
-                                    <select asp-for="SelectedProduct" name="SelectedProduct" asp-items="Model.ProductList" class="form-control">
-                                        <option value="">-- Select --</option>
-                                    </select>
+            <div class="row pt-3 pb-3">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="Code" class="control-label col-md-2 mt-2">@Localizer["CodeService"]</label>
+                                <div class="col-md-3">
+                                    <input asp-for="Code" name="Code" class="form-control" maxlength="30" />
+                                </div>
+                                <label for="Name" class="control-label col-md-2 mt-2">@Localizer["Name"]</label>
+                                <div class="col-md-5">
+                                    <input asp-for="Name" name="Name" class="form-control" maxlength="50" />
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="Quantity" class="control-label mt-2">@Localizer["Quantity"]</label>
-                                    <input type="text" name="MaterialCost" class="form-control" />
+                            <hr />
+                            <div class="form-group row">
+                                <label for="product" class="control-label col-md-2 mt-2">@Localizer["ProductsUse"]</label>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="SelectedProduct" class="control-label mt-2">@Localizer["Product"]</label>
+                                        <select asp-for="SelectedProduct" name="SelectedProduct" asp-items="Model.ProductList" class="form-control">
+                                            <option value="">-- Select --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="Quantity" class="control-label mt-2">@Localizer["Quantity"]</label>
+                                        <input type="text" name="Quantity" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button id="btnAddProduct" type="button" class="btn btn-primary btn-xs w-100" style="margin-top:40px;">@Localizer["Add"]</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <button id="btnAddProduct" type="button" class="btn btn-primary btn-xs w-100" style="margin-top:40px;">@Localizer["Add"]</button>
+                            <div class="form-group row">
+                                <div class="col-md-10 offset-md-2">
+                                    <div id="product-list">
+                                        @await Html.PartialAsync("_selectedProducts", Model.products)
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr />
-                        <div class="form-group row">
-                            <label for="Name" class="control-label col-md-2 mt-2">@Localizer["Material"]</label>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Description" class="control-label col-md-4 mt-2">@Localizer["Description"]</label>
-                                    <input asp-for="Material" name="Description" class="form-control" />
+                            <hr />
+                            <div class="form-group row">
+                                <label for="Name" class="control-label col-md-2 mt-2">@Localizer["Material"]</label>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Description" class="control-label col-md-4 mt-2">@Localizer["Description"]</label>
+                                        <input asp-for="Material" name="Description" class="form-control" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    <div class="form-group">
 
-                                    <label for="MaterialCost" class="control-label mt-2">@Localizer["MaterialCost"]</label>
-                                    <input asp-for="MaterialCost" name="MaterialCost" class="form-control" />
+                                        <label for="MaterialCost" class="control-label mt-2">@Localizer["MaterialCost"]</label>
+                                        <input asp-for="MaterialCost" name="MaterialCost" class="form-control" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    <div class="form-group">
 
-                                    <label for="MaterialRetail" class="control-label mt-2">@Localizer["MaterialRetail"]</label>
-                                    <input asp-for="MaterialRetail" name="MaterialRetail" class="form-control" />
+                                        <label for="MaterialRetail" class="control-label mt-2">@Localizer["MaterialRetail"]</label>
+                                        <input asp-for="MaterialRetail" name="MaterialRetail" class="form-control" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Name" class="control-label col-md-2 mt-2">@Localizer["Labor"]</label>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="WorkTime" class="control-label mt-2">@Localizer["WorkTime"]</label>
-                                    <input asp-for="WorkTime" name="WorkTime" class="form-control" />
+                            <div class="form-group row">
+                                <label for="Name" class="control-label col-md-2 mt-2">@Localizer["Labor"]</label>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="WorkTime" class="control-label mt-2">@Localizer["WorkTime"]</label>
+                                        <input asp-for="WorkTime" name="WorkTime" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="HourlyRate" class="control-label mt-2">@Localizer["HourlyRateCost"]</label>
+                                        <input asp-for="HourlyRateCost" name="HourlyRate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="HourlyRate" class="control-label mt-2">@Localizer["HourlyRateBillable"]</label>
+                                        <input asp-for="HourlyRateBillable" name="HourlyRate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="WorkCost" class="control-label mt-2">@Localizer["WorkCost"]</label>
+                                        <input asp-for="WorkCost" name="WorkCost" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="WorkTotal" class="control-label mt-2">@Localizer["WorkTotal"]</label>
+                                        <input asp-for="WorkTotal" name="WorkTotal" class="form-control" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="HourlyRate" class="control-label mt-2">@Localizer["HourlyRate"]</label>
-                                    <input asp-for="HourlyRate" name="HourlyRate" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="WorkCost" class="control-label mt-2">@Localizer["WorkCost"]</label>
-                                    <input asp-for="WorkCost" name="WorkCost" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="WorkTotal" class="control-label mt-2">@Localizer["WorkTotal"]</label>
-                                    <input asp-for="WorkTotal" name="WorkTotal" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-9 offset-md-3">
-                                <div class="card" style="background-color: rgba(0, 0, 0, 0.1);">
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label for="MaintenanceTotalCost" class="control-label col-md-3 mt-2">@Localizer["MaintenanceTotalCost"]</label>
-                                            <div class="col-md-3">
-                                                <input asp-for="MaintenanceTotalCost" name="MaintenanceTotalCost" class="form-control" />
+                            <div class="form-group row">
+                                <div class="col-md-9 offset-md-3">
+                                    <div class="card" style="background-color: rgba(0, 0, 0, 0.1);">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="MaintenanceTotalCost" class="control-label col-md-3 mt-2">@Localizer["MaintenanceTotalCost"]</label>
+                                                <div class="col-md-3">
+                                                    <input asp-for="MaintenanceTotalCost" name="MaintenanceTotalCost" class="form-control" />
+                                                </div>
+                                                <label for="ProfitPercentage" class="control-label col-md-3 mt-2">@Localizer["ProfitPercentage"]</label>
+                                                <div class="col-md-3">
+                                                    <input asp-for="ProfitPercentage" name="ProfitPercentage" class="form-control" />
+                                                </div>
                                             </div>
-                                            <label for="ProfitPercentage" class="control-label col-md-3 mt-2">@Localizer["ProfitPercentage"]</label>
-                                            <div class="col-md-3">
-                                                <input asp-for="ProfitPercentage" name="ProfitPercentage" class="form-control" />
+                                            <div class="form-group row">
+                                                <label for="MaintenanceTotalRetail" class="control-label col-md-3 mt-2">@Localizer["MaintenanceTotalRetail"]</label>
+                                                <div class="col-md-3">
+                                                    <input asp-for="MaintenanceTotalRetail" name="MaintenanceTotalRetail" class="form-control" />
+                                                </div>
+                                                <label for="ProfitAmount" class="control-label col-md-3 mt-2">@Localizer["ProfitAmount"]</label>
+                                                <div class="col-md-3">
+                                                    <input asp-for="ProfitAmount" name="ProfitAmount" class="form-control" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="MaintenanceTotalRetail" class="control-label col-md-3 mt-2">@Localizer["MaintenanceTotalRetail"]</label>
-                                            <div class="col-md-3">
-                                                <input asp-for="MaintenanceTotalRetail" name="MaintenanceTotalRetail" class="form-control" />
-                                            </div>
-                                            <label for="ProfitAmount" class="control-label col-md-3 mt-2">@Localizer["ProfitAmount"]</label>
-                                            <div class="col-md-3">
-                                                <input asp-for="ProfitAmount" name="ProfitAmount" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="MaintenanceTotalPrice" class="control-label col-md-3 mt-2">@Localizer["MaintenanceTotalPrice"]</label>
-                                            <div class="col-md-3">
-                                                <input asp-for="MaintenanceTotalPrice" name="MaintenanceTotalPrice" class="form-control" />
-                                            </div>
+                                            <div class="form-group row">
+                                                <label for="MaintenanceTotalPrice" class="control-label col-md-3 mt-2">@Localizer["MaintenanceTotalPrice"]</label>
+                                                <div class="col-md-3">
+                                                    <input asp-for="MaintenanceTotalPrice" name="MaintenanceTotalPrice" class="form-control" />
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row justify-content-center mt-5">
-                            <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
-                        </div>
+                            <div class="row justify-content-center mt-5">
+                                <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
 

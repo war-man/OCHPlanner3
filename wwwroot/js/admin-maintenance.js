@@ -225,7 +225,7 @@
             title: $('#hidSaveSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true,
             onClose: () => {
                 updateMaintenanceList($('#hidSelectedGarageId').val());
@@ -240,7 +240,7 @@
             title: $('#hidUpdateSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true,
             onClose: () => {
                 updateMaintenanceList($('#hidSelectedGarageId').val());
@@ -258,7 +258,7 @@
             title: $('#hidDeleteSuccess').val(),
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true,
             onClose: () => {
                 updateMaintenanceList($('#hidSelectedGarageId').val());

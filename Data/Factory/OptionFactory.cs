@@ -224,6 +224,34 @@ namespace OCHPlanner3.Data.Factory
 
         }
 
+        public async Task<ProductModel> GetProduct(int id)
+        {
+
+            var sql = @"SELECT [Id]
+                      ,[ProductNo]
+                      ,[Description]
+                      ,[CostPrice]
+                      ,[RetailPrice]
+                      ,[GarageId]
+                      FROM [dbo].[Products]
+                      WHERE Id = @Id";
+
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryFirstOrDefaultAsync<ProductModel>(sql,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
         public async Task<int> UpdateProduct(ProductModel productModel)
         {
             var sql = @"UPDATE [dbo].[Products] 

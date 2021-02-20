@@ -39,7 +39,8 @@
         );
     });
 
-    $('#btnSave').on('click', function () {
+    $(document).on("click", '#btnSave', function () {
+
         var form = $('#garage-edit');
 
         var validator = form.validate({
@@ -126,7 +127,7 @@
                             title: $('#HidSaveSuccess').val(),
                             showCancelButton: false,
                             showConfirmButton: false,
-                            timer: 2000,
+                            timer: 1000,
                             timerProgressBar: true,
                             onClose: () => {
                                 location.href = ajaxUrl + '/Garages';
