@@ -147,6 +147,9 @@
   <data name="MaintenanceTotalPrice" xml:space="preserve">
     <value>Prix de vente de l'entretien</value>
   </data>
+  <data name="MaintenanceTotalPriceRequire" xml:space="preserve">
+    <value>Le prix de vente est requis</value>
+  </data>
   <data name="MaintenanceTotalRetail" xml:space="preserve">
     <value>Vendant total de l'entretien</value>
   </data>

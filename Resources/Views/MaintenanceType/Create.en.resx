@@ -147,6 +147,9 @@
   <data name="MaintenanceTotalPrice" xml:space="preserve">
     <value>Maintenance Total Price</value>
   </data>
+  <data name="MaintenanceTotalPriceRequire" xml:space="preserve">
+    <value>Maintenance total is required</value>
+  </data>
   <data name="MaintenanceTotalRetail" xml:space="preserve">
     <value>Maintenance Total Retail</value>
   </data>

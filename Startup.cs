@@ -89,12 +89,14 @@ namespace OCHPlanner3
             services.AddTransient<IVehicleService, VehicleService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
             services.AddTransient<IVINQueryService, VINQueryService>();
+            services.AddTransient<IMaintenanceTypeService, MaintenanceTypeService>();
 
             // Factory
             services.AddTransient<IReferenceFactory, ReferenceFactory>();
             services.AddTransient<IGarageFactory, GarageFactory>();
             services.AddTransient<IOptionFactory, OptionFactory>();
             services.AddTransient<IVehicleFactory, VehicleFactory>();
+            services.AddTransient<IMaintenanceTypeFactory, MaintenanceTypeFactory>();
 
 
             // Email Sender

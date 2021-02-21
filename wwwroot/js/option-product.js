@@ -142,8 +142,6 @@
         if (form.valid()) {
             var formData = $(form).serialize();
 
-            formData = formData;
-
             $.ajax({
                 url: ajaxUrl + '/Options/CreateProduct',
                 type: "POST",

@@ -12,11 +12,11 @@
     var currentUser = userService.GetCurrentUserCredentials();
 }
 
-@Html.Hidden("hidSelectedProductRequired", @Localizer["SelectedProductRequired"].Value)
-@Html.Hidden("hidQuantityRequired", @Localizer["QuantityRequired"].Value)
 @Html.Hidden("hidCodeRequired", @Localizer["CodeRequired"].Value)
 @Html.Hidden("hidNameRequired", @Localizer["NameRequired"].Value)
 @Html.Hidden("hidDeleteButton", @Localizer["DeleteButton"].Value)
+@Html.Hidden("hidMaintenanceTotalPriceRequired", @Localizer["MaintenanceTotalPriceRequire"].Value)
+
 
 
 
@@ -61,12 +61,14 @@
                                         <select asp-for="SelectedProduct" name="SelectedProduct" asp-items="Model.ProductList" class="form-control">
                                             <option value="">-- Select --</option>
                                         </select>
+                                        <span id="SelectedProduct-error" class="error invalid-feedback" style="display:none;">@Localizer["SelectedProductRequired"]</span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="Quantity" class="control-label mt-2">@Localizer["Quantity"]</label>
                                         <input type="text" name="Quantity" class="form-control" />
+                                        <span id="Quantity-error" class="error invalid-feedback" style="display:none;">@Localizer["QuantityRequired"]</span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -78,7 +80,7 @@
                             <div class="form-group row">
                                 <div class="col-md-10 offset-md-2">
                                     <div id="product-list">
-                                        @await Html.PartialAsync("_selectedProducts", Model.products)
+                                        @await Html.PartialAsync("_selectedProducts", Model.Products)
                                     </div>
                                 </div>
                             </div>

@@ -9,6 +9,7 @@ using OCHPlanner3.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Controllers
@@ -18,14 +19,15 @@ namespace OCHPlanner3.Controllers
     public class MaintenanceTypeController : BaseController
     {
         public readonly IOptionService _optionService;
-        public IList<MaintenanceTypeProductGroup> productSelected { get; set; }
-        
+        public readonly IMaintenanceTypeService _maintenanceTypeService;
 
         public MaintenanceTypeController(IHttpContextAccessor httpContextAccessor,
             IUserService userService,
+            IMaintenanceTypeService maintenanceTypeService,
             IOptionService optionService) : base(httpContextAccessor, userService)
         {
             _optionService = optionService;
+            _maintenanceTypeService = maintenanceTypeService;
         }
 
         public IActionResult Index3(BrandingViewModel model)
@@ -60,15 +62,63 @@ namespace OCHPlanner3.Controllers
         {
             try
             {
+                await ClearProducts();
+
                 var model = new MaintenanceTypeViewModel()
                 {
                     RootUrl = BaseRootUrl,
                     GarageId = id,
                     ProductList = await _optionService.GetProductSelectListItem(id),
-                    products = new List<MaintenanceTypeProductGroup>()
+                    Products = new List<MaintenanceTypeProductGroup>()
                 };
 
                 return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [Route("/{lang:lang}/MaintenanceType/SelectedProducts")]
+        public async Task<IActionResult> GetSelectedProduct(MaintenanceTypeProductGroup product)
+        {
+            try
+            {
+                var result = new List<string>();
+                var products = HttpContext.Session.GetObject<IList<MaintenanceTypeProductGroup>>("SelectedProducts");
+                if (products == null)
+                {
+                    products = new List<MaintenanceTypeProductGroup>();
+                }
+                               
+                products.ToList().ForEach(p =>
+                {
+                    result.Add($"{p.Product.Id}|{p.Quantity}");
+                });
+
+                return Ok(string.Join(",", result));
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        private async Task<IActionResult> ClearProducts()
+        {
+            try
+            {
+                var products = HttpContext.Session.GetObject<IList<MaintenanceTypeProductGroup>>("SelectedProducts");
+                if (products != null)
+                {
+                    HttpContext.Session.Remove("SelectedProducts");
+
+                }
+
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -125,11 +175,19 @@ namespace OCHPlanner3.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("/{lang:lang}/MaintenanceType/Create")]
         public async Task<IActionResult> Create(MaintenanceTypeViewModel model)
         {
-
-            return View(model);
+            try
+            {
+                var result = await _maintenanceTypeService.CreateMaintenanceType(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
     }
 }

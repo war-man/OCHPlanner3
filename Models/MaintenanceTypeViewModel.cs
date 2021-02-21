@@ -1,42 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Models
 {
-    public class MaintenanceTypeManagementViewModel : BaseViewModel
-    {
-        public int SelectedGarageId { get; set; }
 
-        public IEnumerable<MaintenanceTypeViewModel> MaintenanceTypeList { get; set; }
-    }
-
+    /// <summary>
+    /// I used String instead of Decimal because of some UI trouble with , and .
+    /// </summary>
     public class MaintenanceTypeViewModel : BaseViewModel
     {
         public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
 
-        public IList<MaintenanceTypeProductGroup> products { get; set; }
-
+        public IList<MaintenanceTypeProductGroup> Products { get; set; }
+        public string ProductString { get; set; } 
         public string Material { get; set; }
-        public decimal MaterialCost { get; set; }
-        public decimal MaterialRetail { get; set; }
+        public string MaterialCost { get; set; }
+        public string MaterialRetail { get; set; }
 
-        public decimal WorkTime { get; set; }
-        public decimal HourlyRateCost { get; set; }
-        public decimal HourlyRateBillable { get; set; }
-        public decimal WorkCost { get; set; }
-        public decimal WorkTotal { get; set; }
+        public string WorkTime { get; set; }
+        public string HourlyRateCost { get; set; }
+        public string HourlyRateBillable { get; set; }
+        public string WorkCost { get; set; }
+        public string WorkTotal { get; set; }
 
-        public decimal MaintenanceTotalCost { get; set; }
-        public decimal MaintenanceTotalRetail { get; set; }
-        public decimal MaintenanceTotalPrice { get; set; }
+        public string MaintenanceTotalCost { get; set; }
+        public string MaintenanceTotalRetail { get; set; }
+        public string MaintenanceTotalPrice { get; set; }
 
-        public decimal ProfitPercentage { get; set; }
-        public decimal ProfitAmount { get; set; }
+        public string ProfitPercentage { get; set; }
+        public string ProfitAmount { get; set; }
 
         public int SelectedProduct { get; set; }
         public IEnumerable<SelectListItem> ProductList { get; set; }

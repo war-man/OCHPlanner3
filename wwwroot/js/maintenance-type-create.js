@@ -9,7 +9,7 @@
             style: 'single',
             info: false
         },
-        "bLengthChange" : false, 
+        "bLengthChange": false,
         "aoColumnDefs": [
             {
                 "aTargets": [0],
@@ -20,29 +20,29 @@
         "paging": false,
         "bInfo": false,
         buttons: [
-        //    {
-        //        text: $('#hidNewButton').val(),
-        //        action: function (e, dt, button, config) {
-        //            location.href = ajaxUrl + '/MaintenanceType/Create/' + $('#hidSelectedGarageId').val();
-        //        }
-        //    },
-        //    {
-        //        extend: "selectedSingle",
-        //        text: $('#hidEditButton').val(),
-        //        action: function (e, dt, button, config) {
-        //            var data = dt.row({ selected: true }).data();
-        //            $('#editError').hide();
-        //            $('#editForm').trigger('reset');
+            //    {
+            //        text: $('#hidNewButton').val(),
+            //        action: function (e, dt, button, config) {
+            //            location.href = ajaxUrl + '/MaintenanceType/Create/' + $('#hidSelectedGarageId').val();
+            //        }
+            //    },
+            //    {
+            //        extend: "selectedSingle",
+            //        text: $('#hidEditButton').val(),
+            //        action: function (e, dt, button, config) {
+            //            var data = dt.row({ selected: true }).data();
+            //            $('#editError').hide();
+            //            $('#editForm').trigger('reset');
 
-        //            $('#editForm input[name=id]').val(data.id);
-        //            $('#editForm input[name=productNo]').val(data.productNo);
-        //            $('#editForm input[name=description]').val(data.description);
-        //            $('#editForm input[name=costPrice]').val(data.costPrice);
-        //            $('#editForm input[name=retailPrice]').val(data.retailPrice);
+            //            $('#editForm input[name=id]').val(data.id);
+            //            $('#editForm input[name=productNo]').val(data.productNo);
+            //            $('#editForm input[name=description]').val(data.description);
+            //            $('#editForm input[name=costPrice]').val(data.costPrice);
+            //            $('#editForm input[name=retailPrice]').val(data.retailPrice);
 
-        //            $('#editModal').modal({ backdrop: 'static' });
-        //        }
-        //    },
+            //            $('#editModal').modal({ backdrop: 'static' });
+            //        }
+            //    },
             {
                 extend: "selectedSingle",
                 text: $('#hidDeleteButton').val(),
@@ -61,7 +61,7 @@
                             alert('Error');
                         }
                     });
-                    
+
                 }
             }
         ]
@@ -73,42 +73,21 @@
     initTable();
 
     $(document).on("click", "#btnAddProduct", function () {
+       
+        var selected = $('#SelectedProduct').select2("val");
 
-        var form = $('#createMaintenanceTypeForm');
+        //validation
+        var hasError = false;
+        if (selected === '') {
+            hasError = true;
+            $('#SelectedProduct-error').show();
+        }
+        if ($('input[name="Quantity"]').val() === '') {
+            hasError = true;
+            $('#Quantity-error').show();
+        }
 
-        form.validate({
-            rules: {
-                'SelectedProduct': {
-                    required: true
-                },
-                'Quantity': {
-                    required: true
-                }
-            },
-            messages: {
-                'SelectedProduct': {
-                    required: $('#hidSelectedProductRequired').val()
-                },
-                'Quantity': {
-                    required: $('#hidQuantityRequired').val()
-                }
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-
-        if (form.valid()) {
-            var selected = $('#SelectedProduct').select2("val");
-
+        if (!hasError) {
             var productToAdd = {
                 Product: {
                     Id: selected
@@ -124,6 +103,8 @@
                 },
                 //dataType: "json",
                 success: function (response) {
+                    $('#SelectedProduct-error').hide();
+                    $('#Quantity-error').hide();
                     $('#product-list').empty().html(response);
                     resetAddProduct();
                     initTable();
@@ -139,12 +120,19 @@
 
         var form = $('#createMaintenanceTypeForm');
 
+        $('input[name="SelectedProduct"]').addClass('ignoreClass');
+        $('input[name="Quantity"]').addClass('ignoreClass');
+
         form.validate({
+            ignore: ".ignoreClass",
             rules: {
                 'Code': {
                     required: true
                 },
                 'Name': {
+                    required: true
+                },
+                'MaintenanceTotalPrice': {
                     required: true
                 }
             },
@@ -154,12 +142,15 @@
                 },
                 'Name': {
                     required: $('#hidNameRequired').val()
+                },
+                'MaintenanceTotalPrice': {
+                    required: $('#hidMaintenanceTotalPriceRequired').val()
                 }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
+                error.insertAfter(element);
                 error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
             },
             highlight: function (element, errorClass, validClass) {
                 $(element).addClass('is-invalid');
@@ -170,31 +161,36 @@
         });
 
         if (form.valid()) {
-            //var selected = $('#SelectedProduct').select2("val");
+            var formData = $(form).serialize();
 
-            //var productToAdd = {
-            //    Product: {
-            //        Id: selected
-            //    },
-            //    Quantity: $('input[name="Quantity"]').val()
-            //};
+            //Get selected products
+            $.ajax({
+                url: ajaxUrl + '/MaintenanceType/SelectedProducts',
+                type: "GET",
+                //dataType: "json",
+                success: function (response) {
 
-            //$.ajax({
-            //    url: ajaxUrl + '/MaintenanceType/AddProduct',
-            //    type: "POST",
-            //    data: {
-            //        product: productToAdd
-            //    },
-            //    //dataType: "json",
-            //    success: function (response) {
-            //        $('#product-list').empty().html(response);
-            //        resetAddProduct();
-            //        initTable();
-            //    },
-            //    error: function (xhr, status, error) {
-            //        alert('Error');
-            //    }
-            //});
+                    formData = formData + '&ProductString=' + response;
+
+                    $.ajax({
+                        url: ajaxUrl + '/MaintenanceType/Create',
+                        type: "POST",
+                        data: formData,
+                        //dataType: "json",
+                        success: function (response) {
+                            location.href = ajaxUrl + "/MaintenanceType/" + $('#hidSelectedGarageId').val()
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error');
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert('Error');
+                }
+            });
+
+           
         }
     });
 
@@ -212,5 +208,5 @@
         var table = $('#SelectedProductTable').DataTable(tableSettings);
     }
 
-   
+
 });
