@@ -117,100 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Ajouter produit</value>
-  </data>
-  <data name="CodeRequired" xml:space="preserve">
-    <value>Le code est requis</value>
-  </data>
-  <data name="CodeService" xml:space="preserve">
-    <value>Code de l'entretien</value>
-  </data>
-  <data name="DeleteButton" xml:space="preserve">
-    <value>Supprimer</value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="HourlyRateBillable" xml:space="preserve">
-    <value>Taux horaire facturé</value>
-  </data>
-  <data name="HourlyRateCost" xml:space="preserve">
-    <value>Taux horaire coutant</value>
-  </data>
-  <data name="Labor" xml:space="preserve">
-    <value>Main d'oeuvre</value>
-  </data>
-  <data name="MaintenanceTotalCost" xml:space="preserve">
-    <value>Coutant total de l'entretien</value>
-  </data>
-  <data name="MaintenanceTotalPrice" xml:space="preserve">
-    <value>Prix de vente de l'entretien</value>
-  </data>
-  <data name="MaintenanceTotalPriceRequire" xml:space="preserve">
-    <value>Le prix de vente est requis</value>
-  </data>
-  <data name="MaintenanceTotalRetail" xml:space="preserve">
-    <value>Vendant total de l'entretien</value>
-  </data>
-  <data name="Material" xml:space="preserve">
-    <value>Matériel d'atelier</value>
-  </data>
-  <data name="MaterialCost" xml:space="preserve">
-    <value>$ Cout matériel</value>
-  </data>
-  <data name="MaterialRetail" xml:space="preserve">
-    <value>$ Fact matériel</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Nom de l'entretien</value>
-  </data>
-  <data name="NameRequired" xml:space="preserve">
-    <value>Le nom de l'entretien est requis</value>
-  </data>
-  <data name="Product" xml:space="preserve">
-    <value>Produits</value>
-  </data>
-  <data name="ProductCost" xml:space="preserve">
-    <value>$ Cout produit</value>
-  </data>
-  <data name="ProductRetail" xml:space="preserve">
-    <value>$ Fact produit</value>
-  </data>
-  <data name="ProductsUse" xml:space="preserve">
-    <value>Produits utilisés</value>
-  </data>
-  <data name="ProfitAmount" xml:space="preserve">
-    <value>$ Profit</value>
-  </data>
-  <data name="ProfitPercentage" xml:space="preserve">
-    <value>% Profit</value>
-  </data>
   <data name="Quantity" xml:space="preserve">
-    <value>Qty</value>
-  </data>
-  <data name="QuantityRequired" xml:space="preserve">
-    <value>La quantité est requise</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Sauvegarder</value>
-  </data>
-  <data name="SaveSuccess" xml:space="preserve">
-    <value>Type d'entretien sauvegardée avec succès!</value>
-  </data>
-  <data name="SelectedProductRequired" xml:space="preserve">
-    <value>Sélection d'un produit requise</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Ajouter un type d'entretien</value>
-  </data>
-  <data name="WorkCost" xml:space="preserve">
-    <value>$ Cout M-O</value>
-  </data>
-  <data name="WorkTime" xml:space="preserve">
-    <value>Temps alloué</value>
-  </data>
-  <data name="WorkTotal" xml:space="preserve">
-    <value>$ Fact M-O</value>
+    <value>Quantité</value>
   </data>
 </root>

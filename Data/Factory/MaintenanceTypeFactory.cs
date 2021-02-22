@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using OCHPlanner3.Data.Interfaces;
+using OCHPlanner3.Data.Models;
 using OCHPlanner3.Models;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace OCHPlanner3.Data.Factory
             _configuration = configuration;
         }
 
-        public async Task<int> CreateMaintenanceType(MaintenanceTypeViewModel maintenanceType, IEnumerable<MaintenanceTypeProductGroup> products)
+        public async Task<int> CreateMaintenanceType(MaintenanceTypeModel maintenanceType, IEnumerable<MaintenanceTypeProductGroupViewModel> products)
         {
             try
             {
@@ -99,11 +100,11 @@ namespace OCHPlanner3.Data.Factory
                             transaction: transaction);
 
                         //insert related products
-                        var productList = new List<MaintenanceProduct>(); 
+                        var productList = new List<MaintenanceProductModel>(); 
 
                         foreach (var p in products)
                         {
-                            productList.Add(new MaintenanceProduct()
+                            productList.Add(new MaintenanceProductModel()
                             {
                                 MaintenanceTypeId = (int)maintenanceTypeInserted,
                                 ProductId = p.Product.Id,
@@ -123,12 +124,76 @@ namespace OCHPlanner3.Data.Factory
                 throw ex;
             }
         }
-    }
 
-    public class MaintenanceProduct
-    {
-        public int MaintenanceTypeId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+        public async Task<int> Delete(int id)
+        {
+            var sql = @"DELETE FROM [dbo].[MaintenanceType2] WHERE Id = @Id";
+            var sqlProduct = @"DELETE FROM [dbo].[MaintenanceType2_Product] WHERE MaintenanceTypeId = @Id";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    var result = await connection.ExecuteAsync(sql,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.Text,
+                    transaction: transaction);
+
+                    var productRows = await connection.ExecuteAsync(sqlProduct,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.Text,
+                    transaction: transaction);
+
+                    transaction.Commit();
+
+                    return 1;
+                }
+            }
+        }
+
+        public async Task<IEnumerable<MaintenanceTypeModel>> GetMaintenanceTypes(int garageId)
+        {
+            var sql = @"SELECT [Id]
+                          ,[Code]
+                          ,[Name]
+                          ,[Material]
+                          ,[MaterialCost]
+                          ,[MaterialRetail]
+                          ,[WorkTime]
+                          ,[HourlyRateCost]
+                          ,[HourlyRateBillable]
+                          ,[WorkCost]
+                          ,[WorkTotal]
+                          ,[MaintenanceTotalCost]
+                          ,[MaintenanceTotalRetail]
+                          ,[MaintenanceTotalPrice]
+                          ,[ProfitPercentage]
+                          ,[ProfitAmount]
+                          ,[GarageId]
+                      FROM [dbo].[MaintenanceType2]
+                      WHERE GarageId = @GarageId";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<MaintenanceTypeModel>(sql,
+                    new
+                    {
+                        GarageId = garageId
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
 }

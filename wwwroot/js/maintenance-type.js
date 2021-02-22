@@ -56,11 +56,11 @@
 
                             $.ajax({
                                 type: 'DELETE',
-                                url: ajaxUrl + '/Options/DeleteProduct',
+                                url: ajaxUrl + '/MaintenanceType/Delete',
                                 data: { id: data.id }
                             })
                                 .done(delDone)
-                                .fail(delFail);
+                                .fail(ajaxFail);
                         }
                     });
                 }
@@ -80,8 +80,39 @@
         }
 
         var table = $('#MaintenanceTypeListTable').DataTable(tableSettings);
-
-
     }
 
+    function updateMaintenanceList(selectedGarage) {
+        $.ajax({
+            url: ajaxUrl + '/MaintenanceTypeList/' + selectedGarage,
+            type: "GET",
+            dataType: "html",
+            async: false,
+            success: function (response) {
+                $('#product-list').empty().html(response);
+                initTable();
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
+    }
+
+    function delDone(data, status, xhr) {
+        Swal.fire({
+            icon: 'success',
+            title: $('#hidDeleteSuccess').val(),
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            onClose: () => {
+                updateMaintenanceList($('#hidSelectedGarageId').val());
+            }
+        });
+    }
+
+    function ajaxFail(xhr, status, error) {
+        alert(xhr.responseText || error);
+    }
 });

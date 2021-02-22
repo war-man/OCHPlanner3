@@ -283,7 +283,7 @@ namespace OCHPlanner3.Services
             return productList.Select(x => new SelectListItem()
             {
                 Value = x.Id.ToString(),
-                Text = x.Description,
+                Text = $"{x.ProductNo} - {x.Description}",
                 Selected = selectedId != 0 && selectedId == x.Id
             });
         }

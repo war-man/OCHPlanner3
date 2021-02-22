@@ -157,10 +157,10 @@
     <value>Material</value>
   </data>
   <data name="MaterialCost" xml:space="preserve">
-    <value>$ Cost</value>
+    <value>$ Cost Material</value>
   </data>
   <data name="MaterialRetail" xml:space="preserve">
-    <value>$ Retail</value>
+    <value>$ Retail Material</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Maintenance Name</value>
@@ -170,6 +170,12 @@
   </data>
   <data name="Product" xml:space="preserve">
     <value>Product</value>
+  </data>
+  <data name="ProductCost" xml:space="preserve">
+    <value>$ Cost Products</value>
+  </data>
+  <data name="ProductRetail" xml:space="preserve">
+    <value>$ Retail Products</value>
   </data>
   <data name="ProductsUse" xml:space="preserve">
     <value>Products</value>
@@ -189,6 +195,9 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>Maintenance Type saved successfully!</value>
+  </data>
   <data name="SelectedProductRequired" xml:space="preserve">
     <value>Product selection required</value>
   </data>
@@ -196,12 +205,12 @@
     <value>Add Maintenance Type</value>
   </data>
   <data name="WorkCost" xml:space="preserve">
-    <value>Work Cost</value>
+    <value>$ Cost Work</value>
   </data>
   <data name="WorkTime" xml:space="preserve">
     <value>Time Allowed</value>
   </data>
   <data name="WorkTotal" xml:space="preserve">
-    <value>Work Total</value>
+    <value>$ Retail Work</value>
   </data>
 </root>

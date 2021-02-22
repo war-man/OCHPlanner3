@@ -13,10 +13,4 @@ namespace OCHPlanner3.Models
         public string RetailPrice { get; set; }
         public int GarageId { get; set; }
     }
-
-    public class MaintenanceTypeProductGroup
-    {
-        public ProductViewModel Product { get; set; }
-        public int Quantity { get; set; }
-    }
 }

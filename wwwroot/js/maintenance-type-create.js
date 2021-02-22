@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
+    var table;
 
     $('select[name="SelectedProduct"]').select2();
 
@@ -73,7 +74,7 @@
     initTable();
 
     $(document).on("click", "#btnAddProduct", function () {
-       
+
         var selected = $('#SelectedProduct').select2("val");
 
         //validation
@@ -108,6 +109,8 @@
                     $('#product-list').empty().html(response);
                     resetAddProduct();
                     initTable();
+                    UpdateProductTotalCost();
+                    UpdateTotalSection();
                 },
                 error: function (xhr, status, error) {
                     alert('Error');
@@ -171,28 +174,84 @@
                 success: function (response) {
 
                     formData = formData + '&ProductString=' + response;
+                    formData = formData + '&GarageId=' + $('#hidSelectedGarageId').val();
 
                     $.ajax({
                         url: ajaxUrl + '/MaintenanceType/Create',
                         type: "POST",
-                        data: formData,
-                        //dataType: "json",
-                        success: function (response) {
-                            location.href = ajaxUrl + "/MaintenanceType/" + $('#hidSelectedGarageId').val()
-                        },
-                        error: function (xhr, status, error) {
-                            alert('Error');
-                        }
-                    });
+                        data: formData
+                    })
+                        .done(addDone)
+                        .fail(ajaxFail);
                 },
                 error: function (xhr, status, error) {
                     alert('Error');
                 }
             });
 
-           
+
         }
     });
+
+    $(document).on("blur", "input[name='MaterialCost']", function () {
+        UpdateTotalSection();
+    });
+
+    $(document).on("blur", "input[name='MaterialRetail']", function () {
+        UpdateTotalSection();
+    });
+
+    $(document).on("blur", "input[name='WorkCost']", function () {
+        UpdateTotalSection();
+    });
+
+    $(document).on("blur", "input[name='WorkTotal']", function () {
+        UpdateTotalSection();
+    });
+
+    function UpdateProductTotalCost() {
+        var totalCost = 0;
+        var totalRetail = 0;
+
+        table.rows().eq(0).each(function (index) {
+            var row = table.row(index);
+
+            var data = row.data();
+            totalCost = totalCost + (data.quantity * data.cost);
+            totalRetail = totalRetail + (data.quantity * data.retail);
+        });
+
+        $('input[name="ProductCost"]').val(totalCost.toFixed(2));
+        $('input[name="ProductRetail"]').val(totalRetail.toFixed(2));
+    }
+
+    function UpdateTotalSection() {
+        var totalCost = 0;
+        var totalRetail = 0;
+
+        //cost
+        totalCost = totalCost + ($('input[name="ProductCost"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="ProductCost"]').val()));
+        totalCost = totalCost + ($('input[name="MaterialCost"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="MaterialCost"]').val()));
+        totalCost = totalCost + ($('input[name="WorkCost"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="WorkCost"]').val()));
+
+        $('input[name="MaintenanceTotalCost"]').val(totalCost.toFixed(2));
+
+        //retail
+        totalRetail = totalRetail + ($('input[name="ProductRetail"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="ProductRetail"]').val()));
+        totalRetail = totalRetail + ($('input[name="MaterialRetail"]').val() === '' ? parseFloat(0) : parseInt($('input[name="MaterialRetail"]').val()));
+        totalRetail = totalRetail + ($('input[name="WorkTotal"]').val() === '' ? parseFloat(0) : parseInt($('input[name="WorkTotal"]').val()));
+
+        $('input[name="MaintenanceTotalRetail"]').val(totalRetail.toFixed(2));
+        $('input[name="MaintenanceTotalPrice"]').val(totalRetail.toFixed(2));
+
+        //Profit
+        var profitPercent = ((totalRetail - totalCost) / totalRetail).toFixed(2);
+        $('input[name="ProfitPercentage"]').val(profitPercent);
+
+        var profitAmount = (totalRetail - totalCost).toFixed(2);
+        $('input[name="ProfitAmount"]').val(profitAmount);
+
+    }
 
     function resetAddProduct() {
         $('#SelectedProduct').val('').trigger('change.select2');
@@ -205,8 +264,24 @@
             tableSettings.language = JSON.parse(datables_french());
         }
 
-        var table = $('#SelectedProductTable').DataTable(tableSettings);
+        table = $('#SelectedProductTable').DataTable(tableSettings);
     }
 
+    function addDone(data, status, xhr) {
+        Swal.fire({
+            icon: 'success',
+            title: $('#hidSaveSuccess').val(),
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            onClose: () => {
+                location.href = ajaxUrl + "/MaintenanceType/" + $('#hidSelectedGarageId').val()
+            }
+        });
+    }
 
+    function ajaxFail(xhr, status, error) {
+        alert(xhr.responseText || error);
+    }
 });

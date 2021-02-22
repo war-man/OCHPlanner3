@@ -8,5 +8,7 @@ namespace OCHPlanner3.Services.Interfaces
     public interface IMaintenanceTypeService
     {
         Task<int> CreateMaintenanceType(MaintenanceTypeViewModel maintenanceType);
+        Task<IEnumerable<MaintenanceTypeViewModel>> GetMaintenanceTypes(int garageId);
+        Task<int> Delete(int id);
     }
 }

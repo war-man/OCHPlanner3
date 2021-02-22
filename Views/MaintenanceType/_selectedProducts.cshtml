@@ -1,21 +1,29 @@
-﻿@model IEnumerable<MaintenanceTypeProductGroup>
+﻿@model IEnumerable<MaintenanceTypeProductGroupViewModel>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 <table id="SelectedProductTable" class="table table-striped dataTable" data-processing="true">
     <thead>
         <tr>
             <th data-data="id">Id</th>
-            <th data-data="description">Description</th>
-            <th data-data="quantity">Quantity</th>
+            <th data-data="description" width="40%">@Localizer["Description"]</th>
+            <th data-data="quantity" width="20%">@Localizer["Quantity"]</th>
+            <th data-data="cost" width="20%">@Localizer["CostPrice"]</th>
+            <th data-data="retail" width="17%">@Localizer["RetailPrice"]</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.Product.Id</td>
-                <td>@item.Product.Description</td>
-                <td>@item.Quantity</td>
-            </tr>
+        <tr>
+            <td>@item.Product.Id</td>
+            <td>@item.Product.ProductNo - @item.Product.Description</td>
+            <td>@item.Quantity</td>
+            <td>@item.Product.CostPrice</td>
+            <td>@item.Product.RetailPrice</td>
+        </tr>
         }
     </tbody>
 </table>
