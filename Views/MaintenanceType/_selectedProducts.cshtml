@@ -11,7 +11,7 @@
             <th data-data="description" width="40%">@Localizer["Description"]</th>
             <th data-data="quantity" width="20%">@Localizer["Quantity"]</th>
             <th data-data="cost" width="20%">@Localizer["CostPrice"]</th>
-            <th data-data="retail" width="17%">@Localizer["RetailPrice"]</th>
+            <th data-data="retail" width="20%">@Localizer["RetailPrice"]</th>
         </tr>
     </thead>
     <tbody>
@@ -21,8 +21,8 @@
             <td>@item.Product.Id</td>
             <td>@item.Product.ProductNo - @item.Product.Description</td>
             <td>@item.Quantity</td>
-            <td>@item.Product.CostPrice</td>
-            <td>@item.Product.RetailPrice</td>
+            <td class="text-right pr-4">@item.Product.CostPrice</td>
+            <td class="text-right pr-4">@item.Product.RetailPrice</td>
         </tr>
         }
     </tbody>

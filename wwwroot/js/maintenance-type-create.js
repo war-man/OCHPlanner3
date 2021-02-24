@@ -209,6 +209,19 @@
         UpdateTotalSection();
     });
 
+    $(document).on("blur", "input[name='WorkTime']", function () {
+        UpdateWorkSection();
+    });
+
+    $(document).on("blur", "input[name='HourlyRateCost']", function () {
+        UpdateWorkSection();
+    });
+
+    $(document).on("blur", "input[name='HourlyRateBillable']", function () {
+        UpdateWorkSection();
+    });
+    
+
     function UpdateProductTotalCost() {
         var totalCost = 0;
         var totalRetail = 0;
@@ -223,6 +236,23 @@
 
         $('input[name="ProductCost"]').val(totalCost.toFixed(2));
         $('input[name="ProductRetail"]').val(totalRetail.toFixed(2));
+    }
+
+    function UpdateWorkSection() {
+        var totalCost = 0;
+        var totalRetail = 0;
+
+        if ($('input[name="WorkTime"]').val() !== ''
+            && $('input[name="HourlyRateCost"]').val()
+            && $('input[name="HourlyRateBillable"]').val()) {
+                totalCost = parseFloat($('input[name="WorkTime"]').val()) * parseFloat($('input[name="HourlyRateCost"]').val());
+                totalRetail = parseFloat($('input[name="WorkTime"]').val()) * parseFloat($('input[name="HourlyRateBillable"]').val());
+
+            $('input[name="WorkCost"]').val(totalCost.toFixed(2));
+            $('input[name="WorkTotal"]').val(totalRetail.toFixed(2));
+        }
+
+        UpdateTotalSection();
     }
 
     function UpdateTotalSection() {
@@ -245,7 +275,7 @@
         $('input[name="MaintenanceTotalPrice"]').val(totalRetail.toFixed(2));
 
         //Profit
-        var profitPercent = ((totalRetail - totalCost) / totalRetail).toFixed(2);
+        var profitPercent = (((totalRetail - totalCost) / totalCost) * 100).toFixed(2);
         $('input[name="ProfitPercentage"]').val(profitPercent);
 
         var profitAmount = (totalRetail - totalCost).toFixed(2);
