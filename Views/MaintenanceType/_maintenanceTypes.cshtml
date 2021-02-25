@@ -9,7 +9,8 @@
         <tr>
             <th data-data="id">Id</th>
             <th data-data="code" style="width:25%">@Localizer["Code"]</th>
-            <th data-data="name">@Localizer["Nom"]</th>
+            <th data-data="name" style="width:50%">@Localizer["Nom"]</th>
+            <th data-data="price" style="width:25%">@Localizer["TotalPrice"]</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
             <td>@item.Id</td>
             <td>@item.Code</td>
             <td>@item.Name</td>
+            <td>@item.MaintenanceTotalPrice</td>
         </tr>
         }
     </tbody>

@@ -123,4 +123,7 @@
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Prix</value>
+  </data>
 </root>

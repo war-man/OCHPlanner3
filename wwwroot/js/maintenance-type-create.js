@@ -193,34 +193,25 @@
         }
     });
 
-    $(document).on("blur", "input[name='MaterialCost']", function () {
+    $(document).on("blur", ".updTotal", function () {
         UpdateTotalSection();
     });
-
-    $(document).on("blur", "input[name='MaterialRetail']", function () {
-        UpdateTotalSection();
-    });
-
-    $(document).on("blur", "input[name='WorkCost']", function () {
-        UpdateTotalSection();
-    });
-
-    $(document).on("blur", "input[name='WorkTotal']", function () {
-        UpdateTotalSection();
-    });
-
-    $(document).on("blur", "input[name='WorkTime']", function () {
+        
+    $(document).on("blur", ".updWork", function () {
         UpdateWorkSection();
     });
 
-    $(document).on("blur", "input[name='HourlyRateCost']", function () {
-        UpdateWorkSection();
+    $(document).on("blur", ".updProfit", function () {
+        UpdateProfit();
     });
 
-    $(document).on("blur", "input[name='HourlyRateBillable']", function () {
-        UpdateWorkSection();
+
+    $(document).on("blur", ".toFixed", function () {
+        var value = $(this).val();
+        if (value !== '') {
+            $(this).val(parseFloat(value).toFixed(2));
+        }
     });
-    
 
     function UpdateProductTotalCost() {
         var totalCost = 0;
@@ -268,19 +259,33 @@
 
         //retail
         totalRetail = totalRetail + ($('input[name="ProductRetail"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="ProductRetail"]').val()));
-        totalRetail = totalRetail + ($('input[name="MaterialRetail"]').val() === '' ? parseFloat(0) : parseInt($('input[name="MaterialRetail"]').val()));
-        totalRetail = totalRetail + ($('input[name="WorkTotal"]').val() === '' ? parseFloat(0) : parseInt($('input[name="WorkTotal"]').val()));
+        totalRetail = totalRetail + ($('input[name="MaterialRetail"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="MaterialRetail"]').val()));
+        totalRetail = totalRetail + ($('input[name="WorkTotal"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="WorkTotal"]').val()));
 
         $('input[name="MaintenanceTotalRetail"]').val(totalRetail.toFixed(2));
         $('input[name="MaintenanceTotalPrice"]').val(totalRetail.toFixed(2));
 
-        //Profit
-        var profitPercent = (((totalRetail - totalCost) / totalCost) * 100).toFixed(2);
-        $('input[name="ProfitPercentage"]').val(profitPercent);
+        UpdateProfit();
 
-        var profitAmount = (totalRetail - totalCost).toFixed(2);
+    }
+
+    function UpdateProfit() {
+        var totalCost = 0;
+        var totalRetail = 0;
+
+        //cost
+        totalCost = totalCost + ($('input[name="ProductCost"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="ProductCost"]').val()));
+        totalCost = totalCost + ($('input[name="MaterialCost"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="MaterialCost"]').val()));
+        totalCost = totalCost + ($('input[name="WorkCost"]').val() === '' ? parseFloat(0) : parseFloat($('input[name="WorkCost"]').val()));
+
+        //Profit
+        var salePrice = parseFloat($('input[name="MaintenanceTotalPrice"]').val());
+
+        var profitAmount = (salePrice - totalCost).toFixed(2);
         $('input[name="ProfitAmount"]').val(profitAmount);
 
+        var profitPercent = (((salePrice - totalCost) / totalCost) * 100).toFixed(2);
+        $('input[name="ProfitPercentage"]').val(profitPercent);
     }
 
     function resetAddProduct() {

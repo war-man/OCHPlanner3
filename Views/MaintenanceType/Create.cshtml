@@ -115,14 +115,14 @@
                                     <div class="form-group">
 
                                         <label for="MaterialCost" class="control-label mt-2">@Localizer["MaterialCost"]</label>
-                                        <input type="number" asp-for="MaterialCost" name="MaterialCost" class="form-control text-right" />
+                                        <input type="number" asp-for="MaterialCost" name="MaterialCost" class="form-control text-right toFixed updTotal" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
 
                                         <label for="MaterialRetail" class="control-label mt-2">@Localizer["MaterialRetail"]</label>
-                                        <input type="number" asp-for="MaterialRetail" name="MaterialRetail" class="form-control text-right" />
+                                        <input type="number" asp-for="MaterialRetail" name="MaterialRetail" class="form-control text-right toFixed updTotal" />
                                     </div>
                                 </div>
                             </div>
@@ -131,31 +131,31 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="WorkTime" class="control-label mt-2">@Localizer["WorkTime"]</label>
-                                        <input type="number" asp-for="WorkTime" name="WorkTime" class="form-control text-right" />
+                                        <input type="number" asp-for="WorkTime" name="WorkTime" class="form-control text-right updWork" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="HourlyRate" class="control-label mt-2">@Localizer["HourlyRateCost"]</label>
-                                        <input type="number" asp-for="HourlyRateCost" name="HourlyRateCost" class="form-control text-right" />
+                                        <input type="number" asp-for="HourlyRateCost" name="HourlyRateCost" class="form-control text-right toFixed updWork" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="HourlyRate" class="control-label mt-2">@Localizer["HourlyRateBillable"]</label>
-                                        <input type="number" asp-for="HourlyRateBillable" name="HourlyRateBillable" class="form-control text-right" />
+                                        <input type="number" asp-for="HourlyRateBillable" name="HourlyRateBillable" class="form-control text-right toFixed updWork" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="WorkCost" class="control-label mt-2">@Localizer["WorkCost"]</label>
-                                        <input type="number" asp-for="WorkCost" name="WorkCost" class="form-control text-right" readonly />
+                                        <input type="number" asp-for="WorkCost" name="WorkCost" class="form-control text-right updTotal" readonly />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="WorkTotal" class="control-label mt-2">@Localizer["WorkTotal"]</label>
-                                        <input type="number" asp-for="WorkTotal" name="WorkTotal" class="form-control text-right" readonly />
+                                        <input type="number" asp-for="WorkTotal" name="WorkTotal" class="form-control text-right updTotal" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -165,29 +165,29 @@
                                     <div class="card" style="background-color: rgba(0, 0, 0, 0.1);">
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                <label for="MaintenanceTotalCost" class="control-label col-md-4 mt-2">@Localizer["MaintenanceTotalCost"]</label>
+                                                <label for="MaintenanceTotalCost" class="control-label col-md-4 mt-2 text-righ">@Localizer["MaintenanceTotalCost"]</label>
                                                 <div class="col-md-2">
                                                     <input type="number" asp-for="MaintenanceTotalCost" name="MaintenanceTotalCost" class="form-control text-right" readonly />
                                                 </div>
-                                                <label for="ProfitPercentage" class="control-label col-md-3 mt-2">@Localizer["ProfitPercentage"]</label>
+                                                <label for="ProfitPercentage" class="control-label col-md-3 mt-2 text-right">@Localizer["ProfitPercentage"]</label>
                                                 <div class="col-md-2">
                                                     <input type="number" asp-for="ProfitPercentage" name="ProfitPercentage" class="form-control text-right" readonly />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="MaintenanceTotalRetail" class="control-label col-md-4 mt-2">@Localizer["MaintenanceTotalRetail"]</label>
+                                                <label for="MaintenanceTotalRetail" class="control-label col-md-4 mt-2 text-righ">@Localizer["MaintenanceTotalRetail"]</label>
                                                 <div class="col-md-2">
                                                     <input type="number" asp-for="MaintenanceTotalRetail" name="MaintenanceTotalRetail" class="form-control text-right" readonly />
                                                 </div>
-                                                <label for="ProfitAmount" class="control-label col-md-3 mt-2">@Localizer["ProfitAmount"]</label>
+                                                <label for="ProfitAmount" class="control-label col-md-3 mt-2 text-right">@Localizer["ProfitAmount"]</label>
                                                 <div class="col-md-2">
                                                     <input type="number" asp-for="ProfitAmount" name="ProfitAmount" class="form-control text-right" readonly />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="MaintenanceTotalPrice" class="control-label col-md-4 mt-2">@Localizer["MaintenanceTotalPrice"]</label>
+                                                <label for="MaintenanceTotalPrice" class="control-label col-md-4 mt-2 text-righ">@Localizer["MaintenanceTotalPrice"]</label>
                                                 <div class="col-md-2">
-                                                    <input type="number" asp-for="MaintenanceTotalPrice" name="MaintenanceTotalPrice" class="form-control text-right" />
+                                                    <input type="number" asp-for="MaintenanceTotalPrice" name="MaintenanceTotalPrice" class="form-control text-right toFixed updProfit" />
                                                 </div>
 
                                             </div>

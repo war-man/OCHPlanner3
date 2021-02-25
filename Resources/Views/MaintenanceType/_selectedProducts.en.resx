@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CostPrice" xml:space="preserve">
+    <value>Cost Price</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
+  </data>
+  <data name="RetailPrice" xml:space="preserve">
+    <value>Retail Price</value>
   </data>
 </root>
