@@ -42,7 +42,6 @@ namespace OCHPlanner3.Controllers
                     MaintenanceTypeList = await _maintenanceTypeService.GetMaintenanceTypes(id)
                 };
 
-
                 return View(model);
             }
             catch (Exception ex)
@@ -92,6 +91,38 @@ namespace OCHPlanner3.Controllers
                 ex.ToExceptionless().Submit();
                 return BadRequest();
             }
+        }
+
+        [Route("/{lang:lang}/MaintenanceType/Edit/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                await ClearProducts();
+
+                var model = await GetMaintenanceTypeViewModel(id);
+
+                //Ajouter les produits en cache
+                await AddProductListToMemory(model.Products);
+                
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        private async Task<MaintenanceTypeViewModel> GetMaintenanceTypeViewModel(int id)
+        {
+            var model = await _maintenanceTypeService.GetMaintenanceType(id);
+
+            model.RootUrl = BaseRootUrl;
+            model.ProductList = await _optionService.GetProductSelectListItem(model.GarageId);
+            model.Products = await _maintenanceTypeService.GetSelectedProducts(id);
+
+            return model;
         }
 
         [Route("/{lang:lang}/MaintenanceType/SelectedProducts")]
@@ -145,19 +176,7 @@ namespace OCHPlanner3.Controllers
         {
             try
             {
-                var products = HttpContext.Session.GetObject<IList<MaintenanceTypeProductGroupViewModel>>("SelectedProducts");
-                if (products == null)
-                {
-                    products = new List<MaintenanceTypeProductGroupViewModel>();
-                }
-
-                products.Add(new MaintenanceTypeProductGroupViewModel()
-                {
-                    Product = await _optionService.GetProduct(product.Product.Id),
-                    Quantity = product.Quantity
-                });
-
-                HttpContext.Session.SetObject("SelectedProducts", products);
+                var products = await AddProductToMemory(product);
 
                 return PartialView("_selectedProducts", products);
             }
@@ -167,6 +186,42 @@ namespace OCHPlanner3.Controllers
                 return BadRequest();
             }
         }
+
+        private async Task<IList<MaintenanceTypeProductGroupViewModel>> AddProductListToMemory(IList<MaintenanceTypeProductGroupViewModel> productList)
+        {
+            var products = HttpContext.Session.GetObject<IList<MaintenanceTypeProductGroupViewModel>>("SelectedProducts");
+            if (products == null)
+            {
+                products = new List<MaintenanceTypeProductGroupViewModel>();
+            }
+
+            var listForMemory = products.ToList();
+            listForMemory.AddRange(productList);
+
+            HttpContext.Session.SetObject("SelectedProducts", listForMemory);
+
+            return products;
+        }
+
+        private async Task<IList<MaintenanceTypeProductGroupViewModel>> AddProductToMemory(MaintenanceTypeProductGroupViewModel product)
+        {
+            var products = HttpContext.Session.GetObject<IList<MaintenanceTypeProductGroupViewModel>>("SelectedProducts");
+            if (products == null)
+            {
+                products = new List<MaintenanceTypeProductGroupViewModel>();
+            }
+
+            products.Add(new MaintenanceTypeProductGroupViewModel()
+            {
+                Product = await _optionService.GetProduct(product.Product.Id),
+                Quantity = product.Quantity
+            });
+
+            HttpContext.Session.SetObject("SelectedProducts", products);
+            
+            return products;
+        }
+
 
         [Route("/{lang:lang}/MaintenanceType/DeleteProduct")]
         public async Task<IActionResult> DeleteProduct(int id)
@@ -194,6 +249,21 @@ namespace OCHPlanner3.Controllers
             try
             {
                 var result = await _maintenanceTypeService.CreateMaintenanceType(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("/{lang:lang}/MaintenanceType/Edit")]
+        public async Task<IActionResult> Edit(MaintenanceTypeViewModel model)
+        {
+            try
+            {
+                var result = await _maintenanceTypeService.EditMaintenanceType(model);
                 return Ok();
             }
             catch (Exception ex)

@@ -44,10 +44,13 @@
                 }
             }
         ]
-       
+        //initComplete: function () {
+        //    $('#MaintenanceTypeListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');
+        //}
     };
 
     initTable();
+    UpdateProductTotalCost();
 
     $(document).on("click", "#btnAddProduct", function () {
 
@@ -97,7 +100,7 @@
 
     $(document).on("click", "#btnSave", function () {
 
-        var form = $('#createMaintenanceTypeForm');
+        var form = $('#editMaintenanceTypeForm');
 
         $('input[name="SelectedProduct"]').addClass('ignoreClass');
         $('input[name="Quantity"]').addClass('ignoreClass');
@@ -153,7 +156,7 @@
                     formData = formData + '&GarageId=' + $('#hidSelectedGarageId').val();
 
                     $.ajax({
-                        url: ajaxUrl + '/MaintenanceType/Create',
+                        url: ajaxUrl + '/MaintenanceType/Edit',
                         type: "POST",
                         data: formData
                     })

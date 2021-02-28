@@ -7,7 +7,6 @@ using OCHPlanner3.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Data.Factory
@@ -15,7 +14,7 @@ namespace OCHPlanner3.Data.Factory
     public class MaintenanceTypeFactory : IMaintenanceTypeFactory
     {
         private readonly IConfiguration _configuration;
-        
+
         public MaintenanceTypeFactory(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -100,7 +99,7 @@ namespace OCHPlanner3.Data.Factory
                             transaction: transaction);
 
                         //insert related products
-                        var productList = new List<MaintenanceProductModel>(); 
+                        var productList = new List<MaintenanceProductModel>();
 
                         foreach (var p in products)
                         {
@@ -119,7 +118,7 @@ namespace OCHPlanner3.Data.Factory
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -159,6 +158,142 @@ namespace OCHPlanner3.Data.Factory
             }
         }
 
+        public async Task<int> EditMaintenanceType(MaintenanceTypeModel maintenanceType, List<MaintenanceTypeProductGroupViewModel> products)
+        {
+            try
+            {
+                var sql = @"UPDATE [dbo].[MaintenanceType2]
+		                 SET [Code] = @Code
+                        ,[Name] = @Name
+                        ,[Material] = @Material
+                        ,[MaterialCost] = @MaterialCost
+                        ,[MaterialRetail] = @MaterialRetail
+                        ,[WorkTime] = @WorkTime
+                        ,[HourlyRateCost] = @HourlyRateCost
+                        ,[HourlyRateBillable] = @HourlyRateBillable
+                        ,[WorkCost] = @WorkCost
+                        ,[WorkTotal] = @WorkTotal
+                        ,[MaintenanceTotalCost] = @MaintenanceTotalCost
+                        ,[MaintenanceTotalRetail] = @MaintenanceTotalRetail
+                        ,[MaintenanceTotalPrice] = @MaintenanceTotalPrice
+                        ,[ProfitPercentage] = @ProfitPercentage
+                        ,[ProfitAmount] = @ProfitAmount
+                        WHERE Id = @Id";
+
+                //Delete All products
+                var sqlProductDelete = @"DELETE FROM [dbo].[MaintenanceType2_Product] WHERE MaintenanceTypeId = @Id";
+
+                //Insert Products
+                var sqlProductInsert = @"INSERT INTO [dbo].[MaintenanceType2_Product]
+                                ([MaintenanceTypeId]
+                                ,[ProductId]
+                                ,[Quantity])
+                                VALUES
+                                (@MaintenanceTypeId
+                                , @ProductId
+                                , @Quantity)";
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var maintenanceTypeUpdated = await connection.ExecuteAsync(sql,
+                            new
+                            {
+                                Code = maintenanceType.Code,
+                                Name = maintenanceType.Name,
+                                Material = maintenanceType.Material,
+                                MaterialCost = maintenanceType.MaterialCost,
+                                MaterialRetail = maintenanceType.MaterialRetail,
+                                WorkTime = maintenanceType.WorkTime,
+                                HourlyRateCost = maintenanceType.HourlyRateCost,
+                                HourlyRateBillable = maintenanceType.HourlyRateBillable,
+                                WorkCost = maintenanceType.WorkCost,
+                                WorkTotal = maintenanceType.WorkTotal,
+                                MaintenanceTotalCost = maintenanceType.MaintenanceTotalCost,
+                                MaintenanceTotalRetail = maintenanceType.MaintenanceTotalRetail,
+                                MaintenanceTotalPrice = maintenanceType.MaintenanceTotalPrice,
+                                ProfitPercentage = maintenanceType.ProfitPercentage,
+                                ProfitAmount = maintenanceType.ProfitAmount,
+                                Id = maintenanceType.Id
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        //delete all related products
+                        var deleteProducts = await connection.ExecuteAsync(sqlProductDelete,
+                            new
+                            {
+                                Id = maintenanceType.Id
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        //insert related products
+                        var productList = new List<MaintenanceProductModel>();
+
+                        foreach (var p in products)
+                        {
+                            productList.Add(new MaintenanceProductModel()
+                            {
+                                MaintenanceTypeId = maintenanceType.Id,
+                                ProductId = p.Product.Id,
+                                Quantity = p.Quantity
+                            });
+                        }
+
+                        var affectedRows = await connection.ExecuteAsync(sqlProductInsert, productList, transaction: transaction);
+                        transaction.Commit();
+
+                        return 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<MaintenanceTypeModel> GetMaintenanceType(int id)
+        {
+            var sql = @"SELECT [Id]
+                          ,[Code]
+                          ,[Name]
+                          ,[Material]
+                          ,[MaterialCost]
+                          ,[MaterialRetail]
+                          ,[WorkTime]
+                          ,[HourlyRateCost]
+                          ,[HourlyRateBillable]
+                          ,[WorkCost]
+                          ,[WorkTotal]
+                          ,[MaintenanceTotalCost]
+                          ,[MaintenanceTotalRetail]
+                          ,[MaintenanceTotalPrice]
+                          ,[ProfitPercentage]
+                          ,[ProfitAmount]
+                          ,[GarageId]
+                      FROM [dbo].[MaintenanceType2]
+                      WHERE Id = @id";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryFirstOrDefaultAsync<MaintenanceTypeModel>(sql,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
         public async Task<IEnumerable<MaintenanceTypeModel>> GetMaintenanceTypes(int garageId)
         {
             var sql = @"SELECT [Id]
@@ -195,5 +330,30 @@ namespace OCHPlanner3.Data.Factory
                 return result;
             }
         }
+
+        public async Task<IEnumerable<MaintenanceTypeProductGroupModel>> GetSelectedProducts(int id)
+        {
+            var sql = @"SELECT [Id]
+                          ,[MaintenanceTypeId]
+                          ,[ProductId]
+                          ,[Quantity]
+                      FROM [dbo].[MaintenanceType2_Product]
+                      WHERE [MaintenanceTypeId] = @Id";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<MaintenanceTypeProductGroupModel>(sql,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
     }
+
 }

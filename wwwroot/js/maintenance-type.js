@@ -26,16 +26,7 @@
                 text: $('#hidEditButton').val(),
                 action: function (e, dt, button, config) {
                     var data = dt.row({ selected: true }).data();
-                    $('#editError').hide();
-                    $('#editForm').trigger('reset');
-
-                    $('#editForm input[name=id]').val(data.id);
-                    $('#editForm input[name=productNo]').val(data.productNo);
-                    $('#editForm input[name=description]').val(data.description);
-                    $('#editForm input[name=costPrice]').val(data.costPrice);
-                    $('#editForm input[name=retailPrice]').val(data.retailPrice);
-
-                    $('#editModal').modal({ backdrop: 'static' });
+                    location.href = ajaxUrl + '/MaintenanceType/Edit/' + data.id;
                 }
             },
             {
