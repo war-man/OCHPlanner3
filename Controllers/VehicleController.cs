@@ -12,15 +12,24 @@ namespace OCHPlanner3.Controllers
     public class VehicleController : BaseController
     {
         public readonly IUserService _userService;
-        
+        public readonly IVehicleService _vehicleService;
+
         public VehicleController(IHttpContextAccessor httpContextAccessor,
-             IUserService userService) : base(httpContextAccessor, userService)
+             IUserService userService,
+             IVehicleService vehicleService) : base(httpContextAccessor, userService)
         {
-            
+            _vehicleService = vehicleService;
         }
 
-        public IActionResult Index()
+        [HttpGet("/{lang:lang}/Vehicle/{vin}")]
+        public IActionResult Index(string? vin = "")
         {
+            if(!string.IsNullOrEmpty(vin))
+            {
+                //get vehicle info by VIN
+                var vehicle = _vehicleService.GetVehicleByVIN(vin);
+            }
+
             var model = new VehicleViewModel()
             {
                 RootUrl = BaseRootUrl

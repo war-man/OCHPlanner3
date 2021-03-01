@@ -9,10 +9,10 @@ namespace OCHPlanner3.Models
         public string VinCode { get; set; }
         public string Description { get; set; }
         public int Odometer { get; set; }
-        public int year { get; set; }
+        public int Year { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
-        public string Motor { get; set; }
+        public string Engine { get; set; }
         public string Transmission { get; set; }
         public string Propulsion { get; set; }
         public string BrakeSystem { get; set; }

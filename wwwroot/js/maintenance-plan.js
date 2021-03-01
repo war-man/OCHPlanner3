@@ -8,16 +8,24 @@
         }
     });
 
+    $(document).on("click", '#btnVehicleDetail', function (e) {
+        if ($('input[name="VinCode"]').val() !== '') {
+            location.href = ajaxUrl + "/Vehicle/" + $('input[name="VinCode"]').val()
+        }
+    });
+
     $(document).on("blur", 'input[name="VinCode"]', function () {
 
         if ($(this).val().trim() === '')
             return false;
 
+        var VIN = $(this).val();
+
         $.ajax({
             url: ajaxUrl + '/MaintenancePlan/VINDecode',
             type: "GET",
             data: {
-                vin: $(this).val()
+                vin: VIN
             },
             async: false,
             success: function (response) {
@@ -32,7 +40,7 @@
                         confirmButtonText: $('#hidCreateVehicleButton').val()
                     }).then(function (result) {
                         if (result.value) {
-                            location.href = ajaxUrl + "/Vehicle"
+                            location.href = ajaxUrl + "/Vehicle/" + VIN
                            
                         }
                     });

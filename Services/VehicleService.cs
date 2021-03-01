@@ -37,6 +37,36 @@ namespace OCHPlanner3.Services
             }).OrderBy(o => o.Text);
         }
 
+        public async Task<VehicleViewModel> GetVehicleByVIN(string vin)
+        {
+            var vehicle = await _vehicleFactory.GetVehicleByVIN(vin);
+            var result = vehicle.Adapt<VehicleViewModel>();
+
+            result.Driver = new DriverViewModel()
+            {
+                Autorization = vehicle.DriverNotes,
+                CellPhone = vehicle.DriverCellphone,
+                Email = vehicle.DriverEmail,
+                Name = vehicle.DriverName,
+                Phone = vehicle.DriverPhone
+            };
+
+            result.Owner = new OwnerViewModel()
+            {
+                Address = vehicle.OwnerAddress,
+                Company = vehicle.OwnerCompany,
+                Email = vehicle.OwnerEmail,
+                Name = vehicle.OwnerName,
+                Phone = vehicle.OwnerPhone
+            };
+
+            result.Plate = vehicle.LicencePlate;
+            result.SelectedMaintenancePlan = vehicle.MaintenancePlanId;
+            result.SelectedOil = vehicle.oilTypeId;
+
+            return result;
+        }
+
         public async Task<IEnumerable<SelectListItem>> GetCarModelSelectList(string make)
         {
             var makes = await _vehicleFactory.GetModels(make);

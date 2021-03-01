@@ -32,7 +32,7 @@
                                 <div class="input-group mb-0">
                                     <input asp-for="Vehicle.Description" name="Description" class="form-control" />
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary btn-xs" type="button" data-toggle="modal" data-target="#vehicleModal"><i class="fad fa-edit"></i></button>
+                                        <button id="btnVehicleDetail" class="btn btn-primary btn-xs" type="button"><i class="fad fa-edit"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -297,116 +297,6 @@
             </div>
         </div>
 
-    </div>
-</div>
-
-<!-- Vehicle Modal -->
-<div class="modal fade" id="vehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="fad fa-car-alt mr-2"></i>@Localizer["VehicleInfo"]</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" id="VehicleForm">
-                    <div id="vehicleError" class="alert alert-danger hidden" role="alert"></div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="VinCode">@Localizer["Vin"]</label>
-                                <input asp-for="Vehicle.VinCode" name="VinCode" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="odometer">@Localizer["Odometer"]</label>
-                                <input name="odometer" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="year">@Localizer["Year"]</label>
-                                <input id="year" name="year" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="make">@Localizer["Make"]</label>
-                                <input id="make" name="make" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="model">@Localizer["Model"]</label>
-                                <input id="model" name="model" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="color">@Localizer["Color"]</label>
-                                <input id="color" name="color" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="brake">@Localizer["BrakeSystem"]</label>
-                                <input id="brake" name="brake" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="steering">@Localizer["Steering"]</label>
-                                <input id="steering" name="steering" type="text" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="maintenancePlan">@Localizer["MaintenancePlanFull"]</label>
-                                <input id="maintenancePlan" name="maintenancePlan" type="text" class="form-control" />
-                            </div>
-
-
-
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="description">@Localizer["DescriptionFull"]</label>
-                                <input name="description" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="SelectedOil" class="control-label">@Localizer["UseOil"]</label>
-                                <select asp-for="Vehicle.SelectedOil" name="oillist" asp-items="Model.Vehicle.OilList" class="form-control">
-                                    <option value="">-- Select --</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="transmission">@Localizer["Transmission"]</label>
-                                <input id="transmission" name="transmission" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="propulsion">@Localizer["Propulsion"]</label>
-                                <input id="propulsion" name="propulsion" type="text" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="engine">@Localizer["Engine"]</label>
-                                <input id="engine" name="engine" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="unitNo">@Localizer["UnitNo"]</label>
-                                <input id="unitNo" name="unitNo" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="plate">@Localizer["Plate"]</label>
-                                <input id="plate" name="plate" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="seating">@Localizer["Seating"]</label>
-                                <input id="seating" name="seating" type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="program">@Localizer["Program"]</label>
-                                <input id="program" name="program" type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
     </div>
 </div>
 
