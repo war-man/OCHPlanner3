@@ -18,11 +18,14 @@ namespace OCHPlanner3.Services
     {
         private readonly IVehicleFactory _vehicleFactory;
         private readonly IConfiguration _configuration;
+        private readonly IVINQueryService _vinQueryService;
 
         public VehicleService(IVehicleFactory vehicleFactory,
+            IVINQueryService vinQueryService,
             IConfiguration configuration)
         {
             _vehicleFactory = vehicleFactory;
+            _vinQueryService = vinQueryService;
             _configuration = configuration;
         }
 
@@ -40,29 +43,55 @@ namespace OCHPlanner3.Services
         public async Task<VehicleViewModel> GetVehicleByVIN(string vin)
         {
             var vehicle = await _vehicleFactory.GetVehicleByVIN(vin);
-            var result = vehicle.Adapt<VehicleViewModel>();
+            var result = new VehicleViewModel();
 
-            result.Driver = new DriverViewModel()
+            if (vehicle != null)
             {
-                Autorization = vehicle.DriverNotes,
-                CellPhone = vehicle.DriverCellphone,
-                Email = vehicle.DriverEmail,
-                Name = vehicle.DriverName,
-                Phone = vehicle.DriverPhone
-            };
+                result = vehicle.Adapt<VehicleViewModel>();
 
-            result.Owner = new OwnerViewModel()
+                result.Driver = new DriverViewModel()
+                {
+                    Autorization = vehicle.DriverNotes,
+                    CellPhone = vehicle.DriverCellphone,
+                    Email = vehicle.DriverEmail,
+                    Name = vehicle.DriverName,
+                    Phone = vehicle.DriverPhone
+                };
+
+                result.Owner = new OwnerViewModel()
+                {
+                    Address = vehicle.OwnerAddress,
+                    Company = vehicle.OwnerCompany,
+                    Email = vehicle.OwnerEmail,
+                    Name = vehicle.OwnerName,
+                    Phone = vehicle.OwnerPhone
+                };
+
+                result.Plate = vehicle.LicencePlate;
+                result.SelectedMaintenancePlan = vehicle.MaintenancePlanId;
+                result.SelectedOil = vehicle.oilTypeId;
+            }
+            else
             {
-                Address = vehicle.OwnerAddress,
-                Company = vehicle.OwnerCompany,
-                Email = vehicle.OwnerEmail,
-                Name = vehicle.OwnerName,
-                Phone = vehicle.OwnerPhone
-            };
+                //Get VIN Decode values
+                var vinResult = await _vinQueryService.GetVINDecode(vin);
 
-            result.Plate = vehicle.LicencePlate;
-            result.SelectedMaintenancePlan = vehicle.MaintenancePlanId;
-            result.SelectedOil = vehicle.oilTypeId;
+                result = new VehicleViewModel()
+                {
+                    VinCode = vinResult.VIN,
+                    Description = vinResult.Description,
+                    Year = Convert.ToInt32(vinResult.Year),
+                    Make = vinResult.Make,
+                    Model = vinResult.Model,
+                    BrakeSystem = vinResult.BrakeSystem,
+                    Engine = vinResult.Engine,
+                    Seating = vinResult.Seating,
+                    Steering = vinResult.Steering,
+                    Propulsion = vinResult.DriveLine,
+                    Transmission = vinResult.Transmission,
+                    EntryDate = new DateTime(Convert.ToInt32(vinResult.Year),6,1).ToString()
+                };
+            }
 
             return result;
         }
@@ -93,6 +122,11 @@ namespace OCHPlanner3.Services
             });
 
             return await Task.FromResult(colors.OrderBy(o => o.Text)).ConfigureAwait(false);
+        }
+
+        public Task<int> SaveVehicle(VehicleViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

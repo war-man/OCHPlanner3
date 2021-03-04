@@ -129,6 +129,9 @@
   <data name="Engine" xml:space="preserve">
     <value>Moteur</value>
   </data>
+  <data name="EngineRequired" xml:space="preserve">
+    <value>Le moteur est requis</value>
+  </data>
   <data name="EntryDate" xml:space="preserve">
     <value>Mise en service</value>
   </data>
@@ -138,17 +141,29 @@
   <data name="Make" xml:space="preserve">
     <value>Marque</value>
   </data>
+  <data name="MakeRequired" xml:space="preserve">
+    <value>La marque est requise</value>
+  </data>
   <data name="MileageSelection" xml:space="preserve">
     <value>Type unitée</value>
   </data>
   <data name="Model" xml:space="preserve">
     <value>Modèle</value>
   </data>
+  <data name="ModelRequired" xml:space="preserve">
+    <value>Le odèle est requis</value>
+  </data>
   <data name="MonthlyMileage" xml:space="preserve">
     <value>Moyenne mensuelle</value>
   </data>
   <data name="Odometer" xml:space="preserve">
     <value>Odomètre</value>
+  </data>
+  <data name="OdometerRequired" xml:space="preserve">
+    <value>l'odomètre est requis</value>
+  </data>
+  <data name="OwnerPhoneRequired" xml:space="preserve">
+    <value>Le téléphone du propriétaire est requis</value>
   </data>
   <data name="Plate" xml:space="preserve">
     <value>Plaque</value>
@@ -189,7 +204,13 @@
   <data name="Vin" xml:space="preserve">
     <value>VIN</value>
   </data>
+  <data name="VinCodeRequired" xml:space="preserve">
+    <value>Le VIN est requis</value>
+  </data>
   <data name="Year" xml:space="preserve">
     <value>Année</value>
+  </data>
+  <data name="YearRequired" xml:space="preserve">
+    <value>L'année est requise</value>
   </data>
 </root>

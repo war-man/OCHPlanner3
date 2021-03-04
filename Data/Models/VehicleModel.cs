@@ -24,7 +24,7 @@ namespace OCHPlanner3.Data.Models
         public string Seating { get; set; }
         public int Odometer { get; set; }
         public int MileageType { get; set; }
-        public DateTime EntryDate { get; set; }
+        public string EntryDate { get; set; }
         public int MonthlyMileage { get; set; }
         public int oilTypeId { get; set; }
         public int MaintenancePlanId { get; set; }

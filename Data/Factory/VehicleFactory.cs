@@ -76,7 +76,7 @@ namespace OCHPlanner3.Data.Factory
                       ,V.[Odometer]
                       ,V.[MileageType]
                       ,V.[EntryDate]
-                      ,V.[MonthlyAverage]
+                      ,V.[MonthlyMileage]
                       ,V.[OilTypeId]
                       ,V.[MaintenancePlanId]
                       ,V.[VehicleOwnerId]

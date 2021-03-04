@@ -25,12 +25,8 @@ namespace OCHPlanner3.Models
         public string UnitNo { get; set; }
         public string Plate { get; set; }
         public string Color { get; set; }
-        public int SelectedProgram { get; set; }
-        public IEnumerable<SelectListItem> ProgramList { get; set; }
-        public int SelectedTransmission { get; set; }
-        public int SelectedPropulsion { get; set; }
         public string SelectedUnit { get; set; }
-        public DateTime EntryDate { get; set; }
+        public string EntryDate { get; set; }
         public int MonthlyMileage { get; set; }
 
         public OwnerViewModel Owner { get; set; }
