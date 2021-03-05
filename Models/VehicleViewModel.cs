@@ -6,6 +6,7 @@ namespace OCHPlanner3.Models
 {
     public class VehicleViewModel : BaseViewModel
     {
+        public int Id { get; set; }
         public string VinCode { get; set; }
         public string Description { get; set; }
         public int Odometer { get; set; }
@@ -31,5 +32,18 @@ namespace OCHPlanner3.Models
 
         public OwnerViewModel Owner { get; set; }
         public DriverViewModel Driver { get; set; }
+
+        //For POST
+        public string OwnerCompany { get; set; }
+        public string OwnerName { get; set; }
+        public string OwnerAddress { get; set; }
+        public string OwnerPhone { get; set; }
+        public string OwnerEmail { get; set; }
+
+        public string DriverName { get; set; }
+        public string DriverCellPhone { get; set; }
+        public string DriverPhone { get; set; }
+        public string DriverEmail { get; set; }
+        public string DriverAutorization { get; set; }
     }
 }

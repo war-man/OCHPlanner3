@@ -23,6 +23,7 @@
 @Html.Hidden("hidEngineRequired", Localizer["EngineRequired"].Value)
 @Html.Hidden("hidOdometerRequired", Localizer["OdometerRequired"].Value)
 @Html.Hidden("hidOwnerPhoneRequired", Localizer["OwnerPhoneRequired"].Value)
+@Html.Hidden("hidSaveSuccess", Localizer["SaveSuccess"].Value)
 
 @Html.Hidden("HidRootUrl", Model.RootUrl)
 
@@ -119,7 +120,7 @@
                             <div class="form-group row">
                                 <label for="Odometer" class="control-label col-md-2 mt-2">@Localizer["Odometer"]</label>
                                 <div class="col-md-2">
-                                    <input asp-for="Odometer" name="EntryDate" class="form-control" maxlength="20" />
+                                    <input asp-for="Odometer" name="Odometer" class="form-control" maxlength="20" />
                                 </div>
                                 <label for="unitNo" class="control-label col-md-2 mt-2">@Localizer["MileageSelection"]</label>
                                 <div class="col-md-2">
@@ -143,7 +144,7 @@
                                 </div>
                                 <label for="monthlyMileage" class="control-label col-md-2 mt-2">@Localizer["MonthlyMileage"]</label>
                                 <div class="col-md-3">
-                                    <input asp-for="MonthlyMileage" name="monthlyMileage" class="form-control" maxlength="20" readonly />
+                                    <input asp-for="MonthlyMileage" name="MonthlyMileage" class="form-control" maxlength="20" readonly />
                                 </div>
                             </div>
                         </div>

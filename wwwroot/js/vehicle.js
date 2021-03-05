@@ -84,37 +84,44 @@
         if (form.valid()) {
             var formData = $(form).serialize();
 
-            var model = {
-                Engine: formData.Engine
-            };
-
             $.ajax({
                 url: ajaxUrl + '/Vehicle/Save',
                 type: "POST",
                 data: formData,
                 success: function (response) {
-                    editDone();
+                    saveDone();
                 },
                 error: function (xhr, status, error) {
                     fail(xhr, status, error);
                 }
             });
 
-            //$.ajax({
-            //    url: ajaxUrl + '/Vehicle/Save',
-            //    type: "POST",
-            //    data: formData
-            //})
-            //    .done(addDone)
-            //    .fail(ajaxFail);
-
-            
-
-
         }
     });
 
-    function addDone(data, status, xhr) {
+    $(document).on("blur", 'input[name="Odometer"]', function () {
+        if ($('input[name="Odometer"]').val() != '' && parseInt($('input[name="Odometer"]').val()) > 0) {
+            UpdateMonthlyMileage();
+        }
+    });
+
+    $("#datetimepicker1").on("change.datetimepicker", ({ date, oldDate }) => {
+        UpdateMonthlyMileage();
+    })
+
+    function UpdateMonthlyMileage() {
+        var entryDate = $('input[name="EntryDate"]').val();
+        var currentDate = moment();
+        var mileage = $('input[name="Odometer"]').val();
+
+        var entry = moment(entryDate).format('' + $('#hidDateFormat').val().toUpperCase() + '')
+
+        var diff = currentDate.diff(entry, 'months') 
+
+        $('input[name="MonthlyMileage"]').val(Math.round($('input[name="Odometer"]').val() / diff));
+    }
+
+    function saveDone(data, status, xhr) {
         Swal.fire({
             icon: 'success',
             title: $('#hidSaveSuccess').val(),
@@ -122,13 +129,13 @@
             showConfirmButton: false,
             timer: 1000,
             timerProgressBar: true,
-            onClose: () => {
-                location.href = ajaxUrl + "/MaintenanceType/" + $('#hidSelectedGarageId').val()
-            }
+            //onClose: () => {
+            //    location.href = ajaxUrl + "/MaintenanceType/" + $('#hidSelectedGarageId').val()
+            //}
         });
     }
 
-    function ajaxFail(xhr, status, error) {
+    function fail(xhr, status, error) {
         alert(xhr.responseText || error);
     }
 });

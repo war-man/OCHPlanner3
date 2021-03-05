@@ -124,9 +124,16 @@ namespace OCHPlanner3.Services
             return await Task.FromResult(colors.OrderBy(o => o.Text)).ConfigureAwait(false);
         }
 
-        public Task<int> SaveVehicle(VehicleViewModel model)
+        public async Task<int> SaveVehicle(VehicleViewModel vehicle)
         {
-            throw new NotImplementedException();
+            if (vehicle.Id == 0)
+            {
+                return await _vehicleFactory.CreateVehicle(vehicle.Adapt<VehicleModel>());
+            }
+            else
+            {
+                return 0; //TODO
+            }
         }
     }
 }

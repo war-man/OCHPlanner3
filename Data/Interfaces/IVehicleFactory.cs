@@ -10,5 +10,6 @@ namespace OCHPlanner3.Data.Interfaces
         Task<IEnumerable<CarMakeModel>> GetMakes();
         Task<IEnumerable<CarModelModel>> GetModels(string make);
         Task<VehicleModel> GetVehicleByVIN(string vinCode);
+        Task<int> CreateVehicle(VehicleModel vehicle);
     }
 }

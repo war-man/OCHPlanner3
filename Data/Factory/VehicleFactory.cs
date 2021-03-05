@@ -58,7 +58,7 @@ namespace OCHPlanner3.Data.Factory
         {
             try
             {
-                var sql = @"SELECT TOP(1000) V.[Id]
+                var sql = @"SELECT V.[Id]
                       ,V.[Vincode]
                       ,V.[Description]
                       ,V.[Year]
@@ -113,6 +113,164 @@ namespace OCHPlanner3.Data.Factory
                 }
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> CreateVehicle(VehicleModel vehicle)
+        {
+            try
+            {
+                var sqlOwner = @"INSERT INTO [dbo].[VehicleOwner]
+                                ([Company] 
+                                ,[Name]
+                                ,[Address]
+                                ,[Phone] 
+                                ,[Email])
+                                OUTPUT INSERTED.Id
+                                VALUES
+                                (@OwnerCompany
+                                , @OwnerName
+                                , @OwnerAddress
+                                , @OwnerPhone
+                                , @OwnerEmail)";
+
+                var sqlDriver = @"INSERT INTO [dbo].[VehicleDriver]
+                                ([Name] 
+                                ,[Phone]
+                                ,[Cellphone]
+                                ,[Email] 
+                                ,[Notes])
+                                OUTPUT INSERTED.Id
+                                VALUES
+                                (@DriverName
+                                , @DriverPhone
+                                , @DriverCellphone
+                                , @DriverEmail
+                                , @DriverNotes)";
+
+                var sql = @"INSERT INTO [dbo].[Vehicle2]
+		               ([Vincode]
+                      ,[Description]
+                      ,[Year]
+                      ,[Make]
+                      ,[Model]
+                      ,[Engine]
+                      ,[Transmission]
+                      ,[Propulsion]
+                      ,[BrakeSystem]
+                      ,[Steering]
+                      ,[Color]
+                      ,[UnitNo]
+                      ,[LicencePlate]
+                      ,[Seating]
+                      ,[Odometer]
+                      ,[MileageType]
+                      ,[EntryDate]
+                      ,[MonthlyMileage]
+                      ,[OilTypeId]
+                      ,[MaintenancePlanId]
+                      ,[VehicleOwnerId]
+                      ,[VehicleDriverId])
+	                VALUES(
+		                 @Vincode
+                        ,@Description
+                        ,@Year
+                        ,@Make
+                        ,@Model
+                        ,@Engine
+                        ,@Transmission
+                        ,@Propulsion
+                        ,@BrakeSystem
+                        ,@Steering
+                        ,@Color
+                        ,@UnitNo
+                        ,@LicencePlate
+                        ,@Seating
+                        ,@Odometer
+                        ,@MileageType
+                        ,@EntryDate
+                        ,@MonthlyMileage
+                        ,@OilTypeId
+                        ,@MaintenancePlanId
+                        ,@VehicleOwnerId
+                        ,@VehicleDriverId)";
+
+               
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        //insert owner
+                        var OwnerInserted = await connection.QuerySingleAsync<int>(sqlOwner,
+                            new
+                            {
+                                OwnerCompany = vehicle.OwnerCompany,
+                                OwnerName = vehicle.OwnerName,
+                                OwnerAddress = vehicle.OwnerAddress,
+                                OwnerPhone = vehicle.OwnerPhone,
+                                OwnerEmail = vehicle.OwnerEmail
+                                
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        //insert driver
+                        var DriverInserted = await connection.QuerySingleAsync<int>(sqlDriver,
+                            new
+                            {
+                                DriverName = vehicle.DriverName,
+                                DriverPhone = vehicle.DriverPhone,
+                                DriverCellphone = vehicle.DriverCellphone,
+                                DriverNotes = vehicle.DriverNotes,
+                                DriverEmail = vehicle.DriverEmail
+
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        //insert vehicle
+
+                        await connection.ExecuteAsync(sql,
+                            new
+                            {
+                                Vincode = vehicle.VinCode
+                                ,Description = string.IsNullOrWhiteSpace(vehicle.Description) ? string.Empty : vehicle.Description
+                                ,Year = vehicle.Year
+                                ,Make = string.IsNullOrWhiteSpace(vehicle.Make) ? string.Empty : vehicle.Make
+                                ,Model = string.IsNullOrWhiteSpace(vehicle.Model) ? string.Empty : vehicle.Model
+                                ,Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Transmission
+                                ,Transmission = string.IsNullOrWhiteSpace(vehicle.Transmission) ? string.Empty : vehicle.Transmission
+                                ,Propulsion = string.IsNullOrWhiteSpace(vehicle.Propulsion) ? string.Empty : vehicle.Propulsion
+                                ,BrakeSystem = string.IsNullOrWhiteSpace(vehicle.BrakeSystem) ? string.Empty : vehicle.BrakeSystem
+                                ,Steering = string.IsNullOrWhiteSpace(vehicle.Steering) ? string.Empty : vehicle.Steering
+                                ,Color = string.IsNullOrWhiteSpace(vehicle.Color) ? string.Empty : vehicle.Color                                
+                                ,UnitNo = string.IsNullOrWhiteSpace(vehicle.UnitNo) ? string.Empty : vehicle.UnitNo
+                                ,LicencePlate = string.IsNullOrWhiteSpace(vehicle.LicencePlate) ? string.Empty : vehicle.LicencePlate
+                                ,Seating = string.IsNullOrWhiteSpace(vehicle.Seating) ? string.Empty : vehicle.Seating
+                                ,Odometer = vehicle.Odometer                                
+                                ,MileageType = vehicle.MileageType                                 
+                                ,EntryDate = vehicle.EntryDate                                 
+                                ,MonthlyMileage = vehicle.MonthlyMileage                                
+                                ,OilTypeId = vehicle.oilTypeId                                
+                                ,MaintenancePlanId = vehicle.MaintenancePlanId                                
+                                ,VehicleOwnerId = OwnerInserted
+                                ,VehicleDriverId = DriverInserted
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        transaction.Commit();
+
+                        return 1;
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
