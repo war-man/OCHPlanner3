@@ -51,7 +51,7 @@ namespace OCHPlanner3.Services
 
                 result.Driver = new DriverViewModel()
                 {
-                    Autorization = vehicle.DriverNotes,
+                    Notes = vehicle.DriverNotes,
                     CellPhone = vehicle.DriverCellphone,
                     Email = vehicle.DriverEmail,
                     Name = vehicle.DriverName,
@@ -67,9 +67,9 @@ namespace OCHPlanner3.Services
                     Phone = vehicle.OwnerPhone
                 };
 
-                result.Plate = vehicle.LicencePlate;
+                result.LicencePlate = vehicle.LicencePlate;
                 result.SelectedMaintenancePlan = vehicle.MaintenancePlanId;
-                result.SelectedOil = vehicle.oilTypeId;
+                result.OilTypeId = vehicle.OilTypeId;
             }
             else
             {
@@ -132,7 +132,7 @@ namespace OCHPlanner3.Services
             }
             else
             {
-                return 0; //TODO
+                return await _vehicleFactory.UpdateVehicle(vehicle.Adapt<VehicleModel>());
             }
         }
     }

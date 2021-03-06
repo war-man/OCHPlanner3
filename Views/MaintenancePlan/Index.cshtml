@@ -49,7 +49,7 @@
                             </div>
                             <label for="MonthlyMileage" class="control-label col-md-2 mt-2">@Localizer["MonthlyMileage"]</label>
                             <div class="col-md-2">
-                                <input asp-for="Vehicle.MonthlyMileage" name="LastServiceDate" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.MonthlyMileage" name="MonthlyMileage" class="form-control" maxlength="20" />
                             </div>
                         </div>
 
@@ -60,7 +60,7 @@
                             </div>
                             <label for="SelectedOil" class="control-label col-md-2 mt-2">@Localizer["UseOil"]</label>
                             <div class="col-md-2">
-                                <select asp-for="Vehicle.SelectedOil" name="oillist" asp-items="Model.Vehicle.OilList" class="form-control">
+                                <select asp-for="Vehicle.OilTypeId" name="oillist" asp-items="Model.Vehicle.OilList" class="form-control">
                                     <option value="">-- Select --</option>
                                 </select>
                             </div>
@@ -77,9 +77,9 @@
                             <div class="col-md-2">
                                 <input asp-for="Vehicle.UnitNo" name="UnitNo" class="form-control" maxlength="20" />
                             </div>
-                            <label for="Plate" class="control-label col-md-2 mt-2">@Localizer["Plate"]</label>
+                            <label for="LicencePlate" class="control-label col-md-2 mt-2">@Localizer["Plate"]</label>
                             <div class="col-md-2">
-                                <input asp-for="Vehicle.Plate" name="Plate" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.LicencePlate" name="LicencePlate" class="form-control" maxlength="20" />
                             </div>
                             <label for="Color" class="control-label col-md-2 mt-2">@Localizer["Color"]</label>
                             <div class="col-md-2">

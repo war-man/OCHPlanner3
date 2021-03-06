@@ -23,10 +23,10 @@ namespace OCHPlanner3.Data.Models
         public string LicencePlate { get; set; }
         public string Seating { get; set; }
         public int Odometer { get; set; }
-        public int MileageType { get; set; }
+        public string SelectedUnit { get; set; }
         public string EntryDate { get; set; }
         public int MonthlyMileage { get; set; }
-        public int oilTypeId { get; set; }
+        public int OilTypeId { get; set; }
         public int MaintenancePlanId { get; set; }
         public int VehicleOwnerId { get; set; }
         public int VehicleDriverId { get; set; }

@@ -6,6 +6,6 @@
         public string CellPhone { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string Autorization { get; set; }
+        public string Notes { get; set; }
     }
 }

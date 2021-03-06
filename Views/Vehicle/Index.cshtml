@@ -36,6 +36,7 @@
 <div class="main-content-inner">
     <div class="container">
         <form id="vehicleForm">
+            @Html.Hidden("Id", Model.Id)
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -98,9 +99,9 @@
                                 <div class="col-md-2">
                                     <input asp-for="UnitNo" name="UnitNo" class="form-control" />
                                 </div>
-                                <label for="plate" class="control-label col-md-2 mt-2">@Localizer["Plate"]</label>
+                                <label for="LicencePlate" class="control-label col-md-2 mt-2">@Localizer["Plate"]</label>
                                 <div class="col-md-2">
-                                    <input asp-for="Plate" name="Plate" class="form-control" />
+                                    <input asp-for="LicencePlate" name="LicencePlate" class="form-control" />
                                 </div>
                                 <label for="seating" class="control-label col-md-2 mt-2">@Localizer["Seating"]</label>
                                 <div class="col-md-2">
@@ -159,9 +160,9 @@
                         <div class="card-body">
                             <h4 class="header-title"><i class="fad fa-list-alt mr-2"></i>@Localizer["Section3Title"]</h4>
                             <div class="form-group row">
-                                <label for="SelectedOil" class="control-label col-md-2 mt-2">@Localizer["UseOil"]</label>
+                                <label for="OilTypeId" class="control-label col-md-2 mt-2">@Localizer["UseOil"]</label>
                                 <div class="col-md-2">
-                                    <select asp-for="SelectedOil" name="oillist" asp-items="Model.OilList" class="form-control">
+                                    <select asp-for="OilTypeId" name="OilTypeId" asp-items="Model.OilList" class="form-control">
                                         <option value="">-- Select --</option>
                                     </select>
                                 </div>
@@ -179,9 +180,11 @@
 
             <div class="row mt-4">
                 <div class="col-md-6">
+                    <input asp-for="VehicleOwnerId" name="VehicleOwnerId" type="hidden" />
                     @await Html.PartialAsync("_Owner", Model.Owner)
                 </div>
                 <div class="col-md-6">
+                    <input asp-for="VehicleDriverId" name="VehicleDriverId" type="hidden" />
                     @await Html.PartialAsync("_Driver", Model.Driver)
                 </div>
             </div>

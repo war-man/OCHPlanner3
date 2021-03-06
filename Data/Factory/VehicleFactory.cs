@@ -74,7 +74,7 @@ namespace OCHPlanner3.Data.Factory
                       ,V.[LicencePlate]
                       ,V.[Seating]
                       ,V.[Odometer]
-                      ,V.[MileageType]
+                      ,V.[SelectedUnit]
                       ,V.[EntryDate]
                       ,V.[MonthlyMileage]
                       ,V.[OilTypeId]
@@ -166,7 +166,7 @@ namespace OCHPlanner3.Data.Factory
                       ,[LicencePlate]
                       ,[Seating]
                       ,[Odometer]
-                      ,[MileageType]
+                      ,[SelectedUnit]
                       ,[EntryDate]
                       ,[MonthlyMileage]
                       ,[OilTypeId]
@@ -189,7 +189,7 @@ namespace OCHPlanner3.Data.Factory
                         ,@LicencePlate
                         ,@Seating
                         ,@Odometer
-                        ,@MileageType
+                        ,@SelectedUnit
                         ,@EntryDate
                         ,@MonthlyMileage
                         ,@OilTypeId
@@ -253,13 +253,134 @@ namespace OCHPlanner3.Data.Factory
                                 ,LicencePlate = string.IsNullOrWhiteSpace(vehicle.LicencePlate) ? string.Empty : vehicle.LicencePlate
                                 ,Seating = string.IsNullOrWhiteSpace(vehicle.Seating) ? string.Empty : vehicle.Seating
                                 ,Odometer = vehicle.Odometer                                
-                                ,MileageType = vehicle.MileageType                                 
+                                ,SelectedUnit = vehicle.SelectedUnit                                 
                                 ,EntryDate = vehicle.EntryDate                                 
                                 ,MonthlyMileage = vehicle.MonthlyMileage                                
-                                ,OilTypeId = vehicle.oilTypeId                                
+                                ,OilTypeId = vehicle.OilTypeId                                
                                 ,MaintenancePlanId = vehicle.MaintenancePlanId                                
                                 ,VehicleOwnerId = OwnerInserted
                                 ,VehicleDriverId = DriverInserted
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        transaction.Commit();
+
+                        return 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> UpdateVehicle(VehicleModel vehicle)
+        {
+            try
+            {
+                var sqlOwner = @"UPDATE [dbo].[VehicleOwner]
+                                SET [Company] = @OwnerCompany 
+                                ,[Name] = @OwnerName
+                                ,[Address] = @OwnerAddress
+                                ,[Phone]  = @OwnerPhone
+                                ,[Email] = @OwnerEmail
+                                WHERE Id = @OwnerId";
+
+                var sqlDriver = @"UPDATE [dbo].[VehicleDriver]
+                                SET [Name] = @DriverName 
+                                ,[Phone] = @DriverPhone
+                                ,[Cellphone] = @DriverCellphone
+                                ,[Email] = @DriverEmail
+                                ,[Notes] = @DriverNotes
+                                WHERE Id = @DriverId";
+
+                var sql = @"UPDATE [dbo].[Vehicle2]
+		               SET [Vincode] = @Vincode
+                      ,[Description] = @Description
+                      ,[Year] = @Year
+                      ,[Make] = @Make
+                      ,[Model] = @Model
+                      ,[Engine] = @Engine
+                      ,[Transmission] = @Transmission
+                      ,[Propulsion] = @Propulsion
+                      ,[BrakeSystem] = @BrakeSystem
+                      ,[Steering] = @Steering
+                      ,[Color] = @Color
+                      ,[UnitNo] = @UnitNo
+                      ,[LicencePlate] = @LicencePlate
+                      ,[Seating] = @Seating
+                      ,[Odometer] = @Odometer
+                      ,[SelectedUnit] = @SelectedUnit
+                      ,[EntryDate] = @EntryDate
+                      ,[MonthlyMileage] = @MonthlyMileage
+                      ,[OilTypeId] = @OilTypeId
+                      ,[MaintenancePlanId] = @MaintenancePlanId
+                        WHERE Id = @Id";
+
+
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        //update owner
+                        await connection.ExecuteAsync(sqlOwner,
+                            new
+                            {
+                                OwnerCompany = vehicle.OwnerCompany,
+                                OwnerName = vehicle.OwnerName,
+                                OwnerAddress = vehicle.OwnerAddress,
+                                OwnerPhone = vehicle.OwnerPhone,
+                                OwnerEmail = vehicle.OwnerEmail,
+                                OwnerId = vehicle.VehicleOwnerId
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        //update driver
+                        await connection.ExecuteAsync(sqlDriver,
+                            new
+                            {
+                                DriverName = vehicle.DriverName,
+                                DriverPhone = vehicle.DriverPhone,
+                                DriverCellphone = vehicle.DriverCellphone,
+                                DriverNotes = vehicle.DriverNotes,
+                                DriverEmail = vehicle.DriverEmail,
+                                DriverId = vehicle.VehicleDriverId
+                            },
+                            commandType: CommandType.Text,
+                            transaction: transaction);
+
+                        //update vehicle
+
+                        await connection.ExecuteAsync(sql,
+                            new
+                            {
+                                Vincode = vehicle.VinCode,
+                                Description = string.IsNullOrWhiteSpace(vehicle.Description) ? string.Empty : vehicle.Description,
+                                Year = vehicle.Year,
+                                Make = string.IsNullOrWhiteSpace(vehicle.Make) ? string.Empty : vehicle.Make,
+                                Model = string.IsNullOrWhiteSpace(vehicle.Model) ? string.Empty : vehicle.Model,
+                                Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Transmission,
+                                Transmission = string.IsNullOrWhiteSpace(vehicle.Transmission) ? string.Empty : vehicle.Transmission,
+                                Propulsion = string.IsNullOrWhiteSpace(vehicle.Propulsion) ? string.Empty : vehicle.Propulsion,
+                                BrakeSystem = string.IsNullOrWhiteSpace(vehicle.BrakeSystem) ? string.Empty : vehicle.BrakeSystem,
+                                Steering = string.IsNullOrWhiteSpace(vehicle.Steering) ? string.Empty : vehicle.Steering,
+                                Color = string.IsNullOrWhiteSpace(vehicle.Color) ? string.Empty : vehicle.Color,
+                                UnitNo = string.IsNullOrWhiteSpace(vehicle.UnitNo) ? string.Empty : vehicle.UnitNo,
+                                LicencePlate = string.IsNullOrWhiteSpace(vehicle.LicencePlate) ? string.Empty : vehicle.LicencePlate,
+                                Seating = string.IsNullOrWhiteSpace(vehicle.Seating) ? string.Empty : vehicle.Seating,
+                                Odometer = vehicle.Odometer,
+                                SelectedUnit = vehicle.SelectedUnit,
+                                EntryDate = vehicle.EntryDate,
+                                MonthlyMileage = vehicle.MonthlyMileage,
+                                OilTypeId = vehicle.OilTypeId,
+                                MaintenancePlanId = vehicle.MaintenancePlanId,
+                                Id = vehicle.Id
                             },
                             commandType: CommandType.Text,
                             transaction: transaction);

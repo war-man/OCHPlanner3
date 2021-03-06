@@ -22,14 +22,14 @@
         var VIN = $(this).val();
 
         $.ajax({
-            url: ajaxUrl + '/MaintenancePlan/VINDecode',
+            url: ajaxUrl + '/Vehicle/GetVehicleByVIN',
             type: "GET",
             data: {
                 vin: VIN
             },
             async: false,
             success: function (response) {
-                if (response.VIN == null) {
+                if (response.VinCode == null) {
                     //Display VIN not found
                     swal.fire({
                         title: $('#hidVINNotFoundTitle').val(),
@@ -46,7 +46,7 @@
                     });
                 }
 
-                $('input[name="Description"]').val(response.Description);
+                UpdateUi(response);
             },
             error: function (xhr, status, error) {
                 alert('Error');
@@ -54,5 +54,28 @@
         });
 
     });
+
+    function UpdateUi(response) {
+        $('input[name="Description"]').val(response.Description);
+        $('input[name="MonthlyMileage"]').val(response.MonthlyMileage);
+        $('input[name="EntryDate"]').val(response.EntryDate);
+        $('input[name="UnitNo"]').val(response.UnitNo);
+        $('input[name="LicencePlate"]').val(response.LicencePlate);
+        $('input[name="Color"]').val(response.Color);
+        $('input[name="Odometer"]').val(response.Odometer);
+
+        $('input[name="OwnerName"]').val(response.OwnerName);
+        $('input[name="OwnerCompany"]').val(response.OwnerCompany);
+        $('input[name="OwnerAddress"]').val(response.OwnerAddress);
+        $('input[name="OwnerPhone"]').val(response.OwnerPhone);
+        $('input[name="OwnerEmail"]').val(response.OwnerEmail);
+
+        $('input[name="DriverName"]').val(response.DriverName);
+        $('input[name="DriverPhone"]').val(response.DriverPhone);
+        $('input[name="DriverCellphone"]').val(response.DriverCellphone);
+        $('input[name="DriverEmail"]').val(response.DriverEmail);
+        $('input[name="DriverNotes"]').val(response.DriverNotes);
+
+    }
 
 });

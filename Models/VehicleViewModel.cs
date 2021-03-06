@@ -19,12 +19,12 @@ namespace OCHPlanner3.Models
         public string BrakeSystem { get; set; }
         public string Steering { get; set; }
         public string Seating { get; set; }
-        public int SelectedOil { get; set; }
+        public int OilTypeId { get; set; }
         public IEnumerable<SelectListItem> OilList { get; set; }
         public int SelectedMaintenancePlan { get; set; }
         public IEnumerable<SelectListItem> MaintenancePlanList { get; set; }
         public string UnitNo { get; set; }
-        public string Plate { get; set; }
+        public string LicencePlate { get; set; }
         public string Color { get; set; }
         public string SelectedUnit { get; set; }
         public string EntryDate { get; set; }
@@ -32,6 +32,8 @@ namespace OCHPlanner3.Models
 
         public OwnerViewModel Owner { get; set; }
         public DriverViewModel Driver { get; set; }
+        public int VehicleOwnerId { get; set; }
+        public int VehicleDriverId { get; set; }
 
         //For POST
         public string OwnerCompany { get; set; }
@@ -41,9 +43,9 @@ namespace OCHPlanner3.Models
         public string OwnerEmail { get; set; }
 
         public string DriverName { get; set; }
-        public string DriverCellPhone { get; set; }
+        public string DriverCellphone { get; set; }
         public string DriverPhone { get; set; }
         public string DriverEmail { get; set; }
-        public string DriverAutorization { get; set; }
+        public string DriverNotes { get; set; }
     }
 }

@@ -52,19 +52,5 @@ namespace OCHPlanner3.Controllers
                 return BadRequest();
             }
         }
-
-        public async Task<JsonResult> VINDecode(string vin)
-        {
-            var vinResult = await _vinQueryService.GetVINDecode(vin);
-
-            if (vinResult != null && !string.IsNullOrWhiteSpace(vinResult.VIN))
-            {
-                //Increment VINDecode counter
-                //var _garageService = new GarageService();
-                //_garageService.IncrementVINDecodeCounter(UserManagerHelper.GetCurrentUser().GarageID);
-            }
-
-            return Json(vinResult);
-        }
     }
 }

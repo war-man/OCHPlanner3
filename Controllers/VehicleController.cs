@@ -15,14 +15,17 @@ namespace OCHPlanner3.Controllers
         public readonly IUserService _userService;
         public readonly IVehicleService _vehicleService;
         public readonly IReferenceService _referenceService;
+        public readonly IVINQueryService _vinQueryService;
 
         public VehicleController(IHttpContextAccessor httpContextAccessor,
              IUserService userService,
              IReferenceService referenceService,
+             IVINQueryService vinQueryService,
              IVehicleService vehicleService) : base(httpContextAccessor, userService)
         {
             _vehicleService = vehicleService;
             _referenceService = referenceService;
+            _vinQueryService = vinQueryService;
         }
 
         [HttpGet("/{lang:lang}/Vehicle/{vin}")]
@@ -56,6 +59,28 @@ namespace OCHPlanner3.Controllers
                 ex.ToExceptionless().Submit();
                 return BadRequest();
             }
+        }
+
+        public async Task<VehicleViewModel> GetVehicleByVIN(string vin)
+        {
+            //Get vehicle from datatabse
+            var vehicle = await _vehicleService.GetVehicleByVIN(vin);
+
+            //If no vehicle in DB, Get it from VIN Decode
+            if (vehicle == null)
+            {
+                var vinResult = await _vinQueryService.GetVINDecode(vin);
+
+                if (vinResult != null && !string.IsNullOrWhiteSpace(vinResult.VIN))
+                {
+                    //Increment VINDecode counter
+                    //var _garageService = new GarageService();
+                    //_garageService.IncrementVINDecodeCounter(UserManagerHelper.GetCurrentUser().GarageID);
+                }
+
+                vehicle = new VehicleViewModel();
+            }
+            return vehicle;
         }
     }
 }
