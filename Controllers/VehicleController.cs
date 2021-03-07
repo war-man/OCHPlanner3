@@ -66,6 +66,14 @@ namespace OCHPlanner3.Controllers
             //Get vehicle from datatabse
             var vehicle = await _vehicleService.GetVehicleByVIN(vin);
 
+            //Get oilType
+            if (vehicle.OilTypeId != 0)
+            {
+                var oillist = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId);
+                var item = oillist.FirstOrDefault(p => p.Value == vehicle.OilTypeId.ToString());
+                vehicle.SelectedOilDisplay = item != null ? item.Text : string.Empty;
+            }
+
             //If no vehicle in DB, Get it from VIN Decode
             if (vehicle == null)
             {
@@ -80,6 +88,7 @@ namespace OCHPlanner3.Controllers
 
                 vehicle = new VehicleViewModel();
             }
+
             return vehicle;
         }
     }

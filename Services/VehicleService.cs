@@ -70,11 +70,13 @@ namespace OCHPlanner3.Services
                 result.LicencePlate = vehicle.LicencePlate;
                 result.SelectedMaintenancePlan = vehicle.MaintenancePlanId;
                 result.OilTypeId = vehicle.OilTypeId;
+                result.EntryDate = DateTime.Parse(vehicle.EntryDate).ToString("dd/MM/yy");
             }
             else
             {
                 //Get VIN Decode values
                 var vinResult = await _vinQueryService.GetVINDecode(vin);
+                if (vinResult.VIN == null) return new VehicleViewModel();
 
                 result = new VehicleViewModel()
                 {
@@ -89,7 +91,7 @@ namespace OCHPlanner3.Services
                     Steering = vinResult.Steering,
                     Propulsion = vinResult.DriveLine,
                     Transmission = vinResult.Transmission,
-                    EntryDate = new DateTime(Convert.ToInt32(vinResult.Year),6,1).ToString()
+                    EntryDate = new DateTime(Convert.ToInt32(vinResult.Year),6,1).ToString("dd/MM/yy")
                 };
             }
 

@@ -9,31 +9,66 @@
         <div class="form-group row">
             <label for="Name" class="control-label col-md-4 mt-2">@Localizer["Name"]</label>
             <div class="col-md-8">
-                <input asp-for="Name" name="DriverName" class="form-control" />
+                @if (Model.IsReadOnly)
+                {
+                    <input asp-for="Name" name="DriverName" class="form-control" readonly />
+                }
+                else
+                {
+                    <input asp-for="Name" name="DriverName" class="form-control" />
+                }
             </div>
         </div>
         <div class="form-group row">
             <label for="Phone" class="control-label col-md-4 mt-2">@Localizer["Phone"]</label>
             <div class="col-md-8">
-                <input asp-for="Phone" name="DriverPhone" class="form-control" />
+                @if (Model.IsReadOnly)
+                {
+                    <input asp-for="Phone" name="DriverPhone" class="form-control" readonly />
+                }
+                else
+                {
+                    <input asp-for="Phone" name="DriverPhone" class="form-control" />
+                }
             </div>
         </div>
         <div class="form-group row">
             <label for="Cellphone" class="control-label col-md-4 mt-2">@Localizer["Cellphone"]</label>
             <div class="col-md-8">
-                <input asp-for="CellPhone" name="DriverCellphone" class="form-control" />
+                @if (Model.IsReadOnly)
+                {
+                    <input asp-for="CellPhone" name="DriverCellphone" class="form-control" readonly />
+                }
+                else
+                {
+                    <input asp-for="CellPhone" name="DriverCellphone" class="form-control" />
+                }
             </div>
         </div>
         <div class="form-group row">
             <label for="Email" class="control-label col-md-4 mt-2">@Localizer["Email"]</label>
             <div class="col-md-8">
-                <input asp-for="Email" name="DriverEmail" class="form-control" />
+                @if (Model.IsReadOnly)
+                {
+                    <input asp-for="Email" name="DriverEmail" class="form-control" readonly />
+                }
+                else
+                {
+                    <input asp-for="Email" name="DriverEmail" class="form-control" />
+                }
             </div>
         </div>
         <div class="form-group row mb-0">
             <label for="Autorization" class="control-label col-md-4 mt-2">@Localizer["Authorization"]</label>
             <div class="col-md-8">
-                <input asp-for="Notes" name="DriverNotes" class="form-control" />
+                @if (Model.IsReadOnly)
+                {
+                    <input asp-for="Notes" name="DriverNotes" class="form-control" readonly />
+                }
+                else
+                {
+                    <input asp-for="Notes" name="DriverNotes" class="form-control" />
+                }
             </div>
         </div>
     </div>

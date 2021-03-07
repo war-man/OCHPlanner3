@@ -56,9 +56,14 @@
     });
 
     function UpdateUi(response) {
+       
         $('input[name="Description"]').val(response.Description);
+        $('input[name="LastServiceDate"]').val('');
         $('input[name="MonthlyMileage"]').val(response.MonthlyMileage);
         $('input[name="EntryDate"]').val(response.EntryDate);
+        $('input[name="SelectedOilDisplay"]').val(response.SelectedOilDisplay);
+
+
         $('input[name="UnitNo"]').val(response.UnitNo);
         $('input[name="LicencePlate"]').val(response.LicencePlate);
         $('input[name="Color"]').val(response.Color);

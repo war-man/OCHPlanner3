@@ -2,6 +2,7 @@
 {
     public class OwnerViewModel
     {
+        public bool IsReadOnly { get; set; }
         public string Company { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

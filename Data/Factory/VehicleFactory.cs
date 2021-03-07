@@ -243,7 +243,7 @@ namespace OCHPlanner3.Data.Factory
                                 ,Year = vehicle.Year
                                 ,Make = string.IsNullOrWhiteSpace(vehicle.Make) ? string.Empty : vehicle.Make
                                 ,Model = string.IsNullOrWhiteSpace(vehicle.Model) ? string.Empty : vehicle.Model
-                                ,Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Transmission
+                                ,Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Engine
                                 ,Transmission = string.IsNullOrWhiteSpace(vehicle.Transmission) ? string.Empty : vehicle.Transmission
                                 ,Propulsion = string.IsNullOrWhiteSpace(vehicle.Propulsion) ? string.Empty : vehicle.Propulsion
                                 ,BrakeSystem = string.IsNullOrWhiteSpace(vehicle.BrakeSystem) ? string.Empty : vehicle.BrakeSystem
@@ -365,7 +365,7 @@ namespace OCHPlanner3.Data.Factory
                                 Year = vehicle.Year,
                                 Make = string.IsNullOrWhiteSpace(vehicle.Make) ? string.Empty : vehicle.Make,
                                 Model = string.IsNullOrWhiteSpace(vehicle.Model) ? string.Empty : vehicle.Model,
-                                Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Transmission,
+                                Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Engine,
                                 Transmission = string.IsNullOrWhiteSpace(vehicle.Transmission) ? string.Empty : vehicle.Transmission,
                                 Propulsion = string.IsNullOrWhiteSpace(vehicle.Propulsion) ? string.Empty : vehicle.Propulsion,
                                 BrakeSystem = string.IsNullOrWhiteSpace(vehicle.BrakeSystem) ? string.Empty : vehicle.BrakeSystem,

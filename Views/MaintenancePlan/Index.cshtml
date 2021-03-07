@@ -30,7 +30,7 @@
                             <label for="Description" class="control-label col-md-1 mt-2">@Localizer["Description"]</label>
                             <div class="col-md-6">
                                 <div class="input-group mb-0">
-                                    <input asp-for="Vehicle.Description" name="Description" class="form-control" />
+                                    <input asp-for="Vehicle.Description" name="Description" class="form-control" readonly />
                                     <div class="input-group-append">
                                         <button id="btnVehicleDetail" class="btn btn-primary btn-xs" type="button"><i class="fad fa-edit"></i></button>
                                     </div>
@@ -41,49 +41,45 @@
                         <div class="form-group row">
                             <label for="LastServiceMileage" class="control-label col-md-2 mt-2">@Localizer["LastServiceMileage"]</label>
                             <div class="col-md-2">
-                                <input asp-for="LastServiceMileage" name="LastServiceMileage" class="form-control" maxlength="20" />
+                                <input asp-for="LastServiceMileage" name="LastServiceMileage" class="form-control" readonly />
                             </div>
                             <label for="LastServiceDate" class="control-label col-md-2 mt-2">@Localizer["LastServiceDate"]</label>
                             <div class="col-md-2">
-                                <input asp-for="LastServiceDate" name="LastServiceDate" class="form-control" maxlength="20" />
+                                <input asp-for="LastServiceDate" name="LastServiceDate" class="form-control" type="text" readonly />
                             </div>
                             <label for="MonthlyMileage" class="control-label col-md-2 mt-2">@Localizer["MonthlyMileage"]</label>
                             <div class="col-md-2">
-                                <input asp-for="Vehicle.MonthlyMileage" name="MonthlyMileage" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.MonthlyMileage" name="MonthlyMileage" class="form-control" readonly />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="EntryDate" class="control-label col-md-2 mt-2">@Localizer["EntryDate"]</label>
                             <div class="col-md-2">
-                                <input asp-for="Vehicle.EntryDate" name="EntryDate" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.EntryDate" name="EntryDate" class="form-control" readonly />
                             </div>
                             <label for="SelectedOil" class="control-label col-md-2 mt-2">@Localizer["UseOil"]</label>
                             <div class="col-md-2">
-                                <select asp-for="Vehicle.OilTypeId" name="oillist" asp-items="Model.Vehicle.OilList" class="form-control">
-                                    <option value="">-- Select --</option>
-                                </select>
+                                <input asp-for="Vehicle.SelectedOilDisplay" name="SelectedOilDisplay" class="form-control" readonly />
                             </div>
                             <label for="SelectedMaintenancePlan" class="control-label col-md-2 mt-2">@Localizer["MaintenancePlan"]</label>
                             <div class="col-md-2">
-                                <select asp-for="Vehicle.SelectedMaintenancePlan" name="maintenancelist" asp-items="Model.Vehicle.MaintenancePlanList" class="form-control">
-                                    <option value="">-- Select --</option>
-                                </select>
+                                <input asp-for="Vehicle.SelectedMaintenancePlanDisplay" name="SelectedMaintenancePlanDisplay" class="form-control" readonly />
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <label for="UnitNo" class="control-label col-md-2 mt-2">@Localizer["UnitNo"]</label>
                             <div class="col-md-2">
-                                <input asp-for="Vehicle.UnitNo" name="UnitNo" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.UnitNo" name="UnitNo" class="form-control" maxlength="20" readonly />
                             </div>
                             <label for="LicencePlate" class="control-label col-md-2 mt-2">@Localizer["Plate"]</label>
                             <div class="col-md-2">
-                                <input asp-for="Vehicle.LicencePlate" name="LicencePlate" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.LicencePlate" name="LicencePlate" class="form-control" maxlength="20" readonly />
                             </div>
                             <label for="Color" class="control-label col-md-2 mt-2">@Localizer["Color"]</label>
                             <div class="col-md-2">
-                                <input asp-for="Vehicle.Color" name="Color" class="form-control" maxlength="20" />
+                                <input asp-for="Vehicle.Color" name="Color" class="form-control" maxlength="20" readonly />
                             </div>
                         </div>
 

@@ -21,8 +21,10 @@ namespace OCHPlanner3.Models
         public string Seating { get; set; }
         public int OilTypeId { get; set; }
         public IEnumerable<SelectListItem> OilList { get; set; }
+        public string SelectedOilDisplay { get; set; }
         public int SelectedMaintenancePlan { get; set; }
         public IEnumerable<SelectListItem> MaintenancePlanList { get; set; }
+        public string SelectedMaintenancePlanDisplay { get; set; }
         public string UnitNo { get; set; }
         public string LicencePlate { get; set; }
         public string Color { get; set; }
