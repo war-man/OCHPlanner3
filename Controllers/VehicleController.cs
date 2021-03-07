@@ -43,6 +43,17 @@ namespace OCHPlanner3.Controllers
             model.OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId);
             // model.MaintenancePlanList = TODO
 
+            if (model.Owner == null)
+            {
+                model.Owner = new OwnerViewModel() { IsReadOnly = false };
+            }
+
+            if (model.Driver == null)
+            {
+                model.Driver = new DriverViewModel() { IsReadOnly = false };
+            }
+
+
             return View(model);
         }
 

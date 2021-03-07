@@ -144,6 +144,10 @@
         location.href = ajaxUrl + '/Options/Products/' + $('#Id').val();
     });
 
+    $(document).on("click", '#btnProgram', function () {
+        location.href = ajaxUrl + '/Program/' + $('#Id').val();
+    });
+
     $(document).on("click", '#btnMaintenanceType', function () {
         location.href = ajaxUrl + '/MaintenanceType/' + $('#Id').val();
     });

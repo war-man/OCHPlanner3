@@ -15,7 +15,6 @@ namespace OCHPlanner3.Controllers
     [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class GarageController : BaseController
     {
-        private readonly IUserService _userService;
         private readonly IGarageService _garageService;
         private readonly IReferenceService _referenceService;
         private readonly IBlobStorageService _blobStorageService;
@@ -85,7 +84,7 @@ namespace OCHPlanner3.Controllers
                     ActivationDate = DateTime.Now.ToString("yyyy-MM-dd"),
                     BannerList = await _referenceService.GetBannerSelectListItem(),
                     LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language),
-                    DateFormatList = await _referenceService.GetDateFormatSelectList(),
+                    DateFormatList = _referenceService.GetDateFormatSelectList(),
                     RootUrl = BaseRootUrl
                 };
 
@@ -133,7 +132,7 @@ namespace OCHPlanner3.Controllers
                 }
                 model.BannerList = await _referenceService.GetBannerSelectListItem();
                 model.LanguageList = await _referenceService.GetLanguageSelectList(CurrentUser.GarageSetting.Language);
-                model.DateFormatList = await _referenceService.GetDateFormatSelectList();
+                model.DateFormatList = _referenceService.GetDateFormatSelectList();
                 model.BrandingLogo = $"{model.BrandingLogo}/{model.BrandingId}_logo.jpg";
 
                 return View(model);

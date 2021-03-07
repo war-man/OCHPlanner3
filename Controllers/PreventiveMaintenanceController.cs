@@ -14,12 +14,12 @@ namespace OCHPlanner3.Controllers
 {
     [Authorize]
     [MiddlewareFilter(typeof(LocalizationPipeline))]
-    public class MaintenancePlanController : BaseController
+    public class PreventiveMaintenanceController : BaseController
     {
         public readonly IReferenceService _referenceService;
         public readonly IVINQueryService _vinQueryService;
 
-        public MaintenancePlanController(IHttpContextAccessor httpContextAccessor,
+        public PreventiveMaintenanceController(IHttpContextAccessor httpContextAccessor,
             IVINQueryService vinQueryService,
             IReferenceService referenceService,
             IUserService userService) : base(httpContextAccessor, userService)
@@ -32,7 +32,7 @@ namespace OCHPlanner3.Controllers
         {
             try
             {
-                var model = new MaintenancePlanViewModel()
+                var model = new PreventiveMaintenanceViewModel()
                 {
                     Vehicle = new VehicleViewModel()
                     {

@@ -129,9 +129,6 @@
   <data name="MenuMaintenance" xml:space="preserve">
     <value>Maintenance Management</value>
   </data>
-  <data name="MenuMaintenancePlan" xml:space="preserve">
-    <value>Maintenance Plan</value>
-  </data>
   <data name="MenuMessage" xml:space="preserve">
     <value>Customer Communication</value>
   </data>
@@ -143,6 +140,9 @@
   </data>
   <data name="MenuOptions" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="MenuPreventiveMaintenance" xml:space="preserve">
+    <value>Preventive Maintenance</value>
   </data>
   <data name="MenuPrint" xml:space="preserve">
     <value>Printing</value>

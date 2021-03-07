@@ -146,7 +146,7 @@ namespace OCHPlanner3.Services
             return languages;
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetDateFormatSelectList()
+        public IEnumerable<SelectListItem> GetDateFormatSelectList()
         {
             var languages = new List<SelectListItem>();
 

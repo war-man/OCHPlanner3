@@ -117,55 +117,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Logout" xml:space="preserve">
-    <value>Déconnecter</value>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
   </data>
-  <data name="MenuGarageManagement" xml:space="preserve">
-    <value>Gestion des garages</value>
+  <data name="AddOil" xml:space="preserve">
+    <value>Add Oil</value>
   </data>
-  <data name="MenuHelp" xml:space="preserve">
-    <value>Aide</value>
+  <data name="AddProduct" xml:space="preserve">
+    <value>Add Product</value>
   </data>
-  <data name="MenuMaintenance" xml:space="preserve">
-    <value>Gestion des entretiens effectués</value>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
   </data>
-  <data name="MenuMessage" xml:space="preserve">
-    <value>Messages client</value>
+  <data name="Cost" xml:space="preserve">
+    <value>Cost Price</value>
   </data>
-  <data name="MenuNextAppointment" xml:space="preserve">
-    <value>Gestion des rendez-vous</value>
+  <data name="CostRequired" xml:space="preserve">
+    <value>Cost price is required</value>
   </data>
-  <data name="MenuOils" xml:space="preserve">
-    <value>Gestion des huiles</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="MenuOptions" xml:space="preserve">
-    <value>Options</value>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Yes, delete it!</value>
   </data>
-  <data name="MenuPreventiveMaintenance" xml:space="preserve">
-    <value>Maintenance préventive</value>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Product deleted successfully!</value>
   </data>
-  <data name="MenuPrint" xml:space="preserve">
-    <value>Impression</value>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Do you really want to delete this product?</value>
   </data>
-  <data name="MenuPrinters" xml:space="preserve">
-    <value>Imprimantes</value>
+  <data name="DeleteTitle" xml:space="preserve">
+    <value>Delete Product</value>
   </data>
-  <data name="MenuRecommendation" xml:space="preserve">
-    <value>Gestion des recommandations</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="MenuRoles" xml:space="preserve">
-    <value>Rôles</value>
+  <data name="DescriptionRequired" xml:space="preserve">
+    <value>Description is required</value>
   </data>
-  <data name="MenuSimple" xml:space="preserve">
-    <value>Simple</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="MenuStickerOrder" xml:space="preserve">
-    <value>COMMANDER DES ETIQUETTES</value>
+  <data name="EditOil" xml:space="preserve">
+    <value>Edit Product</value>
   </data>
-  <data name="MenuUserManagement" xml:space="preserve">
-    <value>Gestion des utilisateurs</value>
+  <data name="EditProduct" xml:space="preserve">
+    <value>Edit Product</value>
   </data>
-  <data name="MenuUsers" xml:space="preserve">
-    <value>Utilisateurs</value>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ProductNo" xml:space="preserve">
+    <value>Product No</value>
+  </data>
+  <data name="ProductNoRequired" xml:space="preserve">
+    <value>Product number is required</value>
+  </data>
+  <data name="Retail" xml:space="preserve">
+    <value>Sale Price</value>
+  </data>
+  <data name="RetailRequired" xml:space="preserve">
+    <value>Sale price is required</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>Product saved successfully!</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Program Management</value>
+  </data>
+  <data name="UpdateSuccess" xml:space="preserve">
+    <value>Product updated successfully!</value>
   </data>
 </root>

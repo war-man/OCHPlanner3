@@ -275,10 +275,10 @@ namespace OCHPlanner3.Services
         public async Task<IEnumerable<SelectListItem>> GetProductSelectListItem(int garageId, int selectedId = 0)
         {
             var products = await _optionFactory.GetProductList(garageId);
-            return await BuildProductSelectListItem(products.OrderBy(x => x.Description, new SemiNumericComparer()), selectedId);
+            return BuildProductSelectListItem(products.OrderBy(x => x.Description, new SemiNumericComparer()), selectedId);
         }
 
-        private async Task<IEnumerable<SelectListItem>> BuildProductSelectListItem(IEnumerable<ProductModel> productList, int selectedId = 0)
+        private IEnumerable<SelectListItem> BuildProductSelectListItem(IEnumerable<ProductModel> productList, int selectedId = 0)
         {
             return productList.Select(x => new SelectListItem()
             {

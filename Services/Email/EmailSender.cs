@@ -32,7 +32,7 @@ namespace OCHPlanner3.Services.Email
 
 				mimeMessage.From.Add(new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail));
 
-				mimeMessage.To.Add(new MailboxAddress(email));
+				mimeMessage.To.Add(new MailboxAddress("OCH Planner 3", email));
 
 				mimeMessage.Subject = subject;
 

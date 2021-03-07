@@ -117,55 +117,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Logout" xml:space="preserve">
-    <value>Déconnecter</value>
+  <data name="Add" xml:space="preserve">
+    <value>Ajouter</value>
   </data>
-  <data name="MenuGarageManagement" xml:space="preserve">
-    <value>Gestion des garages</value>
+  <data name="AddOil" xml:space="preserve">
+    <value>Ajouter un produit</value>
   </data>
-  <data name="MenuHelp" xml:space="preserve">
-    <value>Aide</value>
+  <data name="AddProduct" xml:space="preserve">
+    <value>Ajouter un produit</value>
   </data>
-  <data name="MenuMaintenance" xml:space="preserve">
-    <value>Gestion des entretiens effectués</value>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
   </data>
-  <data name="MenuMessage" xml:space="preserve">
-    <value>Messages client</value>
+  <data name="Cost" xml:space="preserve">
+    <value>Prix coutant</value>
   </data>
-  <data name="MenuNextAppointment" xml:space="preserve">
-    <value>Gestion des rendez-vous</value>
+  <data name="CostRequired" xml:space="preserve">
+    <value>Le prix coutant est requis</value>
   </data>
-  <data name="MenuOils" xml:space="preserve">
-    <value>Gestion des huiles</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
   </data>
-  <data name="MenuOptions" xml:space="preserve">
-    <value>Options</value>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Oui, supprimer ce produit</value>
   </data>
-  <data name="MenuPreventiveMaintenance" xml:space="preserve">
-    <value>Maintenance préventive</value>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>Produit supprimé avec succès!</value>
   </data>
-  <data name="MenuPrint" xml:space="preserve">
-    <value>Impression</value>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer ce produit?</value>
   </data>
-  <data name="MenuPrinters" xml:space="preserve">
-    <value>Imprimantes</value>
+  <data name="DeleteTitle" xml:space="preserve">
+    <value>Supprimer ce produit</value>
   </data>
-  <data name="MenuRecommendation" xml:space="preserve">
-    <value>Gestion des recommandations</value>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="MenuRoles" xml:space="preserve">
-    <value>Rôles</value>
+  <data name="DescriptionRequired" xml:space="preserve">
+    <value>La description est requise</value>
   </data>
-  <data name="MenuSimple" xml:space="preserve">
-    <value>Simple</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
   </data>
-  <data name="MenuStickerOrder" xml:space="preserve">
-    <value>COMMANDER DES ETIQUETTES</value>
+  <data name="EditOil" xml:space="preserve">
+    <value>Modifier un produit</value>
   </data>
-  <data name="MenuUserManagement" xml:space="preserve">
-    <value>Gestion des utilisateurs</value>
+  <data name="EditProduct" xml:space="preserve">
+    <value>Modifier un produit</value>
   </data>
-  <data name="MenuUsers" xml:space="preserve">
-    <value>Utilisateurs</value>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="ProductNo" xml:space="preserve">
+    <value>No produit</value>
+  </data>
+  <data name="ProductNoRequired" xml:space="preserve">
+    <value>Le no de produit est requis</value>
+  </data>
+  <data name="Retail" xml:space="preserve">
+    <value>Prix de détail</value>
+  </data>
+  <data name="RetailRequired" xml:space="preserve">
+    <value>Le prix de détail est requis</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>Produit sauvegardé avec succès!</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Gestion des programmes</value>
+  </data>
+  <data name="UpdateSuccess" xml:space="preserve">
+    <value>Produit mise-à-jour avec succès!</value>
   </data>
 </root>
