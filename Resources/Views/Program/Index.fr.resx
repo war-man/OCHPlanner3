@@ -120,76 +120,49 @@
   <data name="Add" xml:space="preserve">
     <value>Ajouter</value>
   </data>
-  <data name="AddOil" xml:space="preserve">
-    <value>Ajouter un produit</value>
-  </data>
-  <data name="AddProduct" xml:space="preserve">
-    <value>Ajouter un produit</value>
+  <data name="AddProgram" xml:space="preserve">
+    <value>Ajouter un programme</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Fermer</value>
-  </data>
-  <data name="Cost" xml:space="preserve">
-    <value>Prix coutant</value>
-  </data>
-  <data name="CostRequired" xml:space="preserve">
-    <value>Le prix coutant est requis</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
-    <value>Oui, supprimer ce produit</value>
+    <value>Oui, supprimer ce programme</value>
   </data>
   <data name="DeleteSuccess" xml:space="preserve">
-    <value>Produit supprimé avec succès!</value>
+    <value>Programme supprimé avec succès!</value>
   </data>
   <data name="DeleteText" xml:space="preserve">
-    <value>Voulez-vous vraiment supprimer ce produit?</value>
+    <value>Voulez-vous vraiment supprimer ce programme?</value>
   </data>
   <data name="DeleteTitle" xml:space="preserve">
-    <value>Supprimer ce produit</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="DescriptionRequired" xml:space="preserve">
-    <value>La description est requise</value>
+    <value>Supprimer ce programme</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
   </data>
-  <data name="EditOil" xml:space="preserve">
-    <value>Modifier un produit</value>
-  </data>
-  <data name="EditProduct" xml:space="preserve">
-    <value>Modifier un produit</value>
+  <data name="EditProgram" xml:space="preserve">
+    <value>Modifier un programme</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
-  <data name="ProductNo" xml:space="preserve">
-    <value>No produit</value>
-  </data>
-  <data name="ProductNoRequired" xml:space="preserve">
-    <value>Le no de produit est requis</value>
-  </data>
-  <data name="Retail" xml:space="preserve">
-    <value>Prix de détail</value>
-  </data>
-  <data name="RetailRequired" xml:space="preserve">
-    <value>Le prix de détail est requis</value>
+  <data name="NameRequired" xml:space="preserve">
+    <value>Le nom est requis</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Sauvegarder</value>
   </data>
   <data name="SaveSuccess" xml:space="preserve">
-    <value>Produit sauvegardé avec succès!</value>
+    <value>Programme sauvegardé avec succès!</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Gestion des programmes</value>
   </data>
   <data name="UpdateSuccess" xml:space="preserve">
-    <value>Produit mise-à-jour avec succès!</value>
+    <value>Programme mise-à-jour avec succès!</value>
   </data>
 </root>

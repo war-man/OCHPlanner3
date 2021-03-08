@@ -117,52 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="AddProgram" xml:space="preserve">
-    <value>Add Program</value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="DeleteButton" xml:space="preserve">
-    <value>Yes, delete it!</value>
-  </data>
-  <data name="DeleteSuccess" xml:space="preserve">
-    <value>Program deleted successfully!</value>
-  </data>
-  <data name="DeleteText" xml:space="preserve">
-    <value>Do you really want to delete this program?</value>
-  </data>
-  <data name="DeleteTitle" xml:space="preserve">
-    <value>Delete Program</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="EditProgram" xml:space="preserve">
-    <value>Edit Program</value>
-  </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="NameRequired" xml:space="preserve">
-    <value>Name is required</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="SaveSuccess" xml:space="preserve">
-    <value>Program saved successfully!</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Program Management</value>
-  </data>
-  <data name="UpdateSuccess" xml:space="preserve">
-    <value>Program updated successfully!</value>
+    <value>Nom</value>
   </data>
 </root>
