@@ -6,7 +6,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="header-title"><i class="fad fa-list-alt mr-2"></i>@Localizer["Programs"]</h4>
-        @if (Model == null || !Model.Any())
+        @if (!Model.Where(p => p.Selected).Any())
         {
             <span><i class="fad fa-exclamation-triangle text-danger mr-2"></i>@Localizer["NoProgramDefined"]</span>
         }
