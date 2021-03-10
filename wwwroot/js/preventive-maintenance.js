@@ -86,7 +86,8 @@
             url: ajaxUrl + '/Vehicle/Programs',
             type: "GET",
             data: {
-                vehicleId: response.Id
+                vehicleId: response.Id,
+                displayOnlySelected: true
             },
             async: false,
             success: function (response) {

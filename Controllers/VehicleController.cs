@@ -129,12 +129,19 @@ namespace OCHPlanner3.Controllers
         }
 
         [HttpGet("/{lang:lang}/Vehicle/Programs")]
-        public async Task<IActionResult> GetProgramList(int vehicleId)
+        public async Task<IActionResult> GetProgramList(int vehicleId, bool displayOnlySelected = false)
         {
             try
             {
                 var model = await _vehicleService.GetVehiclePrograms(vehicleId, CurrentUser.GarageId);
-                return PartialView("_programs", model);
+                if(displayOnlySelected)
+                {
+                    return PartialView("_programSelected", model);
+                }
+                else
+                {
+                    return PartialView("_programs", model);
+                }
             }
             catch (Exception ex)
             {
