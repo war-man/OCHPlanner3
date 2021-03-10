@@ -16,16 +16,19 @@ namespace OCHPlanner3.Controllers
         public readonly IVehicleService _vehicleService;
         public readonly IReferenceService _referenceService;
         public readonly IVINQueryService _vinQueryService;
+        public readonly IProgramService _programService;
 
         public VehicleController(IHttpContextAccessor httpContextAccessor,
              IUserService userService,
              IReferenceService referenceService,
+             IProgramService programService,
              IVINQueryService vinQueryService,
              IVehicleService vehicleService) : base(httpContextAccessor, userService)
         {
             _vehicleService = vehicleService;
             _referenceService = referenceService;
             _vinQueryService = vinQueryService;
+            _programService = programService;
         }
 
         [HttpGet("/{lang:lang}/Vehicle/{vin}")]
@@ -36,11 +39,12 @@ namespace OCHPlanner3.Controllers
             if (!string.IsNullOrEmpty(vin))
             {
                 //get vehicle info by VIN
-                model = await _vehicleService.GetVehicleByVIN(vin);
+                model = await _vehicleService.GetVehicleByVIN(vin, CurrentUser.GarageId);
             }
 
             model.RootUrl = BaseRootUrl;
             model.OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId);
+
             // model.MaintenancePlanList = TODO
 
             if (model.Owner == null)
@@ -56,6 +60,27 @@ namespace OCHPlanner3.Controllers
 
             return View(model);
         }
+
+        //private IEnumerable<ProgramViewModel> FlagSelectedPrograms(IEnumerable<ProgramViewModel> programs, IEnumerable<VehicleProgramViewModel> vehiclePrograms)
+        //{
+        //    var result = new List<ProgramViewModel>();
+
+        //    programs.ToList().ForEach(pr =>
+        //    {
+        //        if (vehiclePrograms.Any(vp => vp.ProgramId == pr.Id))
+        //        {
+        //            pr.Note = vehiclePrograms.First(k => k.ProgramId == pr.Id).Note;
+        //            pr.Selected = true;
+        //            result.Add(pr);
+        //        }
+        //        else
+        //        {
+        //            result.Add(pr);
+        //        }
+        //    });
+                        
+        //    return result;
+        //}
 
         [HttpPost("/{lang:lang}/Vehicle/Save")]
         public async Task<IActionResult> Create(VehicleViewModel vehicle)
@@ -75,7 +100,7 @@ namespace OCHPlanner3.Controllers
         public async Task<VehicleViewModel> GetVehicleByVIN(string vin)
         {
             //Get vehicle from datatabse
-            var vehicle = await _vehicleService.GetVehicleByVIN(vin);
+            var vehicle = await _vehicleService.GetVehicleByVIN(vin, CurrentUser.GarageId);
 
             //Get oilType
             if (vehicle.OilTypeId != 0)
@@ -101,6 +126,21 @@ namespace OCHPlanner3.Controllers
             }
 
             return vehicle;
+        }
+
+        [HttpGet("/{lang:lang}/Vehicle/Programs")]
+        public async Task<IActionResult> GetProgramList(int vehicleId)
+        {
+            try
+            {
+                var model = await _vehicleService.GetVehiclePrograms(vehicleId, CurrentUser.GarageId);
+                return PartialView("_programs", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
         }
     }
 }

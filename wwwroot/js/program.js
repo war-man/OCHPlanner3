@@ -114,8 +114,6 @@
         if (form.valid()) {
             var formData = $(form).serialize();
 
-            formData = formData;
-
             $.ajax({
                 url: ajaxUrl + '/Program/Create',
                 type: "POST",

@@ -10,7 +10,8 @@ namespace OCHPlanner3.Services.Interfaces
         Task<IEnumerable<SelectListItem>> GetCarMakeSelectList();
         Task<IEnumerable<SelectListItem>> GetCarColorSelectList(string language);
         Task<IEnumerable<SelectListItem>> GetCarModelSelectList(string make);
-        Task<VehicleViewModel> GetVehicleByVIN(string vin);
+        Task<VehicleViewModel> GetVehicleByVIN(string vin, int garageId);
         Task<int> SaveVehicle(VehicleViewModel model);
+        Task<IEnumerable<ProgramViewModel>> GetVehiclePrograms(int vehicleId, int garageId);
     }
 }

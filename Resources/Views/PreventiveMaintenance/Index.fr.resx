@@ -165,6 +165,9 @@
   <data name="MonthlyMileage" xml:space="preserve">
     <value>KM moyen</value>
   </data>
+  <data name="NoProgramDefined" xml:space="preserve">
+    <value>Aucun programme de défini pour ce garage</value>
+  </data>
   <data name="Odometer" xml:space="preserve">
     <value>Odometre</value>
   </data>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OCHPlanner3.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,5 +41,7 @@ namespace OCHPlanner3.Data.Models
         public string DriverCellphone { get; set; }
         public string DriverEmail { get; set; }
         public string DriverNotes { get; set; }
+
+        public IEnumerable<VehicleProgramModel> VehicleProgram { get; set; }
     }
 }

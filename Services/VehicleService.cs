@@ -19,14 +19,17 @@ namespace OCHPlanner3.Services
         private readonly IVehicleFactory _vehicleFactory;
         private readonly IConfiguration _configuration;
         private readonly IVINQueryService _vinQueryService;
+        private readonly IProgramService _programService;
 
         public VehicleService(IVehicleFactory vehicleFactory,
             IVINQueryService vinQueryService,
+            IProgramService programService,
             IConfiguration configuration)
         {
             _vehicleFactory = vehicleFactory;
             _vinQueryService = vinQueryService;
             _configuration = configuration;
+            _programService = programService;
         }
 
         public async Task<IEnumerable<SelectListItem>> GetCarMakeSelectList()
@@ -40,7 +43,7 @@ namespace OCHPlanner3.Services
             }).OrderBy(o => o.Text);
         }
 
-        public async Task<VehicleViewModel> GetVehicleByVIN(string vin)
+        public async Task<VehicleViewModel> GetVehicleByVIN(string vin, int garageId)
         {
             var vehicle = await _vehicleFactory.GetVehicleByVIN(vin);
             var result = new VehicleViewModel();
@@ -71,6 +74,8 @@ namespace OCHPlanner3.Services
                 result.SelectedMaintenancePlan = vehicle.MaintenancePlanId;
                 result.OilTypeId = vehicle.OilTypeId;
                 result.EntryDate = DateTime.Parse(vehicle.EntryDate).ToString("dd/MM/yy");
+
+                result.Programs = await GetVehiclePrograms(vehicle.Id, garageId);
             }
             else
             {
@@ -91,7 +96,7 @@ namespace OCHPlanner3.Services
                     Steering = vinResult.Steering,
                     Propulsion = vinResult.DriveLine,
                     Transmission = vinResult.Transmission,
-                    EntryDate = new DateTime(Convert.ToInt32(vinResult.Year),6,1).ToString("dd/MM/yy")
+                    EntryDate = new DateTime(Convert.ToInt32(vinResult.Year), 6, 1).ToString("dd/MM/yy")
                 };
             }
 
@@ -128,14 +133,62 @@ namespace OCHPlanner3.Services
 
         public async Task<int> SaveVehicle(VehicleViewModel vehicle)
         {
+            var vehicleModel = vehicle.Adapt<VehicleModel>();
+            vehicleModel.VehicleProgram = await GetProgramVehicleList(vehicle);
             if (vehicle.Id == 0)
             {
-                return await _vehicleFactory.CreateVehicle(vehicle.Adapt<VehicleModel>());
+                return await _vehicleFactory.CreateVehicle(vehicleModel);
             }
             else
             {
-                return await _vehicleFactory.UpdateVehicle(vehicle.Adapt<VehicleModel>());
+                return await _vehicleFactory.UpdateVehicle(vehicleModel);
             }
         }
+
+        public async Task<IEnumerable<VehicleProgramModel>> GetProgramVehicleList(VehicleViewModel vehicle)
+        {
+            if (string.IsNullOrWhiteSpace(vehicle.SelectedPrograms)) return new List<VehicleProgramModel>();
+
+            var programList = new List<VehicleProgramModel>();
+            vehicle.SelectedPrograms.Split('|').ToList().ForEach(p =>
+            {
+                programList.Add(new VehicleProgramModel()
+                {
+                    ProgramId = Convert.ToInt32(p.Split(',').First()),
+                    VehicleId = vehicle.Id,
+                    Note = p.Split(',').LastOrDefault()
+                });
+            });
+
+            return programList;
+        }
+
+        public async Task<IEnumerable<ProgramViewModel>> GetVehiclePrograms(int vehicleId, int garageId)
+        {
+            var vehicleProgram = await _vehicleFactory.GetVehiclePrograms(vehicleId);
+            return FlagSelectedPrograms(await _programService.GetPrograms(garageId), vehicleProgram.Adapt<IEnumerable<VehicleProgramViewModel>>());
+        }
+
+        private IEnumerable<ProgramViewModel> FlagSelectedPrograms(IEnumerable<ProgramViewModel> programs, IEnumerable<VehicleProgramViewModel> vehiclePrograms)
+        {
+            var result = new List<ProgramViewModel>();
+
+            programs.ToList().ForEach(pr =>
+            {
+                if (vehiclePrograms.Any(vp => vp.ProgramId == pr.Id))
+                {
+                    pr.Note = vehiclePrograms.First(k => k.ProgramId == pr.Id).Note;
+                    pr.Selected = true;
+                    result.Add(pr);
+                }
+                else
+                {
+                    result.Add(pr);
+                }
+            });
+
+            return result;
+        }
+
     }
 }

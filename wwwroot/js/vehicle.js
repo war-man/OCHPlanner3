@@ -84,6 +84,14 @@
         if (form.valid()) {
             var formData = $(form).serialize();
 
+            var favorite = [];
+            $.each($("input[name='programs[]']:checked"), function () {
+                var note = $("input[name='Note_" + $(this).val() + "']").val();
+                favorite.push($(this).val() + ',' + note);
+            });
+            //alert("My favourite sports are: " + favorite.join("|"));
+            formData = formData + '&SelectedPrograms=' + favorite.join("|");
+
             $.ajax({
                 url: ajaxUrl + '/Vehicle/Save',
                 type: "POST",

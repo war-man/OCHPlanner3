@@ -81,6 +81,21 @@
         $('input[name="DriverEmail"]').val(response.DriverEmail);
         $('input[name="DriverNotes"]').val(response.DriverNotes);
 
+        //Update programs
+        $.ajax({
+            url: ajaxUrl + '/Vehicle/Programs',
+            type: "GET",
+            data: {
+                vehicleId: response.Id
+            },
+            async: false,
+            success: function (response) {
+                $('#program-list').empty().html(response);
+            },
+            error: function (xhr, status, error) {
+                alert('Error');
+            }
+        });
     }
 
 });

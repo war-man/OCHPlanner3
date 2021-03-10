@@ -7,6 +7,7 @@ using OCHPlanner3.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Data.Factory
@@ -173,6 +174,7 @@ namespace OCHPlanner3.Data.Factory
                       ,[MaintenancePlanId]
                       ,[VehicleOwnerId]
                       ,[VehicleDriverId])
+                    OUTPUT INSERTED.Id
 	                VALUES(
 		                 @Vincode
                         ,@Description
@@ -197,7 +199,14 @@ namespace OCHPlanner3.Data.Factory
                         ,@VehicleOwnerId
                         ,@VehicleDriverId)";
 
-               
+                var sqlProgram = @"INSERT INTO [dbo].[Vehicle2_Program2]
+                                ([VehicleId] 
+                                ,[ProgramId]
+                                ,[Note])
+                                VALUES
+                                (@VehicleId
+                                , @ProgramId
+                                , @Note)";
 
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
@@ -235,7 +244,7 @@ namespace OCHPlanner3.Data.Factory
 
                         //insert vehicle
 
-                        await connection.ExecuteAsync(sql,
+                        var vehicleInserted = await connection.QuerySingleAsync<int>(sql,
                             new
                             {
                                 Vincode = vehicle.VinCode
@@ -263,6 +272,23 @@ namespace OCHPlanner3.Data.Factory
                             },
                             commandType: CommandType.Text,
                             transaction: transaction);
+
+                        if (vehicle.VehicleProgram.Any())
+                        {
+                            var programList = new List<VehicleProgramModel>();
+
+                            vehicle.VehicleProgram.ToList().ForEach(p =>
+                            {
+                                programList.Add(new VehicleProgramModel()
+                                {
+                                    ProgramId = p.ProgramId,
+                                    VehicleId = vehicleInserted,
+                                    Note = p.Note
+                                });
+                            });
+
+                            var affectedRows = await connection.ExecuteAsync(sqlProgram, programList, transaction: transaction);
+                        }
 
                         transaction.Commit();
 
@@ -319,7 +345,16 @@ namespace OCHPlanner3.Data.Factory
                       ,[MaintenancePlanId] = @MaintenancePlanId
                         WHERE Id = @Id";
 
+                var sqlProgramDelete = @"DELETE FROM [dbo].[Vehicle2_Program2] WHERE VehicleId = @VehicleId";
 
+                var sqlProgram = @"INSERT INTO [dbo].[Vehicle2_Program2]
+                                ([VehicleId] 
+                                ,[ProgramId]
+                                ,[Note])
+                                VALUES
+                                (@VehicleId
+                                , @ProgramId
+                                , @Note)";
 
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
@@ -385,6 +420,33 @@ namespace OCHPlanner3.Data.Factory
                             commandType: CommandType.Text,
                             transaction: transaction);
 
+                        if(vehicle.VehicleProgram.Any())
+                        {
+                            //delete Vehicle program
+                            await connection.ExecuteAsync(sqlProgramDelete,
+                                new
+                                {
+                                    VehicleId = vehicle.Id,
+                                    
+                                },
+                                commandType: CommandType.Text,
+                                transaction: transaction);
+
+                            var programList = new List<VehicleProgramModel>();
+
+                            vehicle.VehicleProgram.ToList().ForEach(p =>
+                            {
+                                programList.Add(new VehicleProgramModel()
+                                {
+                                    ProgramId = p.ProgramId,
+                                    VehicleId = p.VehicleId,
+                                    Note = p.Note
+                                });
+                            });
+
+                            var affectedRows = await connection.ExecuteAsync(sqlProgram, programList, transaction: transaction);
+                        }
+
                         transaction.Commit();
 
                         return 1;
@@ -396,5 +458,33 @@ namespace OCHPlanner3.Data.Factory
                 throw ex;
             }
         }
+
+        public async Task<IEnumerable<VehicleProgramModel>> GetVehiclePrograms(int vehicleId)
+        {
+            
+                var sql = @"SELECT [Id]
+                      ,[VehicleId]
+                      ,[ProgramId]
+                      ,[Note]
+                  FROM[dbo].[Vehicle2_Program2]
+                  WHERE [VehicleId] = @VehicleId";
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    var result = await connection.QueryAsync<VehicleProgramModel>(sql,
+                         new
+                         {
+                             VehicleId = vehicleId
+                         },
+                        commandType: CommandType.Text);
+
+                    return result;
+                }
+           
+        }
     }
+
+   
 }

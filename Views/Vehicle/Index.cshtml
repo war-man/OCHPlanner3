@@ -189,6 +189,40 @@
                 </div>
             </div>
 
+            <!-- Programs -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    @await Html.PartialAsync("_programs", Model.Programs)
+                    @*<div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title"><i class="fad fa-list-alt mr-2"></i>@Localizer["Programs"]</h4>
+
+                                @if (!Model.Programs.Any())
+                                {
+                                    <span><i class="fad fa-exclamation-triangle text-danger mr-2"></i>@Localizer["NoProgramDefined"]</span>
+                                }
+
+                                <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
+                                    @foreach (var program in Model.Programs)
+                                    {
+                                        <li>
+                                            <div class="row pl-3 mb-1">
+                                                <div class="col-md-4 mt-1">
+                                                    <input name="programs[]" type="checkbox" class="checkbox mr-2 mt-1" value="@program.Id" @(program.Selected ? "checked" : "") />
+                                                    <label style="font-weight:500;">@program.Name</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input name="Note_@program.Id" class="form-control" type="text" value="@program.Note">
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
             <div class="row justify-content-center">
                 <div class="col-md-12 mt-4">
                     <div class="card">

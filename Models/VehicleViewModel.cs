@@ -37,6 +37,9 @@ namespace OCHPlanner3.Models
         public int VehicleOwnerId { get; set; }
         public int VehicleDriverId { get; set; }
 
+        public IEnumerable<ProgramViewModel> Programs { get; set; }
+        public IEnumerable<VehicleProgramViewModel> VehiclePrograms { get; set; }
+
         //For POST
         public string OwnerCompany { get; set; }
         public string OwnerName { get; set; }
@@ -49,5 +52,7 @@ namespace OCHPlanner3.Models
         public string DriverPhone { get; set; }
         public string DriverEmail { get; set; }
         public string DriverNotes { get; set; }
+
+        public string SelectedPrograms { get; set; }
     }
 }

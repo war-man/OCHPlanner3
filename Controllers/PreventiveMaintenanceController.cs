@@ -17,15 +17,18 @@ namespace OCHPlanner3.Controllers
     public class PreventiveMaintenanceController : BaseController
     {
         public readonly IReferenceService _referenceService;
+        public readonly IProgramService _programService;
         public readonly IVINQueryService _vinQueryService;
 
         public PreventiveMaintenanceController(IHttpContextAccessor httpContextAccessor,
             IVINQueryService vinQueryService,
             IReferenceService referenceService,
+            IProgramService programService,
             IUserService userService) : base(httpContextAccessor, userService)
         {
             _referenceService = referenceService;
             _vinQueryService = vinQueryService;
+            _programService = programService;
         }
 
         public async Task<IActionResult> Index()
@@ -39,7 +42,8 @@ namespace OCHPlanner3.Controllers
                         OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId),
                         MaintenancePlanList = new List<SelectListItem>(),
                         Owner = new OwnerViewModel() { IsReadOnly = true },
-                        Driver = new DriverViewModel() { IsReadOnly = true }
+                        Driver = new DriverViewModel() { IsReadOnly = true },
+                        Programs = await _programService.GetPrograms(CurrentUser.GarageId)
                     },
                     RootUrl = BaseRootUrl
                 };

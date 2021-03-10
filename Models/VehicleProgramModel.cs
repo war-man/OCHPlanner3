@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace OCHPlanner3.Models
 {
-    public class ProgramViewModel
+    public class VehicleProgramModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int GarageId { get; set; }
-        public bool Selected { get; set; }
+        public int VehicleId { get; set; }
+        public int ProgramId { get; set; }
         public string Note { get; set; }
+
     }
 }

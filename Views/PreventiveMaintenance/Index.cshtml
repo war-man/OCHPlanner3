@@ -130,65 +130,39 @@
         </div>
 
         <!-- Programs -->
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-md-12">
-                <div class="card mt-4">
+                @*<div class="card">
                     <div class="card-body">
-                        <h4 class="header-title"><i class="fad fa-list-alt mr-2"></i>@Localizer["Programs"]</h4>
+                        <h4 class="header-title"><i class="fad fa-list-alt mr-2"></i>@Localizer["Programs"]</h4>*@
 
-                        <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
-
-                            <li>
-                                <div class="row pl-3">
-                                    <div class="col-md-4 mt-1">
-                                        <input name="roles[]" type="checkbox" class="checkbox mr-2 mt-1" value="2" />
-                                        <label style="font-weight:500;">Plan de garantie à vie moteur</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input name="Email" class="form-control" type="text" id="Owner_Email" value="">
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="row pl-3 mt-2">
-                                    <div class="col-md-4 mt-1">
-                                        <input name="roles[]" type="checkbox" class="checkbox mr-2 mt-1" value="2" />
-                                        <label style="font-weight:500;">Plan de garantie système de refroidissement</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input name="Email" class="form-control" type="text" id="Owner_Email" value="">
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="row pl-3 mt-2">
-                                    <div class="col-md-4 mt-1">
-                                        <input name="roles[]" type="checkbox" class="checkbox mr-2 mt-1" value="2" />
-                                        <label style="font-weight:500;">Programme assurance routière</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input name="Email" class="form-control" type="text" id="Owner_Email" value="">
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="row pl-3 mt-2">
-                                    <div class="col-md-4 mt-1">
-                                        <input name="roles[]" type="checkbox" class="checkbox mr-2 mt-1" value="2" />
-                                        <label style="font-weight:500;">Air Miles</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input name="Email" class="form-control" type="text" id="Owner_Email" value="">
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
+                <div id="program-list">
+                    @await Html.PartialAsync("_programs", Model.Vehicle.Programs)
                 </div>
+                @*@if (Model.Vehicle == null || !Model.Vehicle.Programs.Any())
+                    {
+                        <span><i class="fad fa-exclamation-triangle text-danger mr-2"></i>@Localizer["NoProgramDefined"]</span>
+                    }
+
+                    <ul id="add-role-list-ul" style="list-style: none; padding: 10px;">
+                        @foreach (var program in Model.Vehicle.Programs)
+                        {
+                            <li>
+                                <div class="row pl-3 mb-1">
+                                    <div class="col-md-4 mt-1">
+                                        <input name="programs[]" type="checkbox" class="checkbox mr-2 mt-1" value="@program.Id" @(program.Selected ? "checked" : "") />
+                                        <label style="font-weight:500;">@program.Name</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input name="Note_@program.Id" class="form-control" type="text" value="@program.Note">
+                                    </div>
+                                </div>
+                            </li>
+
+                        }
+                    </ul>*@
+                @*</div>
+                    </div>*@
             </div>
         </div>
 
