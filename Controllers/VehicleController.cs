@@ -44,7 +44,10 @@ namespace OCHPlanner3.Controllers
 
             model.RootUrl = BaseRootUrl;
             model.OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId);
-
+            if(model.Programs == null)
+            {
+                model.Programs = await _programService.GetPrograms(CurrentUser.GarageId);
+            }
             // model.MaintenancePlanList = TODO
 
             if (model.Owner == null)
@@ -60,28 +63,7 @@ namespace OCHPlanner3.Controllers
 
             return View(model);
         }
-
-        //private IEnumerable<ProgramViewModel> FlagSelectedPrograms(IEnumerable<ProgramViewModel> programs, IEnumerable<VehicleProgramViewModel> vehiclePrograms)
-        //{
-        //    var result = new List<ProgramViewModel>();
-
-        //    programs.ToList().ForEach(pr =>
-        //    {
-        //        if (vehiclePrograms.Any(vp => vp.ProgramId == pr.Id))
-        //        {
-        //            pr.Note = vehiclePrograms.First(k => k.ProgramId == pr.Id).Note;
-        //            pr.Selected = true;
-        //            result.Add(pr);
-        //        }
-        //        else
-        //        {
-        //            result.Add(pr);
-        //        }
-        //    });
-                        
-        //    return result;
-        //}
-
+                
         [HttpPost("/{lang:lang}/Vehicle/Save")]
         public async Task<IActionResult> Create(VehicleViewModel vehicle)
         {
