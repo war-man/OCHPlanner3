@@ -168,6 +168,12 @@
   <data name="NbrUsers" xml:space="preserve">
     <value>Nbr Users Allowed</value>
   </data>
+  <data name="NoMaintenanceText" xml:space="preserve">
+    <value>&lt;span&gt;This module allows you to create preventive maintenance plans for your customers.&lt;/span&gt;&lt;span&gt; To register, please contact our customer service &lt;a href="mailto:info@ochplanner.com"&gt;by email&lt;/a&gt;&lt;/span&gt;.</value>
+  </data>
+  <data name="NoMaintenanceTitle" xml:space="preserve">
+    <value>Your garage is not registered for the preventive maintenance module</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
