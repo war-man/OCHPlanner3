@@ -152,6 +152,10 @@
         location.href = ajaxUrl + '/MaintenanceType/' + $('#Id').val();
     });
 
+    $(document).on("click", '#btnMaintenancePlan', function () {
+        location.href = ajaxUrl + '/MaintenancePlan/' + $('#Id').val();
+    });
+
     $(document).on("blur", '#CounterOrder', function () {
 
         var counter = $(this).val();

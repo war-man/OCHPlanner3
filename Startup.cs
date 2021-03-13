@@ -92,6 +92,7 @@ namespace OCHPlanner3
             services.AddTransient<IMaintenanceTypeService, MaintenanceTypeService>();
             services.AddTransient<IVehicleService, VehicleService>();
             services.AddTransient<IProgramService, ProgramService>();
+            services.AddTransient<IMaintenancePlanService, MaintenancePlanService>();
 
             // Factory
             services.AddTransient<IReferenceFactory, ReferenceFactory>();
@@ -101,7 +102,7 @@ namespace OCHPlanner3
             services.AddTransient<IMaintenanceTypeFactory, MaintenanceTypeFactory>();
             services.AddTransient<IVehicleFactory, VehicleFactory>();
             services.AddTransient<IProgramFactory, ProgramFactory>();
-
+            services.AddTransient<IMaintenancePlanFactory, MaintenancePlanFactory>();
 
             // Email Sender
             services.AddSingleton<IEmailSender, EmailSender>();
