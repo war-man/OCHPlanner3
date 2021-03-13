@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using OCHPlanner3.Data.Interfaces;
 using OCHPlanner3.Data.Models;
 using OCHPlanner3.Enum;
+using OCHPlanner3.Helper.Comparer;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
 using System;
@@ -67,7 +68,8 @@ namespace OCHPlanner3.Services
                     Company = vehicle.OwnerCompany,
                     Email = vehicle.OwnerEmail,
                     Name = vehicle.OwnerName,
-                    Phone = vehicle.OwnerPhone
+                    Phone = vehicle.OwnerPhone,
+                    OwnerList = await GetOwnerSelectListItem(garageId)
                 };
 
                 result.LicencePlate = vehicle.LicencePlate;
@@ -131,18 +133,24 @@ namespace OCHPlanner3.Services
             return await Task.FromResult(colors.OrderBy(o => o.Text)).ConfigureAwait(false);
         }
 
-        public async Task<int> SaveVehicle(VehicleViewModel vehicle)
+        public async Task<int> SaveVehicle(VehicleViewModel vehicle, int garageId)
         {
             var vehicleModel = vehicle.Adapt<VehicleModel>();
             vehicleModel.VehicleProgram = await GetProgramVehicleList(vehicle);
             if (vehicle.Id == 0)
             {
-                return await _vehicleFactory.CreateVehicle(vehicleModel);
+                return await _vehicleFactory.CreateVehicle(vehicleModel, garageId);
             }
             else
             {
                 return await _vehicleFactory.UpdateVehicle(vehicleModel);
             }
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetOwnerSelectListItem(int garageId, int selectedId = 0)
+        {
+            var owners = await _vehicleFactory.GetOwnerList(garageId);
+            return BuildOwnerSelectListItem(owners.OrderBy(x => x.Name, new SemiNumericComparer()), selectedId);
         }
 
         public async Task<IEnumerable<VehicleProgramModel>> GetProgramVehicleList(VehicleViewModel vehicle)
@@ -167,6 +175,16 @@ namespace OCHPlanner3.Services
         {
             var vehicleProgram = await _vehicleFactory.GetVehiclePrograms(vehicleId);
             return FlagSelectedPrograms(await _programService.GetPrograms(garageId), vehicleProgram.Adapt<IEnumerable<VehicleProgramViewModel>>());
+        }
+
+        private IEnumerable<SelectListItem> BuildOwnerSelectListItem(IEnumerable<OwnerModel> ownerList, int selectedId = 0)
+        {
+            return ownerList.Select(x => new SelectListItem()
+            {
+                Value = x.Name,
+                Text = x.Name,
+                Selected = selectedId != 0 && selectedId == x.Id
+            });
         }
 
         private IEnumerable<ProgramViewModel> FlagSelectedPrograms(IEnumerable<ProgramViewModel> programs, IEnumerable<VehicleProgramViewModel> vehiclePrograms)

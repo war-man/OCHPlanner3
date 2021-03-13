@@ -119,7 +119,7 @@ namespace OCHPlanner3.Data.Factory
             }
         }
 
-        public async Task<int> CreateVehicle(VehicleModel vehicle)
+        public async Task<int> CreateVehicle(VehicleModel vehicle, int garageId)
         {
             try
             {
@@ -128,14 +128,16 @@ namespace OCHPlanner3.Data.Factory
                                 ,[Name]
                                 ,[Address]
                                 ,[Phone] 
-                                ,[Email])
+                                ,[Email]
+                                ,[GarageId])
                                 OUTPUT INSERTED.Id
                                 VALUES
                                 (@OwnerCompany
                                 , @OwnerName
                                 , @OwnerAddress
                                 , @OwnerPhone
-                                , @OwnerEmail)";
+                                , @OwnerEmail
+                                , @GarageId)";
 
                 var sqlDriver = @"INSERT INTO [dbo].[VehicleDriver]
                                 ([Name] 
@@ -222,7 +224,8 @@ namespace OCHPlanner3.Data.Factory
                                 OwnerName = vehicle.OwnerName,
                                 OwnerAddress = vehicle.OwnerAddress,
                                 OwnerPhone = vehicle.OwnerPhone,
-                                OwnerEmail = vehicle.OwnerEmail
+                                OwnerEmail = vehicle.OwnerEmail,
+                                GarageId = garageId
                                 
                             },
                             commandType: CommandType.Text,
@@ -483,6 +486,25 @@ namespace OCHPlanner3.Data.Factory
                     return result;
                 }
            
+        }
+
+        public async Task<IEnumerable<OwnerModel>> GetOwnerList(int garageId)
+        {
+            var sql = "SELECT [Id], [Company], [Name] FROM [dbo].[VehicleOwner] WHERE [GarageId] = @GarageId ORDER BY [Name]";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<OwnerModel>(sql,
+                     new
+                     {
+                         GarageId = garageId
+                     },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
         }
     }
 

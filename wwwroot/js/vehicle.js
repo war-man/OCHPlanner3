@@ -1,6 +1,10 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('select[name="OwnerName"]').select2({
+        tags: true
+    });
+
     if ($('#hidLanguage').val() === 'FR') {
         moment.locale('fr');
     }
@@ -137,9 +141,9 @@
             showConfirmButton: false,
             timer: 1000,
             timerProgressBar: true,
-            //onClose: () => {
-            //    location.href = ajaxUrl + "/MaintenanceType/" + $('#hidSelectedGarageId').val()
-            //}
+            onClose: () => {
+                location.href = ajaxUrl + "/preventiveMaintenance/" + $('input[name="VinCode"]').val()
+            }
         });
     }
 

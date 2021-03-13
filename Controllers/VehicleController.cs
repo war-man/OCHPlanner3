@@ -52,7 +52,9 @@ namespace OCHPlanner3.Controllers
 
             if (model.Owner == null)
             {
-                model.Owner = new OwnerViewModel() { IsReadOnly = false };
+                model.Owner = new OwnerViewModel() { 
+                    OwnerList = await _vehicleService.GetOwnerSelectListItem(CurrentUser.GarageId),
+                    IsReadOnly = false };
             }
 
             if (model.Driver == null)
@@ -65,11 +67,11 @@ namespace OCHPlanner3.Controllers
         }
                 
         [HttpPost("/{lang:lang}/Vehicle/Save")]
-        public async Task<IActionResult> Create(VehicleViewModel vehicle)
+        public async Task<IActionResult> Save(VehicleViewModel vehicle)
         {
             try
             {
-                var result = await _vehicleService.SaveVehicle(vehicle);
+                var result = await _vehicleService.SaveVehicle(vehicle, CurrentUser.GarageId);
                 return Ok();
             }
             catch (Exception ex)

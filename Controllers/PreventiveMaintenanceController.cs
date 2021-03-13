@@ -19,19 +19,23 @@ namespace OCHPlanner3.Controllers
         public readonly IReferenceService _referenceService;
         public readonly IProgramService _programService;
         public readonly IVINQueryService _vinQueryService;
+        public readonly IVehicleService _vehicleService;
 
         public PreventiveMaintenanceController(IHttpContextAccessor httpContextAccessor,
             IVINQueryService vinQueryService,
             IReferenceService referenceService,
             IProgramService programService,
+            IVehicleService vehicleService,
             IUserService userService) : base(httpContextAccessor, userService)
         {
             _referenceService = referenceService;
             _vinQueryService = vinQueryService;
             _programService = programService;
+            _vehicleService = vehicleService;
         }
 
-        public async Task<IActionResult> Index()
+        [Route("/{lang:lang}/PreventiveMaintenance/{vin?}")]
+        public async Task<IActionResult> Index(string? vin)
         {
             try
             {
@@ -47,6 +51,21 @@ namespace OCHPlanner3.Controllers
                     },
                     RootUrl = BaseRootUrl
                 };
+
+                if(!string.IsNullOrWhiteSpace(vin))
+                {
+                    model.Vehicle = await _vehicleService.GetVehicleByVIN(vin, CurrentUser.GarageId);
+                }
+
+                if(model.Vehicle.Owner != null)
+                {
+                    model.Vehicle.Owner.IsReadOnly = true;
+                }
+
+                if (model.Vehicle.Driver != null)
+                {
+                    model.Vehicle.Driver.IsReadOnly = true;
+                }
 
                 return View(model);
             }
