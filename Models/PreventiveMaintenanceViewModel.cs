@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
 
 namespace OCHPlanner3.Models
 {
@@ -8,6 +10,7 @@ namespace OCHPlanner3.Models
         public string LastServiceDate { get; set; }
        
         public VehicleViewModel Vehicle { get; set; }
+        public IEnumerable<SelectListItem> VinCodeList { get; set; }
        
     }
 }

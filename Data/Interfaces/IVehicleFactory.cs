@@ -14,5 +14,6 @@ namespace OCHPlanner3.Data.Interfaces
         Task<int> UpdateVehicle(VehicleModel vehicle);
         Task<IEnumerable<VehicleProgramModel>> GetVehiclePrograms(int vehicleId);
         Task<IEnumerable<OwnerModel>> GetOwnerList(int garageId);
+        Task<IEnumerable<string>> GetVINList(int garageId);
     }
 }

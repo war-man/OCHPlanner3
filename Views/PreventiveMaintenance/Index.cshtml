@@ -25,7 +25,9 @@
                         <div class="form-group row">
                             <label for="VinCode" class="control-label col-md-2 mt-2">@Localizer["Vin"]</label>
                             <div class="col-md-3">
-                                <input asp-for="Vehicle.VinCode" name="VinCode" class="form-control" />
+                                <select asp-for="Vehicle.VinCode" name="VinCode" asp-items="Model.VinCodeList" class="form-control auto-complete">
+                                    <option value=""></option>
+                                </select>
                             </div>
                             <label for="Description" class="control-label col-md-1 mt-2">@Localizer["Description"]</label>
                             <div class="col-md-6">

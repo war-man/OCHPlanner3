@@ -49,6 +49,7 @@ namespace OCHPlanner3.Controllers
                         Driver = new DriverViewModel() { IsReadOnly = true },
                         Programs = await _programService.GetPrograms(CurrentUser.GarageId)
                     },
+                    VinCodeList = await _vehicleService.GetVinSelectListItem(CurrentUser.GarageId),
                     RootUrl = BaseRootUrl
                 };
 

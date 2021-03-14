@@ -506,6 +506,32 @@ namespace OCHPlanner3.Data.Factory
                 return result;
             }
         }
+
+        public async Task<IEnumerable<string>> GetVINList(int garageId)
+        {
+            try
+            {
+                var sql = "SELECT V.[VinCode] FROM [dbo].[Vehicle2] V INNER JOIN [VehicleOwner] VO ON V.[VehicleOwnerId] = VO.[Id]  WHERE VO.[GarageId] = @GarageId";
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+
+                    var result = await connection.QueryAsync<string>(sql,
+                         new
+                         {
+                             GarageId = garageId
+                         },
+                        commandType: CommandType.Text);
+
+                    return result;
+                }
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 
    

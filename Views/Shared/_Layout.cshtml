@@ -146,35 +146,35 @@
                                             <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">@Localizer["MenuMessage"]</a></li>
                                             @if (User.IsInRole("SuperAdmin") || currentUser.GarageSetting.Maintenance )
                                             {
-                                                <li class="@(Html.IsMenuActive("/Maintenance") ? "active" : "")"><a asp-controller="PreventiveMaintenance" asp-action="Index">@Localizer["MenuPreventiveMaintenance"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Maintenance") ? "active" : "")"><a asp-controller="PreventiveMaintenance" asp-action="Index">@Localizer["MenuPreventiveMaintenance"]</a></li>
                                             }
                                         </ul>
                                     </li>
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                     {
-                                        <li class="@(Html.IsMenuActive("/Users") || Html.IsMenuActive("/Roles")  ? "active" : "")">
-                                            <a href="javascript:void(0)"><i class="fad fa-users"></i><span>@Localizer["MenuUserManagement"]</span></a>
-                                            <ul class="submenu">
-                                                <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">@Localizer["MenuUsers"]</a></li>
-                                                @if (User.IsInRole("SuperAdmin"))
+                                    <li class="@(Html.IsMenuActive("/Users") || Html.IsMenuActive("/Roles")  ? "active" : "")">
+                                        <a href="javascript:void(0)"><i class="fad fa-users"></i><span>@Localizer["MenuUserManagement"]</span></a>
+                                        <ul class="submenu">
+                                            <li class="@(Html.IsMenuActive("/Users")  ? "active" : "")"><a asp-controller="Users" asp-action="Index">@Localizer["MenuUsers"]</a></li>
+                                            @if (User.IsInRole("SuperAdmin"))
                                                 {
-                                                    <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">@Localizer["MenuRoles"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Roles")  ? "active" : "")"><a asp-controller="Roles" asp-action="Index">@Localizer["MenuRoles"]</a></li>
                                                 }
-                                            </ul>
-                                        </li>
+                                        </ul>
+                                    </li>
                                     }
                                     @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                     {
-                                        <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
-                                            @if (User.IsInRole("SuperAdmin"))
+                                    <li class="@(Html.IsMenuActive("/Garages") ? "active" : "")">
+                                        @if (User.IsInRole("SuperAdmin"))
                                             {
-                                                <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
+                                        <a asp-controller="Garages" asp-action="Index"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
                                             }
                                             else if (User.IsInRole("Administrator"))
                                             {
-                                                <a asp-controller="Garage" asp-action="Edit" asp-route-id="@currentUser.GarageId"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
+                                        <a asp-controller="Garage" asp-action="Edit" asp-route-id="@currentUser.GarageId"><i class="fad fa-car-mechanic"></i>@Localizer["MenuGarageManagement"]</a>
                                             }
-                                        </li>
+                                    </li>
                                     }
                                     <li class="@(Html.IsMenuActive("/Options") ? "active" : "")">
                                         <a href="javascript:void(0)"><i class="fad fa-cog"></i><span>@Localizer["MenuOptions"]</span></a>
@@ -184,10 +184,10 @@
                                             @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
                                             {
 
-                                                <li class="@(Html.IsMenuActive("/Options/Oil") ? "active" : "")"><a asp-controller="Options" asp-action="Oil">@Localizer["MenuOils"]</a></li>
-                                                <li class="@(Html.IsMenuActive("/Options/Recommendation") ? "active" : "")"><a asp-controller="Options" asp-action="Recommendation">@Localizer["MenuRecommendation"]</a></li>
-                                                <li class="@(Html.IsMenuActive("/Options/Maintenance") ? "active" : "")"><a asp-controller="Options" asp-action="Maintenance">@Localizer["MenuMaintenance"]</a></li>
-                                                <li class="@(Html.IsMenuActive("/Options/Appointment") ? "active" : "")"><a asp-controller="Options" asp-action="Appointment">@Localizer["MenuNextAppointment"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Options/Oil") ? "active" : "")"><a asp-controller="Options" asp-action="Oil">@Localizer["MenuOils"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Options/Recommendation") ? "active" : "")"><a asp-controller="Options" asp-action="Recommendation">@Localizer["MenuRecommendation"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Options/Maintenance") ? "active" : "")"><a asp-controller="Options" asp-action="Maintenance">@Localizer["MenuMaintenance"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Options/Appointment") ? "active" : "")"><a asp-controller="Options" asp-action="Appointment">@Localizer["MenuNextAppointment"]</a></li>
                                             }
                                         </ul>
                                     </li>
@@ -279,6 +279,9 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+    <script src="~/js/select2-autocomplete.js"></script>
+
 </body>
 
 </html>

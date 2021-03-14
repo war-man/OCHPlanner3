@@ -153,6 +153,12 @@ namespace OCHPlanner3.Services
             return BuildOwnerSelectListItem(owners.OrderBy(x => x.Name, new SemiNumericComparer()), selectedId);
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetVinSelectListItem(int garageId, string selected = "")
+        {
+            var vinlist = await _vehicleFactory.GetVINList(garageId);
+            return BuildVinSelectListItem(vinlist.OrderBy(x => x, new SemiNumericComparer()), selected);
+        }
+
         public async Task<IEnumerable<VehicleProgramModel>> GetProgramVehicleList(VehicleViewModel vehicle)
         {
             if (string.IsNullOrWhiteSpace(vehicle.SelectedPrograms)) return new List<VehicleProgramModel>();
@@ -184,6 +190,16 @@ namespace OCHPlanner3.Services
                 Value = x.Name,
                 Text = x.Name,
                 Selected = selectedId != 0 && selectedId == x.Id
+            });
+        }
+
+        private IEnumerable<SelectListItem> BuildVinSelectListItem(IEnumerable<string> vinList, string selected = "")
+        {
+            return vinList.Select(x => new SelectListItem()
+            {
+                Value = x,
+                Text = x,
+                Selected = !string.IsNullOrWhiteSpace(selected) && selected == x
             });
         }
 

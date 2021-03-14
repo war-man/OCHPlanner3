@@ -1,6 +1,10 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('select[name="VinCode"]').select2({
+        tags: true
+    });
+
     //Detect ENTER key
     $(document).on("keypress", 'input[name="VinCode"]', function (e) {
         if (e.which == 13) {
@@ -10,12 +14,11 @@
 
     $(document).on("click", '#btnVehicleDetail', function (e) {
         if ($('input[name="VinCode"]').val() !== '') {
-            location.href = ajaxUrl + "/Vehicle/" + $('input[name="VinCode"]').val()
+            location.href = ajaxUrl + "/Vehicle/" + $('select[name="VinCode"]').select2('val')
         }
     });
 
-    $(document).on("blur", 'input[name="VinCode"]', function () {
-
+    $('select[name="VinCode"]').on('select2:select', function (e) {
         if ($(this).val().trim() === '')
             return false;
 
@@ -41,7 +44,7 @@
                     }).then(function (result) {
                         if (result.value) {
                             location.href = ajaxUrl + "/Vehicle/" + VIN
-                           
+
                         }
                     });
                 }

@@ -13,7 +13,7 @@
 }
 else
 {
-    <select id="@Model.UniqueId" class="form-control custom-select" asp-for="SelectedGarageId"
+    <select id="@Model.UniqueId" class="form-control custom-select auto-complete" asp-for="SelectedGarageId"
             asp-items="Model.Garages">
         <option value="">@Localizer["SelectOption"]</option>
     </select>

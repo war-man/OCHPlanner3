@@ -14,5 +14,6 @@ namespace OCHPlanner3.Services.Interfaces
         Task<int> SaveVehicle(VehicleViewModel model, int garageId);
         Task<IEnumerable<ProgramViewModel>> GetVehiclePrograms(int vehicleId, int garageId);
         Task<IEnumerable<SelectListItem>> GetOwnerSelectListItem(int garageId, int selectedId = 0);
+        Task<IEnumerable<SelectListItem>> GetVinSelectListItem(int garageId, string selected = "");
     }
 }

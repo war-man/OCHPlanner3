@@ -51,6 +51,10 @@ span.field-validation-error {
     height: 34px !important;
 }
 
+.select2-rendered__match {
+    font-weight: bold;
+}
+
 /*   SIMPLE  */
 #label-unit {
     font-size: 20px;
