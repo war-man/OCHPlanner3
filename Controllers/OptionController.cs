@@ -443,6 +443,25 @@ namespace OCHPlanner3.Controllers
 
         #region Product Management
 
+        [HttpGet("/{lang:lang}/Options/ProductNotExist")]
+        public async Task<IActionResult> ProductNotExist(string productNo, int garageId)
+        {
+            try
+            {
+                //true if product not exist, otherwise false
+                var products = await _optionService.GetProductList(garageId);
+                if (products.Any(products => products.ProductNo == productNo))
+                    return Ok(false);
+                else
+                    return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
         [HttpGet("/{lang:lang}/Options/Product/{id}")]
         public async Task<IActionResult> ProductManagementList(int id)
         {

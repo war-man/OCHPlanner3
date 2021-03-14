@@ -91,6 +91,28 @@
        
     }
 
+    $.validator.addMethod("ProductNotExist", function (value, element) {
+        var result = false;
+
+        $.ajax({
+            url: ajaxUrl + '/Options/ProductNotExist',
+            type: "GET",
+            async: false,
+            data: {
+                productNo: value,
+                garageId: $('#hidSelectedGarageId').val()
+            },
+            success: function (response) {
+                result = response;
+            },
+            error: function (xhr, status, error) {
+                return false;
+            }
+        });
+
+        return result;
+    }, "Required Field");
+
     $('#submitAddForm').on('click', function () {
         var form = $('#addForm');
 
@@ -98,7 +120,8 @@
             rules: {
                 'productNo': {
                     required: true,
-                    noSpace: true
+                    noSpace: true,
+                    ProductNotExist: true
                 },
                 'description': {
                     required: true,
@@ -116,7 +139,8 @@
             messages: {
                 'productNo': {
                     required: $('#hidProductNoRequired').val(),
-                    noSpace: $('#hidProductNoRequired').val()
+                    noSpace: $('#hidProductNoRequired').val(),
+                    ProductNotExist: $('#hidProductNotExist').val()
                 },
                 'description': {
                     required: $('#hidDescriptionRequired').val(),
