@@ -4,6 +4,11 @@
 
 @inject IViewLocalizer Localizer
 
+@Html.Hidden("hid10Rows", Localizer["10Rows"].Value)
+@Html.Hidden("hid25Rows", Localizer["25Rows"].Value)
+@Html.Hidden("hid50Rows", Localizer["50Rows"].Value)
+@Html.Hidden("hidAllRows", Localizer["AllRows"].Value)
+
 <table id="MaintenancePlanListTable" class="table table-striped dataTable" data-processing="true">
     <thead>
         <tr>
@@ -14,10 +19,10 @@
     <tbody>
         @foreach (var item in Model.MaintenancePlanList)
         {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+            </tr>
         }
     </tbody>
 </table>

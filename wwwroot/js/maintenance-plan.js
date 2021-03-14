@@ -7,6 +7,10 @@
             style: 'single',
             info: false
         },
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [$("#hid10Rows").val(), $('#hid25Rows').val(), $('#hid50Rows').val(), $('#hidAllRows').val()]
+        ],
         "aoColumnDefs": [
             {
                 "aTargets": [0],
@@ -55,7 +59,8 @@
                         }
                     });
                 }
-            }
+            },
+            'pageLength'
         ],
         initComplete: function () {
             $('#MaintenancePlanListTable_wrapper').find('div.dt-buttons').find('button').removeClass('dt-button').addClass('btn btn-outline-secondary btn-sm');

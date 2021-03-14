@@ -99,7 +99,7 @@ namespace OCHPlanner3.Controllers
                     throw new ApplicationException("ProgramList - Id should ne be set to 0");
 
                 var model = new ProgramManagementViewModel() { Programs = await _programService.GetPrograms(id) };
-                return PartialView("_programList", model);
+                return PartialView("_programs", model);
             }
             catch (Exception ex)
             {
