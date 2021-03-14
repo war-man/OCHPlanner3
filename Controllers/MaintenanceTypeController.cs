@@ -171,12 +171,12 @@ namespace OCHPlanner3.Controllers
             }
         }
 
-        [Route("/{lang:lang}/MaintenanceType/AddProduct")]
-        public async Task<IActionResult> AddProduct(MaintenanceTypeProductGroupViewModel productToAdd)
+        [HttpPost("/{lang:lang}/MaintenanceType/AddProduct")]
+        public async Task<IActionResult> AddProduct(MaintenanceTypeProductGroupViewModel product)
         {
             try
             {
-                var products = await AddProductToMemory(productToAdd);
+                var products = await AddProductToMemory(product);
 
                 return PartialView("_selectedProducts", products);
             }
