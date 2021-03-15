@@ -54,5 +54,6 @@ namespace OCHPlanner3.Models
         public string DriverNotes { get; set; }
 
         public string SelectedPrograms { get; set; }
+        public bool IsVINDecode { get; set; }
     }
 }

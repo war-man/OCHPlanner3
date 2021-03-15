@@ -98,7 +98,8 @@ namespace OCHPlanner3.Services
                     Steering = vinResult.Steering,
                     Propulsion = vinResult.DriveLine,
                     Transmission = vinResult.Transmission,
-                    EntryDate = new DateTime(Convert.ToInt32(vinResult.Year), 6, 1).ToString("dd/MM/yy")
+                    EntryDate = new DateTime(Convert.ToInt32(vinResult.Year), 6, 1).ToString("dd/MM/yy"),
+                    IsVINDecode = true
                 };
             }
 

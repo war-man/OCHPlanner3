@@ -40,8 +40,10 @@ namespace OCHPlanner3.Controllers
             {
                 //get vehicle info by VIN
                 model = await _vehicleService.GetVehicleByVIN(vin, CurrentUser.GarageId);
+                model.VinCode = vin;
             }
 
+            
             model.RootUrl = BaseRootUrl;
             model.OilList = await _referenceService.GetOilSelectListItem(CurrentUser.GarageId);
             if(model.Programs == null)
@@ -93,22 +95,7 @@ namespace OCHPlanner3.Controllers
                 var item = oillist.FirstOrDefault(p => p.Value == vehicle.OilTypeId.ToString());
                 vehicle.SelectedOilDisplay = item != null ? item.Text : string.Empty;
             }
-
-            //If no vehicle in DB, Get it from VIN Decode
-            if (vehicle == null)
-            {
-                var vinResult = await _vinQueryService.GetVINDecode(vin);
-
-                if (vinResult != null && !string.IsNullOrWhiteSpace(vinResult.VIN))
-                {
-                    //Increment VINDecode counter
-                    //var _garageService = new GarageService();
-                    //_garageService.IncrementVINDecodeCounter(UserManagerHelper.GetCurrentUser().GarageID);
-                }
-
-                vehicle = new VehicleViewModel();
-            }
-
+                        
             return vehicle;
         }
 

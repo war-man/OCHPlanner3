@@ -32,7 +32,7 @@
             },
             async: false,
             success: function (response) {
-                if (response.VinCode == null) {
+                if (response.VinCode == null || response.IsVINDecode) {
                     //Display VIN not found
                     swal.fire({
                         title: $('#hidVINNotFoundTitle').val(),

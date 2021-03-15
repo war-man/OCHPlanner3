@@ -11,6 +11,7 @@
             [10, 25, 50, -1],
             [$("#hid10Rows").val(), $('#hid25Rows').val(), $('#hid50Rows').val(), $('#hidAllRows').val()]
         ],
+        "pageLength": 25,
         "aoColumnDefs": [
             {
                 "aTargets": [0],
