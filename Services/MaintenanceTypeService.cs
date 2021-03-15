@@ -26,15 +26,18 @@ namespace OCHPlanner3.Services
         {
             var products = new List<MaintenanceTypeProductGroupViewModel>();
 
-            maintenanceType.ProductString.Split(",").ToList().ForEach(p =>
+            if (!string.IsNullOrWhiteSpace(maintenanceType.ProductString))
             {
-                var data = p.Split("|");
-                products.Add(new MaintenanceTypeProductGroupViewModel()
+                maintenanceType.ProductString.Split(",").ToList().ForEach(p =>
                 {
-                    Product = new ProductViewModel() { Id = Convert.ToInt32(data.First()) },
-                    Quantity = Convert.ToInt32(data.Last())
+                    var data = p.Split("|");
+                    products.Add(new MaintenanceTypeProductGroupViewModel()
+                    {
+                        Product = new ProductViewModel() { Id = Convert.ToInt32(data.First()) },
+                        Quantity = Convert.ToInt32(data.Last())
+                    });
                 });
-            });
+            }
 
             var maintenanceTypeModel = maintenanceType.Adapt<MaintenanceTypeModel>();
             var result = await _maintenanceTypeFactory.CreateMaintenanceType(maintenanceTypeModel, products);

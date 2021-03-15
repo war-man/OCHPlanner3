@@ -90,40 +90,41 @@
                                     <h4 class="header-title">@Localizer["Options"]</h4>
                                     @if (User.IsInRole("SuperAdmin") || currentUser.GarageSetting.Maintenance)
                                     {
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <button id="btnProduct" type="button" class="btn btn-outline-secondary w-100">@Localizer["ProductManagement"]</button>
-                                                <button id="btnProgram" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["ProgramManagement"]</button>
-                                                <button id="btnDefault" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["DefaultManagement"]</button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button id="btnMaintenanceType" type="button" class="btn btn-outline-secondary w-100">@Localizer["MaintenanceTypeManagement"]</button>
-                                                <button id="btnMaintenancePlan" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["MaintenancePlanManagement"]</button>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button id="btnProduct" type="button" class="btn btn-outline-secondary w-100">@Localizer["ProductManagement"]</button>
+                                            <button id="btnProgram" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["ProgramManagement"]</button>
+                                            <button id="btnDefault" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["DefaultManagement"]</button>
                                         </div>
+                                        <div class="col-md-6">
+                                            <button id="btnMaintenanceType" type="button" class="btn btn-outline-secondary w-100">@Localizer["MaintenanceTypeManagement"]</button>
+                                            <button id="btnMaintenancePlan" type="button" class="btn btn-outline-secondary w-100 mt-2">@Localizer["MaintenancePlanManagement"]</button>
+                                        </div>
+                                    </div>
                                     }
                                     else
                                     {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="alert alert-warning border border-warning w-100" role="alert">
-                                                    <p class="font-weight-bold text-danger">@Localizer["NoMaintenanceTitle"]</p>
-                                                    <hr style="margin-top:4px;" />
-                                                    @Html.Raw(Localizer["NoMaintenanceText"].Value)
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-warning border border-warning w-100" role="alert">
+                                                <p class="font-weight-bold text-danger">@Localizer["NoMaintenanceTitle"]</p>
+                                                <hr style="margin-top:4px;" />
+                                                @Html.Raw(Localizer["NoMaintenanceText"].Value)
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <button id="btnProduct" type="button" class="btn btn-outline-secondary disabled w-100">@Localizer["ProductManagement"]</button>
-                                                <button id="btnProgram" type="button" class="btn btn-outline-secondary disabled w-100 mt-2">@Localizer["ProgramManagement"]</button>
-                                                <button id="btnDefault" type="button" class="btn btn-outline-secondary disabled w-100 mt-2">@Localizer["DefaultManagement"]</button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button id="btnMaintenanceType" type="button" class="btn btn-outline-secondary disabled w-100">@Localizer["MaintenanceTypeManagement"]</button>
-                                                <button id="btnMaintenancePlan" type="button" class="btn btn-outline-secondary disabled w-100 mt-2">@Localizer["MaintenancePlanManagement"]</button>
-                                            </div>
+                                    </div>
+                                    <!-- Buttons ID end with Info to avoid the Onclick to be triggered - No clic for these buttons -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button id="btnProductInfo" type="button" class="btn btn-outline-secondary disabled w-100">@Localizer["ProductManagement"]</button>
+                                            <button id="btnProgramInfo" type="button" class="btn btn-outline-secondary disabled w-100 mt-2">@Localizer["ProgramManagement"]</button>
+                                            <button id="btnDefaultInfo" type="button" class="btn btn-outline-secondary disabled w-100 mt-2">@Localizer["DefaultManagement"]</button>
                                         </div>
+                                        <div class="col-md-6">
+                                            <button id="btnMaintenanceTypeInfo" type="button" class="btn btn-outline-secondary disabled w-100">@Localizer["MaintenanceTypeManagement"]</button>
+                                            <button id="btnMaintenancePlanInfo" type="button" class="btn btn-outline-secondary disabled w-100 mt-2">@Localizer["MaintenancePlanManagement"]</button>
+                                        </div>
+                                    </div>
                                     }
                                 </div>
                             </div>
@@ -131,64 +132,64 @@
 
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">Modules</h4>
-                                        <div class="form-check">
-                                            <input asp-for="Support" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="Support">Support</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="OilReset" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="OilReset">OilReset</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="Communication" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="Communication">Communication</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="Maintenance" type="checkbox" class="form-check-input" />
-                                            <label class="form-check-label" for="Maintenance">Maintenance</label>
-                                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Modules</h4>
+                                    <div class="form-check">
+                                        <input asp-for="Support" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="Support">Support</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="OilReset" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="OilReset">OilReset</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="Communication" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="Communication">Communication</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="Maintenance" type="checkbox" class="form-check-input" />
+                                        <label class="form-check-label" for="Maintenance">Maintenance</label>
                                     </div>
                                 </div>
-
                             </div>
 
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">@Localizer["Branding"]</h4>
-                                        <div class="form-group row">
-                                            <label for="brandingId" class="control-label col-md-4">@Localizer["BrandingAs"]</label>
-                                            <div class="col-md-8">
-                                                <label class="mr-4"><input asp-for="BrandingId" value="1" type="radio" class="mr-1" />Och Planner</label>
-                                                <label><input asp-for="BrandingId" value="2" type="radio" class="mr-1" />TerraClean</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <img id="branding-logo" src="@Model.BrandingLogo" width="300" height="190" />
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="control-label w-100 font-weight-bold">@Localizer["HelpLink"]</label>
-                                                    <label id="labelHelpLinkFr" class="control-label">Fr: @Model.HelpLinkFr</label>
-                                                    <label id="labelHelpLinkEn" class="control-label">En: @Model.HelpLinkEn</label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label w-100 font-weight-bold">@Localizer["StoreLink"]</label>
-                                                    <label id="labelStoreLinkFr" class="control-label">Fr: @Model.StoreLinkFr</label>
-                                                    <label id="labelStoreLinkEn" class="control-label">En: @Model.StoreLinkEn</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                        </div>
 
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">@Localizer["Branding"]</h4>
+                                    <div class="form-group row">
+                                        <label for="brandingId" class="control-label col-md-4">@Localizer["BrandingAs"]</label>
+                                        <div class="col-md-8">
+                                            <label class="mr-4"><input asp-for="BrandingId" value="1" type="radio" class="mr-1" />Och Planner</label>
+                                            <label><input asp-for="BrandingId" value="2" type="radio" class="mr-1" />TerraClean</label>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-4">
+                                            <img id="branding-logo" src="@Model.BrandingLogo" width="300" height="190" />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label w-100 font-weight-bold">@Localizer["HelpLink"]</label>
+                                                <label id="labelHelpLinkFr" class="control-label">Fr: @Model.HelpLinkFr</label>
+                                                <label id="labelHelpLinkEn" class="control-label">En: @Model.HelpLinkEn</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label w-100 font-weight-bold">@Localizer["StoreLink"]</label>
+                                                <label id="labelStoreLinkFr" class="control-label">Fr: @Model.StoreLinkFr</label>
+                                                <label id="labelStoreLinkEn" class="control-label">En: @Model.StoreLinkEn</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                </div>
                             </div>
+
+                        </div>
                         }
                     </div>
                 </div>
@@ -269,17 +270,17 @@
                         </div>
                         @if (User.IsInRole("SuperAdmin"))
                         {
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">Notes</h4>
-                                        <div class="form-group">
-                                            <label for="Note" class="control-label">Notes</label>
-                                            <textarea asp-for="Note" class="form-control" rows="3"></textarea>
-                                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Notes</h4>
+                                    <div class="form-group">
+                                        <label for="Note" class="control-label">Notes</label>
+                                        <textarea asp-for="Note" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         }
                     </div>
                 </div>
@@ -332,17 +333,17 @@
             </div>
             @if (User.IsInRole("SuperAdmin"))
             {
-                <div class="row justify-content-center">
-                    <div class="col-md-12 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row justify-content-center">
-                                    <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
-                                </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <button id="btnSave" type="button" class="btn btn-primary">@Localizer["Save"]</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
         </div>
     </div>

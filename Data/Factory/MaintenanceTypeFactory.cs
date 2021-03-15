@@ -7,6 +7,7 @@ using OCHPlanner3.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Data.Factory
@@ -99,19 +100,23 @@ namespace OCHPlanner3.Data.Factory
                             transaction: transaction);
 
                         //insert related products
-                        var productList = new List<MaintenanceProductModel>();
-
-                        foreach (var p in products)
+                        if (products.Any())
                         {
-                            productList.Add(new MaintenanceProductModel()
+                            var productList = new List<MaintenanceProductModel>();
+
+                            foreach (var p in products)
                             {
-                                MaintenanceTypeId = (int)maintenanceTypeInserted,
-                                ProductId = p.Product.Id,
-                                Quantity = p.Quantity
-                            });
+                                productList.Add(new MaintenanceProductModel()
+                                {
+                                    MaintenanceTypeId = (int)maintenanceTypeInserted,
+                                    ProductId = p.Product.Id,
+                                    Quantity = p.Quantity
+                                });
+                            }
+
+                            var affectedRows = await connection.ExecuteAsync(sqlProduct, productList, transaction: transaction);
                         }
 
-                        var affectedRows = await connection.ExecuteAsync(sqlProduct, productList, transaction: transaction);
                         transaction.Commit();
 
                         return 1;
