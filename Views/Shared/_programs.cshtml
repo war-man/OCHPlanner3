@@ -16,11 +16,11 @@
             {
                 <li>
                     <div class="row pl-3 mb-1">
-                        <div class="col-md-4 mt-1">
+                        <div class="col-md-6 mt-1">
                             <input name="programs[]" type="checkbox" class="checkbox mr-2 mt-1" value="@program.Id" @(program.Selected ? "checked" : "") />
                             <label style="font-weight:500;">@program.Name</label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <input name="Note_@program.Id" class="form-control" type="text" value="@program.Note">
                         </div>
                     </div>
