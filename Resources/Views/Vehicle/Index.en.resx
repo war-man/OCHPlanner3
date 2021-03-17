@@ -120,6 +120,9 @@
   <data name="BrakeSystem" xml:space="preserve">
     <value>Brake System</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>

@@ -17,6 +17,10 @@
         defaultDate: moment()
     });
 
+    $(document).on("click", "#btnCancel", function () {
+        location.href = ajaxUrl + "/preventiveMaintenance";
+    });
+
     $(document).on("click", "#btnSave", function () {
 
         var form = $('#vehicleForm');

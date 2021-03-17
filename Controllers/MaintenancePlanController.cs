@@ -40,5 +40,25 @@ namespace OCHPlanner3.Controllers
                 return BadRequest();
             }
         }
+
+        [Route("/{lang:lang}/MaintenancePlan/Create/{id}")]
+        public async Task<IActionResult> Create(int id)
+        {
+            try
+            {
+                var model = new MaintenancePlanViewModel()
+                {
+                    RootUrl = BaseRootUrl,
+                    GarageId = id,
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
     }
 }
