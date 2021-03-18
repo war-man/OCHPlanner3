@@ -153,6 +153,9 @@
   <data name="NameRequired" xml:space="preserve">
     <value>Name is required</value>
   </data>
+  <data name="ProgramNotExist" xml:space="preserve">
+    <value>Program already exist</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>

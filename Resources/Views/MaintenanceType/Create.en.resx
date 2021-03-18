@@ -153,6 +153,9 @@
   <data name="MaintenanceTotalRetail" xml:space="preserve">
     <value>Maintenance Total Retail</value>
   </data>
+  <data name="MaintenanceTypeNotExist" xml:space="preserve">
+    <value>Maintenance Type already exist</value>
+  </data>
   <data name="Material" xml:space="preserve">
     <value>Material</value>
   </data>

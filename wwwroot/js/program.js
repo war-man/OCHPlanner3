@@ -88,6 +88,28 @@
         var table = $('#ProgramListTable').DataTable(tableSettings);
     }
 
+    $.validator.addMethod("ProgramNotExist", function (value, element) {
+        var result = false;
+
+        $.ajax({
+            url: ajaxUrl + '/Program/ProgramNotExist',
+            type: "GET",
+            async: false,
+            data: {
+                name: value,
+                garageId: $('#hidSelectedGarageId').val()
+            },
+            success: function (response) {
+                result = response;
+            },
+            error: function (xhr, status, error) {
+                return false;
+            }
+        });
+
+        return result;
+    }, "Required Field");
+
     $('#submitAddForm').on('click', function () {
         var form = $('#addForm');
 
@@ -95,13 +117,15 @@
             rules: {
                 'name': {
                     required: true,
-                    noSpace: true
+                    noSpace: true,
+                    ProgramNotExist: true
                 }
             },
             messages: {
                 'name': {
                     required: $('#hidNameRequired').val(),
-                    noSpace: $('#hidNameRequired').val()
+                    noSpace: $('#hidNameRequired').val(),
+                    ProgramNotExist: $('#hidProgramNotExist').val(),
                 }
             },
             errorElement: 'span',

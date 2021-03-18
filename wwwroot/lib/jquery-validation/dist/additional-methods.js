@@ -1159,5 +1159,9 @@ $.validator.addMethod("noSpace", function (value, element) {
 	return value.trim() !== "";
 }, "Required Field");
 
+$.validator.addMethod('minStrict', function (value, el, param) {
+	return value > param;
+});
+
 return $;
 }));

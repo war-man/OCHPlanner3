@@ -6,6 +6,7 @@ using OCHPlanner3.Helper;
 using OCHPlanner3.Models;
 using OCHPlanner3.Services.Interfaces;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCHPlanner3.Controllers
@@ -100,6 +101,25 @@ namespace OCHPlanner3.Controllers
 
                 var model = new ProgramManagementViewModel() { Programs = await _programService.GetPrograms(id) };
                 return PartialView("_programs", model);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("/{lang:lang}/Program/ProgramNotExist")]
+        public async Task<IActionResult> ProgramNotExist(string name, int garageId)
+        {
+            try
+            {
+                //true if maintenancetype not exist, otherwise false
+                var programs = await _programService.GetPrograms(garageId);
+                if (programs.Any(mt => mt.Name == name))
+                    return Ok(false);
+                else
+                    return Ok(true);
             }
             catch (Exception ex)
             {

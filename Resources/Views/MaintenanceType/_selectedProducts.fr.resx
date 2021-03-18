@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CostPrice" xml:space="preserve">
-    <value>Prix coutant</value>
+    <value>Coutant</value>
+  </data>
+  <data name="CostPriceTotal" xml:space="preserve">
+    <value>Coutant total</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -127,6 +130,9 @@
     <value>Quantité</value>
   </data>
   <data name="RetailPrice" xml:space="preserve">
-    <value>Prix de vente</value>
+    <value>Vente</value>
+  </data>
+  <data name="RetailPriceTotal" xml:space="preserve">
+    <value>Vente total</value>
   </data>
 </root>

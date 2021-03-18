@@ -49,6 +49,28 @@
 
     initTable();
 
+    $.validator.addMethod("MaintenanceTypeNotExist", function (value, element) {
+        var result = false;
+
+        $.ajax({
+            url: ajaxUrl + '/MaintenanceType/MaintenanceTypeNotExist',
+            type: "GET",
+            async: false,
+            data: {
+                code: value,
+                garageId: $('#hidSelectedGarageId').val()
+            },
+            success: function (response) {
+                result = response;
+            },
+            error: function (xhr, status, error) {
+                return false;
+            }
+        });
+
+        return result;
+    }, "Required Field");
+
     $(document).on("click", "#btnAddProduct", function () {
 
         var selected = $('#SelectedProduct').select2("val");
@@ -106,7 +128,8 @@
             ignore: ".ignoreClass",
             rules: {
                 'Code': {
-                    required: true
+                    required: true,
+                    MaintenanceTypeNotExist: true
                 },
                 'Name': {
                     required: true
@@ -117,7 +140,8 @@
             },
             messages: {
                 'Code': {
-                    required: $('#hidCodeRequired').val()
+                    required: $('#hidCodeRequired').val(),
+                    MaintenanceTypeNotExist: $('#hidMaintenanceTypeNotExist').val()
                 },
                 'Name': {
                     required: $('#hidNameRequired').val()

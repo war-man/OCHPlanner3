@@ -153,6 +153,9 @@
   <data name="MaintenanceTotalRetail" xml:space="preserve">
     <value>Vendant total de l'entretien</value>
   </data>
+  <data name="MaintenanceTypeNotExist" xml:space="preserve">
+    <value>Type d'entretien déjà existant</value>
+  </data>
   <data name="Material" xml:space="preserve">
     <value>Matériel d'atelier</value>
   </data>

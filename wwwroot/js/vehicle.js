@@ -47,7 +47,8 @@
                     required: true
                 },
                 'Odometer': {
-                    required: true
+                    required: true,
+                    minStrict: 1,
                 },
                 'OwnerPhone': {
                     required: true
@@ -70,7 +71,8 @@
                     required: $('#hidEngineRequired').val()
                 },
                 'Odometer': {
-                    required: $('#hidOdometerRequired').val()
+                    required: $('#hidOdometerRequired').val(),
+                    minStrict: $('#hidOdometerRequired').val()
                 },
                 'OwnerPhone': {
                     required: $('#hidOwnerPhoneRequired').val()

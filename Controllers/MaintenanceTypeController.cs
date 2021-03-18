@@ -151,6 +151,25 @@ namespace OCHPlanner3.Controllers
             }
         }
 
+        [HttpGet("/{lang:lang}/MaintenanceType/MaintenanceTypeNotExist")]
+        public async Task<IActionResult> MaintenanceTypeNotExist(string code, int garageId)
+        {
+            try
+            {
+                //true if maintenancetype not exist, otherwise false
+                var maintenanceType = await _maintenanceTypeService.GetMaintenanceTypes(garageId);
+                if (maintenanceType.Any(mt => mt.Code == code))
+                    return Ok(false);
+                else
+                    return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
         private async Task<IActionResult> ClearProducts()
         {
             try
