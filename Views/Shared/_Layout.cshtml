@@ -146,7 +146,7 @@
                                             <li class="@(Html.IsMenuActive("/Message") ? "active" : "")"><a asp-controller="Message" asp-action="Index">@Localizer["MenuMessage"]</a></li>
                                             @if (User.IsInRole("SuperAdmin") || currentUser.GarageSetting.Maintenance )
                                             {
-                                            <li class="@(Html.IsMenuActive("/Maintenance") ? "active" : "")"><a asp-controller="PreventiveMaintenance" asp-action="Index">@Localizer["MenuPreventiveMaintenance"]</a></li>
+                                            <li class="@(Html.IsMenuActive("/Maintenance") ? "active" : "")"><a asp-controller="PreventiveMaintenance" asp-action="Index" asp-route-vin="">@Localizer["MenuPreventiveMaintenance"]</a></li>
                                             }
                                         </ul>
                                     </li>

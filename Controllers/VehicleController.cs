@@ -55,7 +55,7 @@ namespace OCHPlanner3.Controllers
             if (model.Owner == null)
             {
                 model.Owner = new OwnerViewModel() { 
-                    OwnerList = await _vehicleService.GetOwnerSelectListItem(CurrentUser.GarageId),
+                    OwnerList = await _vehicleService.GetOwnerSelectListItem(CurrentUser.GarageId, model.VehicleOwnerId),
                     IsReadOnly = false };
             }
 
@@ -81,6 +81,32 @@ namespace OCHPlanner3.Controllers
                 ex.ToExceptionless().Submit();
                 return BadRequest();
             }
+        }
+
+        [HttpGet("/{lang:lang}/Vehicle/DuplicateOwner")]
+        public async Task<IActionResult> DuplicateOwner(string name, string phone, int garageId)
+        {
+            try
+            {
+                //true if owner not exist, otherwise false
+                var owner = await _vehicleService.GetOwner(name, phone, garageId);
+                if (owner != null)
+                    return Ok(false);
+                else
+                    return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                ex.ToExceptionless().Submit();
+                return BadRequest();
+            }
+        }
+
+        public async Task<OwnerViewModel> GetOwner(int ownerId)
+        {
+            //Get owners from datatabse
+            var owner = await _vehicleService.GetOwner(ownerId);
+            return owner;
         }
 
         public async Task<VehicleViewModel> GetVehicleByVIN(string vin)

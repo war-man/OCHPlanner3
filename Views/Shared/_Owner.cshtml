@@ -11,13 +11,13 @@
             <div class="col-md-8">
                 @if (Model.IsReadOnly)
                 {
-                <input asp-for="Name" name="OwnerName" class="form-control" readonly />
+                    <input asp-for="Name" name="OwnerName" class="form-control" readonly />
                 }
                 else
                 {
-                <select asp-for="Name" name="OwnerName" asp-items="Model.OwnerList" class="form-control">
-                    <option value="">-- Select --</option>
-                </select>
+                    <select name="OwnerName" asp-items="Model.OwnerList" class="form-control">
+                        <option value="">-- Select --</option>
+                    </select>
                 }
             </div>
         </div>
@@ -73,5 +73,6 @@
                 }
             </div>
         </div>
+        <input asp-for="GarageId" name="OwnerGarageId" type="hidden" class="form-control" />
     </div>
 </div>

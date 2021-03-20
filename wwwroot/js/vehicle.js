@@ -1,8 +1,25 @@
 ﻿$(document).ready(function () {
     var ajaxUrl = $('#HidRootUrl').val();
 
+    $('input[name = "OwnerPhone"]').mask('(000) 000-0000');
+    $('input[name = "DriverPhone"]').mask('(000) 000-0000');
+    $('input[name = "DriverCellphone"]').mask('(000) 000-0000');
+
     $('select[name="OwnerName"]').select2({
-        tags: true
+        tags: true,
+        createTag: function (params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+
+            return {
+                id: 0,
+                text: term,
+                newTag: true // add additional parameters
+            }
+        },
     });
 
     if ($('#hidLanguage').val() === 'FR') {
@@ -20,6 +37,33 @@
     $(document).on("click", "#btnCancel", function () {
         location.href = ajaxUrl + "/preventiveMaintenance";
     });
+
+    $.validator.addMethod("noDuplicateOwner", function (value, element) {
+        debugger
+        var owner = $("select[name='OwnerName']").select2('data')
+        if (!owner[0].newTag) return true;
+
+        var result = false;
+
+        $.ajax({
+            url: ajaxUrl + '/Vehicle/DuplicateOwner',
+            type: "GET",
+            async: false,
+            data: {
+                name: owner[0].text,
+                phone: $('input[name="OwnerPhone"]').val(),
+                garageId: $('input[name="OwnerGarageId"]').val()
+            },
+            success: function (response) {
+                result = response;
+            },
+            error: function (xhr, status, error) {
+                return false;
+            }
+        });
+
+        return result;
+    }, "Required Field");
 
     $(document).on("click", "#btnSave", function () {
 
@@ -50,6 +94,9 @@
                     required: true,
                     minStrict: 1,
                 },
+                'OwnerName': {
+                    noDuplicateOwner: true
+                },
                 'OwnerPhone': {
                     required: true
                 }
@@ -73,6 +120,9 @@
                 'Odometer': {
                     required: $('#hidOdometerRequired').val(),
                     minStrict: $('#hidOdometerRequired').val()
+                },
+                'OwnerName': {
+                    noDuplicateOwner: 'GGGG'
                 },
                 'OwnerPhone': {
                     required: $('#hidOwnerPhoneRequired').val()
@@ -99,9 +149,23 @@
                 var note = $("input[name='Note_" + $(this).val() + "']").val();
                 favorite.push($(this).val() + ',' + note);
             });
-            //alert("My favourite sports are: " + favorite.join("|"));
+
             formData = formData + '&SelectedPrograms=' + favorite.join("|");
 
+            var owner = $("select[name='OwnerName']").select2('data')
+
+            var res = formData.split("&");
+            for (var i = 0; i < res.length; i++) {
+                if (res[i].indexOf("OwnerName") == 0) {
+                    res[i] = 'OwnerName=' + owner[0].text;
+                }
+                else if (res[i].indexOf("VehicleOwnerId") == 0) {
+                    res[i] = 'VehicleOwnerId=' + owner[0].id;
+                }
+            }
+
+            formData = res.join("&");    
+            
             $.ajax({
                 url: ajaxUrl + '/Vehicle/Save',
                 type: "POST",
@@ -138,6 +202,36 @@
 
         $('input[name="MonthlyMileage"]').val(Math.round($('input[name="Odometer"]').val() / diff));
     }
+
+    $('select[name="OwnerName"]').on('select2:select', function (e) {
+
+        var owner = $("select[name='OwnerName']").select2('data')
+        if (owner[0].newTag) {
+            $('input[name="OwnerCompany"]').val('');
+            $('input[name="OwnerAddress"]').val('');
+            $('input[name="OwnerPhone"]').val('');
+            $('input[name="OwnerEmail"]').val('');
+            return;
+        }
+
+        $.ajax({
+            url: ajaxUrl + '/Vehicle/GetOwner',
+            type: "GET",
+            data: {
+                ownerId: $(this).val()
+            },
+            success: function (response) {
+                $('input[name="OwnerName"]').val(response.Name);
+                $('input[name="OwnerCompany"]').val(response.Company);
+                $('input[name="OwnerAddress"]').val(response.Address);
+                $('input[name="OwnerPhone"]').val(response.Phone);
+                $('input[name="OwnerEmail"]').val(response.Email);
+            },
+            error: function (xhr, status, error) {
+                fail(xhr, status, error);
+            }
+        });
+    });
 
     function saveDone(data, status, xhr) {
         Swal.fire({

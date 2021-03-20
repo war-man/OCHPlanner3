@@ -69,7 +69,8 @@ namespace OCHPlanner3.Services
                     Email = vehicle.OwnerEmail,
                     Name = vehicle.OwnerName,
                     Phone = vehicle.OwnerPhone,
-                    OwnerList = await GetOwnerSelectListItem(garageId)
+                    GarageId = garageId,
+                    OwnerList = await GetOwnerSelectListItem(garageId, result.VehicleOwnerId)
                 };
 
                 result.LicencePlate = vehicle.LicencePlate;
@@ -144,8 +145,20 @@ namespace OCHPlanner3.Services
             }
             else
             {
-                return await _vehicleFactory.UpdateVehicle(vehicleModel);
+                return await _vehicleFactory.UpdateVehicle(vehicleModel, garageId);
             }
+        }
+
+        public async Task<OwnerViewModel> GetOwner(int ownerId)
+        {
+            var owner = await _vehicleFactory.GetOwner(ownerId);
+            return owner.Adapt<OwnerViewModel>();
+        }
+
+        public async Task<OwnerViewModel> GetOwner(string name, string phone, int garageId)
+        {
+            var owner = await _vehicleFactory.GetOwner(name, phone, garageId);
+            return owner.Adapt<OwnerViewModel>();
         }
 
         public async Task<IEnumerable<SelectListItem>> GetOwnerSelectListItem(int garageId, int selectedId = 0)
@@ -188,7 +201,7 @@ namespace OCHPlanner3.Services
         {
             return ownerList.Select(x => new SelectListItem()
             {
-                Value = x.Name,
+                Value = x.Id.ToString(),
                 Text = x.Name,
                 Selected = selectedId != 0 && selectedId == x.Id
             });

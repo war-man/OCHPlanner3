@@ -20,7 +20,7 @@ namespace OCHPlanner3.Data.Factory
         {
             _configuration = configuration;
         }
-               
+
         public async Task<IEnumerable<CarMakeModel>> GetMakes()
         {
             var sql = "SELECT DISTINCT [Make] FROM[dbo].[CarQuery] ORDER BY Make";
@@ -54,7 +54,7 @@ namespace OCHPlanner3.Data.Factory
                 return result;
             }
         }
-        
+
         public async Task<VehicleModel> GetVehicleByVIN(string vinCode)
         {
             try
@@ -113,7 +113,7 @@ namespace OCHPlanner3.Data.Factory
                     return result;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -226,7 +226,7 @@ namespace OCHPlanner3.Data.Factory
                                 OwnerPhone = vehicle.OwnerPhone,
                                 OwnerEmail = vehicle.OwnerEmail,
                                 GarageId = garageId
-                                
+
                             },
                             commandType: CommandType.Text,
                             transaction: transaction);
@@ -250,28 +250,28 @@ namespace OCHPlanner3.Data.Factory
                         var vehicleInserted = await connection.QuerySingleAsync<int>(sql,
                             new
                             {
-                                Vincode = vehicle.VinCode
-                                ,Description = string.IsNullOrWhiteSpace(vehicle.Description) ? string.Empty : vehicle.Description
-                                ,Year = vehicle.Year
-                                ,Make = string.IsNullOrWhiteSpace(vehicle.Make) ? string.Empty : vehicle.Make
-                                ,Model = string.IsNullOrWhiteSpace(vehicle.Model) ? string.Empty : vehicle.Model
-                                ,Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Engine
-                                ,Transmission = string.IsNullOrWhiteSpace(vehicle.Transmission) ? string.Empty : vehicle.Transmission
-                                ,Propulsion = string.IsNullOrWhiteSpace(vehicle.Propulsion) ? string.Empty : vehicle.Propulsion
-                                ,BrakeSystem = string.IsNullOrWhiteSpace(vehicle.BrakeSystem) ? string.Empty : vehicle.BrakeSystem
-                                ,Steering = string.IsNullOrWhiteSpace(vehicle.Steering) ? string.Empty : vehicle.Steering
-                                ,Color = string.IsNullOrWhiteSpace(vehicle.Color) ? string.Empty : vehicle.Color                                
-                                ,UnitNo = string.IsNullOrWhiteSpace(vehicle.UnitNo) ? string.Empty : vehicle.UnitNo
-                                ,LicencePlate = string.IsNullOrWhiteSpace(vehicle.LicencePlate) ? string.Empty : vehicle.LicencePlate
-                                ,Seating = string.IsNullOrWhiteSpace(vehicle.Seating) ? string.Empty : vehicle.Seating
-                                ,Odometer = vehicle.Odometer                                
-                                ,SelectedUnit = vehicle.SelectedUnit                                 
-                                ,EntryDate = vehicle.EntryDate                                 
-                                ,MonthlyMileage = vehicle.MonthlyMileage                                
-                                ,OilTypeId = vehicle.OilTypeId                                
-                                ,MaintenancePlanId = vehicle.MaintenancePlanId                                
-                                ,VehicleOwnerId = OwnerInserted
-                                ,VehicleDriverId = DriverInserted
+                                Vincode = vehicle.VinCode,
+                                Description = string.IsNullOrWhiteSpace(vehicle.Description) ? string.Empty : vehicle.Description,
+                                Year = vehicle.Year,
+                                Make = string.IsNullOrWhiteSpace(vehicle.Make) ? string.Empty : vehicle.Make,
+                                Model = string.IsNullOrWhiteSpace(vehicle.Model) ? string.Empty : vehicle.Model,
+                                Engine = string.IsNullOrWhiteSpace(vehicle.Engine) ? string.Empty : vehicle.Engine,
+                                Transmission = string.IsNullOrWhiteSpace(vehicle.Transmission) ? string.Empty : vehicle.Transmission,
+                                Propulsion = string.IsNullOrWhiteSpace(vehicle.Propulsion) ? string.Empty : vehicle.Propulsion,
+                                BrakeSystem = string.IsNullOrWhiteSpace(vehicle.BrakeSystem) ? string.Empty : vehicle.BrakeSystem,
+                                Steering = string.IsNullOrWhiteSpace(vehicle.Steering) ? string.Empty : vehicle.Steering,
+                                Color = string.IsNullOrWhiteSpace(vehicle.Color) ? string.Empty : vehicle.Color,
+                                UnitNo = string.IsNullOrWhiteSpace(vehicle.UnitNo) ? string.Empty : vehicle.UnitNo,
+                                LicencePlate = string.IsNullOrWhiteSpace(vehicle.LicencePlate) ? string.Empty : vehicle.LicencePlate,
+                                Seating = string.IsNullOrWhiteSpace(vehicle.Seating) ? string.Empty : vehicle.Seating,
+                                Odometer = vehicle.Odometer,
+                                SelectedUnit = vehicle.SelectedUnit,
+                                EntryDate = vehicle.EntryDate,
+                                MonthlyMileage = vehicle.MonthlyMileage,
+                                OilTypeId = vehicle.OilTypeId,
+                                MaintenancePlanId = vehicle.MaintenancePlanId,
+                                VehicleOwnerId = OwnerInserted,
+                                VehicleDriverId = DriverInserted
                             },
                             commandType: CommandType.Text,
                             transaction: transaction);
@@ -305,17 +305,33 @@ namespace OCHPlanner3.Data.Factory
             }
         }
 
-        public async Task<int> UpdateVehicle(VehicleModel vehicle)
+        public async Task<int> UpdateVehicle(VehicleModel vehicle, int garageId)
         {
             try
             {
-                var sqlOwner = @"UPDATE [dbo].[VehicleOwner]
+                var sqlOwnerUpdate = @"UPDATE [dbo].[VehicleOwner]
                                 SET [Company] = @OwnerCompany 
                                 ,[Name] = @OwnerName
                                 ,[Address] = @OwnerAddress
                                 ,[Phone]  = @OwnerPhone
                                 ,[Email] = @OwnerEmail
                                 WHERE Id = @OwnerId";
+
+                var sqlOwnerInsert = @"INSERT INTO [dbo].[VehicleOwner]
+                                ([Company] 
+                                ,[Name]
+                                ,[Address]
+                                ,[Phone] 
+                                ,[Email]
+                                ,[GarageId])
+                                OUTPUT INSERTED.Id
+                                VALUES
+                                (@OwnerCompany
+                                , @OwnerName
+                                , @OwnerAddress
+                                , @OwnerPhone
+                                , @OwnerEmail
+                                , @GarageId)";
 
                 var sqlDriver = @"UPDATE [dbo].[VehicleDriver]
                                 SET [Name] = @DriverName 
@@ -346,7 +362,8 @@ namespace OCHPlanner3.Data.Factory
                       ,[MonthlyMileage] = @MonthlyMileage
                       ,[OilTypeId] = @OilTypeId
                       ,[MaintenancePlanId] = @MaintenancePlanId
-                        WHERE Id = @Id";
+                      ,[VehicleOwnerId] = @vehicleOwnerId
+                      WHERE Id = @Id";
 
                 var sqlProgramDelete = @"DELETE FROM [dbo].[Vehicle2_Program2] WHERE VehicleId = @VehicleId";
 
@@ -365,19 +382,40 @@ namespace OCHPlanner3.Data.Factory
 
                     using (var transaction = connection.BeginTransaction())
                     {
-                        //update owner
-                        await connection.ExecuteAsync(sqlOwner,
-                            new
-                            {
-                                OwnerCompany = vehicle.OwnerCompany,
-                                OwnerName = vehicle.OwnerName,
-                                OwnerAddress = vehicle.OwnerAddress,
-                                OwnerPhone = vehicle.OwnerPhone,
-                                OwnerEmail = vehicle.OwnerEmail,
-                                OwnerId = vehicle.VehicleOwnerId
-                            },
-                            commandType: CommandType.Text,
-                            transaction: transaction);
+                        if (vehicle.VehicleOwnerId == 0)
+                        {
+                            var ownerInserted = await connection.QuerySingleAsync<int>(sqlOwnerInsert,
+                           new
+                           {
+                               OwnerCompany = vehicle.OwnerCompany,
+                               OwnerName = vehicle.OwnerName,
+                               OwnerAddress = vehicle.OwnerAddress,
+                               OwnerPhone = vehicle.OwnerPhone,
+                               OwnerEmail = vehicle.OwnerEmail,
+                               GarageId = garageId
+
+                           },
+                           commandType: CommandType.Text,
+                           transaction: transaction);
+
+                            vehicle.VehicleOwnerId = ownerInserted;
+                        }
+                        else
+                        {
+                            //update owner
+                            await connection.ExecuteAsync(sqlOwnerUpdate,
+                                new
+                                {
+                                    OwnerCompany = vehicle.OwnerCompany,
+                                    OwnerName = vehicle.OwnerName,
+                                    OwnerAddress = vehicle.OwnerAddress,
+                                    OwnerPhone = vehicle.OwnerPhone,
+                                    OwnerEmail = vehicle.OwnerEmail,
+                                    OwnerId = vehicle.VehicleOwnerId
+                                },
+                                commandType: CommandType.Text,
+                                transaction: transaction);
+                        }
 
                         //update driver
                         await connection.ExecuteAsync(sqlDriver,
@@ -418,19 +456,20 @@ namespace OCHPlanner3.Data.Factory
                                 MonthlyMileage = vehicle.MonthlyMileage,
                                 OilTypeId = vehicle.OilTypeId,
                                 MaintenancePlanId = vehicle.MaintenancePlanId,
+                                VehicleOwnerId = vehicle.VehicleOwnerId,
                                 Id = vehicle.Id
                             },
                             commandType: CommandType.Text,
                             transaction: transaction);
 
-                        if(vehicle.VehicleProgram.Any())
+                        if (vehicle.VehicleProgram.Any())
                         {
                             //delete Vehicle program
                             await connection.ExecuteAsync(sqlProgramDelete,
                                 new
                                 {
                                     VehicleId = vehicle.Id,
-                                    
+
                                 },
                                 commandType: CommandType.Text,
                                 transaction: transaction);
@@ -464,28 +503,71 @@ namespace OCHPlanner3.Data.Factory
 
         public async Task<IEnumerable<VehicleProgramModel>> GetVehiclePrograms(int vehicleId)
         {
-            
-                var sql = @"SELECT [Id]
+
+            var sql = @"SELECT [Id]
                       ,[VehicleId]
                       ,[ProgramId]
                       ,[Note]
                   FROM[dbo].[Vehicle2_Program2]
                   WHERE [VehicleId] = @VehicleId";
 
-                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-                {
-                    connection.Open();
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
 
-                    var result = await connection.QueryAsync<VehicleProgramModel>(sql,
-                         new
-                         {
-                             VehicleId = vehicleId
-                         },
-                        commandType: CommandType.Text);
+                var result = await connection.QueryAsync<VehicleProgramModel>(sql,
+                     new
+                     {
+                         VehicleId = vehicleId
+                     },
+                    commandType: CommandType.Text);
 
-                    return result;
-                }
-           
+                return result;
+            }
+
+        }
+
+        public async Task<OwnerModel> GetOwner(int id)
+        {
+            var sql = "SELECT [Id], [Company], [Name], [Address], [Phone], [Email], [GarageId] FROM [dbo].[VehicleOwner] WHERE [Id] = @Id";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryFirstOrDefaultAsync<OwnerModel>(sql,
+                     new
+                     {
+                         Id = id
+                     },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
+        }
+
+        public async Task<OwnerModel> GetOwner(string name, string phone, int garageId)
+        {
+            var sql = @"SELECT [Id], [Company], [Name], [Address], [Phone], [Email], [GarageId] FROM [dbo].[VehicleOwner]
+                WHERE [GarageId] = @GarageId
+                AND UPPER([Name]) = @Name
+                AND [Phone] = @Phone";
+
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                connection.Open();
+
+                var result = await connection.QueryFirstOrDefaultAsync<OwnerModel>(sql,
+                     new
+                     {
+                         GarageId = garageId,
+                         Name = name.ToUpper(),
+                         Phone = phone
+                     },
+                    commandType: CommandType.Text);
+
+                return result;
+            }
         }
 
         public async Task<IEnumerable<OwnerModel>> GetOwnerList(int garageId)
@@ -526,7 +608,8 @@ namespace OCHPlanner3.Data.Factory
 
                     return result;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -534,5 +617,5 @@ namespace OCHPlanner3.Data.Factory
 
     }
 
-   
+
 }
